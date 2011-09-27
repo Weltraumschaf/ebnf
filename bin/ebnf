@@ -2,6 +2,9 @@
 <?php
 
 namespace Weltraumschaf;
+
+use \Exception   as Exception;
+
 require_once dirname(__DIR__) . "/src/Ebnf.php";
 
 // input example

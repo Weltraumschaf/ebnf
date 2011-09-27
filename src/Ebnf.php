@@ -3,6 +3,8 @@
 namespace Weltraumschaf;
 
 use \DOMDocument as DOMDocument;
+use \DOMElement  as DOMElement;
+use \Exception   as Exception;
 
 /**
  * Inspired by Vincent Tscherter (http://karmin.ch/ebnf/index).
@@ -23,14 +25,29 @@ class Ebnf {
     const FORMAT_PNG = "png";
     const FORMAT_XML = "xml";
 
+    const NODE_TYPE_IDENTIFIER = "identifier";
+    const NODE_TYPE_TERMINAL   = "terminal";
+    const NODE_TYPE_OPTION     = "option";
+    const NODE_TYPE_LOOP       = "loop";
+    const NODE_TYPE_SEQUENCE   = "sequence";
+    const NODE_TYPE_CHOISE     = "choise";
+    const NODE_TYPE_SYNTAX     = "syntax";
+
     // lexemes
-    private $ebnf_lexemes = array(
+    private $lexemes = array(
         array('type' => self::OPERATOR_TOKEN,   'expr' => '[={}()|.;[\]]'),
         array('type' => self::LITERAL_TOKEN,    'expr' => "\"[^\"]*\""),
         array('type' => self::LITERAL_TOKEN,    'expr' => "'[^']*'"),
         array('type' => self::IDENTIFIER_TOKEN, 'expr' => "[a-zA-Z0-9_-]+"),
         array('type' => self::WHITESPACE_TOKEN, 'expr' => "\\s+")
     );
+
+    private $white;
+    private $black;
+    private $blue;
+    private $red;
+    private $green;
+    private $silver;
 
     /**
      * @var string
@@ -68,86 +85,109 @@ class Ebnf {
         imagearc($im, $x2 - $r, $y2 - $r, 2 * $r, 2 * $r, 0, 90, $black);
     }
 
-    private function createImage($w, $h) {
-        // @todo remove global
-        global $white, $black, $blue, $red, $green, $silver;
-
-        // @todo remove die
-        $im = imagecreatetruecolor($w, $h) or die("no img");
+    /**
+     *
+     * @param int $width
+     * @param int $height
+     * @return resource
+     */
+    private function createImage($width, $height) {
+        $im = imagecreatetruecolor($width, $height);
         imageantialias($im, true);
-        $white  = imagecolorallocate($im, 255, 255, 255);
-        $black  = imagecolorallocate($im, 0, 0, 0);
-        $blue   = imagecolorallocate($im, 0, 0, 255);
-        $red    = imagecolorallocate($im, 255, 0, 0);
-        $green  = imagecolorallocate($im, 0, 200, 0);
-        $silver = imagecolorallocate($im, 127, 127, 127);
-        imagefilledrectangle($im, 0, 0, $w, $h, $white);
+        $this->white  = imagecolorallocate($im, 255, 255, 255);
+        $this->black  = imagecolorallocate($im, 0, 0, 0);
+        $this->blue   = imagecolorallocate($im, 0, 0, 255);
+        $this->red    = imagecolorallocate($im, 255, 0, 0);
+        $this->green  = imagecolorallocate($im, 0, 200, 0);
+        $this->silver = imagecolorallocate($im, 127, 127, 127);
+        imagefilledrectangle($im, 0, 0, $width, $height, $this->white);
 
         return $im;
     }
 
     private function arrow($image, $x, $y, $lefttoright) {
-        // @todo remove global
-        global $white, $black;
-
-        if (!$lefttoright) {
-            imagefilledpolygon($image, array($x, $y - self::UNIT / 3, $x - self::UNIT, $y, $x, $y + self::UNIT / 3), 3, $black);
+        if ($lefttoright) {
+            $points = array(
+                $x - self::UNIT,
+                $y - self::UNIT / 3,
+                $x,
+                $y,
+                $x - self::UNIT,
+                $y + self::UNIT / 3
+            );
         } else {
-            imagefilledpolygon($image, array($x - self::UNIT, $y - self::UNIT / 3, $x, $y, $x - self::UNIT, $y + self::UNIT / 3), 3, $black);
+            $points = array(
+                $x,
+                $y - self::UNIT / 3,
+                $x - self::UNIT,
+                $y,
+                $x,
+                $y + self::UNIT / 3);
         }
+
+        imagefilledpolygon($image, $points, 3, $this->black);
     }
 
-    public function renderNode($node, $lefttoright) {
-        // @todo remove global
-        global $white, $black, $blue, $red, $green, $silver;
-
-        if ($node->nodeName == 'identifier' || $node->nodeName == 'terminal') {
+    /**
+     *
+     * @param DOMElement $node
+     * @param bool $leftToRight
+     * @return resource
+     */
+    public function renderNode(DOMElement $node, $leftToRight) {
+        if ($node->nodeName === self::NODE_TYPE_IDENTIFIER || $node->nodeName === self::NODE_TYPE_TERMINAL) {
             $text = $node->getAttribute('value');
             $w = imagefontwidth(self::FONT) * (strlen($text)) + 4 * self::UNIT;
             $h = 2 * self::UNIT;
             $im = $this->createImage($w, $h);
 
             if ($node->nodeName != 'terminal') {
-                imagerectangle($im, self::UNIT, 0, $w - self::UNIT - 1, $h - 1, $black);
-                imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $red);
+                imagerectangle($im, self::UNIT, 0, $w - self::UNIT - 1, $h - 1, $this->black);
+                imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $this->red);
             } else {
                 if ($text != "...") {
-                    $this->rr($im, self::UNIT, 0, $w - self::UNIT - 1, $h - 1, self::UNIT / 2, $black);
+                    $this->rr($im, self::UNIT, 0, $w - self::UNIT - 1, $h - 1, self::UNIT / 2, $this->black);
                 }
 
-                imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $text != "..." ? $blue : $black);
+                imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $text != "..." ? $this->blue : $this->black);
             }
 
-            imageline($im, 0, self::UNIT, self::UNIT, self::UNIT, $black);
-            imageline($im, $w - self::UNIT, self::UNIT, $w + 1, self::UNIT, $black);
+            imageline($im, 0, self::UNIT, self::UNIT, self::UNIT, $this->black);
+            imageline($im, $w - self::UNIT, self::UNIT, $w + 1, self::UNIT, $this->black);
 
             return $im;
 
-        } else if ($node->nodeName == 'option' || $node->nodeName == 'loop') {
-            if ($node->nodeName == 'loop') {
-                $lefttoright = !$lefttoright;
+        } else if ($node->nodeName === self::NODE_TYPE_LOOP || $node->nodeName === self::NODE_TYPE_LOOP) {
+            if ($node->nodeName === self::NODE_TYPE_LOOP) {
+                $leftToRight = !$leftToRight;
             }
 
-            $inner = $this->renderNode($node->firstChild, $lefttoright);
+            $inner = $this->renderNode($node->firstChild, $leftToRight);
             $w = imagesx($inner) + 6 * self::UNIT;
             $h = imagesy($inner) + 2 * self::UNIT;
             $im = $this->createImage($w, $h);
             imagecopy($im, $inner, 3 * self::UNIT, 2 * self::UNIT, 0, 0, imagesx($inner), imagesy($inner));
-            imageline($im, 0, self::UNIT, $w, self::UNIT, $black);
-            $this->arrow($im, $w / 2 + self::UNIT / 2, self::UNIT, $node->nodeName == 'loop' ? !$lefttoright : $lefttoright);
-            $this->arrow($im, 3 * self::UNIT, 3 * self::UNIT, $lefttoright);
-            $this->arrow($im, $w - 2 * self::UNIT, 3 * self::UNIT, $lefttoright);
-            imageline($im, self::UNIT, self::UNIT, self::UNIT, 3 * self::UNIT, $black);
-            imageline($im, self::UNIT, 3 * self::UNIT, 2 * self::UNIT, 3 * self::UNIT, $black);
-            imageline($im, $w - self::UNIT, self::UNIT, $w - self::UNIT, 3 * self::UNIT, $black);
-            imageline($im, $w - 3 * self::UNIT - 1, 3 * self::UNIT, $w - self::UNIT, 3 * self::UNIT, $black);
+            imageline($im, 0, self::UNIT, $w, self::UNIT, $this->black);
+
+            if ($node->nodeName === self::NODE_TYPE_LOOP) {
+                $this->arrow($im, $w / 2 + self::UNIT / 2, self::UNIT, !$leftToRight);
+            } else {
+                $this->arrow($im, $w / 2 + self::UNIT / 2, self::UNIT, $leftToRight);
+            }
+
+            $this->arrow($im, 3 * self::UNIT, 3 * self::UNIT, $leftToRight);
+            $this->arrow($im, $w - 2 * self::UNIT, 3 * self::UNIT, $leftToRight);
+            imageline($im, self::UNIT, self::UNIT, self::UNIT, 3 * self::UNIT, $this->black);
+            imageline($im, self::UNIT, 3 * self::UNIT, 2 * self::UNIT, 3 * self::UNIT, $this->black);
+            imageline($im, $w - self::UNIT, self::UNIT, $w - self::UNIT, 3 * self::UNIT, $this->black);
+            imageline($im, $w - 3 * self::UNIT - 1, 3 * self::UNIT, $w - self::UNIT, 3 * self::UNIT, $this->black);
 
             return $im;
 
-        } else if ($node->nodeName == 'sequence') {
-            $inner = $this->renderChilds($node, $lefttoright);
+        } else if ($node->nodeName === self::NODE_TYPE_SEQUENCE) {
+            $inner = $this->renderChilds($node, $leftToRight);
 
-            if (!$lefttoright) {
+            if (!$leftToRight) {
                 $inner = array_reverse($inner);
             }
 
@@ -164,16 +204,16 @@ class Ebnf {
             $x = imagesx($inner[0]) + self::UNIT;
 
             for ($i = 1; $i < count($inner); $i++) {
-                imageline($im, $x - self::UNIT - 1, self::UNIT, $x, self::UNIT, $black);
-                $this->arrow($im, $x, self::UNIT, $lefttoright);
+                imageline($im, $x - self::UNIT - 1, self::UNIT, $x, self::UNIT, $this->black);
+                $this->arrow($im, $x, self::UNIT, $leftToRight);
                 imagecopy($im, $inner[$i], $x, 0, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
                 $x += imagesx($inner[$i]) + self::UNIT;
             }
 
             return $im;
 
-        } else if ($node->nodeName == 'choise') {
-            $inner = $this->renderChilds($node, $lefttoright);
+        } else if ($node->nodeName === self::NODE_TYPE_CHOISE) {
+            $inner = $this->renderChilds($node, $leftToRight);
             $h = (count($inner) - 1) * self::UNIT;
             $w = 0;
 
@@ -185,40 +225,40 @@ class Ebnf {
             $w += 6 * self::UNIT;
             $im = $this->createImage($w, $h);
             $y = 0;
-            imageline($im, 0, self::UNIT, self::UNIT, self::UNIT, $black);
-            imageline($im, $w - self::UNIT, self::UNIT, $w, self::UNIT, $black);
+            imageline($im, 0, self::UNIT, self::UNIT, self::UNIT, $this->black);
+            imageline($im, $w - self::UNIT, self::UNIT, $w, self::UNIT, $this->black);
 
             for ($i = 0; $i < count($inner); $i++) {
-                imageline($im, self::UNIT, $y + self::UNIT, $w - self::UNIT, $y + self::UNIT, $black);
+                imageline($im, self::UNIT, $y + self::UNIT, $w - self::UNIT, $y + self::UNIT, $this->black);
                 imagecopy($im, $inner[$i], 3 * self::UNIT, $y, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
-                $this->arrow($im, 3 * self::UNIT, $y + self::UNIT, $lefttoright);
-                $this->arrow($im, $w - 2 * self::UNIT, $y + self::UNIT, $lefttoright);
+                $this->arrow($im, 3 * self::UNIT, $y + self::UNIT, $leftToRight);
+                $this->arrow($im, $w - 2 * self::UNIT, $y + self::UNIT, $leftToRight);
                 $top = $y + self::UNIT;
                 $y += imagesy($inner[$i]) + self::UNIT;
             }
 
-            imageline($im, self::UNIT, self::UNIT, self::UNIT, $top, $black);
-            imageline($im, $w - self::UNIT, self::UNIT, $w - self::UNIT, $top, $black);
+            imageline($im, self::UNIT, self::UNIT, self::UNIT, $top, $this->black);
+            imageline($im, $w - self::UNIT, self::UNIT, $w - self::UNIT, $top, $this->black);
 
             return $im;
 
-        } else if ($node->nodeName == 'syntax') {
-            $title = $node->getAttribute('title');
-            $meta = $node->getAttribute('meta');
-            $node = $node->firstChild;
-            $names = array();
+        } else if ($node->nodeName === self::NODE_TYPE_SYNTAX) {
+            $title  = $node->getAttribute('title');
+            $meta   = $node->getAttribute('meta');
+            $node   = $node->firstChild;
+            $names  = array();
             $images = array();
 
             while ($node != null) {
-                $names[] = $node->getAttribute('name');
-                $im = $this->renderNode($node->firstChild, $lefttoright);
+                $names[]  = $node->getAttribute('name');
+                $im       = $this->renderNode($node->firstChild, $leftToRight);
                 $images[] = $im;
-                $node = $node->nextSibling;
+                $node     = $node->nextSibling;
             }
 
             $wn = 0;
             $wr = 0;
-            $h = 5 * self::UNIT;
+            $h  = 5 * self::UNIT;
 
             for ($i = 0; $i < count($images); $i++) {
                 $wn = max($wn, imagefontwidth(self::FONT) * strlen($names[$i]));
@@ -234,28 +274,28 @@ class Ebnf {
                 $h -= 2 * self::UNIT;
             }
 
-            $w = max($wr + $wn + 3 * self::UNIT, imagefontwidth(1) * strlen($meta) + 2 * self::UNIT);
+            $w  = max($wr + $wn + 3 * self::UNIT, imagefontwidth(1) * strlen($meta) + 2 * self::UNIT);
             $im = $this->createImage($w, $h);
-            $y = 2 * self::UNIT;
+            $y  = 2 * self::UNIT;
 
             if ($title != '') {
-                imagestring($im, self::FONT, self::UNIT, (2 * self::UNIT - imagefontheight(self::FONT)) / 2, $title, $green);
-                imageline($im, 0, 2 * self::UNIT, $w, 2 * self::UNIT, $green);
+                imagestring($im, self::FONT, self::UNIT, (2 * self::UNIT - imagefontheight(self::FONT)) / 2, $title, $this->green);
+                imageline($im, 0, 2 * self::UNIT, $w, 2 * self::UNIT, $this->green);
                 $y += 2 * self::UNIT;
             }
 
             for ($i = 0; $i < count($images); $i++) {
-                imagestring($im, self::FONT, self::UNIT, $y - self::UNIT + (2 * self::UNIT - imagefontheight(self::FONT)) / 2, $names[$i], $red);
+                imagestring($im, self::FONT, self::UNIT, $y - self::UNIT + (2 * self::UNIT - imagefontheight(self::FONT)) / 2, $names[$i], $this->red);
                 imagecopy($im, $images[$i], $wn + 2 * self::UNIT, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
-                imageline($im, self::UNIT, $y + self::UNIT, $wn + 2 * self::UNIT, $y + self::UNIT, $black);
-                imageline($im, $wn + 2 * self::UNIT + imagesx($images[$i]) - 1, $y + self::UNIT, $w - self::UNIT, $y + self::UNIT, $black);
-                imageline($im, $w - self::UNIT, $y + self::UNIT / 2, $w - self::UNIT, $y + 1.5 * self::UNIT, $black);
+                imageline($im, self::UNIT, $y + self::UNIT, $wn + 2 * self::UNIT, $y + self::UNIT, $this->black);
+                imageline($im, $wn + 2 * self::UNIT + imagesx($images[$i]) - 1, $y + self::UNIT, $w - self::UNIT, $y + self::UNIT, $this->black);
+                imageline($im, $w - self::UNIT, $y + self::UNIT / 2, $w - self::UNIT, $y + 1.5 * self::UNIT, $this->black);
                 $y += 2 * self::UNIT + imagesy($images[$i]);
             }
 
-            imagestring($im, 1, self::UNIT, $h - 2 * self::UNIT + (2 * self::UNIT - imagefontheight(1)) / 2, $meta, $silver);
-            $this->rr($im, 0, 0, $w - 1, $h - 1, self::UNIT / 2, $green);
-            
+            imagestring($im, 1, self::UNIT, $h - 2 * self::UNIT + (2 * self::UNIT - imagefontheight(1)) / 2, $meta, $this->silver);
+            $this->rr($im, 0, 0, $w - 1, $h - 1, self::UNIT / 2, $this->green);
+
             return $im;
         }
     }
@@ -264,7 +304,7 @@ class Ebnf {
         $childs = array();
         $node = $node->firstChild;
 
-        while ($node != null) {
+        while ($node !== null) {
             $childs[] = $this->renderNode($node, $lefttoright);
             $node = $node->nextSibling;
         }
@@ -272,26 +312,31 @@ class Ebnf {
         return $childs;
     }
 
-    public function ebnfScan(&$input) {
+    public function ebnfScan($input) {
         $i = 0;
         $n = strlen($input);
-        $m = count($this->ebnf_lexemes);
+        $m = count($this->lexemes);
         $tokens = array();
 
         while ($i < $n) {
             $j = 0;
-            while ($j < $m && preg_match("/^{$this->ebnf_lexemes[$j]['expr']}/", substr($input, $i), $matches) == 0) {
+
+            while ($j < $m && preg_match("/^{$this->lexemes[$j]['expr']}/", substr($input, $i), $matches) === 0) {
                 $j++;
             }
 
             if ($j < $m) {
-                if ($this->ebnf_lexemes[$j]['type'] != self::WHITESPACE_TOKEN) {
-                    $tokens[] = array('type' => $this->ebnf_lexemes[$j]['type'], 'value' => $matches[0], 'pos' => $i);
+                if ($this->lexemes[$j]['type'] !== self::WHITESPACE_TOKEN) {
+                    $tokens[] = array(
+                        'type'  => $this->lexemes[$j]['type'],
+                        'value' => $matches[0],
+                        'pos'   => $i
+                    );
                 }
 
                 $i += strlen($matches[0]);
             } else {
-                throw new Exception("Invalid token at position: $i");
+                throw new Exception("Invalid token at position {$i}: " . substr($input, $i, 10) . "...");
             }
         }
 
@@ -310,7 +355,7 @@ class Ebnf {
         $i = 0;
         $token = $tokens[$i++];
 
-        if ($token['type'] == self::LITERAL_TOKEN) {
+        if ($token['type'] === self::LITERAL_TOKEN) {
             $syntax->setAttribute('title', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
             $token = $tokens[$i++];
         }
@@ -321,7 +366,7 @@ class Ebnf {
 
         $token = $tokens[$i];
 
-        while ($i < count($tokens) && $token['type'] == self::IDENTIFIER_TOKEN) {
+        while ($i < count($tokens) && $token['type'] === self::IDENTIFIER_TOKEN) {
             $syntax->appendChild($this->ebnfParseProduction($dom, $tokens, $i));
 
             if ($i < count($tokens)) {
@@ -338,7 +383,7 @@ class Ebnf {
         if ($i < count($tokens)) {
             $token = $tokens[$i];
 
-            if ($token['type'] == self::LITERAL_TOKEN) {
+            if ($token['type'] === self::LITERAL_TOKEN) {
                 $syntax->setAttribute('meta', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
             }
         }
