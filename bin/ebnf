@@ -1,0 +1,101 @@
+#!/usr/bin/env php
+<?php
+
+namespace Weltraumschaf;
+require_once dirname(__DIR__) . "/src/Ebnf.php";
+
+// input example
+$input = <<<EOD
+"EBNF defined in itself" {
+  syntax     = [ title ] "{" { rule } "}" [ comment ].
+  rule       = identifier "=" expression ( "." | ";" ) .
+  expression = term { "|" term } .
+  term       = factor { factor } .
+  factor     = identifier
+             | literal
+             | "[" expression "]"
+             | "(" expression ")"
+             | "{" expression "}" .
+  identifier = character { character } .
+  title      = literal .
+  comment    = literal .
+  literal    = "'" character { character } "'"
+             | '"' character { character } '"' .
+}
+EOD;
+
+$usage = <<<EOD
+Usage: ebnf [-s <file>] [-f format] [-h]
+
+  -s <file> File with EBNF grammar. If omitted the example gramar is used.
+  -f format Format for generated image (png, xml). Default is png.
+  -h        This help.
+
+Example grammar:
+{$input}\n\n
+EOD;
+
+$format  = "png";
+$outfile = "";
+$opts    = getopt("s:f:o:h");
+
+if (isset($opts["h"])) {
+    echo $usage;
+    exit(0);
+}
+
+if (isset($opts["s"])) {
+    $file = $opts["s"];
+
+    if (!is_readable($file)) {
+        echo "Can't read EBNF file '{$file}'!\n";
+        exit(1);
+    }
+
+    $input = file_get_contents($file);
+
+    if (false === $input || empty($input)) {
+        echo "Can't read content from EBNF file '{$file}'!\n";
+        exit(1);
+    }
+}
+
+if (isset($opts["f"])) {
+    $format = $opts["f"];
+}
+
+if (isset($opts["o"])) {
+    $outfile = $opts["o"];
+}
+
+if (empty($outfile)) {
+    echo "No output file specified (-o)!\n";
+    echo $usage;
+    exit(1);
+}
+
+try {
+    $ebnf = new Ebnf($input, $format);
+    $out  = $ebnf->create();
+
+    switch ($format) {
+        case Ebnf::FORMAT_PNG:
+            imagepng($out, $outfile);
+            break;
+        case Ebnf::FORMAT_XML:
+            if (false === file_put_contents($outfile, $out)) {
+                echo "Can't write output to '{$outfile}'!\n";
+                exit(1);
+            }
+
+            break;
+        default:
+            echo "Unsupported format: '{$format}'!\n";
+            exit(1);
+    }
+
+    exit(0);
+} catch (Exception $e) {
+    echo "EBNF - Syntax Error: {$e->getMessage()}\n";
+    exit(1);
+}
