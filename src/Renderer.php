@@ -1,46 +1,26 @@
 <?php
 
-namespace Weltraumschaf;
+namespace Weltraumschaf\Ebnf;
 
-use \DOMDocument as DOMDocument;
-use \DOMElement  as DOMElement;
-use \Exception   as Exception;
+use \DOMDocument              as DOMDocument;
+use \DOMElement               as DOMElement;
+use \RuntimeException         as RuntimeException;
+use \InvalidArgumentException as InvalidArgumentException;
 
 /**
- * Inspired by Vincent Tscherter (http://karmin.ch/ebnf/index).
+ * Description of Renderer
+ *
+ * @author Sven Strittmatter <weltraumschaf@googlemail.com>
+ * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-class Ebnf {
-    const META = "xis/ebnf v0.2 http://wiki.karmin.ch/ebnf/ gpl3";
-
-    // parser
-    const OPERATOR_TOKEN   = 1;
-    const LITERAL_TOKEN    = 2;
-    const WHITESPACE_TOKEN = 3;
-    const IDENTIFIER_TOKEN = 4;
-
-    // rendering
-    const FONT = 3;
+class Renderer {
+    const FONT = 4;
     const UNIT = 10;
 
     const FORMAT_PNG = "png";
+    const FORMAT_JPG = "jpg";
+    const FORMAT_GIF = "gif";
     const FORMAT_XML = "xml";
-
-    const NODE_TYPE_IDENTIFIER = "identifier";
-    const NODE_TYPE_TERMINAL   = "terminal";
-    const NODE_TYPE_OPTION     = "option";
-    const NODE_TYPE_LOOP       = "loop";
-    const NODE_TYPE_SEQUENCE   = "sequence";
-    const NODE_TYPE_CHOISE     = "choise";
-    const NODE_TYPE_SYNTAX     = "syntax";
-
-    // lexemes
-    private $lexemes = array(
-        array('type' => self::OPERATOR_TOKEN,   'expr' => '[={}()|.;[\]]'),
-        array('type' => self::LITERAL_TOKEN,    'expr' => "\"[^\"]*\""),
-        array('type' => self::LITERAL_TOKEN,    'expr' => "'[^']*'"),
-        array('type' => self::IDENTIFIER_TOKEN, 'expr' => "[a-zA-Z0-9_-]+"),
-        array('type' => self::WHITESPACE_TOKEN, 'expr' => "\\s+")
-    );
 
     private $white;
     private $black;
@@ -49,29 +29,49 @@ class Ebnf {
     private $green;
     private $silver;
 
-    /**
-     * @var string
-     */
-    private $input;
-    /**
-     * @var string
-     */
     private $format;
+    private $file;
+    /**
+     * @var DOMDocument
+     */
+    private $dom;
 
-    public function __construct($input, $format = self::FORMAT_PNG) {
-        $this->input  = (string)$input;
+    public function __construct($format, $file, DOMDocument $dom) {
         $this->format = (string)$format;
+        $this->file   = (string)$file;
+        $this->dom    = $dom;
     }
 
-    public function create() {
-        $tokens = $this->ebnfScan($this->input, true);
-        $dom    = $this->ebnfParseSyntax($tokens);
-
+    public function save() {
         if (self::FORMAT_XML === $this->format) {
-            return $dom->saveXML();
+            $out = $this->dom->saveXML();
+
+            if (false === file_put_contents($this->file, $out)) {
+                throw new \RuntimeException("Can't write output to '{$this->file}'!");
+            }
+        } else {
+            $this->saveImage();
+        }
+    }
+
+    private function saveImage() {
+        $out = $this->renderNode($this->dom->firstChild, true);
+
+        switch ($this->format) {
+            case self::FORMAT_PNG:
+                imagepng($out, $this->file);
+                break;
+            case self::FORMAT_JPG:
+                imagejpeg($out, $this->file);;
+                break;
+            case self::FORMAT_GIF:
+                imagegif($out, $this->file);
+                break;
+            default:
+                throw new \InvalidArgumentException("Unsupported format: '{$this->format}'!");
         }
 
-        return $this->renderNode($dom->firstChild, true);
+        imagedestroy($out);
     }
 
     private function rr($im, $x1, $y1, $x2, $y2, $r, $black) {
@@ -134,22 +134,28 @@ class Ebnf {
      * @param bool $leftToRight
      * @return resource
      */
-    public function renderNode(DOMElement $node, $leftToRight) {
-        if ($node->nodeName === self::NODE_TYPE_IDENTIFIER || $node->nodeName === self::NODE_TYPE_TERMINAL) {
+    private function renderNode(DOMElement $node, $leftToRight) {
+        if ($node->nodeName === Parser::NODE_TYPE_IDENTIFIER || $node->nodeName === Parser::NODE_TYPE_TERMINAL) {
             $text = $node->getAttribute('value');
             $w = imagefontwidth(self::FONT) * (strlen($text)) + 4 * self::UNIT;
             $h = 2 * self::UNIT;
             $im = $this->createImage($w, $h);
 
-            if ($node->nodeName != 'terminal') {
+            if ($node->nodeName !== Parser::NODE_TYPE_TERMINAL) {
                 imagerectangle($im, self::UNIT, 0, $w - self::UNIT - 1, $h - 1, $this->black);
                 imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $this->red);
             } else {
-                if ($text != "...") {
+                if ($text !== "...") {
                     $this->rr($im, self::UNIT, 0, $w - self::UNIT - 1, $h - 1, self::UNIT / 2, $this->black);
                 }
 
-                imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $text != "..." ? $this->blue : $this->black);
+                if ($text !== "...") {
+                    $color = $this->blue;
+                } else {
+                    $color = $this->black;
+                }
+
+                imagestring($im, self::FONT, 2 * self::UNIT, ($h - imagefontheight(self::FONT)) / 2, $text, $color);
             }
 
             imageline($im, 0, self::UNIT, self::UNIT, self::UNIT, $this->black);
@@ -157,8 +163,8 @@ class Ebnf {
 
             return $im;
 
-        } else if ($node->nodeName === self::NODE_TYPE_LOOP || $node->nodeName === self::NODE_TYPE_LOOP) {
-            if ($node->nodeName === self::NODE_TYPE_LOOP) {
+        } else if ($node->nodeName === Parser::NODE_TYPE_LOOP || $node->nodeName === Parser::NODE_TYPE_LOOP) {
+            if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
                 $leftToRight = !$leftToRight;
             }
 
@@ -169,7 +175,7 @@ class Ebnf {
             imagecopy($im, $inner, 3 * self::UNIT, 2 * self::UNIT, 0, 0, imagesx($inner), imagesy($inner));
             imageline($im, 0, self::UNIT, $w, self::UNIT, $this->black);
 
-            if ($node->nodeName === self::NODE_TYPE_LOOP) {
+            if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
                 $this->arrow($im, $w / 2 + self::UNIT / 2, self::UNIT, !$leftToRight);
             } else {
                 $this->arrow($im, $w / 2 + self::UNIT / 2, self::UNIT, $leftToRight);
@@ -184,7 +190,7 @@ class Ebnf {
 
             return $im;
 
-        } else if ($node->nodeName === self::NODE_TYPE_SEQUENCE) {
+        } else if ($node->nodeName === Parser::NODE_TYPE_SEQUENCE) {
             $inner = $this->renderChilds($node, $leftToRight);
 
             if (!$leftToRight) {
@@ -212,7 +218,7 @@ class Ebnf {
 
             return $im;
 
-        } else if ($node->nodeName === self::NODE_TYPE_CHOISE) {
+        } else if ($node->nodeName === Parser::NODE_TYPE_CHOISE) {
             $inner = $this->renderChilds($node, $leftToRight);
             $h = (count($inner) - 1) * self::UNIT;
             $w = 0;
@@ -242,7 +248,7 @@ class Ebnf {
 
             return $im;
 
-        } else if ($node->nodeName === self::NODE_TYPE_SYNTAX) {
+        } else if ($node->nodeName === Parser::NODE_TYPE_SYNTAX) {
             $title  = $node->getAttribute('title');
             $meta   = $node->getAttribute('meta');
             $node   = $node->firstChild;
@@ -311,196 +317,4 @@ class Ebnf {
 
         return $childs;
     }
-
-    public function ebnfScan($input) {
-        $i = 0;
-        $n = strlen($input);
-        $m = count($this->lexemes);
-        $tokens = array();
-
-        while ($i < $n) {
-            $j = 0;
-
-            while ($j < $m && preg_match("/^{$this->lexemes[$j]['expr']}/", substr($input, $i), $matches) === 0) {
-                $j++;
-            }
-
-            if ($j < $m) {
-                if ($this->lexemes[$j]['type'] !== self::WHITESPACE_TOKEN) {
-                    $tokens[] = array(
-                        'type'  => $this->lexemes[$j]['type'],
-                        'value' => $matches[0],
-                        'pos'   => $i
-                    );
-                }
-
-                $i += strlen($matches[0]);
-            } else {
-                throw new Exception("Invalid token at position {$i}: " . substr($input, $i, 10) . "...");
-            }
-        }
-
-        return $tokens;
-    }
-
-    private function ebnfCheckToken($token, $type, $value) {
-        return $token['type'] === $type && $token['value'] === $value;
-    }
-
-    public function ebnfParseSyntax(&$tokens) {
-        $dom = new DOMDocument();
-        $syntax = $dom->createElement("syntax");
-        $syntax->setAttribute('meta', self::META);
-        $dom->appendChild($syntax);
-        $i = 0;
-        $token = $tokens[$i++];
-
-        if ($token['type'] === self::LITERAL_TOKEN) {
-            $syntax->setAttribute('title', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
-            $token = $tokens[$i++];
-        }
-
-        if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '{')) {
-            throw new Exception("Syntax must start with '{': {$token['pos']}");
-        }
-
-        $token = $tokens[$i];
-
-        while ($i < count($tokens) && $token['type'] === self::IDENTIFIER_TOKEN) {
-            $syntax->appendChild($this->ebnfParseProduction($dom, $tokens, $i));
-
-            if ($i < count($tokens)) {
-                $token = $tokens[$i];
-            }
-        }
-
-        $i++;
-
-        if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '}')) {
-            throw new Exception("Syntax must end with '}': " . $tokens[count($tokens) - 1]['pos']);
-        }
-
-        if ($i < count($tokens)) {
-            $token = $tokens[$i];
-
-            if ($token['type'] === self::LITERAL_TOKEN) {
-                $syntax->setAttribute('meta', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
-            }
-        }
-
-        return $dom;
-    }
-
-    private function ebnfParseProduction(&$dom, &$tokens, &$i) {
-        $token = $tokens[$i++];
-
-        if ($token['type'] != self::IDENTIFIER_TOKEN) {
-            throw new Exception("Production must start with an identifier'{': {$token['pos']}");
-        }
-
-        $production = $dom->createElement("rule");
-        $production->setAttribute('name', $token['value']);
-        $token = $tokens[$i++];
-
-        if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, "=")) {
-            throw new Exception("Identifier must be followed by '=': {$token['pos']}");
-        }
-
-        $production->appendChild($this->ebnfParseExpression($dom, $tokens, $i));
-        $token = $tokens[$i++];
-
-        if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '.') && !$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, ';')) {
-            throw new Exception("Rule must end with '.' or ';' : {$token['pos']}");
-        }
-
-        return $production;
-    }
-
-    private function ebnfParseExpression(&$dom, &$tokens, &$i) {
-        $choise = $dom->createElement("choise");
-        $choise->appendChild($this->ebnfParseTerm($dom, $tokens, $i));
-        $token = $tokens[$i];
-        $mul = false;
-
-        while ($this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '|')) {
-            $i++;
-            $choise->appendChild($this->ebnfParseTerm($dom, $tokens, $i));
-            $token = $tokens[$i];
-            $mul = true;
-        }
-
-        return $mul ? $choise : $choise->removeChild($choise->firstChild);
-    }
-
-    private function ebnfParseTerm(&$dom, &$tokens, &$i) {
-        $sequence = $dom->createElement("sequence");
-        $factor = $this->ebnfParseFactor($dom, $tokens, $i);
-        $sequence->appendChild($factor);
-        $token = $tokens[$i];
-        $mul = false;
-
-        while ($token['value'] != '.' && $token['value'] != '=' && $token['value'] != '|' && $token['value'] != ')' && $token['value'] != ']' && $token['value'] != '}') {
-            $sequence->appendChild($this->ebnfParseFactor($dom, $tokens, $i));
-            $token = $tokens[$i];
-            $mul = true;
-        }
-
-        return $mul ? $sequence : $sequence->removeChild($sequence->firstChild);
-    }
-
-    private function ebnfParseFactor(&$dom, &$tokens, &$i) {
-        $token = $tokens[$i++];
-
-        if ($token['type'] == self::IDENTIFIER_TOKEN) {
-            $identifier = $dom->createElement("identifier");
-            $identifier->setAttribute('value', $token['value']);
-
-            return $identifier;
-        }
-
-        if ($token['type'] == self::LITERAL_TOKEN) {
-            $literal = $dom->createElement("terminal");
-            $literal->setAttribute('value', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
-
-            return $literal;
-        }
-
-        if ($this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '(')) {
-            $expression = $this->ebnfParseExpression($dom, $tokens, $i);
-            $token = $tokens[$i++];
-
-            if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, ')')) {
-                throw new Exception("Group must end with ')': {$token['pos']}");
-            }
-
-            return $expression;
-        }
-
-        if ($this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '[')) {
-            $option = $dom->createElement("option");
-            $option->appendChild($this->ebnfParseExpression($dom, $tokens, $i));
-            $token = $tokens[$i++];
-
-            if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, ']')) {
-                throw new Exception("Option must end with ']': {$token['pos']}");
-            }
-
-            return $option;
-        }
-
-        if ($this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '{')) {
-            $loop = $dom->createElement("loop");
-            $loop->appendChild($this->ebnfParseExpression($dom, $tokens, $i));
-            $token = $tokens[$i++];
-
-            if (!$this->ebnfCheckToken($token, self::OPERATOR_TOKEN, '}')) {
-                throw new Exception("Loop must end with '}': {$token['pos']}");
-            }
-
-            return $loop;
-        }
-
-        throw new Exception("Factor expected: {$token['pos']}");
-    }
-
 }

@@ -1,11 +1,13 @@
 #!/usr/bin/env php
 <?php
 
-namespace Weltraumschaf;
+namespace Weltraumschaf\Ebnf;
 
 use \Exception   as Exception;
 
-require_once dirname(__DIR__) . "/src/Ebnf.php";
+require_once dirname(__DIR__) . "/src/Scanner.php";
+require_once dirname(__DIR__) . "/src/Parser.php";
+require_once dirname(__DIR__) . "/src/Renderer.php";
 
 // input example
 $input = <<<EOD
@@ -28,10 +30,10 @@ $input = <<<EOD
 EOD;
 
 $usage = <<<EOD
-Usage: ebnf [-s <file>] [-f format] [-h]
+Usage: ebnf [-s <file>] [-f png|jpg|gif|xml] [-h]
 
   -s <file> File with EBNF grammar. If omitted the example gramar is used.
-  -f format Format for generated image (png, xml). Default is png.
+  -f format Format for generated image (png, jpg, gif, xml). Default is png.
   -h        This help.
 
 Example grammar:
@@ -78,27 +80,16 @@ if (empty($outfile)) {
 }
 
 try {
-    $ebnf = new Ebnf($input, $format);
-    $out  = $ebnf->create();
-
-    switch ($format) {
-        case Ebnf::FORMAT_PNG:
-            imagepng($out, $outfile);
-            break;
-        case Ebnf::FORMAT_XML:
-            if (false === file_put_contents($outfile, $out)) {
-                echo "Can't write output to '{$outfile}'!\n";
-                exit(1);
-            }
-
-            break;
-        default:
-            echo "Unsupported format: '{$format}'!\n";
-            exit(1);
-    }
-
+    $scanner = new Scanner($input);
+    $parser  = new Parser($scanner);
+    $dom     = $parser->parse();
+    $renderer = new Renderer($format, $outfile, $dom);
+    $renderer->save();
     exit(0);
 } catch (Exception $e) {
-    echo "EBNF - Syntax Error: {$e->getMessage()}\n";
+    echo "Error: {$e->getMessage()}\n";
+    exit(1);
+} catch (SyntaxtException $e) {
+    echo "Syntax Error: {$e}\n";
     exit(1);
 }
