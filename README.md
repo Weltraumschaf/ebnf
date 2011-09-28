@@ -14,6 +14,7 @@ Usage
 
 You can either use the shell script from <kbd>bin/ebnf</kbd> for
 generating images or XML from a grammar file:
+
     $ ./bin/ebnf -s mygrammar.ebnf
     $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.png
     $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.jpg -f jpg
@@ -21,6 +22,7 @@ generating images or XML from a grammar file:
     $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.xml -f xml
 
 Or you can use the classes for embedding the functionality in your code:
+
     <?php
     $input   = "..."; // The grammar as string.
     file     = "..."; // Where to save.
