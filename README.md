@@ -14,24 +14,21 @@ Usage
 
 You can either use the shell script from <kbd>bin/ebnf</kbd> for
 generating images or XML from a grammar file:
-<pre>
-$ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.png
-$ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.jpg -f jpg
-$ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.gif -f gif
-$ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.xml -f xml
-</pre>
+    $ ./bin/ebnf -s mygrammar.ebnf
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.png
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.jpg -f jpg
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.gif -f gif
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.xml -f xml
 
 Or you can use the classes for embedding the functionality in your code:
-<pre>
-<?php
-$input   = "..."; // The grammar as string.
-file     = "..."; // Where to save.
-$scanner = new Scanner($input);
-$parser  = new Parser($scanner);
-$dom     = $parser->parse();
-$renderer = new Renderer($format, $file, $dom);
-$renderer->save();
-</pre>
+    <?php
+    $input   = "..."; // The grammar as string.
+    file     = "..."; // Where to save.
+    $scanner = new Scanner($input);
+    $parser  = new Parser($scanner);
+    $dom     = $parser->parse();
+    $renderer = new Renderer($format, $file, $dom);
+    $renderer->save();
 
 [1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [2]: http://karmin.ch/ebnf/index
