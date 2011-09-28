@@ -100,12 +100,6 @@ if (isset($opts["o"]) && !empty($opts["o"])) {
     $outfile .= $format;
 }
 
-if (empty($outfile)) {
-    echo "No output file specified (-o)!\n";
-    echo $usage;
-    exit(1);
-}
-
 try {
     $scanner  = new Scanner($input);
     $parser   = new Parser($scanner);
