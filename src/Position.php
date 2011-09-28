@@ -20,36 +20,87 @@
 namespace Weltraumschaf\Ebnf;
 
 /**
- * Description of Position
+ * Represents a token position in the source string.
  *
- * @author Sven Strittmatter <weltraumschaf@googlemail.com>
- * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
+ * The position contains the line, column and filename where the
+ * token occured. The file name is optional.
  */
 class Position {
+    /**
+     * File of the source string.
+     *
+     * @var strign
+     */
     private $file;
+    /**
+     * Line of occurence.
+     *
+     * @var int
+     */
     private $line;
+    /**
+     * Column of occurence.
+     *
+     * @var int
+     */
     private $column;
 
-    function __construct($file, $line, $column) {
+    /**
+     * Initializes imutable object.
+     *
+     * File is optional e.g. if string is parsed directly without any file.
+     *
+     * @param int    $column
+     * @param int    $file
+     * @param string $line
+     */
+    function __construct($line, $column, $file = null) {
         $this->file   = (string)$file;
         $this->line   = (int)$line;
         $this->column = (int)$column;
     }
 
+    /**
+     * Returns the file name of the source.
+     *
+     * May be null.
+     *
+     * @return string
+     */
     public function getFile() {
         return $this->file;
     }
 
+    /**
+     * Returns line of occurence in source.
+     *
+     * @return int
+     */
     public function getLine() {
         return $this->line;
     }
 
+    /**
+     * Returns column of occurence in source.
+     *
+     * @return int
+     */
     public function getColumn() {
         return $this->column;
     }
 
+    /**
+     * Returns human readable string representtion.
+     *
+     * @return string
+     */
     public function __toString() {
-        return "{$this->getFile()} ({$this->getLine()}, {$this->getColumn()})";
+        if ($this->getFile() !== null ) {
+            $str = "{$this->getFile()} ";
+        }
+
+        $str .= "({$this->getLine()}, {$this->getColumn()})";
+        return $str;
     }
 
 }

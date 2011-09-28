@@ -20,10 +20,9 @@
 namespace Weltraumschaf\Ebnf;
 
 /**
- * Description of Token
+ * Represents a scanned EBNF token with its type, value and position in the source file.
  *
- * @author Sven Strittmatter <weltraumschaf@googlemail.com>
- * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
+ * A token is a imutable value object.
  */
 class Token {
     const OPERATOR   = 1;
@@ -32,18 +31,29 @@ class Token {
     const IDENTIFIER = 4;
 
     /**
+     * One of the class constants.
+     *
      * @var int
      */
     private $type;
     /**
+     * The literal string.
+     *
      * @var string
      */
     private $value;
     /**
+     * Start position in source.
+     *
      * @var Position
      */
     private $position;
 
+    /**
+     * Maps int type to human readable type.
+     *
+     * @var array
+     */
     private static $map = array(
         self::OPERATOR   => "OPERATOR",
         self::LITERAL    => "LITERAL",
@@ -51,24 +61,33 @@ class Token {
         self::IDENTIFIER => "IDENTIFIER"
     );
 
+    /**
+     * Initializes the imutable object.
+     *
+     * @param string   $type
+     * @param int      $value
+     * @param Position $position
+     */
     public function __construct($type, $value, Position $position) {
         $this->type     = (int)$type;
         $this->value    = (string)$value;
         $this->position = $position;
     }
 
+    /**
+     * Returns token type as string.
+     *
+     * @return int
+     */
     public function getType() {
         return $this->type;
     }
 
-    public function getValue() {
-        return $this->value;
-    }
-
-    public function getPosition() {
-        return $this->position;
-    }
-
+    /**
+     * Returns the token type as human redable string if its mapped.
+     *
+     * @return string
+     */
     public function getTypeAsString() {
         if (isset(self::$map[$this->getType()])) {
             return self::$map[$this->getType()];
@@ -77,6 +96,29 @@ class Token {
         return "({$this->getType()})";
     }
 
+    /**
+     * Returns the scanned token string.
+     *
+     * @return string
+     */
+    public function getValue() {
+        return $this->value;
+    }
+
+    /**
+     * Returns the start position of the token string in the source.
+     *
+     * @return Position
+     */
+    public function getPosition() {
+        return $this->position;
+    }
+
+    /**
+     * Human readable string representation.
+     *
+     * @return string
+     */
     public function __toString() {
         return "<{$this->getValue()}, {$this->getTypeAsString()}, {$this->getPosition()}>";
     }

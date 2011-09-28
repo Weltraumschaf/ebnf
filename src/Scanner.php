@@ -19,15 +19,33 @@
 
 namespace Weltraumschaf\Ebnf;
 
+/**
+ * @see {Token}
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
+/**
+ * @see {SyntaxtException}
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
 
 /**
- * Description of Scanner
+ * Scanns an input string for EBNF syntax tokens.
  *
- * @author Sven Strittmatter <weltraumschaf@googlemail.com>
- * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
+ * This class provides only one public method which returns
+ * the scanned tokens as an array of strings.
+ *
+ * On lexiacl syntax errors a SyntaxException will be thrown.
+ *
+ * @todo Return an array of Token objects with according position objects.
+ * @todo Throw SyntaxException with according position of syntax error.
  */
 class Scanner {
+
+    /**
+     * Definiton of PREGs for tokens.
+     *
+     * @var array
+     */
     private $lexemes = array(
         array('type' => Token::OPERATOR,   'expr' => '[={}()|.;[\]]'),
         array('type' => Token::LITERAL,    'expr' => "\"[^\"]*\""),
@@ -37,12 +55,15 @@ class Scanner {
     );
 
     /**
+     * Grammar string.
      *
      * @var string
      */
     private $input;
 
     /**
+     * Initializes the scanner with a grammar string.
+     *
      * @param string $input
      */
     public function __construct($input) {
@@ -50,7 +71,9 @@ class Scanner {
     }
 
     /**
+     * Returns an array of tokens.
      *
+     * @throws SyntaxtException
      * @return array
      */
     public function scan() {
@@ -77,7 +100,7 @@ class Scanner {
 
                 $i += strlen($matches[0]);
             } else {
-                throw new Exception("Invalid token at position {$i}: " . substr($this->input, $i, 10) . "...");
+                throw new SyntaxtException("Invalid token at position {$i}: " . substr($this->input, $i, 10) . "...", null);
             }
         }
 
