@@ -27,6 +27,10 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
  * @see {SyntaxtException}
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
+/**
+ * @see {Position}
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 
 /**
  * Scanns an input string for EBNF syntax tokens.
@@ -60,14 +64,39 @@ class Scanner {
      * @var string
      */
     private $input;
+    /**
+     * File from where the gramamr comes.
+     *
+     * @var string
+     */
+    private $file;
+    /**
+     * Current character position.
+     *
+     * @var int
+     */
+    private $current;
+    /**
+     * Length of input.
+     *
+     * @var int
+     */
+    private $length;
 
     /**
      * Initializes the scanner with a grammar string.
      *
+     * Can take an optional file frome where the input strims was loaded.
+     * This is only for error handling.
+     *
      * @param string $input
+     * @param string $file  .
      */
-    public function __construct($input) {
-        $this->input = (string)$input;
+    public function __construct($input, $file = null) {
+        $this->input   = (string)$input;
+        $this->file    = (String)$file;
+        $this->current = 0;
+        $this->length  = strlen($this->input);
     }
 
     /**
@@ -100,10 +129,57 @@ class Scanner {
 
                 $i += strlen($matches[0]);
             } else {
-                throw new SyntaxtException("Invalid token at position {$i}: " . substr($this->input, $i, 10) . "...", null);
+                $pos = new Position(0, 0, $this->getFile());
+                $msg = "Invalid token at position {$i}: " . substr($this->input, $i, 10) . "...";
+                throw new SyntaxtException($msg, $pos);
             }
         }
 
         return $tokens;
+    }
+
+    /**
+     * Returns the file frm where the input stream comes.
+     *
+     * May be null.
+     *
+     * @return string
+     */
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function hasNext() {
+        return $this->current < $this->length;
+    }
+
+    public function next() {
+        while ($this->hasNext()) {
+            $this->current++;
+        }
+    }
+
+    public static function isAlpha($c) {
+        $o = ord($c);
+        return $o > 64 && $o < 91 || $o > 96 && $o < 123;
+    }
+
+    public static  function isNum($c) {
+        $o = ord($c);
+        return $o > 47 && $o < 58;
+    }
+
+    public static  function isAlphaNum($c) {
+        return self::isAlpha($c) || self::isNum($c);
+    }
+
+    public static  function isOperator($c) {
+        return "{" === $c || "}" === $c ||
+               "(" === $c || ")" === $c ||
+               "[" === $c || "]" === $c;
+    }
+
+    public static  function isWhiteSpace($c) {
+        return " " === $c || "\t" === $c || "\n" === $c || "\r" === $c;
     }
 }
