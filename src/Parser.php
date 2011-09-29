@@ -30,6 +30,10 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
  * @see {SyntaxtException}
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
+/**
+ * @see {Position}
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 
 /**
  * Parses a stream of EBNF tokens and generate a XML DOM tree.
@@ -103,7 +107,8 @@ class Parser {
         }
 
         if (!$this->checkToken($token, Token::OPERATOR, '{')) {
-            throw new SyntaxtException("Syntax must start with '{': {$token['pos']}", null);
+            $pos = new Position(0, 0, $this->scanner->getFile());
+            throw new SyntaxtException("Syntax must start with '{': {$token['pos']}", $pos);
         }
 
         $token = $this->tokens[$this->current];
@@ -119,7 +124,8 @@ class Parser {
         $this->current++;
 
         if (!$this->checkToken($token, Token::OPERATOR, '}')) {
-            throw new SyntaxtException("Syntax must end with '}': " . $this->tokens[count($this->tokens) - 1]['pos'], null);
+            $pos = new Position(0, 0, $this->scanner->getFile());
+            throw new SyntaxtException("Syntax must end with '}': " . $this->tokens[count($this->tokens) - 1]['pos'], $pos);
         }
 
         if ($this->current < count($this->tokens)) {
@@ -144,7 +150,8 @@ class Parser {
         $token = $this->tokens[$this->current++];
 
         if ($token['type'] !== Token::IDENTIFIER) {
-            throw new SyntaxtException("Production must start with an identifier'{': {$token['pos']}", null);
+            $pos = new Position(0, 0, $this->scanner->getFile());
+            throw new SyntaxtException("Production must start with an identifier'{': {$token['pos']}", $pos);
         }
 
         $production = $dom->createElement("rule");
@@ -152,14 +159,16 @@ class Parser {
         $token = $this->tokens[$this->current++];
 
         if (!$this->checkToken($token, Token::OPERATOR, "=")) {
-            throw new SyntaxtException("Identifier must be followed by '=': {$token['pos']}", null);
+            $pos = new Position(0, 0, $this->scanner->getFile());
+            throw new SyntaxtException("Identifier must be followed by '=': {$token['pos']}", $pos);
         }
 
         $production->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
         $token = $this->tokens[$this->current++];
 
         if (!$this->checkToken($token, Token::OPERATOR, '.') && !$this->checkToken($token, Token::OPERATOR, ';')) {
-            throw new SyntaxtException("Rule must end with '.' or ';' : {$token['pos']}", null);
+            $pos = new Position(0, 0, $this->scanner->getFile());
+            throw new SyntaxtException("Rule must end with '.' or ';' : {$token['pos']}", $pos);
         }
 
         return $production;
@@ -250,7 +259,8 @@ class Parser {
             $token = $this->tokens[$this->current++];
 
             if (!$this->checkToken($token, Token::OPERATOR, ')')) {
-                throw new SyntaxtException("Group must end with ')': {$token['pos']}", null);
+                $pos = new Position(0, 0, $this->scanner->getFile());
+                throw new SyntaxtException("Group must end with ')': {$token['pos']}", $pos);
             }
 
             return $expression;
@@ -262,7 +272,8 @@ class Parser {
             $token = $this->tokens[$this->current++];
 
             if (!$this->checkToken($token, Token::OPERATOR, ']')) {
-                throw new SyntaxtException("Option must end with ']': {$token['pos']}", null);
+                $pos = new Position(0, 0, $this->scanner->getFile());
+                throw new SyntaxtException("Option must end with ']': {$token['pos']}", $pos);
             }
 
             return $option;
@@ -274,13 +285,15 @@ class Parser {
             $token = $this->tokens[$this->current++];
 
             if (!$this->checkToken($token, Token::OPERATOR, '}')) {
-                throw new SyntaxtException("Loop must end with '}': {$token['pos']}", null);
+                $pos = new Position(0, 0, $this->scanner->getFile());
+                throw new SyntaxtException("Loop must end with '}': {$token['pos']}", $pos);
             }
 
             return $loop;
         }
 
-        throw new SyntaxtException("Factor expected: {$token['pos']}", null);
+        $pos = new Position(0, 0, $this->scanner->getFile());
+        throw new SyntaxtException("Factor expected: {$token['pos']}", $pos);
     }
 
     private function checkToken($token, $type, $value) {
