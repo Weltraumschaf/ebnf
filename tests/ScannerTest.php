@@ -22,10 +22,11 @@ namespace Weltraumschaf\Ebnf;
 require_once "Scanner.php";
 
 /**
- * TEstcase for class Scanner.
+ * Testcase for class Scanner.
  */
 class ScannerTest extends \PHPUnit_Framework_TestCase {
-    private $ops = array("(", ")", "[", "]", "{", "}");
+
+    private $ops = array("(", ")", "[", "]", "{", "}", "=", ".");
     private $lowAlpha = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
         "s", "t", "u", "v", "w", "x", "y", "z");
     private $upAlpha = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
@@ -143,4 +144,81 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testIsQuote() {
+        $this->assertTrue(Scanner::isQuote('"'));
+        $this->assertTrue(Scanner::isQuote("'"));
+
+        foreach ($this->ws as $c) {
+            $this->assertFalse(Scanner::isQuote($c), $c);
+        }
+
+        foreach ($this->ops as $c) {
+            $this->assertFalse(Scanner::isQuote($c), $c);
+        }
+
+        foreach ($this->nums as $c) {
+            $this->assertFalse(Scanner::isQuote($c), $c);
+        }
+
+        foreach ($this->lowAlpha as $c) {
+            $this->assertFalse(Scanner::isQuote($c), $c);
+        }
+
+        foreach ($this->upAlpha as $c) {
+            $this->assertFalse(Scanner::isQuote($c), $c);
+        }
+    }
+
+    public function testNext() {
+        $s = new Scanner("title = literal .");
+        $t = $s->next();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
+        $this->assertEquals("title", $t->getValue());
+        $this->assertEquals(Token::IDENTIFIER, $t->getType());
+        $p = $t->getPosition();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
+        $this->assertNull($p->getFile());
+        $this->assertEquals(1, $p->getLine());
+        $this->assertEquals(1, $p->getColumn());
+
+        $t = $s->next();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
+        $this->assertEquals("=", $t->getValue());
+        $this->assertEquals(Token::OPERATOR, $t->getType());
+        $p = $t->getPosition();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
+        $this->assertNull($p->getFile());
+        $this->assertEquals(1, $p->getLine());
+        $this->assertEquals(7, $p->getColumn());
+
+        $t = $s->next();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
+        $this->assertEquals("literal", $t->getValue());
+        $this->assertEquals(Token::IDENTIFIER, $t->getType());
+        $p = $t->getPosition();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
+        $this->assertNull($p->getFile());
+        $this->assertEquals(1, $p->getLine());
+        $this->assertEquals(9, $p->getColumn());
+
+        $t = $s->next();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
+        $this->assertEquals(".", $t->getValue());
+        $this->assertEquals(Token::OPERATOR, $t->getType());
+        $p = $t->getPosition();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
+        $this->assertNull($p->getFile());
+        $this->assertEquals(1, $p->getLine());
+        $this->assertEquals(17, $p->getColumn());
+
+        $t = $s->next();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
+        $this->assertEquals("EOF", $t->getValue());
+        $this->assertEquals(Token::EOF, $t->getType());
+        $p = $t->getPosition();
+        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
+        $this->assertNull($p->getFile());
+        $this->assertEquals(1, $p->getLine());
+        $this->assertEquals(17, $p->getColumn());
+    }
 }

@@ -82,6 +82,8 @@ class Scanner {
      * @var int
      */
     private $length;
+    private $column;
+    private $line;
 
     /**
      * Initializes the scanner with a grammar string.
@@ -93,10 +95,45 @@ class Scanner {
      * @param string $file  .
      */
     public function __construct($input, $file = null) {
-        $this->input   = (string)$input;
-        $this->file    = (String)$file;
-        $this->current = 0;
+        $this->input = (string)$input;
+
+        if (null !== $file) {
+            $this->file = (String)$file;
+        }
+
+        $this->current = -1;
         $this->length  = strlen($this->input);
+        $this->column  = 0;
+        $this->line    = 1;
+    }
+
+    public static function isAlpha($c) {
+        $o = ord($c);
+        return $o > 64 && $o < 91 || $o > 96 && $o < 123;
+    }
+
+    public static  function isNum($c) {
+        $o = ord($c);
+        return $o > 47 && $o < 58;
+    }
+
+    public static  function isAlphaNum($c) {
+        return self::isAlpha($c) || self::isNum($c);
+    }
+
+    public static  function isOperator($c) {
+        return "{" === $c || "}" === $c ||
+               "(" === $c || ")" === $c ||
+               "[" === $c || "]" === $c ||
+               "=" === $c || "." === $c;
+    }
+
+    public static  function isWhiteSpace($c) {
+        return " " === $c || "\t" === $c || "\n" === $c || "\r" === $c;
+    }
+
+    public static function isQuote($c) {
+        return "'" === $c || '"' === $c;
     }
 
     /**
@@ -149,37 +186,102 @@ class Scanner {
         return $this->file;
     }
 
-    public function hasNext() {
-        return $this->current < $this->length;
+    private function hasNextChar() {
+        return $this->current < $this->length - 1;
+    }
+
+    private function nextChar() {
+        $this->current++;
+        $this->column++;
+    }
+
+    private function currentChar() {
+        return $this->input[$this->current];
+    }
+
+    private function backup() {
+        $this->current--;
+        $this->column--;
+    }
+
+    private function peek() {
+        $this->nextChar();
+        $c = $this->currentChar();
+        $this->backup();
+        return $c;
+    }
+    private function raiseError($msg) {
+        throw new SyntaxtException($msg, $this->createPosition());
+    }
+
+    private function createPosition() {
+        return new Position($this->line, $this->column, $this->file);
     }
 
     public function next() {
-        while ($this->hasNext()) {
-            $this->current++;
+        while ($this->hasNextChar()) {
+            $this->nextChar();
+
+            if (self::isAlpha($this->currentChar())) {
+                return $this->scannIdentifier();
+            } else if (self::isQuote($this->currentChar())) {
+                return $this->scanLiteral();
+            } else if (self::isOperator($this->currentChar())) {
+                return $this->scanOperator();
+            } else if (self::isWhiteSpace($this->currentChar())) {
+                // ignore white spaces
+            } else {
+                $this->raiseError("Invalid character!");
+            }
+
+            if ("\n" === $this->currentChar() || "\r" === $this->currentChar()) {
+                $this->line++;
+                $this->column = 1;
+            }
         }
+
+        return new Token(Token::EOF, "EOF", $this->createPosition());
     }
 
-    public static function isAlpha($c) {
-        $o = ord($c);
-        return $o > 64 && $o < 91 || $o > 96 && $o < 123;
+    protected function scannIdentifier() {
+        $pos = $this->createPosition();
+        $str = $this->currentChar();
+
+        while ($this->hasNextChar()) {
+            $this->nextChar();
+
+            if (self::isAlphaNum($this->currentChar()) || "-" === $this->currentChar()) {
+                $str .= $this->currentChar();
+            } else {
+                $this->backup();
+                break;
+            }
+        }
+
+        return new Token(Token::IDENTIFIER, $str, $pos);
     }
 
-    public static  function isNum($c) {
-        $o = ord($c);
-        return $o > 47 && $o < 58;
+    protected function scanLiteral() {
+        $pos = $this->createPosition();
+        $str = $this->currentChar();
+
+        while ($this->hasNextChar()) {
+            $this->nextChar();
+            $str .= $this->currentChar();
+
+            if (self::isQuote($this->currentChar())) {
+                break;
+            }
+        }
+
+        return new Token(Token::LITERAL, $str, $pos);
     }
 
-    public static  function isAlphaNum($c) {
-        return self::isAlpha($c) || self::isNum($c);
-    }
+    protected function scanOperator() {
+        if ($this->hasNextChar() && !self::isWhiteSpace($this->peek())) {
+            $this->raiseError("After operator a whitespace is expected!");
+        }
 
-    public static  function isOperator($c) {
-        return "{" === $c || "}" === $c ||
-               "(" === $c || ")" === $c ||
-               "[" === $c || "]" === $c;
-    }
-
-    public static  function isWhiteSpace($c) {
-        return " " === $c || "\t" === $c || "\n" === $c || "\r" === $c;
+        return new Token(Token::OPERATOR, $this->currentChar(), $this->createPosition());
     }
 }
