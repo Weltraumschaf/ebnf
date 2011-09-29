@@ -27,8 +27,9 @@ namespace Weltraumschaf\Ebnf;
 class Token {
     const OPERATOR   = 1;
     const LITERAL    = 2;
-    const WHITESPACE = 3;
+    const WHITESPACE = 3; // obsolete
     const IDENTIFIER = 4;
+    const EOF        = 5;
 
     /**
      * One of the class constants.
@@ -58,7 +59,8 @@ class Token {
         self::OPERATOR   => "OPERATOR",
         self::LITERAL    => "LITERAL",
         self::WHITESPACE => "WHITESPACE",
-        self::IDENTIFIER => "IDENTIFIER"
+        self::IDENTIFIER => "IDENTIFIER",
+        self::EOF        => "EOF"
     );
 
     /**
@@ -120,7 +122,7 @@ class Token {
      * @return string
      */
     public function __toString() {
-        return "<{$this->getValue()}, {$this->getTypeAsString()}, {$this->getPosition()}>";
+        return "<'{$this->getValue()}', {$this->getTypeAsString()}, {$this->getPosition()}>";
     }
 
 }
