@@ -170,7 +170,7 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testNext() {
-$g = <<<EOD
+$grammar = <<<EOD
 title      = literal .
 comment    = literal .
 EOD;
@@ -185,32 +185,12 @@ EOD;
             array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
             array("value" => "",        "type" => Token::EOF,        "line" => 2, "col" => 22),
         );
+        $this->assertTokens($grammar, $expectations, "1");
 
-        $s = new Scanner(trim($g));
-        $cnt = 0;
-
-        while ($s->hasNextToken()) {
-            $s->nextToken();
-            $t = $s->currentToken();
-            $e = $expectations[$cnt];
-            $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t, $cnt);
-            $this->assertEquals($e["type"], $t->getType(), $cnt);
-            $this->assertEquals($e["value"], $t->getValue(), $cnt);
-            $p = $t->getPosition();
-            $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p, $cnt);
-            $this->assertNull($p->getFile(), $cnt);
-            $this->assertEquals($e["line"], $p->getLine(), $cnt);
-            $this->assertEquals($e["col"], $p->getColumn(), $cnt);
-            $cnt++;
-        }
-
-        $this->assertEquals(count($expectations), $cnt, "Not enough tokens!");
-
-$g = <<<EOD
+$grammar = <<<EOD
 literal = "'" character { character } "'"
         | '"' character { character } '"' .
 EOD;
-
         $expectations = array(
             array("value" => "literal",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",         "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
@@ -230,25 +210,126 @@ EOD;
             array("value" => ".",         "type" => Token::OPERATOR,   "line" => 2, "col" => 43),
             array("value" => "",          "type" => Token::EOF,        "line" => 2, "col" => 43),
         );
+        $this->assertTokens($grammar, $expectations, "2");
 
-        $s = new Scanner(trim($g));
-        $cnt = 0;
+        $grammar = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "testgrammar.ebnf");
+        $expectations = array(
+            array("value" => '"EBNF defined in itself"',   "type" => Token::LITERAL, "line" => 1, "col" => 1),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 1,  "col" => 26),
+            array("value" => "syntax",     "type" => Token::IDENTIFIER, "line" => 2,  "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 14),
+            array("value" => "[",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 16),
+            array("value" => "title",      "type" => Token::IDENTIFIER, "line" => 2,  "col" => 18),
+            array("value" => "]",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 24),
+            array("value" => '"{"',        "type" => Token::LITERAL,    "line" => 2,  "col" => 26),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 30),
+            array("value" => "rule",       "type" => Token::IDENTIFIER, "line" => 2,  "col" => 32),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 37),
+            array("value" => '"}"',        "type" => Token::LITERAL,    "line" => 2,  "col" => 39),
+            array("value" => "[",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 43),
+            array("value" => "comment",    "type" => Token::IDENTIFIER, "line" => 2,  "col" => 45),
+            array("value" => "]",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 53),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 55),
+            array("value" => "rule",       "type" => Token::IDENTIFIER, "line" => 3,  "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 3,  "col" => 14),
+            array("value" => "identifier", "type" => Token::IDENTIFIER, "line" => 3,  "col" => 16),
+            array("value" => '"="',        "type" => Token::LITERAL,    "line" => 3,  "col" => 27),
+            array("value" => "expression", "type" => Token::IDENTIFIER, "line" => 3,  "col" => 31),
+            array("value" => "(",          "type" => Token::OPERATOR,   "line" => 3,  "col" => 42),
+            array("value" => '"."',        "type" => Token::LITERAL,    "line" => 3,  "col" => 44),
+            array("value" => "|",          "type" => Token::OPERATOR,   "line" => 3,  "col" => 48),
+            array("value" => '";"',        "type" => Token::LITERAL,    "line" => 3,  "col" => 50),
+            array("value" => ")",          "type" => Token::OPERATOR,   "line" => 3,  "col" => 54),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 3,  "col" => 56),
+            array("value" => "expression", "type" => Token::IDENTIFIER, "line" => 4,  "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 4,  "col" => 14),
+            array("value" => "term",       "type" => Token::IDENTIFIER, "line" => 4,  "col" => 16),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 4,  "col" => 21),
+            array("value" => '"|"',        "type" => Token::LITERAL,    "line" => 4,  "col" => 23),
+            array("value" => "term",       "type" => Token::IDENTIFIER, "line" => 4,  "col" => 27),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 4,  "col" => 32),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 4,  "col" => 34),
+            array("value" => "term",       "type" => Token::IDENTIFIER, "line" => 5,  "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 5,  "col" => 14),
+            array("value" => "factor",     "type" => Token::IDENTIFIER, "line" => 5,  "col" => 16),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 5,  "col" => 23),
+            array("value" => "factor",     "type" => Token::IDENTIFIER, "line" => 5,  "col" => 25),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 5,  "col" => 32),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 5,  "col" => 34),
+            array("value" => "factor",     "type" => Token::IDENTIFIER, "line" => 6,  "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 6,  "col" => 14),
+            array("value" => "identifier", "type" => Token::IDENTIFIER, "line" => 6,  "col" => 16),
+            array("value" => "|",          "type" => Token::OPERATOR,   "line" => 7,  "col" => 14),
+            array("value" => "literal",    "type" => Token::IDENTIFIER, "line" => 7,  "col" => 16),
+            array("value" => "|",          "type" => Token::OPERATOR,   "line" => 8,  "col" => 14),
+            array("value" => '"["',        "type" => Token::LITERAL,    "line" => 8,  "col" => 16),
+            array("value" => "expression", "type" => Token::IDENTIFIER, "line" => 8,  "col" => 20),
+            array("value" => '"]"',        "type" => Token::LITERAL,    "line" => 8,  "col" => 31),
+            array("value" => "|",          "type" => Token::OPERATOR,   "line" => 9,  "col" => 14),
+            array("value" => '"("',        "type" => Token::LITERAL,    "line" => 9,  "col" => 16),
+            array("value" => "expression", "type" => Token::IDENTIFIER, "line" => 9,  "col" => 20),
+            array("value" => '")"',        "type" => Token::LITERAL,    "line" => 9,  "col" => 31),
+            array("value" => "|",          "type" => Token::OPERATOR,   "line" => 10, "col" => 14),
+            array("value" => '"{"',        "type" => Token::LITERAL,    "line" => 10, "col" => 16),
+            array("value" => "expression", "type" => Token::IDENTIFIER, "line" => 10, "col" => 20),
+            array("value" => '"}"',        "type" => Token::LITERAL,    "line" => 10, "col" => 31),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 10, "col" => 35),
+            array("value" => "identifier", "type" => Token::IDENTIFIER, "line" => 11, "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 11, "col" => 14),
+            array("value" => "character",  "type" => Token::IDENTIFIER, "line" => 11, "col" => 16),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 11, "col" => 26),
+            array("value" => "character",  "type" => Token::IDENTIFIER, "line" => 11, "col" => 28),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 11, "col" => 38),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 11, "col" => 40),
+            array("value" => "title",      "type" => Token::IDENTIFIER, "line" => 12, "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 12, "col" => 14),
+            array("value" => "literal",    "type" => Token::IDENTIFIER, "line" => 12, "col" => 16),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 12, "col" => 24),
+            array("value" => "comment",    "type" => Token::IDENTIFIER, "line" => 13, "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 13, "col" => 14),
+            array("value" => "literal",    "type" => Token::IDENTIFIER, "line" => 13, "col" => 16),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 13, "col" => 24),
+            array("value" => "literal",    "type" => Token::IDENTIFIER, "line" => 14, "col" => 3),
+            array("value" => "=",          "type" => Token::OPERATOR,   "line" => 14, "col" => 14),
+            array("value" => '"\'"',       "type" => Token::LITERAL,    "line" => 14, "col" => 16),
+            array("value" => "character",  "type" => Token::IDENTIFIER, "line" => 14, "col" => 20),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 14, "col" => 30),
+            array("value" => "character",  "type" => Token::IDENTIFIER, "line" => 14, "col" => 32),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 14, "col" => 42),
+            array("value" => '"\'"',       "type" => Token::LITERAL,    "line" => 14, "col" => 44),
+            array("value" => "|",          "type" => Token::OPERATOR,   "line" => 15, "col" => 14),
+            array("value" => "'\"'",       "type" => Token::LITERAL,    "line" => 15, "col" => 16),
+            array("value" => "character",  "type" => Token::IDENTIFIER, "line" => 15, "col" => 20),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 15, "col" => 30),
+            array("value" => "character",  "type" => Token::IDENTIFIER, "line" => 15, "col" => 32),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 15, "col" => 42),
+            array("value" => "'\"'",       "type" => Token::LITERAL,    "line" => 15, "col" => 44),
+            array("value" => ".",          "type" => Token::OPERATOR,   "line" => 15, "col" => 48),
+            array("value" => "}",          "type" => Token::OPERATOR,   "line" => 16, "col" => 1),
+            array("value" => "",           "type" => Token::EOF,        "line" => 16, "col" => 1),
+        );
+        $this->assertTokens($grammar, $expectations, "3");
+    }
 
-        while ($s->hasNextToken()) {
-            $s->nextToken();
-            $t = $s->currentToken();
-            $e = $expectations[$cnt];
-            $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t, $cnt);
-            $this->assertEquals($e["type"], $t->getType(), $cnt);
-            $this->assertEquals($e["value"], $t->getValue(), $cnt);
-            $p = $t->getPosition();
-            $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p, $cnt);
-            $this->assertNull($p->getFile(), $cnt);
-            $this->assertEquals($e["line"], $p->getLine(), $cnt);
-            $this->assertEquals($e["col"], $p->getColumn(), $cnt);
-            $cnt++;
+    private function assertTokens($grammar, array $expectations, $msg = "") {
+        $scanner = new Scanner(trim($grammar));
+        $count   = 0;
+
+        while ($scanner->hasNextToken()) {
+            $scanner->nextToken();
+            $token = $scanner->currentToken();
+            $expectation = $expectations[$count];
+            $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $token, "{$msg}: {$count}");
+            $this->assertEquals($expectation["type"], $token->getType(), "{$msg}: {$count}");
+            $this->assertEquals($expectation["value"], $token->getValue(), "{$msg}: {$count}");
+            $position = $token->getPosition();
+            $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $position, "{$msg}: {$count}");
+            $this->assertNull($position->getFile(), $count);
+            $this->assertEquals($expectation["line"], $position->getLine(), "{$msg}: {$count}");
+            $this->assertEquals($expectation["col"], $position->getColumn(), "{$msg}: {$count}");
+            $count++;
         }
 
-        $this->assertEquals(count($expectations), $cnt, "Not enough tokens!");
+        $this->assertEquals(count($expectations), $count, "{$msg}: Not enough tokens!");
     }
 }

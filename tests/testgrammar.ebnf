@@ -1,5 +1,5 @@
 "EBNF defined in itself" {
-  syntax     = [ title ] "{" { rule } "}" [ comment ].
+  syntax     = [ title ] "{" { rule } "}" [ comment ] .
   rule       = identifier "=" expression ( "." | ";" ) .
   expression = term { "|" term } .
   term       = factor { factor } .
