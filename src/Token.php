@@ -122,7 +122,14 @@ class Token {
      * @return string
      */
     public function __toString() {
-        return "<'{$this->getValue()}', {$this->getTypeAsString()}, {$this->getPosition()}>";
+        $str = "<";
+
+        if ("" !== $this->getValue()) {
+            $str .= "'{$this->getValue()}', ";
+        }
+
+        $str .= "{$this->getTypeAsString()}, {$this->getPosition()}>";
+        return $str;
     }
 
 }
