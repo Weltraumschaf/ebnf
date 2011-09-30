@@ -189,9 +189,9 @@ EOD;
         $s = new Scanner(trim($g));
         $cnt = 0;
 
-        while ($s->hasNext()) {
-            $s->next();
-            $t = $s->current();
+        while ($s->hasNextToken()) {
+            $s->nextToken();
+            $t = $s->currentToken();
             $e = $expectations[$cnt];
             $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t, $cnt);
             $this->assertEquals($e["type"], $t->getType(), $cnt);
@@ -234,9 +234,9 @@ EOD;
         $s = new Scanner(trim($g));
         $cnt = 0;
 
-        while ($s->hasNext()) {
-            $s->next();
-            $t = $s->current();
+        while ($s->hasNextToken()) {
+            $s->nextToken();
+            $t = $s->currentToken();
             $e = $expectations[$cnt];
             $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t, $cnt);
             $this->assertEquals($e["type"], $t->getType(), $cnt);

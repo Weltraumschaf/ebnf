@@ -35,19 +35,33 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 /**
  * Scanns an input string for EBNF syntax tokens.
  *
- * This class provides only one public method which returns
- * the scanned tokens as an array of strings.
- *
+ * This class implements a standard lexical scanner pattern with one
+ * character lookahead and interaotr interface for receiving token by token.
  * On lexiacl syntax errors a SyntaxException will be thrown.
  *
- * @todo Return an array of Token objects with according position objects.
- * @todo Throw SyntaxException with according position of syntax error.
+ * Example:
+ * <code>
+ * <?php
+ * $grammar = "..."; // the EBNF grammar
+ * try {
+ *     $scanner = new Scanner($grammar);
+ *
+ *     while ($scanner->hasNextToken()) {
+ *         $scanner->nextToken();
+ *         $token = $scanner->currentToken();
+ *         echo($token->__toString()) . PHP_EOL;
+ *     }
+ * } catch (SyntaxtException $e) {
+ *     echo $e . PHP_EOL;
+ * }
+ * </code>
  */
 class Scanner {
 
     /**
      * Definiton of PREGs for tokens.
      *
+     * @deprecated
      * @var array
      */
     private $lexemes = array(
@@ -75,13 +89,13 @@ class Scanner {
      *
      * @var int
      */
-    private $current;
+    private $currentCharacter;
     /**
      * Length of input.
      *
      * @var int
      */
-    private $length;
+    private $inputLength;
     private $column;
     private $line;
     /**
@@ -105,26 +119,50 @@ class Scanner {
             $this->file = (String)$file;
         }
 
-        $this->current = -1;
-        $this->length  = strlen($this->input);
+        $this->currentCharacter = -1;
+        $this->inputLength  = strlen($this->input);
         $this->column  = 0;
         $this->line    = 1;
     }
 
+    /**
+     * Checks whether a character is a alpha [a-zA-Z].
+     *
+     * @param string $c A single character.
+     * @return bool
+     */
     public static function isAlpha($c) {
         $o = ord($c);
         return $o > 64 && $o < 91 || $o > 96 && $o < 123;
     }
 
+    /**
+     * Checks whether a character is a number [0-9].
+     *
+     * @param string $c A single character.
+     * @return bool
+     */
     public static  function isNum($c) {
         $o = ord($c);
         return $o > 47 && $o < 58;
     }
 
+    /**
+     * Checks whether a character is a number or alpha [0-9a-zA-Z].
+     *
+     * @param string $c A single character.
+     * @return bool
+     */
     public static  function isAlphaNum($c) {
         return self::isAlpha($c) || self::isNum($c);
     }
 
+    /**
+     * Checks whether a character is a operator.
+     *
+     * @param string $c A single character.
+     * @return bool
+     */
     public static  function isOperator($c) {
         return "{" === $c || "}" === $c ||
                "(" === $c || ")" === $c ||
@@ -133,10 +171,22 @@ class Scanner {
                "|" === $c || "=" === $c;
     }
 
+    /**
+     * Checks whether a character is a whitespace.
+     *
+     * @param string $c A single character.
+     * @return bool
+     */
     public static  function isWhiteSpace($c) {
         return " " === $c || "\t" === $c || "\n" === $c || "\r" === $c;
     }
 
+    /**
+     * Checks whether a character is a quote ["|'].
+     *
+     * @param string $c A single character.
+     * @return bool
+     */
     public static function isQuote($c) {
         return "'" === $c || '"' === $c;
     }
@@ -144,6 +194,7 @@ class Scanner {
     /**
      * Returns an array of tokens.
      *
+     * @deprecated
      * @throws SyntaxtException
      * @return array
      */
@@ -191,43 +242,76 @@ class Scanner {
         return $this->file;
     }
 
-    private function hasNextChar() {
-        return $this->current < $this->length - 1;
+    /**
+     * Retruns if there is a next character in the input stream.
+     *
+     * @return bool
+     */
+    private function hasNextCharacter() {
+        return $this->currentCharacter < $this->inputLength - 1;
     }
 
-    private function nextChar() {
-        $this->current++;
+    /**
+     * Increments the character cursor.
+     */
+    private function nextCharacter() {
+        $this->currentCharacter++;
         $this->column++;
     }
 
-    private function currentChar() {
-        return $this->input[$this->current];
+    /**
+     * Returns the character at the current cursor from the input stream.
+     *
+     * @return string
+     */
+    private function currentCharacter() {
+        return $this->input[$this->currentCharacter];
     }
 
-    private function backup() {
-        $this->current--;
+    /**
+     * Decrements the character cursor.
+     */
+    private function backupCharacter() {
+        $this->currentCharacter--;
         $this->column--;
     }
 
-    private function peek() {
-        $this->nextChar();
-        $c = $this->currentChar();
-        $this->backup();
-        return $c;
-    }
+    /**
+     * Throws a {SyntaxException} with the current {Position} in the input stream.
+     *
+     * @param string $msg
+     * @throws SyntaxtException
+     */
     private function raiseError($msg) {
         throw new SyntaxtException($msg, $this->createPosition());
     }
 
+    /**
+     * Creates a {Position} from the current line and column in the input stream.
+     *
+     * @return Position
+     */
     private function createPosition() {
         return new Position($this->line, $this->column, $this->file);
     }
 
-    public function current() {
+    /**
+     * Returns the current scanned token. May be null if never {nextToken()}
+     * was called.
+     *
+     * @return Token
+     */
+    public function currentToken() {
         return $this->currentToken;
     }
 
-    public function hasNext() {
+    /**
+     * Returns if there are more tokens. This is allways true if never {nextToken()}
+     * was called. No more tokens are indicated if the current token is of type {Token::EOF}.
+     *
+     * @return bool
+     */
+    public function hasNextToken() {
         if (null === $this->currentToken) {
             return true;
         }
@@ -235,26 +319,33 @@ class Scanner {
         return $this->currentToken->getType() !== Token::EOF;
     }
 
-    public function next() {
-        while ($this->hasNextChar()) {
-            $this->nextChar();
+    /**
+     * Start the scanning of the next token.
+     *
+     * This method should be called until {hasNextToken()} returns false.
+     *
+     * @return void
+     */
+    public function nextToken() {
+        while ($this->hasNextCharacter()) {
+            $this->nextCharacter();
 
-            if (self::isAlpha($this->currentChar())) {
+            if (self::isAlpha($this->currentCharacter())) {
                 $this->currentToken = $this->scannIdentifier();
                 return;
-            } else if (self::isQuote($this->currentChar())) {
+            } else if (self::isQuote($this->currentCharacter())) {
                 $this->currentToken = $this->scanLiteral();
                 return;
-            } else if (self::isOperator($this->currentChar())) {
-                $this->currentToken = $this->scanOperator();
+            } else if (self::isOperator($this->currentCharacter())) {
+                $this->currentToken = new Token(Token::OPERATOR, $this->currentCharacter(), $this->createPosition());
                 return;
-            } else if (self::isWhiteSpace($this->currentChar())) {
+            } else if (self::isWhiteSpace($this->currentCharacter())) {
                 // ignore white spaces
             } else {
                 $this->raiseError("Invalid character!");
             }
 
-            if ("\n" === $this->currentChar() || "\r" === $this->currentChar()) {
+            if ("\n" === $this->currentCharacter() || "\r" === $this->currentCharacter()) {
                 $this->line++;
                 $this->column = 0;
             }
@@ -263,17 +354,22 @@ class Scanner {
         $this->currentToken = new Token(Token::EOF, "", $this->createPosition());
     }
 
+    /**
+     * Scanns an identifier [a-zA-Z\-_].
+     *
+     * @return Token
+     */
     protected function scannIdentifier() {
         $pos = $this->createPosition();
-        $str = $this->currentChar();
+        $str = $this->currentCharacter();
 
-        while ($this->hasNextChar()) {
-            $this->nextChar();
+        while ($this->hasNextCharacter()) {
+            $this->nextCharacter();
 
-            if (self::isAlphaNum($this->currentChar()) || "-" === $this->currentChar()) {
-                $str .= $this->currentChar();
+            if (self::isAlphaNum($this->currentCharacter()) || "-" === $this->currentCharacter() || "_" === $this->currentCharacter()) {
+                $str .= $this->currentCharacter();
             } else {
-                $this->backup();
+                $this->backupCharacter();
                 break;
             }
         }
@@ -281,16 +377,21 @@ class Scanner {
         return new Token(Token::IDENTIFIER, $str, $pos);
     }
 
+    /**
+     * Scanns a literal (any character inside single or double quotes.
+     *
+     * @return Token
+     */
     protected function scanLiteral() {
         $pos   = $this->createPosition();
-        $start = $this->currentChar();
+        $start = $this->currentCharacter();
         $str   = $start;
 
-        while ($this->hasNextChar()) {
-            $this->nextChar();
-            $str .= $this->currentChar();
+        while ($this->hasNextCharacter()) {
+            $this->nextCharacter();
+            $str .= $this->currentCharacter();
 
-            if (self::isQuote($this->currentChar()) && $this->currentChar() === $start) {
+            if (self::isQuote($this->currentCharacter()) && $this->currentCharacter() === $start) {
                 break;
             }
         }
@@ -298,11 +399,4 @@ class Scanner {
         return new Token(Token::LITERAL, $str, $pos);
     }
 
-    protected function scanOperator() {
-        if ($this->hasNextChar() && !self::isWhiteSpace($this->peek())) {
-            $this->raiseError("After operator a whitespace is expected!");
-        }
-
-        return new Token(Token::OPERATOR, $this->currentChar(), $this->createPosition());
-    }
 }
