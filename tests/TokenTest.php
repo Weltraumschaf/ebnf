@@ -25,7 +25,30 @@ require_once "Token.php";
  * Testcase for class {Token}.
  */
 class TokenTest extends \PHPUnit_Framework_TestCase {
-    public function testtoString() {
-        $this->markTestIncomplete();
+
+    public function testGetTypeAsString() {
+        $p = new Position(5, 10);
+        $t = new Token(Token::OPERATOR, "", $p);
+        $this->assertEquals("OPERATOR", $t->getTypeAsString());
+        $t = new Token(Token::IDENTIFIER, "", $p);
+        $this->assertEquals("IDENTIFIER", $t->getTypeAsString());
+        $t = new Token(Token::WHITESPACE, "", $p);
+        $this->assertEquals("WHITESPACE", $t->getTypeAsString());
+        $t = new Token(Token::LITERAL, "", $p);
+        $this->assertEquals("LITERAL", $t->getTypeAsString());
+        $t = new Token(Token::EOF, "", $p);
+        $this->assertEquals("EOF", $t->getTypeAsString());
+        $t = new Token(4711, "", $p);
+        $this->assertEquals("(4711)", $t->getTypeAsString());
     }
+
+    public function testtoString() {
+        $p = new Position(5, 10);
+        $t = new Token(Token::IDENTIFIER, "ident", $p);
+        $this->assertEquals("<'ident', IDENTIFIER, (5, 10)>", $t->__toString());
+        $p = new Position(5, 10, "/foo/bar.ebnf");
+        $t = new Token(Token::IDENTIFIER, "ident", $p);
+        $this->assertEquals("<'ident', IDENTIFIER, /foo/bar.ebnf (5, 10)>", $t->__toString());
+    }
+    
 }
