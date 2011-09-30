@@ -84,6 +84,10 @@ class Scanner {
     private $length;
     private $column;
     private $line;
+    /**
+     * @var Token
+     */
+    private $currentToken;
 
     /**
      * Initializes the scanner with a grammar string.
@@ -218,16 +222,31 @@ class Scanner {
         return new Position($this->line, $this->column, $this->file);
     }
 
+    public function current() {
+        return $this->currentToken;
+    }
+
+    public function hasNext() {
+        if (null === $this->currentToken) {
+            return true;
+        }
+
+        return $this->currentToken->getType() !== Token::EOF;
+    }
+
     public function next() {
         while ($this->hasNextChar()) {
             $this->nextChar();
 
             if (self::isAlpha($this->currentChar())) {
-                return $this->scannIdentifier();
+                $this->currentToken = $this->scannIdentifier();
+                return;
             } else if (self::isQuote($this->currentChar())) {
-                return $this->scanLiteral();
+                $this->currentToken = $this->scanLiteral();
+                return;
             } else if (self::isOperator($this->currentChar())) {
-                return $this->scanOperator();
+                $this->currentToken = $this->scanOperator();
+                return;
             } else if (self::isWhiteSpace($this->currentChar())) {
                 // ignore white spaces
             } else {
@@ -236,11 +255,11 @@ class Scanner {
 
             if ("\n" === $this->currentChar() || "\r" === $this->currentChar()) {
                 $this->line++;
-                $this->column = 1;
+                $this->column = 0;
             }
         }
 
-        return new Token(Token::EOF, "EOF", $this->createPosition());
+        $this->currentToken = new Token(Token::EOF, "", $this->createPosition());
     }
 
     protected function scannIdentifier() {

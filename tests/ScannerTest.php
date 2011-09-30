@@ -170,55 +170,39 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testNext() {
-        $s = new Scanner("title = literal .");
-        $t = $s->next();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
-        $this->assertEquals("title", $t->getValue());
-        $this->assertEquals(Token::IDENTIFIER, $t->getType());
-        $p = $t->getPosition();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
-        $this->assertNull($p->getFile());
-        $this->assertEquals(1, $p->getLine());
-        $this->assertEquals(1, $p->getColumn());
+        $expectations = array(
+            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
+            array("value" => "",        "type" => Token::EOF,        "line" => 2, "col" => 22),
+        );
+$g = <<<EOD
+title      = literal .
+comment    = literal .
+EOD;
+        $s = new Scanner(trim($g));
+        $cnt = 0;
 
-        $t = $s->next();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
-        $this->assertEquals("=", $t->getValue());
-        $this->assertEquals(Token::OPERATOR, $t->getType());
-        $p = $t->getPosition();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
-        $this->assertNull($p->getFile());
-        $this->assertEquals(1, $p->getLine());
-        $this->assertEquals(7, $p->getColumn());
+        while ($s->hasNext()) {
+            $s->next();
+            $t = $s->current();
+            $e = $expectations[$cnt];
+            $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t, $cnt);
+            $this->assertEquals($e["type"], $t->getType(), $cnt);
+            $this->assertEquals($e["value"], $t->getValue(), $cnt);
+            $p = $t->getPosition();
+            $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p, $cnt);
+            $this->assertNull($p->getFile(), $cnt);
+            $this->assertEquals($e["line"], $p->getLine(), $cnt);
+            $this->assertEquals($e["col"], $p->getColumn(), $cnt);
+            $cnt++;
+        }
 
-        $t = $s->next();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
-        $this->assertEquals("literal", $t->getValue());
-        $this->assertEquals(Token::IDENTIFIER, $t->getType());
-        $p = $t->getPosition();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
-        $this->assertNull($p->getFile());
-        $this->assertEquals(1, $p->getLine());
-        $this->assertEquals(9, $p->getColumn());
-
-        $t = $s->next();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
-        $this->assertEquals(".", $t->getValue());
-        $this->assertEquals(Token::OPERATOR, $t->getType());
-        $p = $t->getPosition();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
-        $this->assertNull($p->getFile());
-        $this->assertEquals(1, $p->getLine());
-        $this->assertEquals(17, $p->getColumn());
-
-        $t = $s->next();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t);
-        $this->assertEquals("EOF", $t->getValue());
-        $this->assertEquals(Token::EOF, $t->getType());
-        $p = $t->getPosition();
-        $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p);
-        $this->assertNull($p->getFile());
-        $this->assertEquals(1, $p->getLine());
-        $this->assertEquals(17, $p->getColumn());
+        $this->assertEquals(count($expectations), $cnt, "Not enough tokens!");
     }
 }
