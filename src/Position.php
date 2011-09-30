@@ -98,6 +98,8 @@ class Position {
      * @return string
      */
     public function __toString() {
+        $str = "";
+        
         if ($this->getFile() !== null ) {
             $str = "{$this->getFile()} ";
         }

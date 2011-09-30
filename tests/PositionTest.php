@@ -25,7 +25,13 @@ require_once "Position.php";
  * Testcase for class {Position}.
  */
 class PositionTest extends \PHPUnit_Framework_TestCase {
+
     public function testtoString() {
-        $this->markTestIncomplete();
+        $p = new Position(5, 10);
+        $this->assertEquals("(5, 10)", $p->__toString());
+
+        $p = new Position(7, 8, "/foo/bar/baz.ebnf");
+        $this->assertEquals("/foo/bar/baz.ebnf (7, 8)", $p->__toString());
     }
+
 }
