@@ -26,7 +26,7 @@ require_once "Scanner.php";
  */
 class ScannerTest extends \PHPUnit_Framework_TestCase {
 
-    private $ops = array("(", ")", "[", "]", "{", "}", "=", ".");
+    private $ops = array("(", ")", "[", "]", "{", "}", "=", ".", ";", "|");
     private $lowAlpha = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
         "s", "t", "u", "v", "w", "x", "y", "z");
     private $upAlpha = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
@@ -170,6 +170,10 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testNext() {
+$g = <<<EOD
+title      = literal .
+comment    = literal .
+EOD;
         $expectations = array(
             array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
@@ -181,10 +185,52 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
             array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
             array("value" => "",        "type" => Token::EOF,        "line" => 2, "col" => 22),
         );
+
+        $s = new Scanner(trim($g));
+        $cnt = 0;
+
+        while ($s->hasNext()) {
+            $s->next();
+            $t = $s->current();
+            $e = $expectations[$cnt];
+            $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $t, $cnt);
+            $this->assertEquals($e["type"], $t->getType(), $cnt);
+            $this->assertEquals($e["value"], $t->getValue(), $cnt);
+            $p = $t->getPosition();
+            $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $p, $cnt);
+            $this->assertNull($p->getFile(), $cnt);
+            $this->assertEquals($e["line"], $p->getLine(), $cnt);
+            $this->assertEquals($e["col"], $p->getColumn(), $cnt);
+            $cnt++;
+        }
+
+        $this->assertEquals(count($expectations), $cnt, "Not enough tokens!");
+
 $g = <<<EOD
-title      = literal .
-comment    = literal .
+literal = "'" character { character } "'"
+        | '"' character { character } '"' .
 EOD;
+
+        $expectations = array(
+            array("value" => "literal",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
+            array("value" => "=",         "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
+            array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 1, "col" => 11),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 1, "col" => 15),
+            array("value" => "{",         "type" => Token::OPERATOR,   "line" => 1, "col" => 25),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 1, "col" => 27),
+            array("value" => "}",         "type" => Token::OPERATOR,   "line" => 1, "col" => 37),
+            array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 1, "col" => 39),
+            array("value" => "|",         "type" => Token::OPERATOR,   "line" => 2, "col" => 9),
+            array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 2, "col" => 11),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 2, "col" => 15),
+            array("value" => "{",         "type" => Token::OPERATOR,   "line" => 2, "col" => 25),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 2, "col" => 27),
+            array("value" => "}",         "type" => Token::OPERATOR,   "line" => 2, "col" => 37),
+            array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 2, "col" => 39),
+            array("value" => ".",         "type" => Token::OPERATOR,   "line" => 2, "col" => 43),
+            array("value" => "",          "type" => Token::EOF,        "line" => 2, "col" => 43),
+        );
+
         $s = new Scanner(trim($g));
         $cnt = 0;
 

@@ -129,7 +129,8 @@ class Scanner {
         return "{" === $c || "}" === $c ||
                "(" === $c || ")" === $c ||
                "[" === $c || "]" === $c ||
-               "=" === $c || "." === $c;
+               ";" === $c || "." === $c ||
+               "|" === $c || "=" === $c;
     }
 
     public static  function isWhiteSpace($c) {
@@ -281,14 +282,15 @@ class Scanner {
     }
 
     protected function scanLiteral() {
-        $pos = $this->createPosition();
-        $str = $this->currentChar();
+        $pos   = $this->createPosition();
+        $start = $this->currentChar();
+        $str   = $start;
 
         while ($this->hasNextChar()) {
             $this->nextChar();
             $str .= $this->currentChar();
 
-            if (self::isQuote($this->currentChar())) {
+            if (self::isQuote($this->currentChar()) && $this->currentChar() === $start) {
                 break;
             }
         }
