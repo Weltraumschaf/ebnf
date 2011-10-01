@@ -112,7 +112,7 @@ class Parser {
             $token = $this->tokens[$this->current++];
         }
 
-        if (!$this->checkToken($token, Token::OPERATOR, '{')) {
+        if (!$this->assertToken($token, Token::OPERATOR, '{')) {
             throw new SyntaxtException("Syntax must start with '{'", $token->getPosition());
         }
 
@@ -128,7 +128,7 @@ class Parser {
 
         $this->current++;
 
-        if (!$this->checkToken($token, Token::OPERATOR, '}')) {
+        if (!$this->assertToken($token, Token::OPERATOR, '}')) {
             throw new SyntaxtException("Syntax must end with '}'", $token->getPosition());
         }
 
@@ -162,14 +162,14 @@ class Parser {
         $production->setAttribute('name', $token->getValue());
         $token = $this->tokens[$this->current++];
 
-        if (!$this->checkToken($token, Token::OPERATOR, "=")) {
+        if (!$this->assertToken($token, Token::OPERATOR, "=")) {
             throw new SyntaxtException("Identifier must be followed by '='", $token->getPosition());
         }
 
         $production->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
         $token = $this->tokens[$this->current++];
 
-        if (!$this->checkToken($token, Token::OPERATOR, '.') && !$this->checkToken($token, Token::OPERATOR, ';')) {
+        if (!$this->assertToken($token, Token::OPERATOR, '.') && !$this->assertToken($token, Token::OPERATOR, ';')) {
             throw new SyntaxtException("Rule must end with '.' or ';'", $token->getPosition());
         }
 
@@ -190,7 +190,7 @@ class Parser {
         $token = $this->tokens[$this->current];
         $mul   = false;
 
-        while ($this->checkToken($token, Token::OPERATOR, '|')) {
+        while ($this->assertToken($token, Token::OPERATOR, '|')) {
             $this->current++;
             $choise->appendChild($this->parseTerm($dom, $this->tokens, $this->current));
             $token = $this->tokens[$this->current];
@@ -263,35 +263,35 @@ class Parser {
             return $literal;
         }
 
-        if ($this->checkToken($token, Token::OPERATOR, '(')) {
+        if ($this->assertToken($token, Token::OPERATOR, '(')) {
             $expression = $this->parseExpression($dom, $this->tokens, $this->current);
             $token = $this->tokens[$this->current++];
 
-            if (!$this->checkToken($token, Token::OPERATOR, ')')) {
+            if (!$this->assertToken($token, Token::OPERATOR, ')')) {
                 throw new SyntaxtException("Group must end with ')'", $token->getPosition());
             }
 
             return $expression;
         }
 
-        if ($this->checkToken($token, Token::OPERATOR, '[')) {
+        if ($this->assertToken($token, Token::OPERATOR, '[')) {
             $option = $dom->createElement(self::NODE_TYPE_OPTION);
             $option->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
             $token = $this->tokens[$this->current++];
 
-            if (!$this->checkToken($token, Token::OPERATOR, ']')) {
+            if (!$this->assertToken($token, Token::OPERATOR, ']')) {
                 throw new SyntaxtException("Option must end with ']'", $token->getPosition());
             }
 
             return $option;
         }
 
-        if ($this->checkToken($token, Token::OPERATOR, '{')) {
+        if ($this->assertToken($token, Token::OPERATOR, '{')) {
             $loop = $dom->createElement(self::NODE_TYPE_LOOP);
             $loop->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
             $token = $this->tokens[$this->current++];
 
-            if (!$this->checkToken($token, Token::OPERATOR, '}')) {
+            if (!$this->assertToken($token, Token::OPERATOR, '}')) {
                 throw new SyntaxtException("Loop must end with '}'", $token->getPosition());
             }
 
@@ -301,7 +301,15 @@ class Parser {
         throw new SyntaxtException("Factor expected", $token->getPosition());
     }
 
-    private function checkToken(Token $token, $type, $value) {
-        return $token->getType() === $type && $token->getValue() === $value;
+    /**
+     * Checks wheter a token is of a type and is equalt to a string literal or not.
+     *
+     * @param Token $token
+     * @param int $type
+     * @param string $value
+     * @return bool
+     */
+    private function assertToken(Token $token, $type, $value) {
+        return $token->isType($type) && $token->isEqual($value);
     }
 }
