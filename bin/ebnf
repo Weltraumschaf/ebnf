@@ -49,7 +49,7 @@ EOD;
 $usage = <<<EOD
 Usage: ebnf -s <file> [-o <file>] [-f png|jpg|gif|xml] [-h]
 
-  -s <file>  File with EBNF grammar. If omitted the example gramar is used.
+  -s <file>  File with EBNF grammar.
   -o <file>  Output file. If omitted the input file name is used and the file extensions
              will be substituded with the format.
   -f format  Format for generated image (png, jpg, gif, xml). Default is png.
