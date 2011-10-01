@@ -215,174 +215,15 @@ class Renderer {
      */
     private function renderNode(DOMElement $node, $leftToRight) {
         if ($node->nodeName === Parser::NODE_TYPE_IDENTIFIER || $node->nodeName === Parser::NODE_TYPE_TERMINAL) {
-            $text = $node->getAttribute('value');
-            $w = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
-            $h = 2 * $this->unit;
-            $im = $this->createImage($w, $h);
-
-            if ($node->nodeName !== Parser::NODE_TYPE_TERMINAL) {
-                imagerectangle($im, $this->unit, 0, $w - $this->unit - 1, $h - 1, $this->black);
-                imagestring($im, $this->font, 2 * $this->unit, ($h - imagefontheight($this->font)) / 2, $text, $this->red);
-            } else {
-                if ($text !== "...") {
-                    $this->rr($im, $this->unit, 0, $w - $this->unit - 1, $h - 1, $this->unit / 2, $this->black);
-                }
-
-                if ($text !== "...") {
-                    $color = $this->blue;
-                } else {
-                    $color = $this->black;
-                }
-
-                imagestring($im, $this->font, 2 * $this->unit, ($h - imagefontheight($this->font)) / 2, $text, $color);
-            }
-
-            imageline($im, 0, $this->unit, $this->unit, $this->unit, $this->black);
-            imageline($im, $w - $this->unit, $this->unit, $w + 1, $this->unit, $this->black);
-
-            return $im;
-
-        } else if ($node->nodeName === Parser::NODE_TYPE_LOOP || $node->nodeName === Parser::NODE_TYPE_LOOP) {
-            if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
-                $leftToRight = !$leftToRight;
-            }
-
-            $inner = $this->renderNode($node->firstChild, $leftToRight);
-            $w = imagesx($inner) + 6 * $this->unit;
-            $h = imagesy($inner) + 2 * $this->unit;
-            $im = $this->createImage($w, $h);
-            imagecopy($im, $inner, 3 * $this->unit, 2 * $this->unit, 0, 0, imagesx($inner), imagesy($inner));
-            imageline($im, 0, $this->unit, $w, $this->unit, $this->black);
-
-            if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
-                $this->arrow($im, $w / 2 + $this->unit / 2, $this->unit, !$leftToRight);
-            } else {
-                $this->arrow($im, $w / 2 + $this->unit / 2, $this->unit, $leftToRight);
-            }
-
-            $this->arrow($im, 3 * $this->unit, 3 * $this->unit, $leftToRight);
-            $this->arrow($im, $w - 2 * $this->unit, 3 * $this->unit, $leftToRight);
-            imageline($im, $this->unit, $this->unit, $this->unit, 3 * $this->unit, $this->black);
-            imageline($im, $this->unit, 3 * $this->unit, 2 * $this->unit, 3 * $this->unit, $this->black);
-            imageline($im, $w - $this->unit, $this->unit, $w - $this->unit, 3 * $this->unit, $this->black);
-            imageline($im, $w - 3 * $this->unit - 1, 3 * $this->unit, $w - $this->unit, 3 * $this->unit, $this->black);
-
-            return $im;
-
+            return $this->renderIdentifierOrTerminal($node, $leftToRight);
+        } else if ($node->nodeName === Parser::NODE_TYPE_OPTION || $node->nodeName === Parser::NODE_TYPE_LOOP) {
+            return $this->renderOptionOrLoopNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_SEQUENCE) {
-            $inner = $this->renderChilds($node, $leftToRight);
-
-            if (!$leftToRight) {
-                $inner = array_reverse($inner);
-            }
-
-            $w = count($inner) * $this->unit - $this->unit;
-            $h = 0;
-
-            for ($i = 0; $i < count($inner); $i++) {
-                $w += imagesx($inner[$i]);
-                $h = max($h, imagesy($inner[$i]));
-            }
-
-            $im = $this->createImage($w, $h);
-            imagecopy($im, $inner[0], 0, 0, 0, 0, imagesx($inner[0]), imagesy($inner[0]));
-            $x = imagesx($inner[0]) + $this->unit;
-
-            for ($i = 1; $i < count($inner); $i++) {
-                imageline($im, $x - $this->unit - 1, $this->unit, $x, $this->unit, $this->black);
-                $this->arrow($im, $x, $this->unit, $leftToRight);
-                imagecopy($im, $inner[$i], $x, 0, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
-                $x += imagesx($inner[$i]) + $this->unit;
-            }
-
-            return $im;
-
+            return $this->renderSequenceNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_CHOISE) {
-            $inner = $this->renderChilds($node, $leftToRight);
-            $h = (count($inner) - 1) * $this->unit;
-            $w = 0;
-
-            for ($i = 0; $i < count($inner); $i++) {
-                $h += imagesy($inner[$i]);
-                $w = max($w, imagesx($inner[$i]));
-            }
-
-            $w += 6 * $this->unit;
-            $im = $this->createImage($w, $h);
-            $y = 0;
-            imageline($im, 0, $this->unit, $this->unit, $this->unit, $this->black);
-            imageline($im, $w - $this->unit, $this->unit, $w, $this->unit, $this->black);
-
-            for ($i = 0; $i < count($inner); $i++) {
-                imageline($im, $this->unit, $y + $this->unit, $w - $this->unit, $y + $this->unit, $this->black);
-                imagecopy($im, $inner[$i], 3 * $this->unit, $y, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
-                $this->arrow($im, 3 * $this->unit, $y + $this->unit, $leftToRight);
-                $this->arrow($im, $w - 2 * $this->unit, $y + $this->unit, $leftToRight);
-                $top = $y + $this->unit;
-                $y += imagesy($inner[$i]) + $this->unit;
-            }
-
-            imageline($im, $this->unit, $this->unit, $this->unit, $top, $this->black);
-            imageline($im, $w - $this->unit, $this->unit, $w - $this->unit, $top, $this->black);
-
-            return $im;
-
+            return $this->renderChoiseNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_SYNTAX) {
-            $title  = $node->getAttribute('title');
-            $meta   = $node->getAttribute('meta');
-            $node   = $node->firstChild;
-            $names  = array();
-            $images = array();
-
-            while ($node != null) {
-                $names[]  = $node->getAttribute('name');
-                $im       = $this->renderNode($node->firstChild, $leftToRight);
-                $images[] = $im;
-                $node     = $node->nextSibling;
-            }
-
-            $wn = 0;
-            $wr = 0;
-            $h  = 5 * $this->unit;
-
-            for ($i = 0; $i < count($images); $i++) {
-                $wn = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
-                $wr = max($wr, imagesx($images[$i]));
-                $h += imagesy($images[$i]) + 2 * $this->unit;
-            }
-
-            if ($title == '') {
-                $h -= 2 * $this->unit;
-            }
-
-            if ($meta == '') {
-                $h -= 2 * $this->unit;
-            }
-
-            $h += 10;
-            $w  = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
-            $im = $this->createImage($w, $h);
-            $y  = 2 * $this->unit;
-
-            if ($title != '') {
-                imagestring($im, $this->font, $this->unit, (2 * $this->unit - imagefontheight($this->font)) / 2, $title, $this->green);
-                imageline($im, 5, 2 * $this->unit, $w - 5, 2 * $this->unit, $this->green);
-                $y += 2 * $this->unit;
-            }
-
-            for ($i = 0; $i < count($images); $i++) {
-                imagestring($im, $this->font, $this->unit, $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2, $names[$i], $this->red);
-                imagecopy($im, $images[$i], $wn + 2 * $this->unit, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
-                imageline($im, $this->unit, $y + $this->unit, $wn + 2 * $this->unit, $y + $this->unit, $this->black);
-                imageline($im, $wn + 2 * $this->unit + imagesx($images[$i]) - 1, $y + $this->unit, $w - $this->unit, $y + $this->unit, $this->black);
-                imageline($im, $w - $this->unit, $y + $this->unit / 2, $w - $this->unit, $y + 1.5 * $this->unit, $this->black);
-                $y += 2 * $this->unit + imagesy($images[$i]);
-            }
-
-            imagestring($im, 1, $this->unit, $h - 2 * $this->unit + (2 * $this->unit - imagefontheight(1)) / 2, $meta, $this->silver);
-            $this->rr($im, 5, 5, $w - 5, $h - 5, $this->unit / 2, $this->green);
-
-            return $im;
+            return $this->renderSyntaxNode($node, $leftToRight);
         }
     }
 
@@ -396,5 +237,180 @@ class Renderer {
         }
 
         return $childs;
+    }
+
+    private function renderSyntaxNode($node, $leftToRight) {
+        $title  = $node->getAttribute('title');
+        $meta   = $node->getAttribute('meta');
+        $node   = $node->firstChild;
+        $names  = array();
+        $images = array();
+
+        while ($node != null) {
+            $names[]  = $node->getAttribute('name');
+            $im       = $this->renderNode($node->firstChild, $leftToRight);
+            $images[] = $im;
+            $node     = $node->nextSibling;
+        }
+
+        $wn = 0;
+        $wr = 0;
+        $h  = 5 * $this->unit;
+
+        for ($i = 0; $i < count($images); $i++) {
+            $wn = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
+            $wr = max($wr, imagesx($images[$i]));
+            $h += imagesy($images[$i]) + 2 * $this->unit;
+        }
+
+        if ($title == '') {
+            $h -= 2 * $this->unit;
+        }
+
+        if ($meta == '') {
+            $h -= 2 * $this->unit;
+        }
+
+        $h += 10;
+        $w  = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
+        $im = $this->createImage($w, $h);
+        $y  = 2 * $this->unit;
+
+        if ($title != '') {
+            imagestring($im, $this->font, $this->unit, (2 * $this->unit - imagefontheight($this->font)) / 2, $title, $this->green);
+            imageline($im, 5, 2 * $this->unit, $w - 5, 2 * $this->unit, $this->green);
+            $y += 2 * $this->unit;
+        }
+
+        for ($i = 0; $i < count($images); $i++) {
+            imagestring($im, $this->font, $this->unit, $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2, $names[$i], $this->red);
+            imagecopy($im, $images[$i], $wn + 2 * $this->unit, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
+            imageline($im, $this->unit, $y + $this->unit, $wn + 2 * $this->unit, $y + $this->unit, $this->black);
+            imageline($im, $wn + 2 * $this->unit + imagesx($images[$i]) - 1, $y + $this->unit, $w - $this->unit, $y + $this->unit, $this->black);
+            imageline($im, $w - $this->unit, $y + $this->unit / 2, $w - $this->unit, $y + 1.5 * $this->unit, $this->black);
+            $y += 2 * $this->unit + imagesy($images[$i]);
+        }
+
+        imagestring($im, 1, $this->unit, $h - 2 * $this->unit + (2 * $this->unit - imagefontheight(1)) / 2, $meta, $this->silver);
+        $this->rr($im, 5, 5, $w - 5, $h - 5, $this->unit / 2, $this->green);
+
+        return $im;
+    }
+
+    private function renderChoiseNode($node, $leftToRight) {
+        $inner = $this->renderChilds($node, $leftToRight);
+        $h = (count($inner) - 1) * $this->unit;
+        $w = 0;
+
+        for ($i = 0; $i < count($inner); $i++) {
+            $h += imagesy($inner[$i]);
+            $w = max($w, imagesx($inner[$i]));
+        }
+
+        $w += 6 * $this->unit;
+        $im = $this->createImage($w, $h);
+        $y = 0;
+        imageline($im, 0, $this->unit, $this->unit, $this->unit, $this->black);
+        imageline($im, $w - $this->unit, $this->unit, $w, $this->unit, $this->black);
+
+        for ($i = 0; $i < count($inner); $i++) {
+            imageline($im, $this->unit, $y + $this->unit, $w - $this->unit, $y + $this->unit, $this->black);
+            imagecopy($im, $inner[$i], 3 * $this->unit, $y, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
+            $this->arrow($im, 3 * $this->unit, $y + $this->unit, $leftToRight);
+            $this->arrow($im, $w - 2 * $this->unit, $y + $this->unit, $leftToRight);
+            $top = $y + $this->unit;
+            $y += imagesy($inner[$i]) + $this->unit;
+        }
+
+        imageline($im, $this->unit, $this->unit, $this->unit, $top, $this->black);
+        imageline($im, $w - $this->unit, $this->unit, $w - $this->unit, $top, $this->black);
+
+        return $im;
+    }
+
+    private function renderSequenceNode($node, $leftToRight) {
+        $inner = $this->renderChilds($node, $leftToRight);
+
+        if (!$leftToRight) {
+            $inner = array_reverse($inner);
+        }
+
+        $w = count($inner) * $this->unit - $this->unit;
+        $h = 0;
+
+        for ($i = 0; $i < count($inner); $i++) {
+            $w += imagesx($inner[$i]);
+            $h = max($h, imagesy($inner[$i]));
+        }
+
+        $im = $this->createImage($w, $h);
+        imagecopy($im, $inner[0], 0, 0, 0, 0, imagesx($inner[0]), imagesy($inner[0]));
+        $x = imagesx($inner[0]) + $this->unit;
+
+        for ($i = 1; $i < count($inner); $i++) {
+            imageline($im, $x - $this->unit - 1, $this->unit, $x, $this->unit, $this->black);
+            $this->arrow($im, $x, $this->unit, $leftToRight);
+            imagecopy($im, $inner[$i], $x, 0, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
+            $x += imagesx($inner[$i]) + $this->unit;
+        }
+
+        return $im;
+    }
+
+    private function renderOptionOrLoopNode($node, $leftToRight) {
+        if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
+            $leftToRight = !$leftToRight;
+        }
+
+        $inner = $this->renderNode($node->firstChild, $leftToRight);
+        $w = imagesx($inner) + 6 * $this->unit;
+        $h = imagesy($inner) + 2 * $this->unit;
+        $im = $this->createImage($w, $h);
+        imagecopy($im, $inner, 3 * $this->unit, 2 * $this->unit, 0, 0, imagesx($inner), imagesy($inner));
+        imageline($im, 0, $this->unit, $w, $this->unit, $this->black);
+
+        if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
+            $this->arrow($im, $w / 2 + $this->unit / 2, $this->unit, !$leftToRight);
+        } else {
+            $this->arrow($im, $w / 2 + $this->unit / 2, $this->unit, $leftToRight);
+        }
+
+        $this->arrow($im, 3 * $this->unit, 3 * $this->unit, $leftToRight);
+        $this->arrow($im, $w - 2 * $this->unit, 3 * $this->unit, $leftToRight);
+        imageline($im, $this->unit, $this->unit, $this->unit, 3 * $this->unit, $this->black);
+        imageline($im, $this->unit, 3 * $this->unit, 2 * $this->unit, 3 * $this->unit, $this->black);
+        imageline($im, $w - $this->unit, $this->unit, $w - $this->unit, 3 * $this->unit, $this->black);
+        imageline($im, $w - 3 * $this->unit - 1, 3 * $this->unit, $w - $this->unit, 3 * $this->unit, $this->black);
+
+        return $im;
+    }
+
+    private function renderIdentifierOrTerminal($node, $leftToRight) {
+        $text = $node->getAttribute('value');
+        $w = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
+        $h = 2 * $this->unit;
+        $im = $this->createImage($w, $h);
+
+        if ($node->nodeName !== Parser::NODE_TYPE_TERMINAL) {
+            imagerectangle($im, $this->unit, 0, $w - $this->unit - 1, $h - 1, $this->black);
+            imagestring($im, $this->font, 2 * $this->unit, ($h - imagefontheight($this->font)) / 2, $text, $this->red);
+        } else {
+            if ($text !== "...") {
+                $this->rr($im, $this->unit, 0, $w - $this->unit - 1, $h - 1, $this->unit / 2, $this->black);
+            }
+
+            if ($text !== "...") {
+                $color = $this->blue;
+            } else {
+                $color = $this->black;
+            }
+
+            imagestring($im, $this->font, 2 * $this->unit, ($h - imagefontheight($this->font)) / 2, $text, $color);
+        }
+
+        imageline($im, 0, $this->unit, $this->unit, $this->unit, $this->black);
+        imageline($im, $w - $this->unit, $this->unit, $w + 1, $this->unit, $this->black);
+
+        return $im;
     }
 }
