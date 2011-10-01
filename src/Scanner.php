@@ -57,21 +57,6 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
  * </code>
  */
 class Scanner {
-
-    /**
-     * Definiton of PREGs for tokens.
-     *
-     * @deprecated
-     * @var array
-     */
-    private $lexemes = array(
-        array('type' => Token::OPERATOR,   'expr' => '[={}()|.;[\]]'),
-        array('type' => Token::LITERAL,    'expr' => "\"[^\"]*\""),
-        array('type' => Token::LITERAL,    'expr' => "'[^']*'"),
-        array('type' => Token::IDENTIFIER, 'expr' => "[a-zA-Z0-9_-]+"),
-        array('type' => Token::WHITESPACE, 'expr' => "\\s+")
-    );
-
     /**
      * Grammar string.
      *
@@ -96,7 +81,19 @@ class Scanner {
      * @var int
      */
     private $inputLength;
+    /**
+     * The actual scanned column.
+     * Begins on 1 on each new line.
+     *
+     * @var int
+     */
     private $column;
+    /**
+     * The actual scanned line.
+     * Begins at 1.
+     *
+     * @var int
+     */
     private $line;
     /**
      * @var Token
@@ -120,9 +117,9 @@ class Scanner {
         }
 
         $this->currentCharacter = -1;
-        $this->inputLength  = strlen($this->input);
-        $this->column  = 0;
-        $this->line    = 1;
+        $this->inputLength      = strlen($this->input);
+        $this->column = 0;
+        $this->line   = 1;
     }
 
     /**
@@ -189,46 +186,6 @@ class Scanner {
      */
     public static function isQuote($c) {
         return "'" === $c || '"' === $c;
-    }
-
-    /**
-     * Returns an array of tokens.
-     *
-     * @deprecated
-     * @throws SyntaxtException
-     * @return array
-     */
-    public function scan() {
-        $i = 0;
-        $n = strlen($this->input);
-        $m = count($this->lexemes);
-        $tokens = array();
-
-        while ($i < $n) {
-            $j = 0;
-
-            while ($j < $m && preg_match("/^{$this->lexemes[$j]['expr']}/", substr($this->input, $i), $matches) === 0) {
-                $j++;
-            }
-
-            if ($j < $m) {
-                if ($this->lexemes[$j]['type'] !== Token::WHITESPACE) {
-                    $tokens[] = array(
-                        'type'  => $this->lexemes[$j]['type'],
-                        'value' => $matches[0],
-                        'pos'   => $i
-                    );
-                }
-
-                $i += strlen($matches[0]);
-            } else {
-                $pos = new Position(0, 0, $this->getFile());
-                $msg = "Invalid token at position {$i}: " . substr($this->input, $i, 10) . "...";
-                throw new SyntaxtException($msg, $pos);
-            }
-        }
-
-        return $tokens;
     }
 
     /**
