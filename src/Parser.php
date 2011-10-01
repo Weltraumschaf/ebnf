@@ -82,6 +82,7 @@ class Parser {
     public function __construct(Scanner $scanner) {
         $this->scanner = $scanner;
         $this->current = 0;
+        $this->tokens  = array();
     }
 
     /**
@@ -93,27 +94,31 @@ class Parser {
      * @return DOMDocument
      */
     public function parse() {
-        $this->tokens = $this->scanner->scan();
+        while ($this->scanner->hasNextToken()) {
+            $this->scanner->nextToken();
+            $this->tokens[] = $this->scanner->currentToken();
+        }
+
         $dom    = new DOMDocument();
         $syntax = $dom->createElement("syntax");
         $syntax->setAttribute('meta', self::META);
         $dom->appendChild($syntax);
         $this->current = 0;
+        /* @var $token Token */
         $token = $this->tokens[$this->current++];
 
-        if ($token['type'] === Token::LITERAL) {
-            $syntax->setAttribute('title', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
+        if ($token->isType(Token::LITERAL)) {
+            $syntax->setAttribute('title', stripcslashes(substr($token->getValue(), 1, strlen($token->getValue()) - 2)));
             $token = $this->tokens[$this->current++];
         }
 
         if (!$this->checkToken($token, Token::OPERATOR, '{')) {
-            $pos = new Position(0, 0, $this->scanner->getFile());
-            throw new SyntaxtException("Syntax must start with '{': {$token['pos']}", $pos);
+            throw new SyntaxtException("Syntax must start with '{'", $token->getPosition());
         }
 
         $token = $this->tokens[$this->current];
 
-        while ($this->current < count($this->tokens) && $token['type'] === Token::IDENTIFIER) {
+        while ($this->current < count($this->tokens) && $token->isType(Token::IDENTIFIER)) {
             $syntax->appendChild($this->parseProduction($dom, $this->tokens, $this->current));
 
             if ($this->current < count($this->tokens)) {
@@ -124,15 +129,14 @@ class Parser {
         $this->current++;
 
         if (!$this->checkToken($token, Token::OPERATOR, '}')) {
-            $pos = new Position(0, 0, $this->scanner->getFile());
-            throw new SyntaxtException("Syntax must end with '}': " . $this->tokens[count($this->tokens) - 1]['pos'], $pos);
+            throw new SyntaxtException("Syntax must end with '}'", $token->getPosition());
         }
 
         if ($this->current < count($this->tokens)) {
             $token = $this->tokens[$this->current];
 
-            if ($token['type'] === Token::LITERAL) {
-                $syntax->setAttribute('meta', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
+            if ($token->isType(Token::LITERAL)) {
+                $syntax->setAttribute('meta', stripcslashes(substr($token->getValue(), 1, strlen($token->getValue()) - 2)));
             }
         }
 
@@ -147,28 +151,26 @@ class Parser {
      * @return DOMElement
      */
     private function parseProduction($dom) {
+        /* @var $token Token */
         $token = $this->tokens[$this->current++];
 
-        if ($token['type'] !== Token::IDENTIFIER) {
-            $pos = new Position(0, 0, $this->scanner->getFile());
-            throw new SyntaxtException("Production must start with an identifier'{': {$token['pos']}", $pos);
+        if (!$token->isType(Token::IDENTIFIER)) {
+            throw new SyntaxtException("Production must start with an identifier", $token->getPosition());
         }
 
         $production = $dom->createElement("rule");
-        $production->setAttribute('name', $token['value']);
+        $production->setAttribute('name', $token->getValue());
         $token = $this->tokens[$this->current++];
 
         if (!$this->checkToken($token, Token::OPERATOR, "=")) {
-            $pos = new Position(0, 0, $this->scanner->getFile());
-            throw new SyntaxtException("Identifier must be followed by '=': {$token['pos']}", $pos);
+            throw new SyntaxtException("Identifier must be followed by '='", $token->getPosition());
         }
 
         $production->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
         $token = $this->tokens[$this->current++];
 
         if (!$this->checkToken($token, Token::OPERATOR, '.') && !$this->checkToken($token, Token::OPERATOR, ';')) {
-            $pos = new Position(0, 0, $this->scanner->getFile());
-            throw new SyntaxtException("Rule must end with '.' or ';' : {$token['pos']}", $pos);
+            throw new SyntaxtException("Rule must end with '.' or ';'", $token->getPosition());
         }
 
         return $production;
@@ -184,8 +186,9 @@ class Parser {
     private function parseExpression($dom) {
         $choise = $dom->createElement("choise");
         $choise->appendChild($this->parseTerm($dom, $this->tokens, $this->current));
+        /* @var $token Token */
         $token = $this->tokens[$this->current];
-        $mul = false;
+        $mul   = false;
 
         while ($this->checkToken($token, Token::OPERATOR, '|')) {
             $this->current++;
@@ -194,7 +197,11 @@ class Parser {
             $mul = true;
         }
 
-        return $mul ? $choise : $choise->removeChild($choise->firstChild);
+        if ($mul) {
+            return $choise;
+        }
+
+        return $choise->removeChild($choise->firstChild);
     }
 
     /**
@@ -206,13 +213,14 @@ class Parser {
      */
     private function parseTerm($dom) {
         $sequence = $dom->createElement(self::NODE_TYPE_SEQUENCE);
-        $factor = $this->parseFactor($dom, $this->tokens, $this->current);
+        $factor   = $this->parseFactor($dom, $this->tokens, $this->current);
         $sequence->appendChild($factor);
+        /* @var $token Token */
         $token = $this->tokens[$this->current];
-        $mul = false;
+        $mul   = false;
 
-        while ($token['value'] !== '.' && $token['value'] !== '=' && $token['value'] !== '|' &&
-               $token['value'] !== ')' && $token['value'] !== ']' && $token['value'] !== '}') {
+        while ($token->isNotEqual('.') && $token->isNotEqual('=') && $token->isNotEqual('|') &&
+               $token->isNotEqual(')') && $token->isNotEqual(']') && $token->isNotEqual('}')) {
             $sequence->appendChild($this->parseFactor($dom, $this->tokens, $this->current));
             $token = $this->tokens[$this->current];
             $mul   = true;
@@ -238,18 +246,19 @@ class Parser {
      * @return DOMElement
      */
     private function parseFactor($dom) {
+        /* @var $token Token */
         $token = $this->tokens[$this->current++];
 
-        if ($token['type'] === Token::IDENTIFIER) {
+        if ($token->isType(Token::IDENTIFIER)) {
             $identifier = $dom->createElement(self::NODE_TYPE_IDENTIFIER);
-            $identifier->setAttribute('value', $token['value']);
+            $identifier->setAttribute('value', $token->getValue());
 
             return $identifier;
         }
 
-        if ($token['type'] === Token::LITERAL) {
+        if ($token->isType(Token::LITERAL)) {
             $literal = $dom->createElement(self::NODE_TYPE_TERMINAL);
-            $literal->setAttribute('value', stripcslashes(substr($token['value'], 1, strlen($token['value']) - 2)));
+            $literal->setAttribute('value', stripcslashes(substr($token->getValue(), 1, strlen($token->getValue()) - 2)));
 
             return $literal;
         }
@@ -259,8 +268,7 @@ class Parser {
             $token = $this->tokens[$this->current++];
 
             if (!$this->checkToken($token, Token::OPERATOR, ')')) {
-                $pos = new Position(0, 0, $this->scanner->getFile());
-                throw new SyntaxtException("Group must end with ')': {$token['pos']}", $pos);
+                throw new SyntaxtException("Group must end with ')'", $token->getPosition());
             }
 
             return $expression;
@@ -272,8 +280,7 @@ class Parser {
             $token = $this->tokens[$this->current++];
 
             if (!$this->checkToken($token, Token::OPERATOR, ']')) {
-                $pos = new Position(0, 0, $this->scanner->getFile());
-                throw new SyntaxtException("Option must end with ']': {$token['pos']}", $pos);
+                throw new SyntaxtException("Option must end with ']'", $token->getPosition());
             }
 
             return $option;
@@ -285,18 +292,16 @@ class Parser {
             $token = $this->tokens[$this->current++];
 
             if (!$this->checkToken($token, Token::OPERATOR, '}')) {
-                $pos = new Position(0, 0, $this->scanner->getFile());
-                throw new SyntaxtException("Loop must end with '}': {$token['pos']}", $pos);
+                throw new SyntaxtException("Loop must end with '}'", $token->getPosition());
             }
 
             return $loop;
         }
 
-        $pos = new Position(0, 0, $this->scanner->getFile());
-        throw new SyntaxtException("Factor expected: {$token['pos']}", $pos);
+        throw new SyntaxtException("Factor expected", $token->getPosition());
     }
 
-    private function checkToken($token, $type, $value) {
-        return $token['type'] === $type && $token['value'] === $value;
+    private function checkToken(Token $token, $type, $value) {
+        return $token->getType() === $type && $token->getValue() === $value;
     }
 }
