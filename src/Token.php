@@ -116,6 +116,10 @@ class Token {
         return $this->position;
     }
 
+    public function isType($t) {
+        return $this->getType() === (int)$t;
+    }
+
     /**
      * Human readable string representation.
      *
