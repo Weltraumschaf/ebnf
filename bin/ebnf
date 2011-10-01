@@ -107,10 +107,10 @@ try {
     $renderer = new Renderer($format, $outfile, $dom);
     $renderer->save();
     exit(0);
-} catch (Exception $e) {
-    echo "Error: {$e->getMessage()}\n";
-    exit(1);
 } catch (SyntaxtException $e) {
     echo "Syntax Error: {$e}\n";
+    exit(1);
+} catch (Exception $e) {
+    echo "Error: {$e->getMessage()}\n";
     exit(1);
 }

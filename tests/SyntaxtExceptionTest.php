@@ -29,11 +29,11 @@ class SyntaxtExceptionTest extends \PHPUnit_Framework_TestCase {
 
     public function testToString() {
         $e = new SyntaxtException("foo bar", new Position(3, 4));
-        $this->assertEquals("Error: foo bar at (3, 4) (0)!", $e->__toString());
+        $this->assertEquals("Error: foo bar at (3, 4) (code: 0)!", $e->__toString());
         $e = new SyntaxtException("foo bar", new Position(3, 4), 4);
-        $this->assertEquals("Error: foo bar at (3, 4) (4)!", $e->__toString());
+        $this->assertEquals("Error: foo bar at (3, 4) (code: 4)!", $e->__toString());
         $e = new SyntaxtException("foo bar", new Position(3, 4, "foo.ebnf"));
-        $this->assertEquals("Error: foo bar at foo.ebnf (3, 4) (0)!", $e->__toString());
+        $this->assertEquals("Error: foo bar at foo.ebnf (3, 4) (code: 0)!", $e->__toString());
     }
 
 }

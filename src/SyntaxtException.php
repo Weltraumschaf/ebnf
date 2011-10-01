@@ -61,7 +61,7 @@ class SyntaxtException extends \Exception {
      * @return string
      */
     public function __toString() {
-        return "Error: {$this->getMessage()} at {$this->getPosition()} ({$this->getCode()})!";
+        return "Error: {$this->getMessage()} at {$this->getPosition()} (code: {$this->getCode()})!";
     }
 
 }
