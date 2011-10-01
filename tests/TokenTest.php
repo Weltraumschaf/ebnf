@@ -98,4 +98,14 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($t->isType(Token::LITERAL));
         $this->assertFalse($t->isType(Token::EOF));
     }
+
+    public function testIsEquals() {
+        $p = new Position(5, 10);
+        $t = new Token(Token::LITERAL, "foo", $p);
+        $this->assertTrue($t->isEqual("foo"));
+        $this->assertFalse($t->isEqual("bar"));
+
+        $this->assertFalse($t->isNotEqual("foo"));
+        $this->assertTrue($t->isNotEqual("bar"));
+    }
 }

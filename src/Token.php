@@ -116,8 +116,34 @@ class Token {
         return $this->position;
     }
 
-    public function isType($t) {
-        return $this->getType() === (int)$t;
+    /**
+     * Wheter it is of the type or not.
+     *
+     * @param int $type
+     * @return bool
+     */
+    public function isType($type) {
+        return $this->getType() === (int)$type;
+    }
+
+    /**
+     * Wheter the token value is equal to the passed string.
+     *
+     * @param string $string
+     * @return bool
+     */
+    public function isEqual($string) {
+        return $this->getValue() === (string)$string;
+    }
+
+    /**
+     * Wheter the token value is NOT equal to the passed string.
+     *
+     * @param string $string
+     * @return bool
+     */
+    public function isNotEqual($string) {
+        return !$this->isEqual($string);
     }
 
     /**
