@@ -1,2 +1,6 @@
 .DS_Store
 /nbproject/private/
+*.png
+*.jpg
+*.gif
+*.xml
