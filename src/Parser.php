@@ -119,7 +119,7 @@ class Parser {
         $token = $this->tokens[$this->current];
 
         while ($this->current < count($this->tokens) && $token->isType(Token::IDENTIFIER)) {
-            $syntax->appendChild($this->parseProduction($dom, $this->tokens, $this->current));
+            $syntax->appendChild($this->parseProduction($dom));
 
             if ($this->current < count($this->tokens)) {
                 $token = $this->tokens[$this->current];
@@ -166,7 +166,7 @@ class Parser {
             throw new SyntaxtException("Identifier must be followed by '='", $token->getPosition());
         }
 
-        $production->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
+        $production->appendChild($this->parseExpression($dom));
         $token = $this->tokens[$this->current++];
 
         if (!$this->assertToken($token, Token::OPERATOR, '.') && !$this->assertToken($token, Token::OPERATOR, ';')) {
@@ -185,14 +185,14 @@ class Parser {
      */
     private function parseExpression($dom) {
         $choise = $dom->createElement("choise");
-        $choise->appendChild($this->parseTerm($dom, $this->tokens, $this->current));
+        $choise->appendChild($this->parseTerm($dom));
         /* @var $token Token */
         $token = $this->tokens[$this->current];
         $mul   = false;
 
         while ($this->assertToken($token, Token::OPERATOR, '|')) {
             $this->current++;
-            $choise->appendChild($this->parseTerm($dom, $this->tokens, $this->current));
+            $choise->appendChild($this->parseTerm($dom));
             $token = $this->tokens[$this->current];
             $mul = true;
         }
@@ -213,7 +213,7 @@ class Parser {
      */
     private function parseTerm($dom) {
         $sequence = $dom->createElement(self::NODE_TYPE_SEQUENCE);
-        $factor   = $this->parseFactor($dom, $this->tokens, $this->current);
+        $factor   = $this->parseFactor($dom);
         $sequence->appendChild($factor);
         /* @var $token Token */
         $token = $this->tokens[$this->current];
@@ -221,7 +221,7 @@ class Parser {
 
         while ($token->isNotEqual('.') && $token->isNotEqual('=') && $token->isNotEqual('|') &&
                $token->isNotEqual(')') && $token->isNotEqual(']') && $token->isNotEqual('}')) {
-            $sequence->appendChild($this->parseFactor($dom, $this->tokens, $this->current));
+            $sequence->appendChild($this->parseFactor($dom));
             $token = $this->tokens[$this->current];
             $mul   = true;
         }
@@ -264,7 +264,7 @@ class Parser {
         }
 
         if ($this->assertToken($token, Token::OPERATOR, '(')) {
-            $expression = $this->parseExpression($dom, $this->tokens, $this->current);
+            $expression = $this->parseExpression($dom);
             $token = $this->tokens[$this->current++];
 
             if (!$this->assertToken($token, Token::OPERATOR, ')')) {
@@ -276,7 +276,7 @@ class Parser {
 
         if ($this->assertToken($token, Token::OPERATOR, '[')) {
             $option = $dom->createElement(self::NODE_TYPE_OPTION);
-            $option->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
+            $option->appendChild($this->parseExpression($dom));
             $token = $this->tokens[$this->current++];
 
             if (!$this->assertToken($token, Token::OPERATOR, ']')) {
@@ -288,7 +288,7 @@ class Parser {
 
         if ($this->assertToken($token, Token::OPERATOR, '{')) {
             $loop = $dom->createElement(self::NODE_TYPE_LOOP);
-            $loop->appendChild($this->parseExpression($dom, $this->tokens, $this->current));
+            $loop->appendChild($this->parseExpression($dom));
             $token = $this->tokens[$this->current++];
 
             if (!$this->assertToken($token, Token::OPERATOR, '}')) {
