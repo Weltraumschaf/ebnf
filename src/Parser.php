@@ -61,19 +61,7 @@ class Parser {
      * @var Scanner
      */
     private $scanner;
-    /**
-     * Current token.
-     *
-     * @var int
-     */
-    private $current;
-    /**
-     * Array of tokens.
-     *
-     * @var array
-     */
-    private $tokens;
-
+    
     /**
      * Initialized with a scanner which produced the token stream.
      *
@@ -81,8 +69,6 @@ class Parser {
      */
     public function __construct(Scanner $scanner) {
         $this->scanner = $scanner;
-        $this->current = 0;
-        $this->tokens  = array();
     }
 
     /**
@@ -94,46 +80,39 @@ class Parser {
      * @return DOMDocument
      */
     public function parse() {
-        while ($this->scanner->hasNextToken()) {
-            $this->scanner->nextToken();
-            $this->tokens[] = $this->scanner->currentToken();
-        }
-
         $dom    = new DOMDocument();
         $syntax = $dom->createElement("syntax");
         $syntax->setAttribute('meta', self::META);
         $dom->appendChild($syntax);
-        $this->current = 0;
-        /* @var $token Token */
-        $token = $this->tokens[$this->current++];
+        $this->scanner->nextToken();
+        $token = $this->scanner->currentToken();
+        $this->scanner->nextToken();
 
         if ($token->isType(Token::LITERAL)) {
             $syntax->setAttribute('title', stripcslashes(substr($token->getValue(), 1, strlen($token->getValue()) - 2)));
-            $token = $this->tokens[$this->current++];
+            $token = $this->scanner->currentToken();
+            $this->scanner->nextToken();
         }
 
         if (!$this->assertToken($token, Token::OPERATOR, '{')) {
             throw new SyntaxtException("Syntax must start with '{'", $token->getPosition());
         }
 
-        $token = $this->tokens[$this->current];
+        $token = $this->scanner->currentToken();
 
-        while ($this->current < count($this->tokens) && $token->isType(Token::IDENTIFIER)) {
+        while ($this->scanner->hasNextToken() && $token->isType(Token::IDENTIFIER)) {
             $syntax->appendChild($this->parseProduction($dom));
-
-            if ($this->current < count($this->tokens)) {
-                $token = $this->tokens[$this->current];
-            }
+            $token = $this->scanner->currentToken();
         }
 
-        $this->current++;
+        $this->scanner->nextToken();
 
         if (!$this->assertToken($token, Token::OPERATOR, '}')) {
             throw new SyntaxtException("Syntax must end with '}'", $token->getPosition());
         }
 
-        if ($this->current < count($this->tokens)) {
-            $token = $this->tokens[$this->current];
+        if ($this->scanner->hasNextToken()) {
+            $token = $this->scanner->currentToken();
 
             if ($token->isType(Token::LITERAL)) {
                 $syntax->setAttribute('meta', stripcslashes(substr($token->getValue(), 1, strlen($token->getValue()) - 2)));
@@ -151,8 +130,8 @@ class Parser {
      * @return DOMElement
      */
     private function parseProduction($dom) {
-        /* @var $token Token */
-        $token = $this->tokens[$this->current++];
+        $token = $this->scanner->currentToken();
+        $this->scanner->nextToken();
 
         if (!$token->isType(Token::IDENTIFIER)) {
             throw new SyntaxtException("Production must start with an identifier", $token->getPosition());
@@ -160,14 +139,16 @@ class Parser {
 
         $production = $dom->createElement("rule");
         $production->setAttribute('name', $token->getValue());
-        $token = $this->tokens[$this->current++];
+        $token = $this->scanner->currentToken();
+        $this->scanner->nextToken();
 
         if (!$this->assertToken($token, Token::OPERATOR, "=")) {
             throw new SyntaxtException("Identifier must be followed by '='", $token->getPosition());
         }
 
         $production->appendChild($this->parseExpression($dom));
-        $token = $this->tokens[$this->current++];
+        $token = $this->scanner->currentToken();
+        $this->scanner->nextToken();
 
         if (!$this->assertToken($token, Token::OPERATOR, '.') && !$this->assertToken($token, Token::OPERATOR, ';')) {
             throw new SyntaxtException("Rule must end with '.' or ';'", $token->getPosition());
@@ -186,15 +167,14 @@ class Parser {
     private function parseExpression($dom) {
         $choise = $dom->createElement("choise");
         $choise->appendChild($this->parseTerm($dom));
-        /* @var $token Token */
-        $token = $this->tokens[$this->current];
+        $token = $this->scanner->currentToken();
         $mul   = false;
 
         while ($this->assertToken($token, Token::OPERATOR, '|')) {
-            $this->current++;
+            $this->scanner->nextToken();
             $choise->appendChild($this->parseTerm($dom));
-            $token = $this->tokens[$this->current];
-            $mul = true;
+            $token = $this->scanner->currentToken();
+            $mul   = true;
         }
 
         if ($mul) {
@@ -215,14 +195,13 @@ class Parser {
         $sequence = $dom->createElement(self::NODE_TYPE_SEQUENCE);
         $factor   = $this->parseFactor($dom);
         $sequence->appendChild($factor);
-        /* @var $token Token */
-        $token = $this->tokens[$this->current];
+        $token = $this->scanner->currentToken();
         $mul   = false;
 
         while ($token->isNotEqual('.') && $token->isNotEqual('=') && $token->isNotEqual('|') &&
                $token->isNotEqual(')') && $token->isNotEqual(']') && $token->isNotEqual('}')) {
             $sequence->appendChild($this->parseFactor($dom));
-            $token = $this->tokens[$this->current];
+            $token = $this->scanner->currentToken();
             $mul   = true;
         }
 
@@ -246,8 +225,8 @@ class Parser {
      * @return DOMElement
      */
     private function parseFactor($dom) {
-        /* @var $token Token */
-        $token = $this->tokens[$this->current++];
+        $token = $this->scanner->currentToken();
+        $this->scanner->nextToken();
 
         if ($token->isType(Token::IDENTIFIER)) {
             $identifier = $dom->createElement(self::NODE_TYPE_IDENTIFIER);
@@ -265,7 +244,8 @@ class Parser {
 
         if ($this->assertToken($token, Token::OPERATOR, '(')) {
             $expression = $this->parseExpression($dom);
-            $token = $this->tokens[$this->current++];
+            $token = $this->scanner->currentToken();
+            $this->scanner->nextToken();
 
             if (!$this->assertToken($token, Token::OPERATOR, ')')) {
                 throw new SyntaxtException("Group must end with ')'", $token->getPosition());
@@ -277,7 +257,8 @@ class Parser {
         if ($this->assertToken($token, Token::OPERATOR, '[')) {
             $option = $dom->createElement(self::NODE_TYPE_OPTION);
             $option->appendChild($this->parseExpression($dom));
-            $token = $this->tokens[$this->current++];
+            $token = $this->scanner->currentToken();
+            $this->scanner->nextToken();
 
             if (!$this->assertToken($token, Token::OPERATOR, ']')) {
                 throw new SyntaxtException("Option must end with ']'", $token->getPosition());
@@ -289,7 +270,8 @@ class Parser {
         if ($this->assertToken($token, Token::OPERATOR, '{')) {
             $loop = $dom->createElement(self::NODE_TYPE_LOOP);
             $loop->appendChild($this->parseExpression($dom));
-            $token = $this->tokens[$this->current++];
+            $token = $this->scanner->currentToken();
+            $this->scanner->nextToken();
 
             if (!$this->assertToken($token, Token::OPERATOR, '}')) {
                 throw new SyntaxtException("Loop must end with '}'", $token->getPosition());
