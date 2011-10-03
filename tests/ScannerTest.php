@@ -171,7 +171,7 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
 
     public function testNext() {
 $grammar = <<<EOD
-title      = literal .
+title      = literal . (* Comment * at the end of line *)
 comment    = literal .
 EOD;
         $expectations = array(
@@ -179,6 +179,8 @@ EOD;
             array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
             array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
             array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
+            array("value" => "(* Comment * at the end of line *)",
+                                        "type" => Token::COMMENT,    "line" => 1, "col" => 24),
             array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
             array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
             array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),

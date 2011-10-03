@@ -27,7 +27,7 @@ namespace Weltraumschaf\Ebnf;
 class Token {
     const OPERATOR   = 1;
     const LITERAL    = 2;
-    const WHITESPACE = 3; // obsolete
+    const COMMENT    = 3;
     const IDENTIFIER = 4;
     const EOF        = 5;
 
@@ -58,7 +58,7 @@ class Token {
     private static $map = array(
         self::OPERATOR   => "OPERATOR",
         self::LITERAL    => "LITERAL",
-        self::WHITESPACE => "WHITESPACE",
+        self::COMMENT    => "COMMENT",
         self::IDENTIFIER => "IDENTIFIER",
         self::EOF        => "EOF"
     );

@@ -234,6 +234,18 @@ class Scanner {
     }
 
     /**
+     * Returns next character without advancing the cursor.
+     *
+     * @return string
+     */
+    private function peekCharacter() {
+        $this->nextCharacter();
+        $c = $this->currentCharacter();
+        $this->backupCharacter();
+        return $c;
+    }
+
+    /**
      * Throws a {SyntaxException} with the current {Position} in the input stream.
      *
      * @param string $msg
@@ -294,6 +306,11 @@ class Scanner {
                 $this->currentToken = $this->scanLiteral();
                 return;
             } else if (self::isOperator($this->currentCharacter())) {
+                if ("(" === $this->currentCharacter() && "*" === $this->peekCharacter()) {
+                    $this->currentToken = $this->scanComment();
+                    return;
+                }
+
                 $this->currentToken = new Token(Token::OPERATOR, $this->currentCharacter(), $this->createPosition());
                 return;
             } else if (self::isWhiteSpace($this->currentCharacter())) {
@@ -316,7 +333,7 @@ class Scanner {
      *
      * @return Token
      */
-    protected function scannIdentifier() {
+    private function scannIdentifier() {
         $pos = $this->createPosition();
         $str = $this->currentCharacter();
 
@@ -339,7 +356,7 @@ class Scanner {
      *
      * @return Token
      */
-    protected function scanLiteral() {
+    private function scanLiteral() {
         $pos   = $this->createPosition();
         $start = $this->currentCharacter();
         $str   = $start;
@@ -348,6 +365,7 @@ class Scanner {
             $this->nextCharacter();
             $str .= $this->currentCharacter();
 
+            // Ensure that a lieral opened with " is not temrinated by ' and vice versa.
             if (self::isQuote($this->currentCharacter()) && $this->currentCharacter() === $start) {
                 break;
             }
@@ -356,4 +374,21 @@ class Scanner {
         return new Token(Token::LITERAL, $str, $pos);
     }
 
+    private function scanComment() {
+        $pos = $this->createPosition();
+        $str = $this->currentCharacter();
+
+        while ($this->hasNextCharacter()) {
+            $this->nextCharacter();
+            $str .= $this->currentCharacter();
+
+            if ("*" === $this->currentCharacter() && ")" === $this->peekCharacter()) {
+                $this->nextCharacter();
+                $str .= $this->currentCharacter();
+                break;
+            }
+        }
+
+        return new Token(Token::COMMENT, $str, $pos);
+    }
 }

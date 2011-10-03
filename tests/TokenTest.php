@@ -32,8 +32,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("OPERATOR", $t->getTypeAsString());
         $t = new Token(Token::IDENTIFIER, "", $p);
         $this->assertEquals("IDENTIFIER", $t->getTypeAsString());
-        $t = new Token(Token::WHITESPACE, "", $p);
-        $this->assertEquals("WHITESPACE", $t->getTypeAsString());
+        $t = new Token(Token::COMMENT, "", $p);
+        $this->assertEquals("COMMENT", $t->getTypeAsString());
         $t = new Token(Token::LITERAL, "", $p);
         $this->assertEquals("LITERAL", $t->getTypeAsString());
         $t = new Token(Token::EOF, "", $p);
@@ -59,19 +59,19 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $t = new Token(Token::OPERATOR, "", $p);
         $this->assertTrue($t->isType(Token::OPERATOR));
         $this->assertFalse($t->isType(Token::IDENTIFIER));
-        $this->assertFalse($t->isType(Token::WHITESPACE));
+        $this->assertFalse($t->isType(Token::COMMENT));
         $this->assertFalse($t->isType(Token::LITERAL));
         $this->assertFalse($t->isType(Token::EOF));
 
         $t = new Token(Token::IDENTIFIER, "", $p);
         $this->assertTrue($t->isType(Token::IDENTIFIER));
         $this->assertFalse($t->isType(Token::OPERATOR));
-        $this->assertFalse($t->isType(Token::WHITESPACE));
+        $this->assertFalse($t->isType(Token::COMMENT));
         $this->assertFalse($t->isType(Token::LITERAL));
         $this->assertFalse($t->isType(Token::EOF));
 
-        $t = new Token(Token::WHITESPACE, "", $p);
-        $this->assertTrue($t->isType(Token::WHITESPACE));
+        $t = new Token(Token::COMMENT, "", $p);
+        $this->assertTrue($t->isType(Token::COMMENT));
         $this->assertFalse($t->isType(Token::IDENTIFIER));
         $this->assertFalse($t->isType(Token::OPERATOR));
         $this->assertFalse($t->isType(Token::LITERAL));
@@ -80,21 +80,21 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $t = new Token(Token::LITERAL, "", $p);
         $this->assertTrue($t->isType(Token::LITERAL));
         $this->assertFalse($t->isType(Token::IDENTIFIER));
-        $this->assertFalse($t->isType(Token::WHITESPACE));
+        $this->assertFalse($t->isType(Token::COMMENT));
         $this->assertFalse($t->isType(Token::OPERATOR));
         $this->assertFalse($t->isType(Token::EOF));
 
         $t = new Token(Token::EOF, "", $p);
         $this->assertTrue($t->isType(Token::EOF));
         $this->assertFalse($t->isType(Token::IDENTIFIER));
-        $this->assertFalse($t->isType(Token::WHITESPACE));
+        $this->assertFalse($t->isType(Token::COMMENT));
         $this->assertFalse($t->isType(Token::LITERAL));
         $this->assertFalse($t->isType(Token::OPERATOR));
 
         $t = new Token(4711, "", $p);
         $this->assertFalse($t->isType(Token::OPERATOR));
         $this->assertFalse($t->isType(Token::IDENTIFIER));
-        $this->assertFalse($t->isType(Token::WHITESPACE));
+        $this->assertFalse($t->isType(Token::COMMENT));
         $this->assertFalse($t->isType(Token::LITERAL));
         $this->assertFalse($t->isType(Token::EOF));
     }
