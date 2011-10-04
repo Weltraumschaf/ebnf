@@ -17,7 +17,7 @@
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
-namespace Weltraumschaf\Ebnf;
+namespace de\weltraumschaf\ebnf;
 
 use \DOMDocument as DOMDocument;
 use \DOMElement  as DOMElement;
@@ -61,7 +61,7 @@ class Parser {
      * @var Scanner
      */
     private $scanner;
-    
+
     /**
      * Initialized with a scanner which produced the token stream.
      *

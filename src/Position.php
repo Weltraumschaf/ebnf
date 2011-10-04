@@ -17,7 +17,7 @@
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
-namespace Weltraumschaf\Ebnf;
+namespace de\weltraumschaf\ebnf;
 
 /**
  * Represents a token position in the source string.
@@ -99,7 +99,7 @@ class Position {
      */
     public function __toString() {
         $str = "";
-        
+
         if ($this->getFile() !== null ) {
             $str = "{$this->getFile()} ";
         }

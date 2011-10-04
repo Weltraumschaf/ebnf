@@ -17,7 +17,7 @@
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
-namespace Weltraumschaf\Ebnf;
+namespace de\weltraumschaf\ebnf;
 
 /**
  * Represents a scanned EBNF token with its type, value and position in the source file.

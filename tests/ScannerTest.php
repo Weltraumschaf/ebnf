@@ -17,7 +17,7 @@
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
-namespace Weltraumschaf\Ebnf;
+namespace de\weltraumschaf\ebnf;
 
 require_once "Scanner.php";
 
