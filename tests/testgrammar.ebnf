@@ -1,4 +1,4 @@
-"EBNF defined in itself" {
+"EBNF defined in itself." {
   syntax     = [ title ] "{" { rule } "}" [ comment ] .
   rule       = identifier "=" expression ( "." | ";" ) .
   expression = term { "|" term } .
