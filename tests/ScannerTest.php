@@ -216,8 +216,8 @@ EOD;
 
         $grammar = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "testgrammar.ebnf");
         $expectations = array(
-            array("value" => '"EBNF defined in itself"',   "type" => Token::LITERAL, "line" => 1, "col" => 1),
-            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 1,  "col" => 26),
+            array("value" => '"EBNF defined in itself."',   "type" => Token::LITERAL, "line" => 1, "col" => 1),
+            array("value" => "{",          "type" => Token::OPERATOR,   "line" => 1,  "col" => 27),
             array("value" => "syntax",     "type" => Token::IDENTIFIER, "line" => 2,  "col" => 3),
             array("value" => "=",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 14),
             array("value" => "[",          "type" => Token::OPERATOR,   "line" => 2,  "col" => 16),
@@ -427,11 +427,11 @@ EOD;
             $scanner->nextToken();
             $token = $scanner->currentToken();
             $expectation = $expectations[$count];
-            $this->assertInstanceOf("Weltraumschaf\Ebnf\Token", $token, "{$msg} {$count}: {$token->getValue()}");
+            $this->assertInstanceOf("de\weltraumschaf\ebnf\Token", $token, "{$msg} {$count}: {$token->getValue()}");
             $this->assertEquals($expectation["type"], $token->getType(), "{$msg} {$count}: {$token->getValue()}");
             $this->assertEquals($expectation["value"], $token->getValue(), "{$msg} {$count}: {$token->getValue()}");
             $position = $token->getPosition();
-            $this->assertInstanceOf("Weltraumschaf\Ebnf\Position", $position, "{$msg} {$count}: {$token->getValue()}");
+            $this->assertInstanceOf("de\weltraumschaf\ebnf\Position", $position, "{$msg} {$count}: {$token->getValue()}");
             $this->assertNull($position->getFile(), $count);
             $this->assertEquals($expectation["line"], $position->getLine(), "{$msg} {$count}: {$token->getValue()}");
             $this->assertEquals($expectation["col"], $position->getColumn(), "{$msg} {$count}: {$token->getValue()}");
