@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,13 +48,14 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 class Parser {
     const META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
+    const NODE_TYPE_CHOICE     = "choice";
     const NODE_TYPE_IDENTIFIER = "identifier";
-    const NODE_TYPE_TERMINAL   = "terminal";
-    const NODE_TYPE_OPTION     = "option";
     const NODE_TYPE_LOOP       = "loop";
+    const NODE_TYPE_OPTION     = "option";
+    const NODE_TYPE_RULE       = "rule";
     const NODE_TYPE_SEQUENCE   = "sequence";
-    const NODE_TYPE_CHOISE     = "choise";
     const NODE_TYPE_SYNTAX     = "syntax";
+    const NODE_TYPE_TERMINAL   = "terminal";
 
     /**
      * Used to receive the tokens.
@@ -81,7 +83,7 @@ class Parser {
      */
     public function parse() {
         $dom    = new DOMDocument();
-        $syntax = $dom->createElement("syntax");
+        $syntax = $dom->createElement(self::NODE_TYPE_SYNTAX);
         $syntax->setAttribute('meta', self::META);
         $dom->appendChild($syntax);
         $this->scanner->nextToken();
@@ -137,7 +139,7 @@ class Parser {
             throw new SyntaxtException("Production must start with an identifier", $token->getPosition());
         }
 
-        $production = $dom->createElement("rule");
+        $production = $dom->createElement(self::NODE_TYPE_RULE);
         $production->setAttribute('name', $token->getValue());
         $token = $this->scanner->currentToken();
         $this->scanner->nextToken();
@@ -165,23 +167,23 @@ class Parser {
      * @return DOMElement
      */
     private function parseExpression($dom) {
-        $choise = $dom->createElement("choise");
-        $choise->appendChild($this->parseTerm($dom));
+        $choice = $dom->createElement(self::NODE_TYPE_CHOICE);
+        $choice->appendChild($this->parseTerm($dom));
         $token = $this->scanner->currentToken();
         $mul   = false;
 
         while ($this->assertToken($token, Token::OPERATOR, '|')) {
             $this->scanner->nextToken();
-            $choise->appendChild($this->parseTerm($dom));
+            $choice->appendChild($this->parseTerm($dom));
             $token = $this->scanner->currentToken();
             $mul   = true;
         }
 
         if ($mul) {
-            return $choise;
+            return $choice;
         }
 
-        return $choise->removeChild($choise->firstChild);
+        return $choice->removeChild($choice->firstChild);
     }
 
     /**

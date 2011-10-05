@@ -220,7 +220,7 @@ class Renderer {
             return $this->renderOptionOrLoopNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_SEQUENCE) {
             return $this->renderSequenceNode($node, $leftToRight);
-        } else if ($node->nodeName === Parser::NODE_TYPE_CHOISE) {
+        } else if ($node->nodeName === Parser::NODE_TYPE_CHOICE) {
             return $this->renderChoiseNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_SYNTAX) {
             return $this->renderSyntaxNode($node, $leftToRight);
