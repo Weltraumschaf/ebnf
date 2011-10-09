@@ -101,10 +101,38 @@ class Token {
     /**
      * Returns the scanned token string.
      *
+     * @param bool $unquote Whether to unquote a literal value.
      * @return string
      */
-    public function getValue() {
+    public function getValue($unquote = false) {
+        if ($unquote) {
+            return self::unquoteString($this->value);
+        }
+
         return $this->value;
+    }
+
+    /**
+     * Checks if a passes string is encapsulated in quotes and removes them.
+     * Also unescape inside quotes.
+     *
+     * @param string $str
+     * @return string
+     */
+    public static function unquoteString($str) {
+        $start  = 0;
+        $length = strlen($str) - 1;
+
+        if (Scanner::isQuote($str[$start])) {
+            $start++;
+        }
+
+        if (Scanner::isQuote($str[$length])) {
+            $length--;
+        }
+
+        $str = substr($str, $start, $length);
+        return stripcslashes($str);
     }
 
     /**

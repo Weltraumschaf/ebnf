@@ -108,4 +108,17 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($t->isNotEqual("foo"));
         $this->assertTrue($t->isNotEqual("bar"));
     }
+
+    public function testUnquoteString() {
+        $this->assertEquals('a test string', Token::unquoteString('"a test string"'));
+        $this->assertEquals('a "test" string', Token::unquoteString('"a "test" string"'));
+        $this->assertEquals('a "test" string', Token::unquoteString('"a \"test\" string"'));
+        $this->assertEquals("a test string", Token::unquoteString("'a test string'"));
+        $this->assertEquals("a 'test' string", Token::unquoteString("'a 'test' string'"));
+        $this->assertEquals("a 'test' string", Token::unquoteString("'a \'test\' string'"));
+
+        $t = new Token(0, '"a \"test\" string"', new Position(0, 0));
+        $this->assertEquals('"a \"test\" string"', $t->getValue());
+        $this->assertEquals('a "test" string', $t->getValue(true));
+    }
 }
