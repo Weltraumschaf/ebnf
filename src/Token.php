@@ -165,6 +165,22 @@ class Token {
     }
 
     /**
+     * Test if the token value is equal to one the passed strings.
+     *
+     * @param array $strings Array of strings.
+     * @return bool
+     */
+    public function isEquals(array $strings) {
+        foreach ($strings as $string) {
+            if ($this->isEqual($string)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Wheter the token value is NOT equal to the passed string.
      *
      * @param string $string
@@ -172,6 +188,16 @@ class Token {
      */
     public function isNotEqual($string) {
         return !$this->isEqual($string);
+    }
+
+    /**
+     * Test if the token value is NOT equal to one the passed strings.
+     *
+     * @param array $strings Array of strings.
+     * @return bool
+     */
+    public function isNotEquals(array $strings) {
+        return !$this->isEquals($strings);
     }
 
     /**

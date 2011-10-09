@@ -99,7 +99,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($t->isType(Token::EOF));
     }
 
-    public function testIsEquals() {
+    public function testIsEqual() {
         $p = new Position(5, 10);
         $t = new Token(Token::LITERAL, "foo", $p);
         $this->assertTrue($t->isEqual("foo"));
@@ -107,6 +107,22 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertFalse($t->isNotEqual("foo"));
         $this->assertTrue($t->isNotEqual("bar"));
+    }
+
+    public function testIsEquals() {
+        $tokens = array(
+            new Token(0, "a", new Position(0, 0)),
+            new Token(0, "b", new Position(0, 0)),
+            new Token(0, "c", new Position(0, 0)),
+        );
+
+        foreach ($tokens as $token) {
+            /* @var $token Token */
+            $this->assertTrue($token->isEquals(array("a", "b", "c")), $token->getValue());
+            $this->assertFalse($token->isEquals(array("x", "y", "z")), $token->getValue());
+            $this->assertTrue($token->isNotEqual(array("x", "y", "z")), $token->getValue());
+            $this->assertFalse($token->isEqual(array("x", "y", "z")), $token->getValue());
+        }
     }
 
     public function testUnquoteString() {
