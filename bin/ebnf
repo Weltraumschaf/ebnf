@@ -26,6 +26,12 @@ require_once dirname(__DIR__) . "/src/Scanner.php";
 require_once dirname(__DIR__) . "/src/Parser.php";
 require_once dirname(__DIR__) . "/src/Renderer.php";
 
+define("EBNF_OK", 0);
+define("EBNF_READ_ERROR", 1);
+define("EBNF_NO_SYNTAX", 2);
+define("EBNF_SYNTAX_ERROR", 3);
+define("EBNF_FATAL_ERROR", 4);
+
 // input example
 $input = <<<EOD
 "EBNF defined in itself" {
@@ -53,6 +59,7 @@ Usage: ebnf -s <file> [-o <file>] [-f png|jpg|gif|xml] [-h]
   -o <file>  Output file. If omitted the input file name is used and the file extensions
              will be substituded with the format.
   -f format  Format for generated image (png, jpg, gif, xml). Default is png.
+  -d         Enables debug output.
   -h         This help.
 
 Example grammar:
@@ -61,11 +68,16 @@ EOD;
 
 $format  = Renderer::FORMAT_PNG;
 $outfile = "";
-$opts    = getopt("s:f:o:h");
+$opts    = getopt("s:f:o:hd");
+$debug = false;
 
 if (isset($opts["h"])) {
     echo $usage;
-    exit(0);
+    exit(EBNF_OK);
+}
+
+if (isset($opts["d"])) {
+    $debug = true;
 }
 
 if (isset($opts["s"]) && !empty($opts["s"])) {
@@ -73,19 +85,19 @@ if (isset($opts["s"]) && !empty($opts["s"])) {
 
     if (!is_readable($infile)) {
         echo "Can't read EBNF file '{$infile}'!\n";
-        exit(1);
+        exit(EBNF_READ_ERROR);
     }
 
     $input = file_get_contents($infile);
 
     if (false === $input || empty($input)) {
         echo "Can't read content from EBNF file '{$infile}'!\n";
-        exit(1);
+        exit(EBNF_READ_ERROR);
     }
 } else {
     echo "Error: Please specify a syntax file!\n\n";
     echo $usage;
-    exit(1);
+    exit(EBNF_NO_SYNTAX);
 }
 
 if (isset($opts["f"]) && !empty($opts["f"])) {
@@ -106,11 +118,21 @@ try {
     $dom      = $parser->parse();
     $renderer = new Renderer($format, $outfile, $dom);
     $renderer->save();
-    exit(0);
+    exit(EBNF_OK);
 } catch (SyntaxtException $e) {
     echo "{$e}\n";
-    exit(1);
+
+    if ($debug) {
+        echo "{$e->getTraceAsString()}\n";
+    }
+
+    exit(EBNF_SYNTAX_ERROR);
 } catch (Exception $e) {
     echo "Error: {$e->getMessage()}\n";
-    exit(1);
+
+    if ($debug) {
+        echo "{$e->getTraceAsString()}\n";
+    }
+
+    exit(EBNF_FATAL_ERROR);
 }

@@ -7,7 +7,7 @@
              | literal
              | "[" expression "]"
              | "(" expression ")"
-             | "{" expression "}" .
+             | "{" expression "}" 
   identifier = character { character } .
   title      = literal .
   comment    = literal .
