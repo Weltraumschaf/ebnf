@@ -138,9 +138,18 @@ class Token {
     /**
      * Returns the start position of the token string in the source.
      *
+     * @param bool $end If true the tokens endposition is returned.
      * @return Position
      */
-    public function getPosition() {
+    public function getPosition($end = false) {
+        if ($end) {
+            return new Position(
+                $this->position->getLine(),
+                $this->position->getColumn() + strlen($this->getValue()),
+                $this->position->getFile()
+            );
+        }
+
         return $this->position;
     }
 

@@ -150,7 +150,7 @@ class Parser {
 
         if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '.') &&
             !$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ';')) {
-            throw new SyntaxtException("Rule must end with '.' or ';'", $this->scanner->currentToken()->getPosition());
+            throw new SyntaxtException("Rule must end with '.' or ';'", $this->scanner->backtrackToken(2)->getPosition(true));
         }
 
         return $production;

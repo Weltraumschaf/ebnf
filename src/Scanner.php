@@ -291,6 +291,23 @@ class Scanner {
     }
 
     /**
+     * Returns the nth token backwards from the actual token.
+     *
+     * @param int $cnt How many tokens to backtrack. Default is 1.
+     * @return Token
+     */
+    public function backtrackToken($cnt = 1) {
+        $index = $this->currentToken - $cnt;
+
+        if (isset($this->tokens[$index])) {
+            return $this->tokens[$index];
+        }
+
+        $tCnt = count($this->tokens);
+        throw new \InvalidArgumentException("Can't backup token on positon -{$cnt}! There are only {$tCnt} tokens.");
+    }
+
+    /**
      * Returns if there are more tokens. This is allways true if never {nextToken()}
      * was called. No more tokens are indicated if the current token is of type {Token::EOF}.
      *
