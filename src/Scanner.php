@@ -96,9 +96,17 @@ class Scanner {
      */
     private $line;
     /**
-     * @var Token
+     * Indicates th current token.
+     *
+     * @var int
      */
     private $currentToken;
+    /**
+     * Collects all scanned tokens.
+     *
+     * @var array
+     */
+    private $tokens;
 
     /**
      * Initializes the scanner with a grammar string.
@@ -120,6 +128,8 @@ class Scanner {
         $this->inputLength      = strlen($this->input);
         $this->column = 0;
         $this->line   = 1;
+        $this->tokens = array();
+        $this->currentToken = -1;
     }
 
     /**
@@ -164,9 +174,10 @@ class Scanner {
         return "{" === $c || "}" === $c ||
                "(" === $c || ")" === $c ||
                "[" === $c || "]" === $c ||
-               ";" === $c || "." === $c ||
-               "|" === $c || "=" === $c  ||
-               "," === $c || "-" === $c ;
+               "," === $c || ";" === $c ||
+               "." === $c || ":" === $c ||
+               "|" === $c || "=" === $c ||
+               "-" === $c ;
     }
 
     /**
@@ -272,7 +283,11 @@ class Scanner {
      * @return Token
      */
     public function currentToken() {
-        return $this->currentToken;
+        if (isset($this->tokens[$this->currentToken])) {
+            return $this->tokens[$this->currentToken];
+        }
+
+        return null;
     }
 
     /**
@@ -282,11 +297,11 @@ class Scanner {
      * @return bool
      */
     public function hasNextToken() {
-        if (null === $this->currentToken) {
+        if (null === $this->currentToken()) {
             return true;
         }
 
-        return $this->currentToken->getType() !== Token::EOF;
+        return $this->currentToken()->getType() !== Token::EOF;
     }
 
     /**
@@ -301,18 +316,22 @@ class Scanner {
             $this->nextCharacter();
 
             if (self::isAlpha($this->currentCharacter())) {
-                $this->currentToken = $this->scannIdentifier();
+                $this->tokens[] = $this->scannIdentifier();
+                $this->currentToken++;
                 return;
             } else if (self::isQuote($this->currentCharacter())) {
-                $this->currentToken = $this->scanLiteral();
+                $this->tokens[] = $this->scanLiteral();
+                $this->currentToken++;
                 return;
             } else if (self::isOperator($this->currentCharacter())) {
                 if ("(" === $this->currentCharacter() && "*" === $this->peekCharacter()) {
-                    $this->currentToken = $this->scanComment();
+                    $this->tokens[] = $this->scanComment();
+                    $this->currentToken++;
                     return;
                 }
-
-                $this->currentToken = new Token(Token::OPERATOR, $this->currentCharacter(), $this->createPosition());
+                // @todo recognize ':==' as operator
+                $this->tokens[] = new Token(Token::OPERATOR, $this->currentCharacter(), $this->createPosition());
+                $this->currentToken++;
                 return;
             } else if (self::isWhiteSpace($this->currentCharacter())) {
                 // ignore white spaces
@@ -326,7 +345,8 @@ class Scanner {
             }
         }
 
-        $this->currentToken = new Token(Token::EOF, "", $this->createPosition());
+        $this->tokens[] = new Token(Token::EOF, "", $this->createPosition());
+        $this->currentToken++;
     }
 
     /**
