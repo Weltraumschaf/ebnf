@@ -141,15 +141,14 @@ class Parser {
         $production->setAttribute('name', $this->scanner->currentToken()->getValue());
         $this->scanner->nextToken();
 
-        if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, "=")) {
+        if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array("=", ":", ":=="))) {
             throw new SyntaxtException("Identifier must be followed by '='", $this->scanner->currentToken()->getPosition());
         }
 
         $this->scanner->nextToken();
         $production->appendChild($this->parseExpression());
 
-        if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '.') &&
-            !$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ';')) {
+        if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array(".", ";"))) {
             throw new SyntaxtException("Rule must end with '.' or ';'", $this->scanner->backtrackToken(2)->getPosition(true));
         }
 
