@@ -142,7 +142,7 @@ class Parser {
         $this->scanner->nextToken();
 
         if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, "=")) {
-            throw new SyntaxtException("Identifier must be followed by '='", $token->getPosition());
+            throw new SyntaxtException("Identifier must be followed by '='", $this->scanner->currentToken()->getPosition());
         }
 
         $this->scanner->nextToken();
@@ -277,7 +277,25 @@ class Parser {
      * @param string $value
      * @return bool
      */
-    private function assertToken(Token $token, $type, $value) {
+    protected function assertToken(Token $token, $type, $value) {
         return $token->isType($type) && $token->isEqual($value);
+    }
+
+    /**
+     * Checks wheter a token is of a type and is equalt to a array of string literasl or not.
+     *
+     * @param Token $token
+     * @param int $type
+     * @param array $value Array of strings.
+     * @return bool
+     */
+    protected  function assertTokens(Token $token, $type, array $values) {
+        foreach ($values as $value) {
+            if ($this->assertToken($token, $type, $value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
