@@ -37,6 +37,8 @@ Todo
 - implement comments
 - implement special sequence
 - implement exceptions
+- implement ':' and ':==' as assignment
+- implement ranges 'a' .. 'z'
 
 [1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [2]: http://karmin.ch/ebnf/index
