@@ -30,8 +30,7 @@
         <!-- cli output -->
         <exec command="phpcs ${phpcs.parameter} '${phpcs.target}'" passthru="true"/>
         <!-- checkstyle report -->
-        <exec command="phpcs --report=checkstyle ${phpcs.parameter} '${phpcs.target}'"
-              output="${phpcs.report.file.result}"/>
+        <exec command="phpcs --report=checkstyle ${phpcs.parameter} '${phpcs.target}' > '${phpcs.report.file.result}'"/>
     </target>
 
     <!-- test -->
