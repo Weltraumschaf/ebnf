@@ -5,9 +5,9 @@
     <property name="version" value="1.0"/>
     <property name="reportsdir" value="${workspace}/reports"/>
     <property name="docdir" value="${workspace}/doc"/>
-    <property name="builddir" value="${workspace}/build" />
+    <property name="srcdir" value="${workspace}/src" />
 
-    <fileset dir="${workspace}/src" id="src">
+    <fileset dir="${srcdir}" id="src">
         <include name="*.php"/>
         <include name="**/*.php/"/>
     </fileset>
@@ -23,7 +23,7 @@
     </target>
 
     <!-- checkstyle -->
-    <property name="phpcs.target" value="${workspace}/src"/>
+    <property name="phpcs.target" value="${srcdir}"/>
     <property name="phpcs.report.file.result" value="${reportsdir}/checkstyle.xml"/>
     <property name="phpcs.parameter" value="--standard=${workspace}/ruleset.xml --extensions=php --ignore=include.php"/>
 
@@ -53,10 +53,10 @@
     </target>
 
     <target name="doc" depends="prepare" description="Generates phpdoc.">
-        <delete dir="${docdir}/api" includeemptydirs="true" verbose="false"/>
-        <mkdir dir="${docdir}/api"/>
+        <delete dir="${docdir}" includeemptydirs="true" verbose="false"/>
+        <mkdir dir="${docdir}"/>
 
-        <phpdoc title="${phing.project.name}" destdir="${docdir}/api" sourcecode="false"
+        <phpdoc title="${phing.project.name}" destdir="${docdir}" sourcecode="false"
                 defaultpackagename="ebnf" output="HTML:frames:phphtmllib">
             <fileset refid="src"/>
         </phpdoc>
