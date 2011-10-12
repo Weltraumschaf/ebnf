@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="PHP EBNF Image Generator" basedir="." default="main">
-    <exec command="dirname ${phing.file}" outputProperty="workspace"/>
+    <exec command="dirname '${phing.file}'" outputProperty="workspace"/>
 
     <property name="version" value="1.0"/>
     <property name="reportsdir" value="${workspace}/reports"/>
