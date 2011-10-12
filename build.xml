@@ -25,11 +25,11 @@
     <!-- checkstyle -->
     <property name="phpcs.target" value="${srcdir}"/>
     <property name="phpcs.report.file.result" value="${reportsdir}/checkstyle.xml"/>
-    <property name="phpcs.parameter" value="--standard=${workspace}/ruleset.xml --extensions=php --ignore=include.php"/>
+    <property name="phpcs.parameter" value="--standard='${workspace}/ruleset.xml' --extensions=php --ignore=include.php"/>
 
     <target name="checkstyle" depends="prepare" description="Runns codesniffer and generates a checkstyle xml file.">
         <!-- cli output -->
-        <exec command="phpcs ${phpcs.parameter} ${phpcs.target}" passthru="true"/>
+        <exec command="phpcs ${phpcs.parameter} '${phpcs.target}'" passthru="true"/>
         <!-- checkstyle report -->
         <exec command="phpcs --report=checkstyle ${phpcs.parameter} '${phpcs.target}'"
               output="${phpcs.report.file.result}" error="/dev/null"/>
