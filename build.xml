@@ -3,9 +3,9 @@
     <exec command="dirname '${phing.file}'" outputProperty="workspace"/>
 
     <property name="version" value="1.0"/>
+    <property name="srcdir" value="${workspace}/src" />
     <property name="reportsdir" value="${workspace}/reports"/>
     <property name="docdir" value="${workspace}/doc"/>
-    <property name="srcdir" value="${workspace}/src" />
 
     <fileset dir="${srcdir}" id="src">
         <include name="*.php"/>
@@ -14,7 +14,7 @@
 
     <target name="clean" description="Cleans reports and doc folder">
         <delete dir="${reportsdir}" includeemptydirs="true" verbose="false"/>
-        <delete dir="${builddir}" includeemptydirs="true" verbose="false"/>
+        <delete dir="${docdir}" includeemptydirs="true" verbose="false"/>
     </target>
 
     <target name="prepare" depends="clean" description="Prepares report and doc folders">
@@ -31,7 +31,7 @@
         <exec command="phpcs ${phpcs.parameter} '${phpcs.target}'" passthru="true"/>
         <!-- checkstyle report -->
         <exec command="phpcs --report=checkstyle ${phpcs.parameter} '${phpcs.target}'"
-              output="${phpcs.report.file.result}" error="/dev/null"/>
+              output="${phpcs.report.file.result}"/>
     </target>
 
     <!-- test -->
