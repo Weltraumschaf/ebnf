@@ -19,7 +19,6 @@
 
     <target name="prepare" depends="clean" description="Prepares report and doc folders">
         <mkdir dir="${reportsdir}"/>
-        <mkdir dir="${builddir}"/>
     </target>
 
     <!-- checkstyle -->
