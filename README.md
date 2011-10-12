@@ -32,6 +32,22 @@ Or you can use the classes for embedding the functionality in your code:
     $renderer = new Renderer($format, $file, $dom);
     $renderer->save();
 
+Development
+-----------
+
+If you want to build the project (unittests, apidoc etc.) clone the repo
+
+    $ git clone git://github.com/Weltraumschaf/ebnf.git
+
+and install the required PEAR dependencies
+
+    $ cd ebnf
+    $ ./install_pear_deps
+
+After that you can invoke the [Phing][3] targets
+
+    $ phing -l
+
 Todo
 ----
 - implement comments
@@ -41,3 +57,4 @@ Todo
 
 [1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [2]: http://karmin.ch/ebnf/index
+[3]: http://www.phing.info/
