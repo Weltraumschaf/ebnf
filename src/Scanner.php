@@ -251,9 +251,14 @@ class Scanner {
      * @return string
      */
     private function peekCharacter() {
-        $this->nextCharacter();
-        $c = $this->currentCharacter();
-        $this->backupCharacter();
+        $c = "";
+
+        if ($this->hasNextCharacter()) {
+            $this->nextCharacter();
+            $c = $this->currentCharacter();
+            $this->backupCharacter();
+        }
+
         return $c;
     }
 
@@ -341,12 +346,29 @@ class Scanner {
                 $this->currentToken++;
                 return;
             } else if (self::isOperator($this->currentCharacter())) {
-                if ("(" === $this->currentCharacter() && "*" === $this->peekCharacter()) {
+                $peek = $this->peekCharacter();
+
+                if ("(" === $this->currentCharacter() && "*" === $peek) {
                     $this->tokens[] = $this->scanComment();
                     $this->currentToken++;
                     return;
+                } else if (":" === $this->currentCharacter() && "=" === $peek) {
+                    $pos = $this->createPosition();
+                    $str = $this->currentCharacter();
+                    $this->nextCharacter();
+                    $str .= $this->currentCharacter();
+                    $this->nextCharacter();
+
+                    if ($this->currentCharacter() !== "=") {
+                        $this->raiseError("");
+                    }
+
+                    $str .= $this->currentCharacter();
+                    $this->tokens[] = new Token(Token::OPERATOR, $str, $pos);
+                    $this->currentToken++;
+                    return;
                 }
-                // @todo recognize ':==' as operator
+
                 $this->tokens[] = new Token(Token::OPERATOR, $this->currentCharacter(), $this->createPosition());
                 $this->currentToken++;
                 return;

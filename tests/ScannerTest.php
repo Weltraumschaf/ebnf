@@ -170,24 +170,53 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testNext() {
+//$grammar = <<<EOD
+//title      = literal . (* Comment * at the end of line *)
+//comment    = literal .
+//(*  This is a multi
+//    line comment.   *)
+//comment    = literal .
+//EOD;
+//        $expectations = array(
+//            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
+//            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
+//            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
+//            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
+//            array("value" => "(* Comment * at the end of line *)",
+//                                        "type" => Token::COMMENT,    "line" => 1, "col" => 24),
+//            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
+//            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
+//            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),
+//            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
+//            array("value" => "",        "type" => Token::EOF,        "line" => 2, "col" => 22),
+//        );
+//        $this->assertTokens($grammar, $expectations, "Rule with comment.");
+
 $grammar = <<<EOD
-title      = literal . (* Comment * at the end of line *)
-comment    = literal .
+comment =   literal .
+comment :   literal .
+comment :== literal .
 EOD;
+
         $expectations = array(
-            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
-            array("value" => "(* Comment * at the end of line *)",
-                                        "type" => Token::COMMENT,    "line" => 1, "col" => 24),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 13),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 21),
+
             array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
-            array("value" => "",        "type" => Token::EOF,        "line" => 2, "col" => 22),
+            array("value" => ":",       "type" => Token::OPERATOR,   "line" => 2, "col" => 9),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 13),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 21),
+
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 3, "col" => 1),
+            array("value" => ":==",     "type" => Token::OPERATOR,   "line" => 3, "col" => 9),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 3, "col" => 13),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 21),
+
+            array("value" => "",        "type" => Token::EOF,        "line" => 3, "col" => 21),
         );
-        $this->assertTokens($grammar, $expectations, "1");
+        $this->assertTokens($grammar, $expectations, "Assignemnt operators.");
 
 $grammar = <<<EOD
 literal = "'" character { character } "'"
@@ -212,7 +241,7 @@ EOD;
             array("value" => ".",         "type" => Token::OPERATOR,   "line" => 2, "col" => 43),
             array("value" => "",          "type" => Token::EOF,        "line" => 2, "col" => 43),
         );
-        $this->assertTokens($grammar, $expectations, "2");
+        $this->assertTokens($grammar, $expectations, "Rules with literal.");
 
         $grammar = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "testgrammar_1.ebnf");
         $expectations = array(
@@ -425,7 +454,7 @@ EOD;
             array("value" => "}",          "type" => Token::OPERATOR,   "line" => 20, "col" => 1),
             array("value" => "",           "type" => Token::EOF,        "line" => 20, "col" => 1),
         );
-        $this->assertTokens($grammar, $expectations, "3");
+        $this->assertTokens($grammar, $expectations, "testgrammar_1.ebnf");
     }
 
     private function assertTokens($grammar, array $expectations, $msg = "") {
@@ -437,13 +466,13 @@ EOD;
             $token = $scanner->currentToken();
             $expectation = $expectations[$count];
             $this->assertInstanceOf("de\weltraumschaf\ebnf\Token", $token, "{$msg} {$count}: {$token->getValue()}");
-            $this->assertEquals($expectation["type"], $token->getType(), "{$msg} {$count}: {$token->getValue()}");
-            $this->assertEquals($expectation["value"], $token->getValue(), "{$msg} {$count}: {$token->getValue()}");
+            $this->assertEquals($expectation["type"], $token->getType(), "{$msg} {$count} type: {$token->getValue()}");
+            $this->assertEquals($expectation["value"], $token->getValue(), "{$msg} {$count} value: {$token->getValue()}");
             $position = $token->getPosition();
             $this->assertInstanceOf("de\weltraumschaf\ebnf\Position", $position, "{$msg} {$count}: {$token->getValue()}");
             $this->assertNull($position->getFile(), $count);
-            $this->assertEquals($expectation["line"], $position->getLine(), "{$msg} {$count}: {$token->getValue()}");
-            $this->assertEquals($expectation["col"], $position->getColumn(), "{$msg} {$count}: {$token->getValue()}");
+            $this->assertEquals($expectation["line"], $position->getLine(), "{$msg} {$count} line: {$token->getValue()}");
+            $this->assertEquals($expectation["col"], $position->getColumn(), "{$msg} {$count} col: {$token->getValue()}");
             $count++;
         }
 
