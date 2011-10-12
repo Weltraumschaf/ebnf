@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PHP EBNF Image Generator" basedir="." default="main">
+    <exec command="dirname ${phing.file}" outputProperty="workspace"/>
+
+    <property name="version" value="1.0"/>
+    <property name="reportsdir" value="${workspace}/reports"/>
+    <property name="docdir" value="${workspace}/doc"/>
+    <property name="builddir" value="${workspace}/build" />
+
+    <fileset dir="${workspace}/src" id="src">
+        <include name="*.php"/>
+        <include name="**/*.php/"/>
+    </fileset>
+
+    <target name="clean" description="Cleans reports and doc folder">
+        <delete dir="${reportsdir}" includeemptydirs="true" verbose="false"/>
+        <delete dir="${builddir}" includeemptydirs="true" verbose="false"/>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepares report and doc folders">
+        <mkdir dir="${reportsdir}"/>
+        <mkdir dir="${builddir}"/>
+    </target>
+
+    <!-- checkstyle -->
+    <property name="phpcs.target" value="${workspace}/src"/>
+    <property name="phpcs.report.file.result" value="${reportsdir}/checkstyle.xml"/>
+    <property name="phpcs.parameter" value="--standard=${workspace}/ruleset.xml --extensions=php --ignore=include.php"/>
+
+    <target name="checkstyle" depends="prepare" description="Runns codesniffer and generates a checkstyle xml file.">
+        <!-- cli output -->
+        <exec command="phpcs ${phpcs.parameter} ${phpcs.target}" passthru="true"/>
+        <!-- checkstyle report -->
+        <exec command="phpcs --report=checkstyle ${phpcs.parameter} ${phpcs.target}"
+              output="${phpcs.report.file.result}" error="/dev/null"/>
+    </target>
+
+    <!-- test -->
+    <property name="phpunit.tests.path" value="${workspace}/tests"/>
+    <property name="phpunit.report.log" value="${reportsdir}/junit.xml"/>
+    <property name="phpunit.report.coverage.html" value="${reportsdir}/coverage/"/>
+    <property name="phpunit.report.coverage.log" value="${reportsdir}/coverage/clover.xml"/>
+
+    <target name="test" depends="prepare" description="Runs unit tests and generates a junit xml file and coverage report.">
+        <mkdir dir="${reportsdir}/coverage"/>
+        <exec dir="${phpunit.tests.path}"
+              command="phpunit --strict
+                               --log-junit ${phpunit.report.log}
+                               --coverage-html ${phpunit.report.coverage.html}
+                               --coverage-clover ${phpunit.report.coverage.log}"
+              passthru="true"
+              checkreturn="true"/>
+    </target>
+
+    <target name="doc" depends="prepare" description="Generates phpdoc.">
+        <delete dir="${docdir}/api" includeemptydirs="true" verbose="false"/>
+        <mkdir dir="${docdir}/api"/>
+
+        <phpdoc title="${phing.project.name}" destdir="${docdir}/api" sourcecode="false"
+                defaultpackagename="Monkey" output="HTML:frames:phphtmllib">
+            <fileset refid="src"/>
+        </phpdoc>
+    </target>
+
+    <target name="pdepend" depends="prepare" description="PHP dependency analysis">
+        <mkdir dir="${reportsdir}/phpdepend"/>
+        <phpdepend>
+            <fileset refid="src"/>
+            <logger type="jdepend-xml" outfile="${reportsdir}/phpdepend/jdepend.xml"/>
+            <logger type="jdepend-chart" outfile="${reportsdir}/phpdepend/jdepend.svg"/>
+            <logger type="overview-pyramid" outfile="${reportsdir}/phpdepend/pyuramid.svg"/>
+            <logger type="phpunit-xml" outfile="${reportsdir}/phpdepend/phpunit.xml"/>
+            <logger type="summary-xml" outfile="${reportsdir}/phpdepend/summary.xml"/>
+            <analyzer type="coderank-mode" value="method"/>
+        </phpdepend>
+    </target>
+
+    <target name="pmd" description="PHP mess detection">
+        <phpmd>
+            <formatter type="xml" outfile="${reportsdir}/pmd.xml"/>
+            <formatter type="html" outfile="${reportsdir}/pmd.html"/>
+            <formatter type="text" usefile="false"/>
+            <fileset refid="src"/>
+        </phpmd>
+    </target>
+
+    <target name="main" description="Runs tests and checkstyle." depends="test, checkstyle, pdepend, pmd, doc"/>
+</project>
