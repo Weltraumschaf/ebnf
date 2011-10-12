@@ -3,7 +3,7 @@
     @see http://www.squizlabs.com/php-codesniffer/upgrading-for-1.3.0
 -->
 <ruleset name="Monkey">
-    <description>Coding standard for EBNF project.</description>
+    <description>Coding standard for PHP EBNF Image Generator.</description>
 
     <rule ref="Generic.Classes.DuplicateClassName"/>
     <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
