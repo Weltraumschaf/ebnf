@@ -57,7 +57,7 @@
         <mkdir dir="${docdir}/api"/>
 
         <phpdoc title="${phing.project.name}" destdir="${docdir}/api" sourcecode="false"
-                defaultpackagename="Monkey" output="HTML:frames:phphtmllib">
+                defaultpackagename="ebnf" output="HTML:frames:phphtmllib">
             <fileset refid="src"/>
         </phpdoc>
     </target>
