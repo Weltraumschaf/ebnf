@@ -66,9 +66,9 @@ class Token {
     /**
      * Initializes the imutable object.
      *
-     * @param string   $type
-     * @param int      $value
-     * @param Position $position
+     * @param int      $type     Type of token. One of the class constants.
+     * @param string   $value    The scanned token string.
+     * @param Position $position The start position of scanned token.
      */
     public function __construct($type, $value, Position $position) {
         $this->type     = (int)$type;
@@ -102,6 +102,7 @@ class Token {
      * Returns the scanned token string.
      *
      * @param bool $unquote Whether to unquote a literal value.
+     *
      * @return string
      */
     public function getValue($unquote = false) {
@@ -116,7 +117,8 @@ class Token {
      * Checks if a passes string is encapsulated in quotes and removes them.
      * Also unescape inside quotes.
      *
-     * @param string $str
+     * @param string $str The string to unquote.
+     *
      * @return string
      */
     public static function unquoteString($str) {
@@ -139,6 +141,7 @@ class Token {
      * Returns the start position of the token string in the source.
      *
      * @param bool $end If true the tokens endposition is returned.
+     *
      * @return Position
      */
     public function getPosition($end = false) {
@@ -156,7 +159,8 @@ class Token {
     /**
      * Wheter it is of the type or not.
      *
-     * @param int $type
+     * @param int $type The token type to test against.
+     *
      * @return bool
      */
     public function isType($type) {
@@ -166,7 +170,8 @@ class Token {
     /**
      * Wheter the token value is equal to the passed string.
      *
-     * @param string $string
+     * @param string $string The string to test against.
+     *
      * @return bool
      */
     public function isEqual($string) {
@@ -177,6 +182,7 @@ class Token {
      * Test if the token value is equal to one the passed strings.
      *
      * @param array $strings Array of strings.
+     *
      * @return bool
      */
     public function isEquals(array $strings) {
@@ -192,7 +198,8 @@ class Token {
     /**
      * Wheter the token value is NOT equal to the passed string.
      *
-     * @param string $string
+     * @param string $string The string to test against.
+     *
      * @return bool
      */
     public function isNotEqual($string) {
@@ -203,6 +210,7 @@ class Token {
      * Test if the token value is NOT equal to one the passed strings.
      *
      * @param array $strings Array of strings.
+     *
      * @return bool
      */
     public function isNotEquals(array $strings) {
