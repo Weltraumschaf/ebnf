@@ -114,8 +114,8 @@ class Scanner {
      * Can take an optional file frome where the input strims was loaded.
      * This is only for error handling.
      *
-     * @param string $input
-     * @param string $file  .
+     * @param string $input The input string to scann.
+     * @param string $file  The optional file name. Only neccessary for error reporting.
      */
     public function __construct($input, $file = null) {
         $this->input = (string)$input;
@@ -136,6 +136,7 @@ class Scanner {
      * Checks whether a character is a alpha [a-zA-Z].
      *
      * @param string $c A single character.
+     *
      * @return bool
      */
     public static function isAlpha($c) {
@@ -147,6 +148,7 @@ class Scanner {
      * Checks whether a character is a number [0-9].
      *
      * @param string $c A single character.
+     *
      * @return bool
      */
     public static  function isNum($c) {
@@ -158,6 +160,7 @@ class Scanner {
      * Checks whether a character is a number or alpha [0-9a-zA-Z].
      *
      * @param string $c A single character.
+     *
      * @return bool
      */
     public static  function isAlphaNum($c) {
@@ -168,6 +171,7 @@ class Scanner {
      * Checks whether a character is a operator.
      *
      * @param string $c A single character.
+     *
      * @return bool
      */
     public static  function isOperator($c) {
@@ -184,6 +188,7 @@ class Scanner {
      * Checks whether a character is a whitespace.
      *
      * @param string $c A single character.
+     *
      * @return bool
      */
     public static  function isWhiteSpace($c) {
@@ -194,6 +199,7 @@ class Scanner {
      * Checks whether a character is a quote ["|'].
      *
      * @param string $c A single character.
+     *
      * @return bool
      */
     public static function isQuote($c) {
@@ -222,6 +228,8 @@ class Scanner {
 
     /**
      * Increments the character cursor.
+     *
+     * @return void
      */
     private function nextCharacter() {
         $this->currentCharacter++;
@@ -239,6 +247,8 @@ class Scanner {
 
     /**
      * Decrements the character cursor.
+     *
+     * @return void
      */
     private function backupCharacter() {
         $this->currentCharacter--;
@@ -265,8 +275,10 @@ class Scanner {
     /**
      * Throws a {SyntaxException} with the current {Position} in the input stream.
      *
-     * @param string $msg
+     * @param string $msg Error message string.
+     *
      * @throws SyntaxtException
+     * @return void
      */
     private function raiseError($msg) {
         throw new SyntaxtException($msg, $this->createPosition());
@@ -299,6 +311,7 @@ class Scanner {
      * Returns the nth token backwards from the actual token.
      *
      * @param int $cnt How many tokens to backtrack. Default is 1.
+     *
      * @return Token
      */
     public function backtrackToken($cnt = 1) {
@@ -416,6 +429,11 @@ class Scanner {
         return new Token(Token::LITERAL, $str, $pos);
     }
 
+    /**
+     * Scan a comment (any character inside '(*' and '*)'.
+     *
+     * @return Token
+     */
     private function scanComment() {
         $pos = $this->createPosition();
         $str = $this->currentCharacter();
@@ -434,6 +452,11 @@ class Scanner {
         return new Token(Token::COMMENT, $str, $pos);
     }
 
+    /**
+     * Scan a operator.
+     *
+     * @return Token
+     */
     private function scanOperator() {
         $pos = $this->createPosition();
         $str = $this->currentCharacter();

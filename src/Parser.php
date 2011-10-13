@@ -71,7 +71,7 @@ class Parser {
     /**
      * Initialized with a scanner which produced the token stream.
      *
-     * @param Scanner $scanner
+     * @param Scanner $scanner Provides the token stream.
      */
     public function __construct(Scanner $scanner) {
         $this->scanner = $scanner;
@@ -271,9 +271,10 @@ class Parser {
     /**
      * Checks wheter a token is of a type and is equalt to a string literal or not.
      *
-     * @param Token $token
-     * @param int $type
-     * @param string $value
+     * @param Token  $token Token to assert.
+     * @param int    $type  Token type to assert against.
+     * @param string $value Token value to assert against.
+     *
      * @return bool
      */
     protected function assertToken(Token $token, $type, $value) {
@@ -283,9 +284,10 @@ class Parser {
     /**
      * Checks wheter a token is of a type and is equalt to a array of string literasl or not.
      *
-     * @param Token $token
-     * @param int $type
-     * @param array $value Array of strings.
+     * @param Token $token  Token to assert.
+     * @param int   $type   type to assert against.
+     * @param array $values Array of strings.
+     *
      * @return bool
      */
     protected  function assertTokens(Token $token, $type, array $values) {
