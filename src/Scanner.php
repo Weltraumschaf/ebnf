@@ -402,14 +402,18 @@ class Scanner {
                 $this->raiseError("Invalid character!");
             }
 
-            if ("\n" === $this->currentCharacter() || "\r" === $this->currentCharacter()) {
-                $this->line++;
-                $this->column = 0;
-            }
+            $this->checkNewline();
         }
 
         $this->tokens[] = new Token(Token::EOF, "", $this->createPosition());
         $this->currentToken++;
+    }
+
+    private function checkNewline() {
+        if ("\n" === $this->currentCharacter() || "\r" === $this->currentCharacter()) {
+            $this->line++;
+            $this->column = 0;
+        }
     }
 
     /**
@@ -477,6 +481,8 @@ class Scanner {
                 $str .= $this->currentCharacter();
                 break;
             }
+
+            $this->checkNewline();
         }
 
         return new Token(Token::COMMENT, $str, $pos);

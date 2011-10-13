@@ -176,27 +176,33 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testNext() {
-//$grammar = <<<EOD
-//title      = literal . (* Comment * at the end of line *)
-//comment    = literal .
-//(*  This is a multi
-//    line comment.   *)
-//comment    = literal .
-//EOD;
-//        $expectations = array(
-//            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
-//            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
-//            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
-//            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
-//            array("value" => "(* Comment * at the end of line *)",
-//                                        "type" => Token::COMMENT,    "line" => 1, "col" => 24),
-//            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
-//            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
-//            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),
-//            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
-//            array("value" => "",        "type" => Token::EOF,        "line" => 2, "col" => 22),
-//        );
-//        $this->assertTokens($grammar, $expectations, "Rule with comment.");
+$grammar = <<<EOD
+title      = literal . (* Comment * at the end of line *)
+comment    = literal .
+(*  This is a multi
+    line comment.   *)
+comment    = literal .
+EOD;
+        $expectations = array(
+            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
+            array("value" => "(* Comment * at the end of line *)",
+                                        "type" => Token::COMMENT,    "line" => 1, "col" => 24),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
+            array("value" => "(*  This is a multi\n    line comment.   *)",
+                                        "type" => Token::COMMENT,    "line" => 3, "col" => 1),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 5, "col" => 1),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 5, "col" => 12),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 5, "col" => 14),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 5, "col" => 22),
+            array("value" => "",        "type" => Token::EOF,        "line" => 5, "col" => 22),
+        );
+        $this->assertTokens($grammar, $expectations, "Rule with comment.");
 
 $grammar = <<<EOD
 comment =   literal .
