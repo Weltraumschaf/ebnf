@@ -130,7 +130,7 @@ class Scanner {
         $this->input = (string) $input;
 
         if (null !== $file) {
-            $this->file = (String) $file;
+            $this->file = (string) $file;
         }
 
         $this->currentCharacter = -1;

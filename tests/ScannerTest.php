@@ -175,6 +175,13 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse(Scanner::isEquals("a", array("-", "_")));
     }
 
+    public function testGetFile() {
+        $s = new Scanner("");
+        $this->assertNull($s->getFile());
+        $s = new Scanner("", "/foo/bar");
+        $this->assertEquals("/foo/bar", $s->getFile());
+    }
+
     public function testNext() {
 $grammar = <<<EOD
 title      = literal . (* Comment * at the end of line *)
@@ -467,6 +474,8 @@ EOD;
             array("value" => "",           "type" => Token::EOF,        "line" => 20, "col" => 1),
         );
         $this->assertTokens($grammar, $expectations, "testgrammar_1.ebnf");
+
+        $this->markTestIncomplete("Test raise syntax error.");
     }
 
     private function assertTokens($grammar, array $expectations, $msg = "") {
