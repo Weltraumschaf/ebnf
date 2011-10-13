@@ -1,5 +1,18 @@
 #!/bin/bash
 
+#
+# This script installs all neccessary PECL and PEAR dependencies so that 
+# you can run all build targets. May be you must run this script as root
+# or with sudo.
+#
+# If you only want to use the PHP lib you do not need to install
+# the dependencies.
+#
+
+# http://www.xdebug.org/
+# Required for code coverage.
+pecl install xdebug
+
 # http://pear.php.net/package/PHP_CodeSniffer/redirected
 pear install PHP_CodeSniffer
 
