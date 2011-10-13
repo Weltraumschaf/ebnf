@@ -475,7 +475,21 @@ EOD;
         );
         $this->assertTokens($grammar, $expectations, "testgrammar_1.ebnf");
 
-        $this->markTestIncomplete("Test raise syntax error.");
+$grammar = <<<EOD
+comment := literal .
+EOD;
+        $scanner = new Scanner(trim($grammar));
+        try {
+            while ($scanner->hasNextToken()) {
+                $scanner->nextToken();
+            }
+            $this->fail("Expected exception not thrown!");
+        } catch (SyntaxtException $e) {
+            $this->assertEquals("Expecting '=' but seen ' '", $e->getMessage());
+            $pos = $e->getPosition();
+            $this->assertEquals(1, $pos->getLine());
+            $this->assertEquals(11, $pos->getColumn());
+        }
     }
 
     private function assertTokens($grammar, array $expectations, $msg = "") {
