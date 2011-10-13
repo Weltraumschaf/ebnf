@@ -130,10 +130,10 @@ class Renderer {
      */
     public function __construct($format, $file, DOMDocument $dom, $font = self::DEFAULT_FONT, $unit = self::DEFAULT_UNIT) {
         $this->format = (string) $format;
-        $this->file = (string) $file;
-        $this->dom = $dom;
-        $this->font = (int) $font;
-        $this->unit = (int) $unit;
+        $this->file   = (string) $file;
+        $this->dom    = $dom;
+        $this->font   = (int) $font;
+        $this->unit   = (int) $unit;
     }
 
     /**
@@ -346,7 +346,14 @@ class Renderer {
         $y = 2 * $this->unit;
 
         if ($title != '') {
-            imagestring($image, $this->font, $this->unit, (2 * $this->unit - imagefontheight($this->font)) / 2, $title, $this->green);
+            imagestring(
+                $image,
+                $this->font,
+                $this->unit,
+                (2 * $this->unit - imagefontheight($this->font)) / 2,
+                $title,
+                $this->green
+            );
             imageline($image, 5, 2 * $this->unit, $weight - 5, 2 * $this->unit, $this->green);
             $y += 2 * $this->unit;
         }
@@ -354,15 +361,59 @@ class Renderer {
         $imageCnt = count($images);
 
         for ($i = 0; $i < $imagesCnt; $i++) {
-            imagestring($image, $this->font, $this->unit, $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2, $names[$i], $this->red);
-            imagecopy($image, $images[$i], $wn + 2 * $this->unit, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
-            imageline($image, $this->unit, $y + $this->unit, $wn + 2 * $this->unit, $y + $this->unit, $this->black);
-            imageline($image, $wn + 2 * $this->unit + imagesx($images[$i]) - 1, $y + $this->unit, $weight - $this->unit, $y + $this->unit, $this->black);
-            imageline($image, $weight - $this->unit, $y + $this->unit / 2, $weight - $this->unit, $y + 1.5 * $this->unit, $this->black);
+            imagestring(
+                $image,
+                $this->font,
+                $this->unit,
+                $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2,
+                $names[$i],
+                $this->red
+            );
+            imagecopy(
+                $image,
+                $images[$i],
+                $wn + 2 * $this->unit,
+                $y,
+                0,
+                0,
+                imagesx($images[$i]),
+                imagesy($images[$i])
+            );
+            imageline(
+                $image,
+                $this->unit,
+                $y + $this->unit,
+                $wn + 2 * $this->unit,
+                $y + $this->unit,
+                $this->black
+            );
+            imageline(
+                $image,
+                $wn + 2 * $this->unit + imagesx($images[$i]) - 1,
+                $y + $this->unit,
+                $weight - $this->unit,
+                $y + $this->unit,
+                $this->black
+            );
+            imageline(
+                $image,
+                $weight - $this->unit,
+                $y + $this->unit / 2,
+                $weight - $this->unit,
+                $y + 1.5 * $this->unit,
+                $this->black
+            );
             $y += 2 * $this->unit + imagesy($images[$i]);
         }
 
-        imagestring($image, 1, $this->unit, $height - 2 * $this->unit + (2 * $this->unit - imagefontheight(1)) / 2, $meta, $this->silver);
+        imagestring(
+            $image,
+            1,
+            $this->unit,
+            $height - 2 * $this->unit + (2 * $this->unit - imagefontheight(1)) / 2,
+            $meta,
+            $this->silver
+        );
         $this->rr($image, 5, 5, $weight - 5, $height - 5, $this->unit / 2, $this->green);
 
         return $image;

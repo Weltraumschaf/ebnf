@@ -116,7 +116,10 @@ class Parser {
             if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
                 $syntax->setAttribute('meta', $this->scanner->currentToken()->getValue(true));
             } else {
-                throw new SyntaxtException("Literal expected as syntax comment", $this->scanner->currentToken()->getPosition());
+                throw new SyntaxtException(
+                    "Literal expected as syntax comment",
+                    $this->scanner->currentToken()->getPosition()
+                );
             }
         } else {
             $syntax->setAttribute('meta', self::META);
@@ -134,7 +137,10 @@ class Parser {
      */
     private function parseProduction() {
         if (!$this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
-            throw new SyntaxtException("Production must start with an identifier", $this->scanner->currentToken()->getPosition());
+            throw new SyntaxtException(
+                "Production must start with an identifier",
+                $this->scanner->currentToken()->getPosition()
+            );
         }
 
         $production = $this->dom->createElement(self::NODE_TYPE_RULE);
@@ -142,14 +148,20 @@ class Parser {
         $this->scanner->nextToken();
 
         if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array("=", ":", ":=="))) {
-            throw new SyntaxtException("Identifier must be followed by '='", $this->scanner->currentToken()->getPosition());
+            throw new SyntaxtException(
+                "Identifier must be followed by '='",
+                $this->scanner->currentToken()->getPosition()
+            );
         }
 
         $this->scanner->nextToken();
         $production->appendChild($this->parseExpression());
 
         if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array(".", ";"))) {
-            throw new SyntaxtException("Rule must end with '.' or ';'", $this->scanner->backtrackToken(2)->getPosition(true));
+            throw new SyntaxtException(
+                "Rule must end with '.' or ';'",
+                $this->scanner->backtrackToken(2)->getPosition(true)
+            );
         }
 
         return $production;
