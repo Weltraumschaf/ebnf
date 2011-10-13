@@ -169,6 +169,12 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testIsEquals() {
+        $this->assertTrue(Scanner::isEquals("-", array("-", "_")));
+        $this->assertTrue(Scanner::isEquals("_", array("-", "_")));
+        $this->assertFalse(Scanner::isEquals("a", array("-", "_")));
+    }
+
     public function testNext() {
 //$grammar = <<<EOD
 //title      = literal . (* Comment * at the end of line *)

@@ -216,6 +216,24 @@ class Scanner {
     }
 
     /**
+     * Tests a given character if it is equal to ona of the passed test characters.
+     *
+     * @param string $c     Character to test.
+     * @param array  $chars Array of characters to test against.
+     *
+     * @return bool
+     */
+    public static function isEquals($c, array $chars) {
+        foreach ($chars as $char) {
+            if ($c === $char) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the file frm where the input stream comes.
      *
      * May be null.
@@ -406,7 +424,8 @@ class Scanner {
         while ($this->hasNextCharacter()) {
             $this->nextCharacter();
 
-            if (self::isAlphaNum($this->currentCharacter()) || "-" === $this->currentCharacter() || "_" === $this->currentCharacter()) {
+            if (self::isAlphaNum($this->currentCharacter()) ||
+                self::isEquals($this->currentCharacter(), array("-", "_"))) {
                 $str .= $this->currentCharacter();
             } else {
                 $this->backupCharacter();
