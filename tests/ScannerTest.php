@@ -500,9 +500,11 @@ EOD;
             $scanner->nextToken();
             $token = $scanner->currentToken();
             $expectation = $expectations[$count];
+
             $this->assertInstanceOf("de\weltraumschaf\ebnf\Token", $token, "{$msg} {$count}: {$token->getValue()}");
             $this->assertEquals($expectation["type"], $token->getType(), "{$msg} {$count} type: {$token->getValue()}");
             $this->assertEquals($expectation["value"], $token->getValue(), "{$msg} {$count} value: {$token->getValue()}");
+
             $position = $token->getPosition();
             $this->assertInstanceOf("de\weltraumschaf\ebnf\Position", $position, "{$msg} {$count}: {$token->getValue()}");
             $this->assertNull($position->getFile(), $count);
@@ -512,6 +514,27 @@ EOD;
         }
 
         $this->assertEquals(count($expectations), $count, "{$msg}: Not enough tokens!");
+
+        foreach (array(1, 3, 5) as $backTracks) {
+            $index = $count - ($backTracks + 1);
+
+            if ($index < 0) {
+                continue;
+            }
+
+            $token = $scanner->backtrackToken($backTracks);
+            $expectation = $expectations[$index];
+
+            $this->assertInstanceOf("de\weltraumschaf\ebnf\Token", $token);
+            $this->assertEquals($expectation["type"], $token->getType());
+            $this->assertEquals($expectation["value"], $token->getValue());
+
+            $position = $token->getPosition();
+            $this->assertInstanceOf("de\weltraumschaf\ebnf\Position", $position);
+            $this->assertNull($position->getFile(), $count);
+            $this->assertEquals($expectation["line"], $position->getLine());
+            $this->assertEquals($expectation["col"], $position->getColumn());
+        }
     }
 
     public function testRaiseError() {

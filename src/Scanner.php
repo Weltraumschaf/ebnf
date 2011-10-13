@@ -399,7 +399,7 @@ class Scanner {
                 // ignore white spaces
             } else {
                 // @codingStandardsIgnoreEnd
-                $this->raiseError("Invalid character!");
+                $this->raiseError("Invalid character");
             }
 
             $this->checkNewline();
