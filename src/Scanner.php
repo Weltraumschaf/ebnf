@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,30 +58,35 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
  * </code>
  */
 class Scanner {
+
     /**
      * Grammar string.
      *
      * @var string
      */
     private $input;
+
     /**
      * File from where the gramamr comes.
      *
      * @var string
      */
     private $file;
+
     /**
      * Current character position.
      *
      * @var int
      */
     private $currentCharacter;
+
     /**
      * Length of input.
      *
      * @var int
      */
     private $inputLength;
+
     /**
      * The actual scanned column.
      * Begins on 1 on each new line.
@@ -88,6 +94,7 @@ class Scanner {
      * @var int
      */
     private $column;
+
     /**
      * The actual scanned line.
      * Begins at 1.
@@ -95,12 +102,14 @@ class Scanner {
      * @var int
      */
     private $line;
+
     /**
      * Indicates th current token.
      *
      * @var int
      */
     private $currentToken;
+
     /**
      * Collects all scanned tokens.
      *
@@ -118,16 +127,16 @@ class Scanner {
      * @param string $file  The optional file name. Only neccessary for error reporting.
      */
     public function __construct($input, $file = null) {
-        $this->input = (string)$input;
+        $this->input = (string) $input;
 
         if (null !== $file) {
-            $this->file = (String)$file;
+            $this->file = (String) $file;
         }
 
         $this->currentCharacter = -1;
-        $this->inputLength      = strlen($this->input);
+        $this->inputLength = strlen($this->input);
         $this->column = 0;
-        $this->line   = 1;
+        $this->line = 1;
         $this->tokens = array();
         $this->currentToken = -1;
     }
@@ -151,7 +160,7 @@ class Scanner {
      *
      * @return bool
      */
-    public static  function isNum($c) {
+    public static function isNum($c) {
         $o = ord($c);
         return $o > 47 && $o < 58;
     }
@@ -163,7 +172,7 @@ class Scanner {
      *
      * @return bool
      */
-    public static  function isAlphaNum($c) {
+    public static function isAlphaNum($c) {
         return self::isAlpha($c) || self::isNum($c);
     }
 
@@ -174,14 +183,14 @@ class Scanner {
      *
      * @return bool
      */
-    public static  function isOperator($c) {
+    public static function isOperator($c) {
         return "{" === $c || "}" === $c ||
-               "(" === $c || ")" === $c ||
-               "[" === $c || "]" === $c ||
-               "," === $c || ";" === $c ||
-               "." === $c || ":" === $c ||
-               "|" === $c || "=" === $c ||
-               "-" === $c ;
+                "(" === $c || ")" === $c ||
+                "[" === $c || "]" === $c ||
+                "," === $c || ";" === $c ||
+                "." === $c || ":" === $c ||
+                "|" === $c || "=" === $c ||
+                "-" === $c;
     }
 
     /**
@@ -191,7 +200,7 @@ class Scanner {
      *
      * @return bool
      */
-    public static  function isWhiteSpace($c) {
+    public static function isWhiteSpace($c) {
         return " " === $c || "\t" === $c || "\n" === $c || "\r" === $c;
     }
 
@@ -367,9 +376,11 @@ class Scanner {
                     $this->currentToken++;
                 }
                 return;
+                // @codingStandardsIgnoreStart
             } else if (self::isWhiteSpace($this->currentCharacter())) {
                 // ignore white spaces
             } else {
+                // @codingStandardsIgnoreEnd
                 $this->raiseError("Invalid character!");
             }
 
@@ -412,9 +423,9 @@ class Scanner {
      * @return Token
      */
     private function scanLiteral() {
-        $pos   = $this->createPosition();
+        $pos = $this->createPosition();
         $start = $this->currentCharacter();
-        $str   = $start;
+        $str = $start;
 
         while ($this->hasNextCharacter()) {
             $this->nextCharacter();
@@ -475,4 +486,5 @@ class Scanner {
 
         return new Token(Token::OPERATOR, $str, $pos);
     }
+
 }

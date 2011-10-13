@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,18 +27,21 @@ namespace de\weltraumschaf\ebnf;
  * token occured. The file name is optional.
  */
 class Position {
+
     /**
      * File of the source string.
      *
      * @var strign
      */
     private $file;
+
     /**
      * Line of occurence.
      *
      * @var int
      */
     private $line;
+
     /**
      * Column of occurence.
      *
@@ -55,11 +59,11 @@ class Position {
      * @param string $file   Optional file name.
      */
     function __construct($line, $column, $file = null) {
-        $this->line   = (int)$line;
-        $this->column = (int)$column;
+        $this->line = (int) $line;
+        $this->column = (int) $column;
 
         if (null !== $file) {
-            $this->file = (string)$file;
+            $this->file = (string) $file;
         }
     }
 
@@ -100,7 +104,7 @@ class Position {
     public function __toString() {
         $str = "";
 
-        if ($this->getFile() !== null ) {
+        if ($this->getFile() !== null) {
             $str = "{$this->getFile()} ";
         }
 

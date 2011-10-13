@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +20,9 @@
 
 namespace de\weltraumschaf\ebnf;
 
-use \DOMDocument              as DOMDocument;
-use \DOMElement               as DOMElement;
-use \RuntimeException         as RuntimeException;
+use \DOMDocument as DOMDocument;
+use \DOMElement as DOMElement;
+use \RuntimeException as RuntimeException;
 use \InvalidArgumentException as InvalidArgumentException;
 
 /**
@@ -45,60 +46,70 @@ class Renderer {
      * @var resource
      */
     private $white;
+
     /**
      * GD lib color resource for black.
      *
      * @var resource
      */
     private $black;
+
     /**
      * GD lib color resource for blue.
      *
      * @var resource
      */
     private $blue;
+
     /**
      * GD lib color resource for red.
      *
      * @var resource
      */
     private $red;
+
     /**
      * GD lib color resource for green.
      *
      * @var resource
      */
     private $green;
+
     /**
      * GD lib color resource for silver.
      *
      * @var resource
      */
     private $silver;
+
     /**
      * The output format.
      *
      * @var string
      */
     private $format;
+
     /**
      * The output file.
      *
      * @var string
      */
     private $file;
+
     /**
      * The syntax tree.
      *
      * @var DOMDocument
      */
     private $dom;
+
     /**
      * Actual GD font.
      *
      * @var int
      */
     private $font;
+
     /**
      * Actual scaling factor.
      *
@@ -118,11 +129,11 @@ class Renderer {
      * @param int         $unit   The scale factor.
      */
     public function __construct($format, $file, DOMDocument $dom, $font = self::DEFAULT_FONT, $unit = self::DEFAULT_UNIT) {
-        $this->format = (string)$format;
-        $this->file   = (string)$file;
-        $this->dom    = $dom;
-        $this->font   = (int)$font;
-        $this->unit   = (int)$unit;
+        $this->format = (string) $format;
+        $this->file = (string) $file;
+        $this->dom = $dom;
+        $this->font = (int) $font;
+        $this->unit = (int) $unit;
     }
 
     /**
@@ -202,11 +213,11 @@ class Renderer {
     private function createImage($width, $height) {
         $im = imagecreatetruecolor($width, $height);
         imageantialias($im, true);
-        $this->white  = imagecolorallocate($im, 255, 255, 255);
-        $this->black  = imagecolorallocate($im, 0, 0, 0);
-        $this->blue   = imagecolorallocate($im, 0, 0, 255);
-        $this->red    = imagecolorallocate($im, 255, 0, 0);
-        $this->green  = imagecolorallocate($im, 0, 200, 0);
+        $this->white = imagecolorallocate($im, 255, 255, 255);
+        $this->black = imagecolorallocate($im, 0, 0, 0);
+        $this->blue = imagecolorallocate($im, 0, 0, 255);
+        $this->red = imagecolorallocate($im, 255, 0, 0);
+        $this->green = imagecolorallocate($im, 0, 200, 0);
         $this->silver = imagecolorallocate($im, 127, 127, 127);
         imagefilledrectangle($im, 0, 0, $width, $height, $this->white);
 
@@ -282,7 +293,7 @@ class Renderer {
 
         while ($node !== null) {
             $childs[] = $this->renderNode($node, $leftToRight);
-            $node     = $node->nextSibling;
+            $node = $node->nextSibling;
         }
 
         return $childs;
@@ -297,24 +308,25 @@ class Renderer {
      * @return resource
      */
     private function renderSyntaxNode(DOMElement $node, $leftToRight) {
-        $title  = $node->getAttribute('title');
-        $meta   = $node->getAttribute('meta');
-        $node   = $node->firstChild;
-        $names  = array();
+        $title = $node->getAttribute('title');
+        $meta = $node->getAttribute('meta');
+        $node = $node->firstChild;
+        $names = array();
         $images = array();
 
         while ($node != null) {
-            $names[]  = $node->getAttribute('name');
-            $image    = $this->renderNode($node->firstChild, $leftToRight);
+            $names[] = $node->getAttribute('name');
+            $image = $this->renderNode($node->firstChild, $leftToRight);
             $images[] = $image;
-            $node     = $node->nextSibling;
+            $node = $node->nextSibling;
         }
 
         $wn = 0;
         $wr = 0;
         $height = 5 * $this->unit;
+        $imageCnt = count($images);
 
-        for ($i = 0; $i < count($images); $i++) {
+        for ($i = 0; $i < $imagesCnt; $i++) {
             $wn = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
             $wr = max($wr, imagesx($images[$i]));
             $height += imagesy($images[$i]) + 2 * $this->unit;
@@ -330,8 +342,8 @@ class Renderer {
 
         $height += 10;
         $weight = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
-        $image  = $this->createImage($weight, $height);
-        $y  = 2 * $this->unit;
+        $image = $this->createImage($weight, $height);
+        $y = 2 * $this->unit;
 
         if ($title != '') {
             imagestring($image, $this->font, $this->unit, (2 * $this->unit - imagefontheight($this->font)) / 2, $title, $this->green);
@@ -339,7 +351,9 @@ class Renderer {
             $y += 2 * $this->unit;
         }
 
-        for ($i = 0; $i < count($images); $i++) {
+        $imageCnt = count($images);
+
+        for ($i = 0; $i < $imagesCnt; $i++) {
             imagestring($image, $this->font, $this->unit, $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2, $names[$i], $this->red);
             imagecopy($image, $images[$i], $wn + 2 * $this->unit, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
             imageline($image, $this->unit, $y + $this->unit, $wn + 2 * $this->unit, $y + $this->unit, $this->black);
@@ -363,11 +377,12 @@ class Renderer {
      * @return resource
      */
     private function renderChoiceNode(DOMElement $node, $leftToRight) {
-        $inner  = $this->renderChilds($node, $leftToRight);
+        $inner = $this->renderChilds($node, $leftToRight);
         $height = (count($inner) - 1) * $this->unit;
-        $width  = 0;
+        $width = 0;
+        $innerCnt = count($inner);
 
-        for ($i = 0; $i < count($inner); $i++) {
+        for ($i = 0; $i < $innerCnt; $i++) {
             $height += imagesy($inner[$i]);
             $width = max($width, imagesx($inner[$i]));
         }
@@ -378,7 +393,7 @@ class Renderer {
         imageline($image, 0, $this->unit, $this->unit, $this->unit, $this->black);
         imageline($image, $width - $this->unit, $this->unit, $width, $this->unit, $this->black);
 
-        for ($i = 0; $i < count($inner); $i++) {
+        for ($i = 0; $i < $innerCnt; $i++) {
             imageline($image, $this->unit, $y + $this->unit, $width - $this->unit, $y + $this->unit, $this->black);
             imagecopy($image, $inner[$i], 3 * $this->unit, $y, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
             $this->arrow($image, 3 * $this->unit, $y + $this->unit, $leftToRight);
@@ -408,10 +423,11 @@ class Renderer {
             $inner = array_reverse($inner);
         }
 
-        $width  = count($inner) * $this->unit - $this->unit;
+        $width = count($inner) * $this->unit - $this->unit;
         $height = 0;
+        $innerCnt = count($inner);
 
-        for ($i = 0; $i < count($inner); $i++) {
+        for ($i = 0; $i < $innerCnt; $i++) {
             $width += imagesx($inner[$i]);
             $height = max($height, imagesy($inner[$i]));
         }
@@ -420,7 +436,7 @@ class Renderer {
         imagecopy($image, $inner[0], 0, 0, 0, 0, imagesx($inner[0]), imagesy($inner[0]));
         $x = imagesx($inner[0]) + $this->unit;
 
-        for ($i = 1; $i < count($inner); $i++) {
+        for ($i = 1; $i < $innerCnt; $i++) {
             imageline($image, $x - $this->unit - 1, $this->unit, $x, $this->unit, $this->black);
             $this->arrow($image, $x, $this->unit, $leftToRight);
             imagecopy($image, $inner[$i], $x, 0, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
@@ -443,10 +459,10 @@ class Renderer {
             $leftToRight = !$leftToRight;
         }
 
-        $inner  = $this->renderNode($node->firstChild, $leftToRight);
-        $width  = imagesx($inner) + 6 * $this->unit;
+        $inner = $this->renderNode($node->firstChild, $leftToRight);
+        $width = imagesx($inner) + 6 * $this->unit;
         $height = imagesy($inner) + 2 * $this->unit;
-        $image  = $this->createImage($width, $height);
+        $image = $this->createImage($width, $height);
         imagecopy($image, $inner, 3 * $this->unit, 2 * $this->unit, 0, 0, imagesx($inner), imagesy($inner));
         imageline($image, 0, $this->unit, $width, $this->unit, $this->black);
 
@@ -468,15 +484,15 @@ class Renderer {
     /**
      * Renders an AST identifier or terminal node.
      *
-     * @param DOMElement $node        The AST node.
+     * @param DOMElement $node The AST node.
      *
      * @return resource
      */
     private function renderIdentifierOrTerminal($node) {
-        $text   = $node->getAttribute('value');
-        $width  = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
+        $text = $node->getAttribute('value');
+        $width = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
         $height = 2 * $this->unit;
-        $image  = $this->createImage($width, $height);
+        $image = $this->createImage($width, $height);
 
         if ($node->nodeName !== Parser::NODE_TYPE_TERMINAL) {
             imagerectangle($image, $this->unit, 0, $width - $this->unit - 1, $height - 1, $this->black);
@@ -499,4 +515,5 @@ class Renderer {
         imageline($image, $width - $this->unit, $this->unit, $width + 1, $this->unit, $this->black);
         return $image;
     }
+
 }

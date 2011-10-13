@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +26,11 @@ namespace de\weltraumschaf\ebnf;
  * A token is a imutable value object.
  */
 class Token {
-    const OPERATOR   = 1;
-    const LITERAL    = 2;
-    const COMMENT    = 3;
+    const OPERATOR = 1;
+    const LITERAL = 2;
+    const COMMENT = 3;
     const IDENTIFIER = 4;
-    const EOF        = 5;
+    const EOF = 5;
 
     /**
      * One of the class constants.
@@ -37,12 +38,14 @@ class Token {
      * @var int
      */
     private $type;
+
     /**
      * The literal string.
      *
      * @var string
      */
     private $value;
+
     /**
      * Start position in source.
      *
@@ -56,11 +59,11 @@ class Token {
      * @var array
      */
     private static $map = array(
-        self::OPERATOR   => "OPERATOR",
-        self::LITERAL    => "LITERAL",
-        self::COMMENT    => "COMMENT",
+        self::OPERATOR => "OPERATOR",
+        self::LITERAL => "LITERAL",
+        self::COMMENT => "COMMENT",
         self::IDENTIFIER => "IDENTIFIER",
-        self::EOF        => "EOF"
+        self::EOF => "EOF"
     );
 
     /**
@@ -71,8 +74,8 @@ class Token {
      * @param Position $position The start position of scanned token.
      */
     public function __construct($type, $value, Position $position) {
-        $this->type     = (int)$type;
-        $this->value    = (string)$value;
+        $this->type = (int) $type;
+        $this->value = (string) $value;
         $this->position = $position;
     }
 
@@ -122,7 +125,7 @@ class Token {
      * @return string
      */
     public static function unquoteString($str) {
-        $start  = 0;
+        $start = 0;
         $length = strlen($str) - 1;
 
         if (Scanner::isQuote($str[$start])) {
@@ -164,7 +167,7 @@ class Token {
      * @return bool
      */
     public function isType($type) {
-        return $this->getType() === (int)$type;
+        return $this->getType() === (int) $type;
     }
 
     /**
@@ -175,7 +178,7 @@ class Token {
      * @return bool
      */
     public function isEqual($string) {
-        return $this->getValue() === (string)$string;
+        return $this->getValue() === (string) $string;
     }
 
     /**
@@ -203,7 +206,7 @@ class Token {
      * @return bool
      */
     public function isNotEqual($string) {
-        return !$this->isEqual($string);
+        return!$this->isEqual($string);
     }
 
     /**
@@ -214,7 +217,7 @@ class Token {
      * @return bool
      */
     public function isNotEquals(array $strings) {
-        return !$this->isEquals($strings);
+        return!$this->isEquals($strings);
     }
 
     /**

@@ -1,6 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-    @see http://www.squizlabs.com/php-codesniffer/upgrading-for-1.3.0
+    Ruleset docu see:
+    http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php
 -->
 <ruleset name="Monkey">
     <description>Coding standard for PHP EBNF Image Generator.</description>
@@ -15,9 +16,13 @@
     <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
     <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
-    <rule ref="Generic.Files.LineEndings"/>
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
-    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
     <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
     <rule ref="Generic.Functions.CallTimePassByReference"/>
     <rule ref="Generic.Metrics.CyclomaticComplexity"/>
@@ -30,6 +35,12 @@
     <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
     <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
     <rule ref="Generic.WhiteSpace.ScopeIndent"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
 
     <rule ref="PEAR.Commenting.FunctionComment"/>
     <rule ref="PEAR.Commenting.InlineComment"/>
