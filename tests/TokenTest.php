@@ -42,7 +42,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("(4711)", $t->getTypeAsString());
     }
 
-    public function testtoString() {
+    public function testToString() {
         $p = new Position(5, 10);
         $t = new Token(Token::IDENTIFIER, "ident", $p);
         $this->assertEquals("<'ident', IDENTIFIER, (5, 10)>", $t->__toString());
@@ -120,8 +120,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
             /* @var $token Token */
             $this->assertTrue($token->isEquals(array("a", "b", "c")), $token->getValue());
             $this->assertFalse($token->isEquals(array("x", "y", "z")), $token->getValue());
-            $this->assertTrue($token->isNotEqual(array("x", "y", "z")), $token->getValue());
-            $this->assertFalse($token->isEqual(array("x", "y", "z")), $token->getValue());
+            $this->assertFalse($token->isNotEquals(array("a", "b", "c")), $token->getValue());
+            $this->assertTrue($token->isNotEquals(array("x", "y", "z")), $token->getValue());
         }
     }
 
@@ -136,5 +136,13 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $t = new Token(0, '"a \"test\" string"', new Position(0, 0));
         $this->assertEquals('"a \"test\" string"', $t->getValue());
         $this->assertEquals('a "test" string', $t->getValue(true));
+    }
+
+    public function testGetPostion() {
+        $t = new Token(0, "abc", new Position(1, 5));
+        $end = $t->getPosition(true);
+        $this->assertInstanceOf("de\weltraumschaf\ebnf\Position", $end);
+        $this->assertEquals(1, $end->getLine());
+        $this->assertEquals(8, $end->getColumn());
     }
 }

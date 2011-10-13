@@ -206,7 +206,7 @@ class Token {
      * @return bool
      */
     public function isNotEqual($string) {
-        return!$this->isEqual($string);
+        return !$this->isEqual($string);
     }
 
     /**
@@ -217,7 +217,7 @@ class Token {
      * @return bool
      */
     public function isNotEquals(array $strings) {
-        return!$this->isEquals($strings);
+        return !$this->isEquals($strings);
     }
 
     /**
