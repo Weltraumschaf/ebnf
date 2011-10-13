@@ -93,7 +93,17 @@ class Renderer {
      * @var DOMDocument
      */
     private $dom;
+    /**
+     * Actual GD font.
+     *
+     * @var int
+     */
     private $font;
+    /**
+     * Actual scaling factor.
+     *
+     * @var int
+     */
     private $unit;
 
     /**
@@ -101,11 +111,11 @@ class Renderer {
      *
      * Optional you can specify the GD lib font siye and the unit.
      *
-     * @param string      $format
-     * @param string      $file
-     * @param DOMDocument $dom
-     * @param int         $font
-     * @param int         $unit
+     * @param string      $format One of the FORMAT_* constants.
+     * @param string      $file   Where to store the rendered result.
+     * @param DOMDocument $dom    The abstract syntax tree from the parser.
+     * @param int         $font   The GD font.
+     * @param int         $unit   The scale factor.
      */
     public function __construct($format, $file, DOMDocument $dom, $font = self::DEFAULT_FONT, $unit = self::DEFAULT_UNIT) {
         $this->format = (string)$format;
@@ -116,7 +126,9 @@ class Renderer {
     }
 
     /**
-     * renders ans saves the grammar into file.
+     * Renders ans saves the grammar into file.
+     *
+     * @return void
      */
     public function save() {
         if (self::FORMAT_XML === $this->format) {
@@ -132,6 +144,8 @@ class Renderer {
 
     /**
      * Render and saves especialy all image formats.
+     *
+     * @return void
      */
     private function saveImage() {
         $out = $this->renderNode($this->dom->firstChild, true);
@@ -141,7 +155,7 @@ class Renderer {
                 imagepng($out, $this->file);
                 break;
             case self::FORMAT_JPG:
-                imagejpeg($out, $this->file);;
+                imagejpeg($out, $this->file);
                 break;
             case self::FORMAT_GIF:
                 imagegif($out, $this->file);
@@ -153,21 +167,36 @@ class Renderer {
         imagedestroy($out);
     }
 
-    private function rr($im, $x1, $y1, $x2, $y2, $r, $black) {
-        imageline($im, $x1 + $r, $y1, $x2 - $r, $y1, $black);
-        imageline($im, $x1 + $r, $y2, $x2 - $r, $y2, $black);
-        imageline($im, $x1, $y1 + $r, $x1, $y2 - $r, $black);
-        imageline($im, $x2, $y1 + $r, $x2, $y2 - $r, $black);
-        imagearc($im, $x1 + $r, $y1 + $r, 2 * $r, 2 * $r, 180, 270, $black);
-        imagearc($im, $x2 - $r, $y1 + $r, 2 * $r, 2 * $r, 270, 360, $black);
-        imagearc($im, $x1 + $r, $y2 - $r, 2 * $r, 2 * $r, 90, 180, $black);
-        imagearc($im, $x2 - $r, $y2 - $r, 2 * $r, 2 * $r, 0, 90, $black);
+    /**
+     * Draws a rectangle with round corners on an image resource.
+     *
+     * @param resource $image Image in which the rectangle is drawed.
+     * @param int      $x1    Start x coordinate.
+     * @param int      $y1    Start y coordinate.
+     * @param int      $x2    End x coordinat.
+     * @param int      $y2    End y coordinate.
+     * @param int      $r     Radius factor.
+     * @param resource $color Coler resource for rectangle.
+     *
+     * @return void
+     */
+    private function rr($image, $x1, $y1, $x2, $y2, $r, $color) {
+        imageline($image, $x1 + $r, $y1, $x2 - $r, $y1, $color);
+        imageline($image, $x1 + $r, $y2, $x2 - $r, $y2, $color);
+        imageline($image, $x1, $y1 + $r, $x1, $y2 - $r, $color);
+        imageline($image, $x2, $y1 + $r, $x2, $y2 - $r, $color);
+        imagearc($image, $x1 + $r, $y1 + $r, 2 * $r, 2 * $r, 180, 270, $color);
+        imagearc($image, $x2 - $r, $y1 + $r, 2 * $r, 2 * $r, 270, 360, $color);
+        imagearc($image, $x1 + $r, $y2 - $r, 2 * $r, 2 * $r, 90, 180, $color);
+        imagearc($image, $x2 - $r, $y2 - $r, 2 * $r, 2 * $r, 0, 90, $color);
     }
 
     /**
+     * Creates an image resource.
      *
-     * @param int $width
-     * @param int $height
+     * @param int $width  Width in pixels.
+     * @param int $height Height in pixels.
+     *
      * @return resource
      */
     private function createImage($width, $height) {
@@ -184,8 +213,18 @@ class Renderer {
         return $im;
     }
 
-    private function arrow($image, $x, $y, $lefttoright) {
-        if ($lefttoright) {
+    /**
+     * Draws an arrow on an given image.
+     *
+     * @param resource $image       Image to draw the arrow at.
+     * @param int      $x           X position.
+     * @param int      $y           Y position.
+     * @param bool     $leftToRight If true the arrow is ->, false it is <-
+     *
+     * @return void
+     */
+    private function arrow($image, $x, $y, $leftToRight) {
+        if ($leftToRight) {
             $points = array(
                 $x - $this->unit,
                 $y - $this->unit / 3,
@@ -208,9 +247,11 @@ class Renderer {
     }
 
     /**
+     * Renders anny AST node.
      *
-     * @param DOMElement $node
-     * @param bool $leftToRight
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
      * @return resource
      */
     private function renderNode(DOMElement $node, $leftToRight) {
@@ -221,25 +262,41 @@ class Renderer {
         } else if ($node->nodeName === Parser::NODE_TYPE_SEQUENCE) {
             return $this->renderSequenceNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_CHOICE) {
-            return $this->renderChoiseNode($node, $leftToRight);
+            return $this->renderChoiceNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_SYNTAX) {
             return $this->renderSyntaxNode($node, $leftToRight);
         }
     }
 
-    private function renderChilds($node, $lefttoright) {
+    /**
+     * Renders the child nodes of an AST node.
+     *
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
+     * @return array of resource
+     */
+    private function renderChilds(DOMElement $node, $leftToRight) {
         $childs = array();
         $node = $node->firstChild;
 
         while ($node !== null) {
-            $childs[] = $this->renderNode($node, $lefttoright);
-            $node = $node->nextSibling;
+            $childs[] = $this->renderNode($node, $leftToRight);
+            $node     = $node->nextSibling;
         }
 
         return $childs;
     }
 
-    private function renderSyntaxNode($node, $leftToRight) {
+    /**
+     * Renders an AST syntax node.
+     *
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
+     * @return resource
+     */
+    private function renderSyntaxNode(DOMElement $node, $leftToRight) {
         $title  = $node->getAttribute('title');
         $meta   = $node->getAttribute('meta');
         $node   = $node->firstChild;
@@ -248,155 +305,186 @@ class Renderer {
 
         while ($node != null) {
             $names[]  = $node->getAttribute('name');
-            $im       = $this->renderNode($node->firstChild, $leftToRight);
-            $images[] = $im;
+            $image    = $this->renderNode($node->firstChild, $leftToRight);
+            $images[] = $image;
             $node     = $node->nextSibling;
         }
 
         $wn = 0;
         $wr = 0;
-        $h  = 5 * $this->unit;
+        $height = 5 * $this->unit;
 
         for ($i = 0; $i < count($images); $i++) {
             $wn = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
             $wr = max($wr, imagesx($images[$i]));
-            $h += imagesy($images[$i]) + 2 * $this->unit;
+            $height += imagesy($images[$i]) + 2 * $this->unit;
         }
 
         if ($title == '') {
-            $h -= 2 * $this->unit;
+            $height -= 2 * $this->unit;
         }
 
         if ($meta == '') {
-            $h -= 2 * $this->unit;
+            $height -= 2 * $this->unit;
         }
 
-        $h += 10;
-        $w  = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
-        $im = $this->createImage($w, $h);
+        $height += 10;
+        $weight = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
+        $image  = $this->createImage($weight, $height);
         $y  = 2 * $this->unit;
 
         if ($title != '') {
-            imagestring($im, $this->font, $this->unit, (2 * $this->unit - imagefontheight($this->font)) / 2, $title, $this->green);
-            imageline($im, 5, 2 * $this->unit, $w - 5, 2 * $this->unit, $this->green);
+            imagestring($image, $this->font, $this->unit, (2 * $this->unit - imagefontheight($this->font)) / 2, $title, $this->green);
+            imageline($image, 5, 2 * $this->unit, $weight - 5, 2 * $this->unit, $this->green);
             $y += 2 * $this->unit;
         }
 
         for ($i = 0; $i < count($images); $i++) {
-            imagestring($im, $this->font, $this->unit, $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2, $names[$i], $this->red);
-            imagecopy($im, $images[$i], $wn + 2 * $this->unit, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
-            imageline($im, $this->unit, $y + $this->unit, $wn + 2 * $this->unit, $y + $this->unit, $this->black);
-            imageline($im, $wn + 2 * $this->unit + imagesx($images[$i]) - 1, $y + $this->unit, $w - $this->unit, $y + $this->unit, $this->black);
-            imageline($im, $w - $this->unit, $y + $this->unit / 2, $w - $this->unit, $y + 1.5 * $this->unit, $this->black);
+            imagestring($image, $this->font, $this->unit, $y - $this->unit + (2 * $this->unit - imagefontheight($this->font)) / 2, $names[$i], $this->red);
+            imagecopy($image, $images[$i], $wn + 2 * $this->unit, $y, 0, 0, imagesx($images[$i]), imagesy($images[$i]));
+            imageline($image, $this->unit, $y + $this->unit, $wn + 2 * $this->unit, $y + $this->unit, $this->black);
+            imageline($image, $wn + 2 * $this->unit + imagesx($images[$i]) - 1, $y + $this->unit, $weight - $this->unit, $y + $this->unit, $this->black);
+            imageline($image, $weight - $this->unit, $y + $this->unit / 2, $weight - $this->unit, $y + 1.5 * $this->unit, $this->black);
             $y += 2 * $this->unit + imagesy($images[$i]);
         }
 
-        imagestring($im, 1, $this->unit, $h - 2 * $this->unit + (2 * $this->unit - imagefontheight(1)) / 2, $meta, $this->silver);
-        $this->rr($im, 5, 5, $w - 5, $h - 5, $this->unit / 2, $this->green);
+        imagestring($image, 1, $this->unit, $height - 2 * $this->unit + (2 * $this->unit - imagefontheight(1)) / 2, $meta, $this->silver);
+        $this->rr($image, 5, 5, $weight - 5, $height - 5, $this->unit / 2, $this->green);
 
-        return $im;
+        return $image;
     }
 
-    private function renderChoiseNode($node, $leftToRight) {
-        $inner = $this->renderChilds($node, $leftToRight);
-        $h = (count($inner) - 1) * $this->unit;
-        $w = 0;
+    /**
+     * Renders an AST choice node.
+     *
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
+     * @return resource
+     */
+    private function renderChoiceNode(DOMElement $node, $leftToRight) {
+        $inner  = $this->renderChilds($node, $leftToRight);
+        $height = (count($inner) - 1) * $this->unit;
+        $width  = 0;
 
         for ($i = 0; $i < count($inner); $i++) {
-            $h += imagesy($inner[$i]);
-            $w = max($w, imagesx($inner[$i]));
+            $height += imagesy($inner[$i]);
+            $width = max($width, imagesx($inner[$i]));
         }
 
-        $w += 6 * $this->unit;
-        $im = $this->createImage($w, $h);
+        $width += 6 * $this->unit;
+        $image = $this->createImage($width, $height);
         $y = 0;
-        imageline($im, 0, $this->unit, $this->unit, $this->unit, $this->black);
-        imageline($im, $w - $this->unit, $this->unit, $w, $this->unit, $this->black);
+        imageline($image, 0, $this->unit, $this->unit, $this->unit, $this->black);
+        imageline($image, $width - $this->unit, $this->unit, $width, $this->unit, $this->black);
 
         for ($i = 0; $i < count($inner); $i++) {
-            imageline($im, $this->unit, $y + $this->unit, $w - $this->unit, $y + $this->unit, $this->black);
-            imagecopy($im, $inner[$i], 3 * $this->unit, $y, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
-            $this->arrow($im, 3 * $this->unit, $y + $this->unit, $leftToRight);
-            $this->arrow($im, $w - 2 * $this->unit, $y + $this->unit, $leftToRight);
+            imageline($image, $this->unit, $y + $this->unit, $width - $this->unit, $y + $this->unit, $this->black);
+            imagecopy($image, $inner[$i], 3 * $this->unit, $y, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
+            $this->arrow($image, 3 * $this->unit, $y + $this->unit, $leftToRight);
+            $this->arrow($image, $width - 2 * $this->unit, $y + $this->unit, $leftToRight);
             $top = $y + $this->unit;
             $y += imagesy($inner[$i]) + $this->unit;
         }
 
-        imageline($im, $this->unit, $this->unit, $this->unit, $top, $this->black);
-        imageline($im, $w - $this->unit, $this->unit, $w - $this->unit, $top, $this->black);
+        imageline($image, $this->unit, $this->unit, $this->unit, $top, $this->black);
+        imageline($image, $width - $this->unit, $this->unit, $width - $this->unit, $top, $this->black);
 
-        return $im;
+        return $image;
     }
 
-    private function renderSequenceNode($node, $leftToRight) {
+    /**
+     * Renders an AST syntax node.
+     *
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
+     * @return resource
+     */
+    private function renderSequenceNode(DOMElement $node, $leftToRight) {
         $inner = $this->renderChilds($node, $leftToRight);
 
         if (!$leftToRight) {
             $inner = array_reverse($inner);
         }
 
-        $w = count($inner) * $this->unit - $this->unit;
-        $h = 0;
+        $width  = count($inner) * $this->unit - $this->unit;
+        $height = 0;
 
         for ($i = 0; $i < count($inner); $i++) {
-            $w += imagesx($inner[$i]);
-            $h = max($h, imagesy($inner[$i]));
+            $width += imagesx($inner[$i]);
+            $height = max($height, imagesy($inner[$i]));
         }
 
-        $im = $this->createImage($w, $h);
-        imagecopy($im, $inner[0], 0, 0, 0, 0, imagesx($inner[0]), imagesy($inner[0]));
+        $image = $this->createImage($width, $height);
+        imagecopy($image, $inner[0], 0, 0, 0, 0, imagesx($inner[0]), imagesy($inner[0]));
         $x = imagesx($inner[0]) + $this->unit;
 
         for ($i = 1; $i < count($inner); $i++) {
-            imageline($im, $x - $this->unit - 1, $this->unit, $x, $this->unit, $this->black);
-            $this->arrow($im, $x, $this->unit, $leftToRight);
-            imagecopy($im, $inner[$i], $x, 0, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
+            imageline($image, $x - $this->unit - 1, $this->unit, $x, $this->unit, $this->black);
+            $this->arrow($image, $x, $this->unit, $leftToRight);
+            imagecopy($image, $inner[$i], $x, 0, 0, 0, imagesx($inner[$i]), imagesy($inner[$i]));
             $x += imagesx($inner[$i]) + $this->unit;
         }
 
-        return $im;
+        return $image;
     }
 
-    private function renderOptionOrLoopNode($node, $leftToRight) {
+    /**
+     * Renders an AST option or loop node.
+     *
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
+     * @return resource
+     */
+    private function renderOptionOrLoopNode(DOMElement $node, $leftToRight) {
         if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
             $leftToRight = !$leftToRight;
         }
 
-        $inner = $this->renderNode($node->firstChild, $leftToRight);
-        $w = imagesx($inner) + 6 * $this->unit;
-        $h = imagesy($inner) + 2 * $this->unit;
-        $im = $this->createImage($w, $h);
-        imagecopy($im, $inner, 3 * $this->unit, 2 * $this->unit, 0, 0, imagesx($inner), imagesy($inner));
-        imageline($im, 0, $this->unit, $w, $this->unit, $this->black);
+        $inner  = $this->renderNode($node->firstChild, $leftToRight);
+        $width  = imagesx($inner) + 6 * $this->unit;
+        $height = imagesy($inner) + 2 * $this->unit;
+        $image  = $this->createImage($width, $height);
+        imagecopy($image, $inner, 3 * $this->unit, 2 * $this->unit, 0, 0, imagesx($inner), imagesy($inner));
+        imageline($image, 0, $this->unit, $width, $this->unit, $this->black);
 
         if ($node->nodeName === Parser::NODE_TYPE_LOOP) {
-            $this->arrow($im, $w / 2 + $this->unit / 2, $this->unit, !$leftToRight);
+            $this->arrow($image, $width / 2 + $this->unit / 2, $this->unit, !$leftToRight);
         } else {
-            $this->arrow($im, $w / 2 + $this->unit / 2, $this->unit, $leftToRight);
+            $this->arrow($image, $width / 2 + $this->unit / 2, $this->unit, $leftToRight);
         }
 
-        $this->arrow($im, 3 * $this->unit, 3 * $this->unit, $leftToRight);
-        $this->arrow($im, $w - 2 * $this->unit, 3 * $this->unit, $leftToRight);
-        imageline($im, $this->unit, $this->unit, $this->unit, 3 * $this->unit, $this->black);
-        imageline($im, $this->unit, 3 * $this->unit, 2 * $this->unit, 3 * $this->unit, $this->black);
-        imageline($im, $w - $this->unit, $this->unit, $w - $this->unit, 3 * $this->unit, $this->black);
-        imageline($im, $w - 3 * $this->unit - 1, 3 * $this->unit, $w - $this->unit, 3 * $this->unit, $this->black);
-
-        return $im;
+        $this->arrow($image, 3 * $this->unit, 3 * $this->unit, $leftToRight);
+        $this->arrow($image, $width - 2 * $this->unit, 3 * $this->unit, $leftToRight);
+        imageline($image, $this->unit, $this->unit, $this->unit, 3 * $this->unit, $this->black);
+        imageline($image, $this->unit, 3 * $this->unit, 2 * $this->unit, 3 * $this->unit, $this->black);
+        imageline($image, $width - $this->unit, $this->unit, $width - $this->unit, 3 * $this->unit, $this->black);
+        imageline($image, $width - 3 * $this->unit - 1, 3 * $this->unit, $width - $this->unit, 3 * $this->unit, $this->black);
+        return $image;
     }
 
+    /**
+     * Renders an AST identifier or terminal node.
+     *
+     * @param DOMElement $node        The AST node.
+     * @param bool       $leftToRight Railroad direction used for arrows.
+     *
+     * @return resource
+     */
     private function renderIdentifierOrTerminal($node, $leftToRight) {
-        $text = $node->getAttribute('value');
-        $w = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
-        $h = 2 * $this->unit;
-        $im = $this->createImage($w, $h);
+        $text   = $node->getAttribute('value');
+        $width  = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
+        $height = 2 * $this->unit;
+        $image  = $this->createImage($width, $height);
 
         if ($node->nodeName !== Parser::NODE_TYPE_TERMINAL) {
-            imagerectangle($im, $this->unit, 0, $w - $this->unit - 1, $h - 1, $this->black);
-            imagestring($im, $this->font, 2 * $this->unit, ($h - imagefontheight($this->font)) / 2, $text, $this->red);
+            imagerectangle($image, $this->unit, 0, $width - $this->unit - 1, $height - 1, $this->black);
+            imagestring($image, $this->font, 2 * $this->unit, ($height - imagefontheight($this->font)) / 2, $text, $this->red);
         } else {
             if ($text !== "...") {
-                $this->rr($im, $this->unit, 0, $w - $this->unit - 1, $h - 1, $this->unit / 2, $this->black);
+                $this->rr($image, $this->unit, 0, $width - $this->unit - 1, $height - 1, $this->unit / 2, $this->black);
             }
 
             if ($text !== "...") {
@@ -405,12 +493,11 @@ class Renderer {
                 $color = $this->black;
             }
 
-            imagestring($im, $this->font, 2 * $this->unit, ($h - imagefontheight($this->font)) / 2, $text, $color);
+            imagestring($image, $this->font, 2 * $this->unit, ($height - imagefontheight($this->font)) / 2, $text, $color);
         }
 
-        imageline($im, 0, $this->unit, $this->unit, $this->unit, $this->black);
-        imageline($im, $w - $this->unit, $this->unit, $w + 1, $this->unit, $this->black);
-
-        return $im;
+        imageline($image, 0, $this->unit, $this->unit, $this->unit, $this->black);
+        imageline($image, $width - $this->unit, $this->unit, $width + 1, $this->unit, $this->black);
+        return $image;
     }
 }
