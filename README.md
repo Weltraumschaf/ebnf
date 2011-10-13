@@ -39,20 +39,35 @@ If you want to build the project (unittests, apidoc etc.) clone the repo
 
     $ git clone git://github.com/Weltraumschaf/ebnf.git
 
-and install the required PEAR dependencies
+and install the required PECL/PEAR dependencies
 
     $ cd ebnf
-    $ ./install_pear_deps
+    $ ./install_deps
 
 After that you can invoke the [Phing][3] targets
 
+To show all available targets type:
+
     $ phing -l
+
+Run the unittests (generates report and coberage in <kbd>reports/</kbd>):
+
+    $ phing test
+
+Run the codesniffer (generates report in <kbd>reports/</kbd>):
+
+    $ phing checkstyle
+
+Generate API doc (in the folder <kbd>doc/</kbd>):
+
+    $ phing doc
+
+Or you run all targets with:
+
+    $ phing
 
 Todo
 ----
-- implement comments
-- implement special sequence
-- implement exceptions
 - implement ranges 'a' .. 'z'
 
 [1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
