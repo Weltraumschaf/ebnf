@@ -346,31 +346,13 @@ class Scanner {
                 $this->currentToken++;
                 return;
             } else if (self::isOperator($this->currentCharacter())) {
-                $peek = $this->peekCharacter();
-
-                if ("(" === $this->currentCharacter() && "*" === $peek) {
+                if ("(" === $this->currentCharacter() && "*" === $this->peekCharacter()) {
                     $this->tokens[] = $this->scanComment();
                     $this->currentToken++;
-                    return;
-                } else if (":" === $this->currentCharacter() && "=" === $peek) {
-                    $pos = $this->createPosition();
-                    $str = $this->currentCharacter();
-                    $this->nextCharacter();
-                    $str .= $this->currentCharacter();
-                    $this->nextCharacter();
-
-                    if ($this->currentCharacter() !== "=") {
-                        $this->raiseError("");
-                    }
-
-                    $str .= $this->currentCharacter();
-                    $this->tokens[] = new Token(Token::OPERATOR, $str, $pos);
+                } else {
+                    $this->tokens[] = $this->scanOperator();
                     $this->currentToken++;
-                    return;
                 }
-
-                $this->tokens[] = new Token(Token::OPERATOR, $this->currentCharacter(), $this->createPosition());
-                $this->currentToken++;
                 return;
             } else if (self::isWhiteSpace($this->currentCharacter())) {
                 // ignore white spaces
@@ -450,5 +432,24 @@ class Scanner {
         }
 
         return new Token(Token::COMMENT, $str, $pos);
+    }
+
+    private function scanOperator() {
+        $pos = $this->createPosition();
+        $str = $this->currentCharacter();
+
+        if (":" === $this->currentCharacter() && "=" === $this->peekCharacter()) {
+            $this->nextCharacter();
+            $str .= $this->currentCharacter();
+            $this->nextCharacter();
+
+            if ($this->currentCharacter() !== "=") {
+                $this->raiseError("");
+            }
+
+            $str .= $this->currentCharacter();
+        }
+
+        return new Token(Token::OPERATOR, $str, $pos);
     }
 }
