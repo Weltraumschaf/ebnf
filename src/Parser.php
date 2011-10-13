@@ -41,9 +41,6 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
  *
  * This class provides only one public method which provides returns
  * the syntax tree as XML DOM tree.
- *
- * @todo Use objects of type Token instead of strings.
- * @todo Throw SyntaxtException with propper positions.
  */
 class Parser {
     const META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
