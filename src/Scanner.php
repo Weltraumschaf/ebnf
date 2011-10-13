@@ -503,7 +503,7 @@ class Scanner {
             $this->nextCharacter();
 
             if ($this->currentCharacter() !== "=") {
-                $this->raiseError("");
+                $this->raiseError("Expecting '=' but seen '{$this->currentCharacter()}'");
             }
 
             $str .= $this->currentCharacter();
