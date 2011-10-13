@@ -50,9 +50,9 @@ class Position {
      *
      * File is optional e.g. if string is parsed directly without any file.
      *
-     * @param int    $column
-     * @param int    $file
-     * @param string $line
+     * @param int    $line   Line of occurence.
+     * @param int    $column Column of occurence.
+     * @param string $file   Optional file name.
      */
     function __construct($line, $column, $file = null) {
         $this->line   = (int)$line;
