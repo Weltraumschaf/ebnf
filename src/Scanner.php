@@ -307,7 +307,7 @@ class Scanner {
      * @throws SyntaxtException
      * @return void
      */
-    private function raiseError($msg) {
+    public function raiseError($msg) {
         throw new SyntaxtException($msg, $this->createPosition());
     }
 
@@ -316,7 +316,7 @@ class Scanner {
      *
      * @return Position
      */
-    private function createPosition() {
+    protected function createPosition() {
         return new Position($this->line, $this->column, $this->file);
     }
 

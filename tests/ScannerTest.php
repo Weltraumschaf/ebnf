@@ -484,4 +484,21 @@ EOD;
 
         $this->assertEquals(count($expectations), $count, "{$msg}: Not enough tokens!");
     }
+
+    public function testRaiseError() {
+        $pos = new Position(5, 3);
+        $s = $this->getMock("de\weltraumschaf\ebnf\Scanner", array("createPosition"), array(""));
+        $s->expects($this->once())
+          ->method("createPosition")
+          ->will($this->returnValue($pos));
+        $msg = "an error";
+
+        try {
+            $s->raiseError($msg);
+            $this->fail("Expected exception not thrown!");
+        } catch (SyntaxtException $e) {
+            $this->assertSame($e->getPosition(), $pos);
+            $this->assertEquals("Syntax error: {$msg} at {$pos} (code: 0)!", $e->__toString());
+        }
+    }
 }
