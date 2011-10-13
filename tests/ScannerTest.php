@@ -515,14 +515,20 @@ EOD;
 
         $this->assertEquals(count($expectations), $count, "{$msg}: Not enough tokens!");
 
-        foreach (array(1, 3, 5) as $backTracks) {
+        foreach (array(1, 3, 5, 20, 200000) as $backTracks) {
             $index = $count - ($backTracks + 1);
 
             if ($index < 0) {
+                try {
+                    $token = $scanner->backtrackToken($backTracks);
+                    $this->fail("Expected excpetion not thrown!");
+                } catch (\InvalidArgumentException $e) {
+                }
                 continue;
+            } else {
+                $token = $scanner->backtrackToken($backTracks);
             }
 
-            $token = $scanner->backtrackToken($backTracks);
             $expectation = $expectations[$index];
 
             $this->assertInstanceOf("de\weltraumschaf\ebnf\Token", $token);
