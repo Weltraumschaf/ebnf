@@ -256,7 +256,7 @@ class Renderer {
      */
     private function renderNode(DOMElement $node, $leftToRight) {
         if ($node->nodeName === Parser::NODE_TYPE_IDENTIFIER || $node->nodeName === Parser::NODE_TYPE_TERMINAL) {
-            return $this->renderIdentifierOrTerminal($node, $leftToRight);
+            return $this->renderIdentifierOrTerminal($node);
         } else if ($node->nodeName === Parser::NODE_TYPE_OPTION || $node->nodeName === Parser::NODE_TYPE_LOOP) {
             return $this->renderOptionOrLoopNode($node, $leftToRight);
         } else if ($node->nodeName === Parser::NODE_TYPE_SEQUENCE) {
@@ -469,11 +469,10 @@ class Renderer {
      * Renders an AST identifier or terminal node.
      *
      * @param DOMElement $node        The AST node.
-     * @param bool       $leftToRight Railroad direction used for arrows.
      *
      * @return resource
      */
-    private function renderIdentifierOrTerminal($node, $leftToRight) {
+    private function renderIdentifierOrTerminal($node) {
         $text   = $node->getAttribute('value');
         $width  = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
         $height = 2 * $this->unit;
