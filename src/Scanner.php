@@ -23,15 +23,19 @@ namespace de\weltraumschaf\ebnf;
 /**
  * @see {Token}
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . "Token.php";
 /**
  * @see {SyntaxtException}
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . "SyntaxtException.php";
 /**
  * @see {Position}
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . "Position.php";
+/**
+ * @see {ScannerHelper}
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
 
 /**
  * Scanns an input string for EBNF syntax tokens.
@@ -139,92 +143,6 @@ class Scanner {
         $this->line = 1;
         $this->tokens = array();
         $this->currentToken = -1;
-    }
-
-    /**
-     * Checks whether a character is a alpha [a-zA-Z].
-     *
-     * @param string $c A single character.
-     *
-     * @return bool
-     */
-    public static function isAlpha($c) {
-        $o = ord($c);
-        return $o > 64 && $o < 91 || $o > 96 && $o < 123;
-    }
-
-    /**
-     * Checks whether a character is a number [0-9].
-     *
-     * @param string $c A single character.
-     *
-     * @return bool
-     */
-    public static function isNum($c) {
-        $o = ord($c);
-        return $o > 47 && $o < 58;
-    }
-
-    /**
-     * Checks whether a character is a number or alpha [0-9a-zA-Z].
-     *
-     * @param string $c A single character.
-     *
-     * @return bool
-     */
-    public static function isAlphaNum($c) {
-        return self::isAlpha($c) || self::isNum($c);
-    }
-
-    /**
-     * Checks whether a character is a operator.
-     *
-     * @param string $c A single character.
-     *
-     * @return bool
-     */
-    public static function isOperator($c) {
-        return in_array($c, array("{", "}", "(", ")", "[", "]", ",", ";", ".", ":", "|", "=", "-"));
-    }
-
-    /**
-     * Checks whether a character is a whitespace.
-     *
-     * @param string $c A single character.
-     *
-     * @return bool
-     */
-    public static function isWhiteSpace($c) {
-        return " " === $c || "\t" === $c || "\n" === $c || "\r" === $c;
-    }
-
-    /**
-     * Checks whether a character is a quote ["|'].
-     *
-     * @param string $c A single character.
-     *
-     * @return bool
-     */
-    public static function isQuote($c) {
-        return "'" === $c || '"' === $c;
-    }
-
-    /**
-     * Tests a given character if it is equal to ona of the passed test characters.
-     *
-     * @param string $c     Character to test.
-     * @param array  $chars Array of characters to test against.
-     *
-     * @return bool
-     */
-    public static function isEquals($c, array $chars) {
-        foreach ($chars as $char) {
-            if ($c === $char) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -371,15 +289,15 @@ class Scanner {
         while ($this->hasNextCharacter()) {
             $this->nextCharacter();
 
-            if (self::isAlpha($this->currentCharacter())) {
+            if (ScannerHelper::isAlpha($this->currentCharacter())) {
                 $this->tokens[] = $this->scannIdentifier();
                 $this->currentToken++;
                 return;
-            } else if (self::isQuote($this->currentCharacter())) {
+            } else if (ScannerHelper::isQuote($this->currentCharacter())) {
                 $this->tokens[] = $this->scanLiteral();
                 $this->currentToken++;
                 return;
-            } else if (self::isOperator($this->currentCharacter())) {
+            } else if (ScannerHelper::isOperator($this->currentCharacter())) {
                 if ("(" === $this->currentCharacter() && "*" === $this->peekCharacter()) {
                     $this->tokens[] = $this->scanComment();
                     $this->currentToken++;
@@ -389,7 +307,7 @@ class Scanner {
                 }
                 return;
                 // @codingStandardsIgnoreStart
-            } else if (self::isWhiteSpace($this->currentCharacter())) {
+            } else if (ScannerHelper::isWhiteSpace($this->currentCharacter())) {
                 // ignore white spaces
             } else {
                 // @codingStandardsIgnoreEnd
@@ -422,8 +340,8 @@ class Scanner {
         while ($this->hasNextCharacter()) {
             $this->nextCharacter();
 
-            if (self::isAlphaNum($this->currentCharacter()) ||
-                self::isEquals($this->currentCharacter(), array("-", "_"))) {
+            if (ScannerHelper::isAlphaNum($this->currentCharacter()) ||
+                ScannerHelper::isEquals($this->currentCharacter(), array("-", "_"))) {
                 $str .= $this->currentCharacter();
             } else {
                 $this->backupCharacter();
@@ -449,7 +367,7 @@ class Scanner {
             $str .= $this->currentCharacter();
 
             // Ensure that a lieral opened with " is not temrinated by ' and vice versa.
-            if (self::isQuote($this->currentCharacter()) && $this->currentCharacter() === $start) {
+            if (ScannerHelper::isQuote($this->currentCharacter()) && $this->currentCharacter() === $start) {
                 break;
             }
         }

@@ -21,16 +21,21 @@
 namespace de\weltraumschaf\ebnf;
 
 /**
+ * @see {ScannerHelper}
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
+
+/**
  * Represents a scanned EBNF token with its type, value and position in the source file.
  *
  * A token is a imutable value object.
  */
 class Token {
-    const OPERATOR = 1;
-    const LITERAL = 2;
-    const COMMENT = 3;
+    const OPERATOR   = 1;
+    const LITERAL    = 2;
+    const COMMENT    = 3;
     const IDENTIFIER = 4;
-    const EOF = 5;
+    const EOF        = 5;
 
     /**
      * One of the class constants.
@@ -59,11 +64,11 @@ class Token {
      * @var array
      */
     private static $map = array(
-        self::OPERATOR => "OPERATOR",
-        self::LITERAL => "LITERAL",
-        self::COMMENT => "COMMENT",
+        self::OPERATOR   => "OPERATOR",
+        self::LITERAL    => "LITERAL",
+        self::COMMENT    => "COMMENT",
         self::IDENTIFIER => "IDENTIFIER",
-        self::EOF => "EOF"
+        self::EOF        => "EOF"
     );
 
     /**
@@ -128,11 +133,11 @@ class Token {
         $start = 0;
         $length = strlen($str) - 1;
 
-        if (Scanner::isQuote($str[$start])) {
+        if (ScannerHelper::isQuote($str[$start])) {
             $start++;
         }
 
-        if (Scanner::isQuote($str[$length])) {
+        if (ScannerHelper::isQuote($str[$length])) {
             $length--;
         }
 
