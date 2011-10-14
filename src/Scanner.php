@@ -321,6 +321,12 @@ class Scanner {
         $this->currentToken++;
     }
 
+    /**
+     * Checks if the current character is a new line character (\n or \r)
+     * and if it is increments the line counter and resets the column counter to 0.
+     *
+     * @return void
+     */
     private function checkNewline() {
         if ("\n" === $this->currentCharacter() || "\r" === $this->currentCharacter()) {
             $this->line++;
