@@ -412,10 +412,11 @@ class Scanner {
      * @return Token
      */
     private function scanOperator() {
-        $pos = $this->createPosition();
-        $str = $this->currentCharacter();
+        $pos  = $this->createPosition();
+        $str  = $this->currentCharacter();
+        $peak = $this->peekCharacter();
 
-        if (":" === $this->currentCharacter() && "=" === $this->peekCharacter()) {
+        if (":" === $this->currentCharacter() && $peak === "=") {
             $this->nextCharacter();
             $str .= $this->currentCharacter();
             $this->nextCharacter();
@@ -424,6 +425,9 @@ class Scanner {
                 $this->raiseError("Expecting '=' but seen '{$this->currentCharacter()}'");
             }
 
+            $str .= $this->currentCharacter();
+        } else if ("." === $this->currentCharacter() && $peak === ".") {
+            $this->nextCharacter();
             $str .= $this->currentCharacter();
         }
 

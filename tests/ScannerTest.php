@@ -35,6 +35,50 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
 
     public function testNext() {
 $grammar = <<<EOD
+lower     = "a" .. "z" .
+upper     = "A" .. "Z" .
+number    = "0" .. "9" .
+alpha-num = "a" .. "z" | "0" .. "9" .
+EOD;
+
+        $expectations = array(
+            array("value" => "lower", "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
+            array("value" => "=",     "type" => Token::OPERATOR,   "line" => 1, "col" => 11),
+            array("value" => '"a"',   "type" => Token::LITERAL,    "line" => 1, "col" => 13),
+            array("value" => "..",    "type" => Token::OPERATOR,   "line" => 1, "col" => 17),
+            array("value" => '"z"',   "type" => Token::LITERAL,    "line" => 1, "col" => 20),
+            array("value" => ".",     "type" => Token::OPERATOR,   "line" => 1, "col" => 24),
+
+            array("value" => "upper", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
+            array("value" => "=",     "type" => Token::OPERATOR,   "line" => 2, "col" => 11),
+            array("value" => '"A"',   "type" => Token::LITERAL,    "line" => 2, "col" => 13),
+            array("value" => "..",    "type" => Token::OPERATOR,   "line" => 2, "col" => 17),
+            array("value" => '"Z"',   "type" => Token::LITERAL,    "line" => 2, "col" => 20),
+            array("value" => ".",     "type" => Token::OPERATOR,   "line" => 2, "col" => 24),
+
+            array("value" => "number", "type" => Token::IDENTIFIER, "line" => 3, "col" => 1),
+            array("value" => "=",      "type" => Token::OPERATOR,   "line" => 3, "col" => 11),
+            array("value" => '"0"',    "type" => Token::LITERAL,    "line" => 3, "col" => 13),
+            array("value" => "..",     "type" => Token::OPERATOR,   "line" => 3, "col" => 17),
+            array("value" => '"9"',    "type" => Token::LITERAL,    "line" => 3, "col" => 20),
+            array("value" => ".",      "type" => Token::OPERATOR,   "line" => 3, "col" => 24),
+
+            array("value" => "alpha-num", "type" => Token::IDENTIFIER, "line" => 4, "col" => 1),
+            array("value" => "=",         "type" => Token::OPERATOR,   "line" => 4, "col" => 11),
+            array("value" => '"a"',       "type" => Token::LITERAL,    "line" => 4, "col" => 13),
+            array("value" => "..",        "type" => Token::OPERATOR,   "line" => 4, "col" => 17),
+            array("value" => '"z"',       "type" => Token::LITERAL,    "line" => 4, "col" => 20),
+            array("value" => "|",         "type" => Token::OPERATOR,   "line" => 4, "col" => 24),
+            array("value" => '"0"',       "type" => Token::LITERAL,    "line" => 4, "col" => 26),
+            array("value" => "..",        "type" => Token::OPERATOR,   "line" => 4, "col" => 30),
+            array("value" => '"9"',       "type" => Token::LITERAL,    "line" => 4, "col" => 33),
+            array("value" => ".",         "type" => Token::OPERATOR,   "line" => 4, "col" => 37),
+
+            array("value" => "", "type" => Token::EOF, "line" => 4, "col" => 37),
+        );
+        $this->assertTokens($grammar, $expectations, "Rule with range.");
+
+$grammar = <<<EOD
 title      = literal . (* Comment * at the end of line *)
 comment    = literal .
 (*  This is a multi
