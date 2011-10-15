@@ -39,57 +39,107 @@ class Command {
      */
     private $opts;
 
-    private static $exampleInput =
-'"EBNF defined in itself" {
-  syntax     = [ title ] "{" { rule } "}" [ comment ].
-  rule       = identifier "=" expression ( "." | ";" ) .
-  expression = term { "|" term } .
-  term       = factor { factor } .
-  factor     = identifier
-             | literal
-             | "[" expression "]"
-             | "(" expression ")"
-             | "{" expression "}" .
-  identifier = character { character } .
-  title      = literal .
-  comment    = literal .
-  literal    = "\'" character { character } "\'"
-             | \'"\' character { character } \'"\' .
-}';
+    /**
+     * BAse name of the invoking script.
+     *
+     * @var string
+     */
+    private $baseName;
 
-    public static function main(array $opts) {
-        $self = new Command($opts);
-        return $self->execute();
+    /**
+     * Invokes the command.
+     *
+     * Needs opts like: getopt("s:f:o:hd").
+     * Returns error codes defined as class constants.
+     *
+     * @param array $opts
+     * @return int
+     */
+    public static function main(array $opts, $baseName = "ebnf") {
+        $debug = false;
+
+        if (isset($opts["d"])) {
+            $debug = true;
+        }
+
+        try {
+            $self = new Command($opts, $baseName);
+            return $self->execute();
+        } catch (SyntaxtException $e) {
+            echo "{$e}\n";
+
+            if ($debug) {
+                echo "{$e->getTraceAsString()}\n";
+            }
+
+            return self::EBNF_SYNTAX_ERROR;
+        } catch (Exception $e) {
+            echo "Error: {$e->getMessage()}\n";
+
+            if ($debug) {
+                echo "{$e->getTraceAsString()}\n";
+            }
+
+            return self::EBNF_FATAL_ERROR;
+        }
     }
 
-    private function __construct(array $opts) {
-        $this->opts = $opts;
+    /**
+     * Initializes the options.
+     *
+     * @param array $opts
+     */
+    private function __construct(array $opts,$baseName) {
+        $this->opts     = $opts;
+        $this->baseName = (string) $baseName;
     }
 
-    private static function usage() {
-        return "Usage: ebnf -s <file> [-o <file>] [-f png|jpg|gif|xml] [-h]" . PHP_EOL . PHP_EOL .
+    /**
+     * Returns usage string.
+     *
+     * @return string
+     */
+    private static function usage($baseName) {
+        return "Usage: {$baseName} -s <file> [-o <file>] [-f png|jpg|gif|xml] [-h]" . PHP_EOL . PHP_EOL .
+
                "  -s <file>  File with EBNF grammar." . PHP_EOL .
                "  -o <file>  Output file. If omitted the input file name is used and the file extensions" . PHP_EOL .
                "             will be substituded with the format." . PHP_EOL .
                "  -f format  Format for generated image (png, jpg, gif, xml). Default is png." . PHP_EOL .
                "  -d         Enables debug output." . PHP_EOL .
                "  -h         This help." . PHP_EOL . PHP_EOL .
+
                "Example grammar:" . PHP_EOL .
-               self::$exampleInput . PHP_EOL . PHP_EOL;
+               '"EBNF defined in itself" {'. PHP_EOL .
+               '    syntax     = [ title ] "{" { rule } "}" [ comment ] .'. PHP_EOL .
+               '    rule       = identifier "=" expression ( "." | ";" ) .'. PHP_EOL .
+               '    expression = term { "|" term } .'. PHP_EOL .
+               '    term       = factor { factor } .'. PHP_EOL .
+               '    factor     = identifier'. PHP_EOL .
+               '               | literal'. PHP_EOL .
+               '               | "[" expression "]"'. PHP_EOL .
+               '               | "(" expression ")"'. PHP_EOL .
+               '               | "{" expression "}" .'. PHP_EOL .
+               '    identifier = character { character } .'. PHP_EOL .
+               '    title      = literal .'. PHP_EOL .
+               '    comment    = literal .'. PHP_EOL .
+               '    literal    = "\'" character { character } "\'"'. PHP_EOL .
+               '               | \'"\' character { character } \'"\' .'. PHP_EOL .
+               '}' . PHP_EOL . PHP_EOL;
     }
 
+    /**
+     * Runs the cummand and returns error code.
+     *
+     * @return int
+     */
     private function execute() {
         $format  = Renderer::FORMAT_PNG;
         $outfile = "";
-        $debug   = false;
 
         if (isset($this->opts["h"])) {
-            echo self::usage();
+            echo self::usage($this->baseName);
             return self::EBNF_OK;
-        }
-
-        if (isset($this->opts["d"])) {
-            $debug = true;
         }
 
         if (isset($this->opts["s"]) && !empty($this->opts["s"])) {
@@ -108,7 +158,7 @@ class Command {
             }
         } else {
             echo "Error: Please specify a syntax file!\n\n";
-            echo self::usage();
+            echo self::usage($this->baseName);
             return self::EBNF_NO_SYNTAX;
         }
 
@@ -124,29 +174,11 @@ class Command {
             $outfile .= $format;
         }
 
-        try {
-            $scanner  = new Scanner($input);
-            $parser   = new Parser($scanner);
-            $ast      = $parser->parse();
-            $renderer = new Renderer($format, $outfile, $ast);
-            $renderer->save();
-            return self::EBNF_OK;
-        } catch (SyntaxtException $e) {
-            echo "{$e}\n";
-
-            if ($debug) {
-                echo "{$e->getTraceAsString()}\n";
-            }
-
-            return self::EBNF_SYNTAX_ERROR;
-        } catch (Exception $e) {
-            echo "Error: {$e->getMessage()}\n";
-
-            if ($debug) {
-                echo "{$e->getTraceAsString()}\n";
-            }
-
-            return self::EBNF_FATAL_ERROR;
-        }
+        $scanner  = new Scanner($input);
+        $parser   = new Parser($scanner);
+        $ast      = $parser->parse();
+        $renderer = new Renderer($format, $outfile, $ast);
+        $renderer->save();
+        return self::EBNF_OK;
     }
 }
