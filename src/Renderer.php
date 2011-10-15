@@ -324,7 +324,7 @@ class Renderer {
         $wn = 0;
         $wr = 0;
         $height = 5 * $this->unit;
-        $imageCnt = count($images);
+        $imagesCnt = count($images);
 
         for ($i = 0; $i < $imagesCnt; $i++) {
             $wn = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
@@ -358,7 +358,7 @@ class Renderer {
             $y += 2 * $this->unit;
         }
 
-        $imageCnt = count($images);
+        $imagesCnt = count($images);
 
         for ($i = 0; $i < $imagesCnt; $i++) {
             imagestring(
