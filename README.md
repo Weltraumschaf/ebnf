@@ -69,6 +69,7 @@ Or you run all targets with:
 Todo
 ----
 - implement ranges 'a' .. 'z'
+- make "syntax desc" { .... } optional
 
 [1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [2]: http://karmin.ch/ebnf/index
