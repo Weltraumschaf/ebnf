@@ -35,12 +35,14 @@ class Command {
     const EBNF_FATAL_ERROR  = 4;
 
     /**
+     * Command line arguments.
+     * 
      * @var array
      */
     private $opts;
 
     /**
-     * BAse name of the invoking script.
+     * Base name of the invoking script.
      *
      * @var string
      */
@@ -52,7 +54,9 @@ class Command {
      * Needs opts like: getopt("s:f:o:hd").
      * Returns error codes defined as class constants.
      *
-     * @param array $opts
+     * @param array  $opts     Command line arguments.
+     * @param string $baseName Teh script which invokes the command, default is 'ebnf'.
+     *
      * @return int
      */
     public static function main(array $opts, $baseName = "ebnf") {
@@ -87,15 +91,20 @@ class Command {
     /**
      * Initializes the options.
      *
-     * @param array $opts
+     * @param array  $opts     Command line arguments.
+     * @param string $baseName Teh script which invokes the command.
+     *
+     * @return int
      */
-    private function __construct(array $opts,$baseName) {
+    private function __construct(array $opts, $baseName) {
         $this->opts     = $opts;
         $this->baseName = (string) $baseName;
     }
 
     /**
      * Returns usage string.
+     *
+     * @param string $baseName Teh script which invokes the command.
      *
      * @return string
      */

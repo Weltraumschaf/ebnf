@@ -59,7 +59,7 @@ class Position {
      * @param string $file   Optional file name.
      */
     function __construct($line, $column, $file = null) {
-        $this->line = (int) $line;
+        $this->line   = (int) $line;
         $this->column = (int) $column;
 
         if (null !== $file) {

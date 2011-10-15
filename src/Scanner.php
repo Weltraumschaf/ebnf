@@ -20,21 +20,9 @@
 
 namespace de\weltraumschaf\ebnf;
 
-/**
- * @see {Token}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . "Token.php";
-/**
- * @see {SyntaxtException}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . "SyntaxtException.php";
-/**
- * @see {Position}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . "Position.php";
-/**
- * @see {ScannerHelper}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
 
 /**
@@ -138,11 +126,12 @@ class Scanner {
         }
 
         $this->currentCharacter = -1;
-        $this->inputLength = strlen($this->input);
+        $this->currentToken     = -1;
+        $this->inputLength      = strlen($this->input);
+
         $this->column = 0;
-        $this->line = 1;
+        $this->line   = 1;
         $this->tokens = array();
-        $this->currentToken = -1;
     }
 
     /**
@@ -364,9 +353,9 @@ class Scanner {
      * @return Token
      */
     private function scanLiteral() {
-        $pos = $this->createPosition();
+        $pos   = $this->createPosition();
         $start = $this->currentCharacter();
-        $str = $start;
+        $str   = $start;
 
         while ($this->hasNextCharacter()) {
             $this->nextCharacter();

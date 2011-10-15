@@ -213,11 +213,11 @@ class Renderer {
     private function createImage($width, $height) {
         $im = imagecreatetruecolor($width, $height);
         imageantialias($im, true);
-        $this->white = imagecolorallocate($im, 255, 255, 255);
-        $this->black = imagecolorallocate($im, 0, 0, 0);
-        $this->blue = imagecolorallocate($im, 0, 0, 255);
-        $this->red = imagecolorallocate($im, 255, 0, 0);
-        $this->green = imagecolorallocate($im, 0, 200, 0);
+        $this->white  = imagecolorallocate($im, 255, 255, 255);
+        $this->black  = imagecolorallocate($im, 0, 0, 0);
+        $this->blue   = imagecolorallocate($im, 0, 0, 255);
+        $this->red    = imagecolorallocate($im, 255, 0, 0);
+        $this->green  = imagecolorallocate($im, 0, 200, 0);
         $this->silver = imagecolorallocate($im, 127, 127, 127);
         imagefilledrectangle($im, 0, 0, $width, $height, $this->white);
 
@@ -289,11 +289,11 @@ class Renderer {
      */
     private function renderChilds(DOMElement $node, $leftToRight) {
         $childs = array();
-        $node = $node->firstChild;
+        $node   = $node->firstChild;
 
         while ($node !== null) {
             $childs[] = $this->renderNode($node, $leftToRight);
-            $node = $node->nextSibling;
+            $node     = $node->nextSibling;
         }
 
         return $childs;
@@ -308,27 +308,28 @@ class Renderer {
      * @return resource
      */
     private function renderSyntaxNode(DOMElement $node, $leftToRight) {
-        $title = $node->getAttribute('title');
-        $meta = $node->getAttribute('meta');
-        $node = $node->firstChild;
-        $names = array();
+        $title  = $node->getAttribute('title');
+        $meta   = $node->getAttribute('meta');
+        $node   = $node->firstChild;
+        $names  = array();
         $images = array();
 
         while ($node != null) {
-            $names[] = $node->getAttribute('name');
-            $image = $this->renderNode($node->firstChild, $leftToRight);
+            $names[]  = $node->getAttribute('name');
+            $image    = $this->renderNode($node->firstChild, $leftToRight);
             $images[] = $image;
-            $node = $node->nextSibling;
+            $node     = $node->nextSibling;
         }
 
         $wn = 0;
         $wr = 0;
-        $height = 5 * $this->unit;
+
+        $height    = 5 * $this->unit;
         $imagesCnt = count($images);
 
         for ($i = 0; $i < $imagesCnt; $i++) {
-            $wn = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
-            $wr = max($wr, imagesx($images[$i]));
+            $wn      = max($wn, imagefontwidth($this->font) * strlen($names[$i]));
+            $wr      = max($wr, imagesx($images[$i]));
             $height += imagesy($images[$i]) + 2 * $this->unit;
         }
 
@@ -341,9 +342,9 @@ class Renderer {
         }
 
         $height += 10;
-        $weight = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
-        $image = $this->createImage($weight, $height);
-        $y = 2 * $this->unit;
+        $weight  = max($wr + $wn + 3 * $this->unit, imagefontwidth(1) * strlen($meta) + 2 * $this->unit) + 10;
+        $image   = $this->createImage($weight, $height);
+        $y       = 2 * $this->unit;
 
         if ($title != '') {
             imagestring(
@@ -428,19 +429,20 @@ class Renderer {
      * @return resource
      */
     private function renderChoiceNode(DOMElement $node, $leftToRight) {
-        $inner = $this->renderChilds($node, $leftToRight);
-        $height = (count($inner) - 1) * $this->unit;
-        $width = 0;
+        $inner    = $this->renderChilds($node, $leftToRight);
+        $height   = (count($inner) - 1) * $this->unit;
+        $width    = 0;
         $innerCnt = count($inner);
 
         for ($i = 0; $i < $innerCnt; $i++) {
             $height += imagesy($inner[$i]);
-            $width = max($width, imagesx($inner[$i]));
+            $width   = max($width, imagesx($inner[$i]));
         }
 
         $width += 6 * $this->unit;
-        $image = $this->createImage($width, $height);
-        $y = 0;
+        $image  = $this->createImage($width, $height);
+        $y      = 0;
+
         imageline($image, 0, $this->unit, $this->unit, $this->unit, $this->black);
         imageline($image, $width - $this->unit, $this->unit, $width, $this->unit, $this->black);
 
@@ -450,7 +452,7 @@ class Renderer {
             $this->arrow($image, 3 * $this->unit, $y + $this->unit, $leftToRight);
             $this->arrow($image, $width - 2 * $this->unit, $y + $this->unit, $leftToRight);
             $top = $y + $this->unit;
-            $y += imagesy($inner[$i]) + $this->unit;
+            $y  += imagesy($inner[$i]) + $this->unit;
         }
 
         imageline($image, $this->unit, $this->unit, $this->unit, $top, $this->black);
@@ -474,8 +476,8 @@ class Renderer {
             $inner = array_reverse($inner);
         }
 
-        $width = count($inner) * $this->unit - $this->unit;
-        $height = 0;
+        $width    = count($inner) * $this->unit - $this->unit;
+        $height   = 0;
         $innerCnt = count($inner);
 
         for ($i = 0; $i < $innerCnt; $i++) {
@@ -510,10 +512,10 @@ class Renderer {
             $leftToRight = !$leftToRight;
         }
 
-        $inner = $this->renderNode($node->firstChild, $leftToRight);
-        $width = imagesx($inner) + 6 * $this->unit;
+        $inner  = $this->renderNode($node->firstChild, $leftToRight);
+        $width  = imagesx($inner) + 6 * $this->unit;
         $height = imagesy($inner) + 2 * $this->unit;
-        $image = $this->createImage($width, $height);
+        $image  = $this->createImage($width, $height);
         imagecopy($image, $inner, 3 * $this->unit, 2 * $this->unit, 0, 0, imagesx($inner), imagesy($inner));
         imageline($image, 0, $this->unit, $width, $this->unit, $this->black);
 
@@ -540,20 +542,20 @@ class Renderer {
      * @return resource
      */
     private function renderIdentifierOrTerminal($node) {
-        $text = $node->getAttribute('value');
-        $width = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
+        $text   = $node->getAttribute('value');
+        $width  = imagefontwidth($this->font) * (strlen($text)) + 4 * $this->unit;
         $height = 2 * $this->unit;
-        $image = $this->createImage($width, $height);
+        $image  = $this->createImage($width, $height);
 
         if ($node->nodeName !== Parser::NODE_TYPE_TERMINAL) {
             imagerectangle($image, $this->unit, 0, $width - $this->unit - 1, $height - 1, $this->black);
             imagestring($image, $this->font, 2 * $this->unit, ($height - imagefontheight($this->font)) / 2, $text, $this->red);
         } else {
-            if ($text !== "...") {
+            if ($text !== "..") {
                 $this->rr($image, $this->unit, 0, $width - $this->unit - 1, $height - 1, $this->unit / 2, $this->black);
             }
 
-            if ($text !== "...") {
+            if ($text !== "..") {
                 $color = $this->blue;
             } else {
                 $color = $this->black;

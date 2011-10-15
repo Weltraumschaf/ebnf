@@ -23,17 +23,8 @@ namespace de\weltraumschaf\ebnf;
 use \DOMDocument as DOMDocument;
 use \DOMElement  as DOMElement;
 
-/**
- * @see {Token}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
-/**
- * @see {SyntaxtException}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
-/**
- * @see {Position}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 
 /**
@@ -178,7 +169,7 @@ class Parser {
         while ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '|')) {
             $this->scanner->nextToken();
             $choice->appendChild($this->parseTerm());
-            $mul   = true;
+            $mul = true;
         }
 
         if ($mul) {
@@ -198,7 +189,7 @@ class Parser {
         $sequence = $this->dom->createElement(self::NODE_TYPE_SEQUENCE);
         $sequence->appendChild($this->parseFactor());
         $this->scanner->nextToken();
-        $mul   = false;
+        $mul = false;
 
         while ($this->scanner->currentToken()->isNotEquals(array('.', '=', '|', ')', ']', '}'))) {
             $sequence->appendChild($this->parseFactor());

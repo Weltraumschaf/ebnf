@@ -20,8 +20,17 @@
 
 namespace de\weltraumschaf\ebnf;
 
+/**
+ * @see {Parser}
+ */
 require_once "Parser.php";
+/**
+ * @see {Scanner}
+ */
 require_once "Scanner.php";
+/**
+ * @see {Token}
+ */
 require_once "Token.php";
 
 class ExposedParser extends Parser {
@@ -42,7 +51,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     private function loadFixture($file) {
         return file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . $file);
     }
-    
+
     public function testAssertToken() {
         $p  = new ExposedParser(new Scanner(""));
         $t1 = new Token(Token::OPERATOR, ":", new Position(0, 0));
@@ -71,6 +80,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testParse() {
-        $this->markTestIncomplete();
+        $p = new Parser(new Scanner($this->loadFixture("rules_with_comments.ebnf")));
+        $ast = new \DOMDocument();
+        $this->assertEqualXMLStructure($ast, $p->parse());
     }
 }

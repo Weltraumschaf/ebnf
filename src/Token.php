@@ -20,9 +20,6 @@
 
 namespace de\weltraumschaf\ebnf;
 
-/**
- * @see {ScannerHelper}
- */
 require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
 
 /**
@@ -79,8 +76,8 @@ class Token {
      * @param Position $position The start position of scanned token.
      */
     public function __construct($type, $value, Position $position) {
-        $this->type = (int) $type;
-        $this->value = (string) $value;
+        $this->type     = (int) $type;
+        $this->value    = (string) $value;
         $this->position = $position;
     }
 
@@ -130,7 +127,7 @@ class Token {
      * @return string
      */
     public static function unquoteString($str) {
-        $start = 0;
+        $start  = 0;
         $length = strlen($str) - 1;
 
         if (ScannerHelper::isQuote($str[$start])) {
