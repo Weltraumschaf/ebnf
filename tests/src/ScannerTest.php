@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -157,7 +158,7 @@ EOD;
         );
         $this->assertTokens($grammar, $expectations, "Rules with literal.");
 
-        $grammar = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "testgrammar_1.ebnf");
+        $grammar = file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "testgrammar_1.ebnf");
         $expectations = array(
             array("value" => '"EBNF defined in itself."',   "type" => Token::LITERAL, "line" => 1, "col" => 1),
             array("value" => "{",          "type" => Token::OPERATOR,   "line" => 1,  "col" => 27),

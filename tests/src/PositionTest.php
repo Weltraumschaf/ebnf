@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,21 +20,19 @@
 
 namespace de\weltraumschaf\ebnf;
 
-require_once "SyntaxtException.php";
 require_once "Position.php";
 
 /**
- * Testcase for class {SyntaxtException}.
+ * Testcase for class {Position}.
  */
-class SyntaxtExceptionTest extends \PHPUnit_Framework_TestCase {
+class PositionTest extends \PHPUnit_Framework_TestCase {
 
-    public function testToString() {
-        $e = new SyntaxtException("foo bar", new Position(3, 4));
-        $this->assertEquals("Syntax error: foo bar at (3, 4) (code: 0)!", $e->__toString());
-        $e = new SyntaxtException("foo bar", new Position(3, 4), 4);
-        $this->assertEquals("Syntax error: foo bar at (3, 4) (code: 4)!", $e->__toString());
-        $e = new SyntaxtException("foo bar", new Position(3, 4, "foo.ebnf"));
-        $this->assertEquals("Syntax error: foo bar at foo.ebnf (3, 4) (code: 0)!", $e->__toString());
+    public function testtoString() {
+        $p = new Position(5, 10);
+        $this->assertEquals("(5, 10)", $p->__toString());
+
+        $p = new Position(7, 8, "/foo/bar/baz.ebnf");
+        $this->assertEquals("/foo/bar/baz.ebnf (7, 8)", $p->__toString());
     }
 
 }
