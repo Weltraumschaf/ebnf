@@ -79,13 +79,7 @@ EOD;
         );
         $this->assertTokens($grammar, $expectations, "Rule with range.");
 
-$grammar = <<<EOD
-title      = literal . (* Comment * at the end of line *)
-comment    = literal .
-(*  This is a multi
-    line comment.   *)
-comment    = literal .
-EOD;
+        $grammar = file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_comments.ebnf");
         $expectations = array(
             array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
