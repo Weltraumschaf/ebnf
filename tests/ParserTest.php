@@ -65,4 +65,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($p->exposedAssertTokens($t2, Token::OPERATOR, array("+", "-", "*")));
     }
 
+    public function testParse() {
+        $this->markTestIncomplete();
+    }
 }
