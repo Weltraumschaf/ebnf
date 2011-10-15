@@ -34,6 +34,10 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("/foo/bar", $s->getFile());
     }
 
+    private function loadFixture($file) {
+        return file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . $file);
+    }
+
     public function testNext() {
 $grammar = <<<EOD
 lower     = "a" .. "z" .
@@ -42,7 +46,7 @@ number    = "0" .. "9" .
 alpha-num = "a" .. "z" | "0" .. "9" .
 EOD;
 
-        $expectations = array(
+        $this->assertTokens($grammar, array(
             array("value" => "lower", "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",     "type" => Token::OPERATOR,   "line" => 1, "col" => 11),
             array("value" => '"a"',   "type" => Token::LITERAL,    "line" => 1, "col" => 13),
@@ -76,11 +80,9 @@ EOD;
             array("value" => ".",         "type" => Token::OPERATOR,   "line" => 4, "col" => 37),
 
             array("value" => "", "type" => Token::EOF, "line" => 4, "col" => 37),
-        );
-        $this->assertTokens($grammar, $expectations, "Rule with range.");
+        ), "Rule with range.");
 
-        $grammar = file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_comments.ebnf");
-        $expectations = array(
+        $this->assertTokens($this->loadFixture("rules_with_comments.ebnf"), array(
             array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
             array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
@@ -98,16 +100,14 @@ EOD;
             array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 5, "col" => 14),
             array("value" => ".",       "type" => Token::OPERATOR,   "line" => 5, "col" => 22),
             array("value" => "",        "type" => Token::EOF,        "line" => 5, "col" => 22),
-        );
-        $this->assertTokens($grammar, $expectations, "Rule with comment.");
+        ), "Rule with comment.");
 
 $grammar = <<<EOD
 comment =   literal .
 comment :   literal .
 comment :== literal .
 EOD;
-
-        $expectations = array(
+        $this->assertTokens($grammar, array(
             array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
             array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 13),
@@ -124,14 +124,14 @@ EOD;
             array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 21),
 
             array("value" => "",        "type" => Token::EOF,        "line" => 3, "col" => 21),
-        );
-        $this->assertTokens($grammar, $expectations, "Assignemnt operators.");
+        ), "Assignemnt operators.");
 
 $grammar = <<<EOD
 literal = "'" character { character } "'"
         | '"' character { character } '"' .
 EOD;
-        $expectations = array(
+
+        $this->assertTokens($grammar, array(
             array("value" => "literal",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
             array("value" => "=",         "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
             array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 1, "col" => 11),
@@ -149,11 +149,9 @@ EOD;
             array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 2, "col" => 39),
             array("value" => ".",         "type" => Token::OPERATOR,   "line" => 2, "col" => 43),
             array("value" => "",          "type" => Token::EOF,        "line" => 2, "col" => 43),
-        );
-        $this->assertTokens($grammar, $expectations, "Rules with literal.");
+        ), "Rules with literal.");
 
-        $grammar = file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "testgrammar_1.ebnf");
-        $expectations = array(
+        $this->assertTokens($this->loadFixture("testgrammar_1.ebnf"), array(
             array("value" => '"EBNF defined in itself."',   "type" => Token::LITERAL, "line" => 1, "col" => 1),
             array("value" => "{",          "type" => Token::OPERATOR,   "line" => 1,  "col" => 27),
 
@@ -362,8 +360,7 @@ EOD;
             array("value" => ".",          "type" => Token::OPERATOR,   "line" => 19, "col" => 86),
             array("value" => "}",          "type" => Token::OPERATOR,   "line" => 20, "col" => 1),
             array("value" => "",           "type" => Token::EOF,        "line" => 20, "col" => 1),
-        );
-        $this->assertTokens($grammar, $expectations, "testgrammar_1.ebnf");
+        ), "testgrammar_1.ebnf");
 
 $grammar = <<<EOD
 comment := literal .

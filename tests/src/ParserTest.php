@@ -39,6 +39,10 @@ class ExposedParser extends Parser {
  */
 class ParserTest extends \PHPUnit_Framework_TestCase {
 
+    private function loadFixture($file) {
+        return file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . $file);
+    }
+    
     public function testAssertToken() {
         $p  = new ExposedParser(new Scanner(""));
         $t1 = new Token(Token::OPERATOR, ":", new Position(0, 0));
