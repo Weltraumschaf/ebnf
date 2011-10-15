@@ -83,23 +83,32 @@ EOD;
         ), "Rule with range.");
 
         $this->assertTokens($this->loadFixture("rules_with_comments.ebnf"), array(
-            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 12),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 14),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 22),
+            array("value" => '"Rules with comments."',
+                                        "type" => Token::LITERAL,    "line" => 1, "col" => 1),
+            array("value" => "{",       "type" => Token::OPERATOR,   "line" => 1, "col" => 24),
+
+            array("value" => "title",   "type" => Token::IDENTIFIER, "line" => 2, "col" => 5),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 16),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 18),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 26),
             array("value" => "(* Comment * at the end of line *)",
-                                        "type" => Token::COMMENT,    "line" => 1, "col" => 24),
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 12),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 14),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 22),
-            array("value" => "(*  This is a multi\n    line comment.   *)",
-                                        "type" => Token::COMMENT,    "line" => 3, "col" => 1),
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 5, "col" => 1),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 5, "col" => 12),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 5, "col" => 14),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 5, "col" => 22),
-            array("value" => "",        "type" => Token::EOF,        "line" => 5, "col" => 22),
+                                        "type" => Token::COMMENT,    "line" => 2, "col" => 28),
+
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 3, "col" => 5),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 3, "col" => 16),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 3, "col" => 18),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 26),
+
+            array("value" => "(*  This is a multi\n        line comment. *)",
+                                        "type" => Token::COMMENT,    "line" => 4, "col" => 5),
+
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 6, "col" => 5),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 6, "col" => 16),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 6, "col" => 18),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 6, "col" => 26),
+
+            array("value" => "}",       "type" => Token::OPERATOR,   "line" => 7, "col" => 1),
+            array("value" => "",        "type" => Token::EOF,        "line" => 7, "col" => 1),
         ), "Rule with comment.");
 
 $grammar = <<<EOD
