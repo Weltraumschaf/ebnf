@@ -84,7 +84,7 @@ class Parser {
         }
 
         if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '{')) {
-            throw new SyntaxtException("Syntax must start with '{'", $this->scanner->currentToken()->getPosition());
+            $this->raiseError("Syntax must start with '{'");
         }
 
         $this->scanner->nextToken();
@@ -95,7 +95,7 @@ class Parser {
         }
 
         if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '}')) {
-            throw new SyntaxtException("Syntax must end with '}'", $this->scanner->currentToken()->getPosition());
+            $this->raiseError("Syntax must end with '}' but saw {$this->scanner->currentToken()}");
         }
 
         $this->scanner->nextToken();
@@ -104,10 +104,7 @@ class Parser {
             if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
                 $syntax->setAttribute('meta', $this->scanner->currentToken()->getValue(true));
             } else {
-                throw new SyntaxtException(
-                    "Literal expected as syntax comment",
-                    $this->scanner->currentToken()->getPosition()
-                );
+                $this->raiseError("Literal expected as syntax comment");
             }
         } else {
             $syntax->setAttribute('meta', self::META);
@@ -125,10 +122,7 @@ class Parser {
      */
     private function parseProduction() {
         if (!$this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
-            throw new SyntaxtException(
-                "Production must start with an identifier",
-                $this->scanner->currentToken()->getPosition()
-            );
+            $this->raiseError("Production must start with an identifier");
         }
 
         $production = $this->dom->createElement(self::NODE_TYPE_RULE);
@@ -136,20 +130,14 @@ class Parser {
         $this->scanner->nextToken();
 
         if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array("=", ":", ":=="))) {
-            throw new SyntaxtException(
-                "Identifier must be followed by '='",
-                $this->scanner->currentToken()->getPosition()
-            );
+            $this->raiseError("Identifier must be followed by '='");
         }
 
         $this->scanner->nextToken();
         $production->appendChild($this->parseExpression());
 
         if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array(".", ";"))) {
-            throw new SyntaxtException(
-                "Rule must end with '.' or ';'",
-                $this->scanner->backtrackToken(2)->getPosition(true)
-            );
+            $this->raiseError("Rule must end with '.' or ';'", $this->scanner->backtrackToken(2)->getPosition(true));
         }
 
         return $production;
@@ -235,7 +223,7 @@ class Parser {
             $expression = $this->parseExpression();
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ')')) {
-                throw new SyntaxtException("Group must end with ')'", $this->scanner->currentToken()->getPosition());
+                $this->raiseError("Group must end with ')'");
             }
 
             return $expression;
@@ -247,7 +235,7 @@ class Parser {
             $option->appendChild($this->parseExpression());
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ']')) {
-                throw new SyntaxtException("Option must end with ']'", $this->scanner->currentToken()->getPosition());
+                $this->raiseError("Option must end with ']'");
             }
 
             return $option;
@@ -259,13 +247,13 @@ class Parser {
             $loop->appendChild($this->parseExpression());
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '}')) {
-                throw new SyntaxtException("Loop must end with '}'", $this->scanner->currentToken()->getPosition());
+                $this->raiseError("Loop must end with '}'");
             }
 
             return $loop;
         }
 
-        throw new SyntaxtException("Factor expected", $this->scanner->currentToken()->getPosition());
+        $this->raiseError("Factor expected");
     }
 
     /**
@@ -298,5 +286,13 @@ class Parser {
         }
 
         return false;
+    }
+
+    protected function raiseError($msg, Postion $pos = null) {
+        if (null === $pos) {
+            $pos = $this->scanner->currentToken()->getPosition();
+        }
+
+        throw new SyntaxtException($msg, $pos);
     }
 }

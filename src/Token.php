@@ -225,13 +225,21 @@ class Token {
     /**
      * Human readable string representation.
      *
+     * Token values longer than 15 characters are shorened.
+     * 
      * @return string
      */
     public function __toString() {
         $str = "<";
 
         if ("" !== $this->getValue()) {
-            $str .= "'{$this->getValue()}', ";
+            $value = $this->getValue();
+
+            if (strlen($value) > 15) {
+                $value = substr($value, 0, 15) . "...";
+            }
+
+            $str .= "'{$value}', ";
         }
 
         $str .= "{$this->getTypeAsString()}, {$this->getPosition()}>";
