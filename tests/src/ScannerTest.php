@@ -111,28 +111,28 @@ EOD;
             array("value" => "",        "type" => Token::EOF,        "line" => 7, "col" => 1),
         ), "Rule with comment.");
 
-$grammar = <<<EOD
-comment =   literal .
-comment :   literal .
-comment :== literal .
-EOD;
-        $this->assertTokens($grammar, array(
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 1, "col" => 13),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 1, "col" => 21),
+        $this->assertTokens($this->loadFixture("rules_with_different_assignment_ops.ebnf"), array(
+            array("value" => '"Rules with different assignment operators."',
+                                        "type" => Token::LITERAL,    "line" => 1, "col" => 1),
+            array("value" => "{",       "type" => Token::OPERATOR,   "line" => 1, "col" => 46),
 
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 1),
-            array("value" => ":",       "type" => Token::OPERATOR,   "line" => 2, "col" => 9),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 13),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 21),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 5),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 13),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 17),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 25),
 
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 3, "col" => 1),
-            array("value" => ":==",     "type" => Token::OPERATOR,   "line" => 3, "col" => 9),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 3, "col" => 13),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 21),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 3, "col" => 5),
+            array("value" => ":",       "type" => Token::OPERATOR,   "line" => 3, "col" => 13),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 3, "col" => 17),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 25),
 
-            array("value" => "",        "type" => Token::EOF,        "line" => 3, "col" => 21),
+            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 4, "col" => 5),
+            array("value" => ":==",     "type" => Token::OPERATOR,   "line" => 4, "col" => 13),
+            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 4, "col" => 17),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 4, "col" => 25),
+
+            array("value" => "}",       "type" => Token::OPERATOR,   "line" => 5, "col" => 1),
+            array("value" => "",        "type" => Token::EOF,        "line" => 5, "col" => 1),
         ), "Assignemnt operators.");
 
 $grammar = <<<EOD

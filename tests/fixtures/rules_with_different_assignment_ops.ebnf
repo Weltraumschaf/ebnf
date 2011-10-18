@@ -1,0 +1,5 @@
+"Rules with different assignment operators." {
+    comment =   literal .
+    comment :   literal .
+    comment :== literal .
+}
