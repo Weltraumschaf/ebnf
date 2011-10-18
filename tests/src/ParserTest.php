@@ -80,8 +80,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testParse() {
-        $p = new Parser(new Scanner($this->loadFixture("rules_with_comments.ebnf")));
-        $ast = new \DOMDocument();
-        $this->assertEqualXMLStructure($ast, $p->parse());
+        $p = new Parser(new Scanner($this->loadFixture("rules_with_different_assignment_ops.ebnf")));
+        $ast = $p->parse();
+        $syntax = new \DOMDocument();
+        $syntax->loadXML($this->loadFixture("rules_with_different_assignment_ops.xml"));
+        $this->assertEqualXMLStructure($syntax->firstChild, $ast->firstChild, true);
+        $this->markTestIncomplete("Test sub nodes.");
     }
 }

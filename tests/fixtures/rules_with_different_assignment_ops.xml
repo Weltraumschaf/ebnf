@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<syntax title="Rules with different assignment operators." meta="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3">
+    <rule name="comment">
+        <identifier value="literal"/>
+    </rule>
+    <rule name="comment">
+        <identifier value="literal"/>
+    </rule>
+    <rule name="comment">
+        <identifier value="literal"/>
+    </rule>
+</syntax>
