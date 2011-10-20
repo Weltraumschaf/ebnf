@@ -85,6 +85,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
         $syntax = new \DOMDocument();
         $syntax->loadXML($this->loadFixture("rules_with_different_assignment_ops.xml"));
         $this->assertEqualXMLStructure($syntax->firstChild, $ast->firstChild, true);
-        $this->markTestIncomplete("Test sub nodes.");
+
+        foreach ($syntax->firstChild->childNodes as $index => $rule) {
+            /* @var $rule DOMElement */
+            $parsedRule = $ast->firstChild->childNodes->item($index);
+            $this->assertEqualXMLStructure($rule, $parsedRule, true);
+            $this->assertEqualXMLStructure($rule->childNodes->item(0), $parsedRule->childNodes->item(0), true);
+        }
+
+//        $this->markTestIncomplete("Test sub nodes.");
     }
 }
