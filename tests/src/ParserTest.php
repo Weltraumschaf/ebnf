@@ -91,6 +91,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_literals.xml",
             $p->parse()->saveXML()
         );
-        $this->markTestIncomplete("Test sub nodes.");
+
+        $p = new Parser(new Scanner($this->loadFixture("testgrammar_1.ebnf")));
+        $this->assertXmlStringEqualsXmlFile(
+            EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "testgrammar_1.xml",
+            $p->parse()->saveXML()
+        );
     }
 }
