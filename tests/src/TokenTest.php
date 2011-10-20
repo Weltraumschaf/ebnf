@@ -47,12 +47,18 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $p = new Position(5, 10);
         $t = new Token(Token::IDENTIFIER, "ident", $p);
         $this->assertEquals("<'ident', IDENTIFIER, (5, 10)>", $t->__toString());
+
         $p = new Position(5, 10, "/foo/bar.ebnf");
         $t = new Token(Token::IDENTIFIER, "ident", $p);
         $this->assertEquals("<'ident', IDENTIFIER, /foo/bar.ebnf (5, 10)>", $t->__toString());
+
         $p = new Position(5, 10, "/foo/bar.ebnf");
         $t = new Token(Token::IDENTIFIER, "", $p);
         $this->assertEquals("<IDENTIFIER, /foo/bar.ebnf (5, 10)>", $t->__toString());
+
+        $p = new Position(5, 10, "/foo/bar.ebnf");
+        $t = new Token(Token::IDENTIFIER, "a-very-very-very-very-long-identifier", $p);
+        $this->assertEquals("<'a-very-very-ver...', IDENTIFIER, /foo/bar.ebnf (5, 10)>", $t->__toString());
     }
 
     public function testIsType() {
