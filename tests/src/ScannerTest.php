@@ -387,6 +387,10 @@ EOD;
         }
     }
 
+    public function testRaiseErrorOnInvalidCharacter() {
+        $this->markTestIncomplete();
+    }
+    
     private function assertTokens($grammar, array $expectations, $msg = "") {
         $scanner = new Scanner(trim($grammar));
         $count   = 0;
