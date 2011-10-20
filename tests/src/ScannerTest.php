@@ -133,29 +133,30 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
             array("value" => "",        "type" => Token::EOF,        "line" => 5, "col" => 1),
         ), "Assignemnt operators.");
 
-$grammar = <<<EOD
-literal = "'" character { character } "'"
-        | '"' character { character } '"' .
-EOD;
+        $this->assertTokens($this->loadFixture("rules_with_literals.ebnf"), array(
+            array("value" => '"Rules with literal."', "type" => Token::LITERAL,    "line" => 1, "col" => 1),
+            array("value" => "{",                     "type" => Token::OPERATOR,   "line" => 1, "col" => 23),
 
-        $this->assertTokens($grammar, array(
-            array("value" => "literal",   "type" => Token::IDENTIFIER, "line" => 1, "col" => 1),
-            array("value" => "=",         "type" => Token::OPERATOR,   "line" => 1, "col" => 9),
-            array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 1, "col" => 11),
-            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 1, "col" => 15),
-            array("value" => "{",         "type" => Token::OPERATOR,   "line" => 1, "col" => 25),
-            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 1, "col" => 27),
-            array("value" => "}",         "type" => Token::OPERATOR,   "line" => 1, "col" => 37),
-            array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 1, "col" => 39),
-            array("value" => "|",         "type" => Token::OPERATOR,   "line" => 2, "col" => 9),
-            array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 2, "col" => 11),
-            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 2, "col" => 15),
-            array("value" => "{",         "type" => Token::OPERATOR,   "line" => 2, "col" => 25),
-            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 2, "col" => 27),
-            array("value" => "}",         "type" => Token::OPERATOR,   "line" => 2, "col" => 37),
-            array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 2, "col" => 39),
-            array("value" => ".",         "type" => Token::OPERATOR,   "line" => 2, "col" => 43),
-            array("value" => "",          "type" => Token::EOF,        "line" => 2, "col" => 43),
+            array("value" => "literal",   "type" => Token::IDENTIFIER, "line" => 2, "col" => 5),
+            array("value" => "=",         "type" => Token::OPERATOR,   "line" => 2, "col" => 13),
+            array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 2, "col" => 15),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 2, "col" => 19),
+            array("value" => "{",         "type" => Token::OPERATOR,   "line" => 2, "col" => 29),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 2, "col" => 31),
+            array("value" => "}",         "type" => Token::OPERATOR,   "line" => 2, "col" => 41),
+            array("value" => '"\'"',      "type" => Token::LITERAL,    "line" => 2, "col" => 43),
+
+            array("value" => "|",         "type" => Token::OPERATOR,   "line" => 3, "col" => 13),
+            array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 3, "col" => 15),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 3, "col" => 19),
+            array("value" => "{",         "type" => Token::OPERATOR,   "line" => 3, "col" => 29),
+            array("value" => "character", "type" => Token::IDENTIFIER, "line" => 3, "col" => 31),
+            array("value" => "}",         "type" => Token::OPERATOR,   "line" => 3, "col" => 41),
+            array("value" => "'\"'",      "type" => Token::LITERAL,    "line" => 3, "col" => 43),
+            array("value" => ".",         "type" => Token::OPERATOR,   "line" => 3, "col" => 47),
+
+            array("value" => "}",       "type" => Token::OPERATOR,   "line" => 4, "col" => 1),
+            array("value" => "",        "type" => Token::EOF,        "line" => 4, "col" => 1),
         ), "Rules with literal.");
 
         $this->assertTokens($this->loadFixture("testgrammar_1.ebnf"), array(
