@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<syntax title="Rules with literal." meta="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3">
+    <rule name="literal">
+        <choice>
+            <sequence>
+                <terminal value="'"/>
+                <identifier value="character"/>
+                <loop>
+                    <identifier value="character"/>
+                </loop>
+                <terminal value="'"/>
+            </sequence>
+            <sequence>
+                <terminal value="&quot;"/>
+                <identifier value="character"/>
+                <loop>
+                    <identifier value="character"/>
+                </loop>
+                <terminal value="&quot;"/>
+            </sequence>
+        </choice>
+    </rule>
+</syntax>

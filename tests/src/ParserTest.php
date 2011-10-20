@@ -81,18 +81,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
     public function testParse() {
         $p = new Parser(new Scanner($this->loadFixture("rules_with_different_assignment_ops.ebnf")));
-        $ast = $p->parse();
-        $syntax = new \DOMDocument();
-        $syntax->loadXML($this->loadFixture("rules_with_different_assignment_ops.xml"));
-        $this->assertEqualXMLStructure($syntax->firstChild, $ast->firstChild, true);
+        $this->assertXmlStringEqualsXmlFile(
+            EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_different_assignment_ops.xml",
+            $p->parse()->saveXML()
+        );
 
-        foreach ($syntax->firstChild->childNodes as $index => $rule) {
-            /* @var $rule DOMElement */
-            $parsedRule = $ast->firstChild->childNodes->item($index);
-            $this->assertEqualXMLStructure($rule, $parsedRule, true);
-            $this->assertEqualXMLStructure($rule->childNodes->item(0), $parsedRule->childNodes->item(0), true);
-        }
-
-//        $this->markTestIncomplete("Test sub nodes.");
+        $p = new Parser(new Scanner($this->loadFixture("rules_with_literals.ebnf")));
+        $this->assertXmlStringEqualsXmlFile(
+            EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_literals.xml",
+            $p->parse()->saveXML()
+        );
+        $this->markTestIncomplete("Test sub nodes.");
     }
 }
