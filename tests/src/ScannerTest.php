@@ -382,4 +382,26 @@ EOD;
             $this->assertEquals("Syntax error: {$msg} at {$pos} (code: 0)!", $e->__toString());
         }
     }
+
+    public function testPeekToken() {
+        $grammar = "comment :== literal .";
+        $scanner = new Scanner(trim($grammar));
+        $scanner->nextToken();
+        $t = $scanner->currentToken();
+        $this->assertEquals("comment", $t->getValue());
+        $this->assertEquals(":==", $scanner->peekToken()->getValue());
+        $scanner->nextToken();
+        $t = $scanner->currentToken();
+        $this->assertEquals(":==", $t->getValue());
+        $this->assertEquals("literal", $scanner->peekToken()->getValue());
+        $scanner->nextToken();
+        $t = $scanner->currentToken();
+        $this->assertEquals("literal", $t->getValue());
+        $scanner->nextToken();
+        $t = $scanner->currentToken();
+        $this->assertEquals(".", $t->getValue());
+        $scanner->nextToken();
+        $t = $scanner->currentToken();
+        $this->assertEquals(Token::EOF, $t->getType());
+    }
 }
