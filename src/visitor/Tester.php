@@ -35,6 +35,10 @@ class Tester implements Visitor {
     private $current;
     private $representative = array();
     
+    public function getRepresentative() {
+        return $this->representative;
+    }
+
     public function visit(Node $visitable) {
         $this->current = array(
             "name"  => $visitable->getNodeName(),
@@ -52,10 +56,6 @@ class Tester implements Visitor {
         $this->representative[] = $this->current;
     }
     
-    public function getRepresentative() {
-        return $this->representative;
-    }
-
     public function assert(array $expected) {
         
     }
