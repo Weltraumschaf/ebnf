@@ -90,7 +90,7 @@ class Parser {
         $this->scanner->nextToken();
 
         while ($this->scanner->hasNextToken() && $this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
-            $syntax->appendChild($this->parseProduction());
+            $syntax->appendChild($this->parseRule());
             $this->scanner->nextToken();
         }
 
@@ -120,7 +120,7 @@ class Parser {
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseProduction() {
+    private function parseRule() {
         if (!$this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
             $this->raiseError("Production must start with an identifier");
         }
