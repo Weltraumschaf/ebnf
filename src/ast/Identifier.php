@@ -20,15 +20,13 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "visitor" . DIRECTORY_SEPARATOR .  "Visitable.php";
 
-use de\weltraumschaf\ebnf\visitor\Visitable as Visitable;
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
  * Has no subnodes.
  */
-class Identifier implements Node, Visitable {
+class Identifier implements Node {
     
     public $value = "";
     
