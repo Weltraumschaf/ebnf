@@ -20,18 +20,36 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
+use \IteratorAggregate as IteratorAggregate;
+use \ArrayIterator as ArrayIterator;
+
 /**
  * 
  */
-abstract class Composite implements \IteratorAggregate {
+abstract class Composite implements IteratorAggregate {
     private $nodes;
     
     public function __construct() {
         $this->nodes = array();
     }
     
+    /**
+     *
+     * @return ArrayIterator 
+     */
     public function getIterator() {
         return new ArrayIterator($this->nodes);
     }
     
+    public function countChildren() {
+        return count($this->nodes);
+    }
+    
+    public function hasChildren() {
+        return 0 < $this->countChildren();
+    }
+    
+    public function addChild(Node $child) {
+        $this->nodes[] = $child;
+    }
 }
