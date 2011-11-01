@@ -94,7 +94,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $secondRule = new Rule();
         $secondRule->name = "second";
         $syntax->addChild($secondRule);
-        
+
         $this->markTestIncomplete();
     }
     
