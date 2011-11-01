@@ -23,7 +23,10 @@ namespace de\weltraumschaf\ebnf\ast;
 use \IteratorAggregate as IteratorAggregate;
 use \ArrayIterator as ArrayIterator;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Visitable.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "visitor" . DIRECTORY_SEPARATOR .  "Visitable.php";
+
+use de\weltraumschaf\ebnf\visitor\Visitable as Visitable;
+use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
  * 
