@@ -14,14 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
-
 
 class Syntax extends Composite implements Node {
  
@@ -31,5 +29,5 @@ class Syntax extends Composite implements Node {
     public function getNodeName() {
         return "syntax";
     }
-
+    
 }
