@@ -19,11 +19,13 @@
 
 namespace de\weltraumschaf\ebnf\visitor;
 
+use \de\weltraumschaf\ebnf\ast\Node as Node;
+
 /**
  * Defines interface for an AST tree visitor.
  * 
  * Interfce for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
  */
 interface Visitor {
-    public function visit(Visitable $visitable);
+    public function visit(Node $visitable);
 }

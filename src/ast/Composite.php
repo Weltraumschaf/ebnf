@@ -23,15 +23,12 @@ namespace de\weltraumschaf\ebnf\ast;
 use \IteratorAggregate as IteratorAggregate;
 use \ArrayIterator as ArrayIterator;
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "visitor" . DIRECTORY_SEPARATOR .  "Visitable.php";
-
-use de\weltraumschaf\ebnf\visitor\Visitable as Visitable;
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
  * 
  */
-abstract class Composite implements IteratorAggregate, Visitable {
+abstract class Composite implements IteratorAggregate {
     private $nodes;
     
     public function __construct() {

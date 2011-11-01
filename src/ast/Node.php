@@ -19,9 +19,17 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
+use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
+
 /**
  *
  */
 interface Node {
     public function getNodeName();
+    /**
+     * Defines method to accept {Visitors}.
+     * 
+     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     */
+    public function accept(Visitor $visitor);
 }
