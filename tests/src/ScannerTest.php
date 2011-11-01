@@ -159,7 +159,7 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
             array("value" => "",        "type" => Token::EOF,        "line" => 4, "col" => 1),
         ), "Rules with literal.");
 
-        $this->assertTokens($this->loadFixture("testgrammar_1.old.ebnf"), array(
+        $this->assertTokens($this->loadFixture("testgrammar_1.ebnf"), array(
             array("value" => '"EBNF defined in itself."',   "type" => Token::LITERAL, "line" => 1, "col" => 1),
             array("value" => "{",          "type" => Token::OPERATOR,   "line" => 1,  "col" => 27),
 

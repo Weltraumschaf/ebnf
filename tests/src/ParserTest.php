@@ -94,19 +94,19 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             "rules with literals"
         );
 
+        $p = new Parser(new Scanner($this->loadFixture("testgrammar_1.old.ebnf")));
+        $this->assertXmlStringEqualsXmlFile(
+            EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "testgrammar_1.xml",
+            $p->parse()->saveXML(),
+            "testgrammar 1"
+        );
+        
+        $this->markTestIncomplete();
         $p = new Parser(new Scanner($this->loadFixture("rules_with_ranges.ebnf")));
         $this->assertXmlStringEqualsXmlFile(
             EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_ranges.xml",
             $p->parse()->saveXML(),
             "rules with ranges"
-        );
-
-        $this->markTestIncomplete();
-        $p = new Parser(new Scanner($this->loadFixture("testgrammar_1.ebnf")));
-        $this->assertXmlStringEqualsXmlFile(
-            EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "testgrammar_1.xml",
-            $p->parse()->saveXML(),
-            "testgrammar 1"
         );
     }
 }
