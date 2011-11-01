@@ -53,6 +53,7 @@
         <choice>
             <identifier value="identifier"/>
             <identifier value="literal"/>
+            <identifier value="range"/>
             <sequence>
                 <terminal value="["/>
                 <identifier value="expression"/>
@@ -76,6 +77,13 @@
             <loop>
                 <identifier value="character"/>
             </loop>
+        </sequence>
+    </rule>
+    <rule name="range">
+        <sequence>
+            <identifier value="character"/>
+            <terminal value=".."/>
+            <identifier value="character"/>
         </sequence>
     </rule>
     <rule name="title">
