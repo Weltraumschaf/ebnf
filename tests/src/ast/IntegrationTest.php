@@ -86,10 +86,15 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax = new Syntax();
         $syntax->meta = "foo";
         $syntax->title = "bar";
+        
         $firstRule = new Rule();
         $firstRule->name = "first";
-        $secondRule = new rule();
+        $syntax->addChild($firstRule);
+        
+        $secondRule = new Rule();
         $secondRule->name = "second";
+        $syntax->addChild($secondRule);
+        
         $this->markTestIncomplete();
     }
     
