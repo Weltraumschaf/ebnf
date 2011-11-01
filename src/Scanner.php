@@ -268,6 +268,24 @@ class Scanner {
     }
 
     /**
+     * Returns the next token without advancing the internal pointer (aka. lookahead).
+     *
+     * A call to {nextToken()} will rturn ths token ahead.
+     *
+     * @return Token
+     */
+    public function peekToken() {
+        $this->nextToken();
+        $this->currentToken--;
+
+        if ($this->currentToken < 0) {
+            $this->currentToken = 0;
+        }
+
+        return $this->tokens[$this->currentToken + 1];
+    }
+
+    /**
      * Start the scanning of the next token.
      *
      * This method should be called until {hasNextToken()} returns false.
@@ -275,6 +293,12 @@ class Scanner {
      * @return void
      */
     public function nextToken() {
+        if ($this->currentToken > -1 && $this->currentToken < (count($this->tokens) - 1)) {
+            // recover backtracked tokens.
+            $this->currentToken++;
+            return;
+        }
+
         while ($this->hasNextCharacter()) {
             $this->nextCharacter();
 

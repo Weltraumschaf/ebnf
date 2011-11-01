@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<syntax title="Rules with ranges." meta="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3">
+    <rule name="lower">
+        <range from="a" to="z"/>
+    </rule>
+    <rule name="upper">
+        <range from="A" to="Z"/>
+    </rule>
+    <rule name="number">
+        <range from="0" to="9"/>
+    </rule>
+    <rule name="alpha-num">
+        <choice>
+            <range from="a" to="z"/>
+            <range from="0" to="9"/>
+        </choice>
+    </rule>
+</syntax>
