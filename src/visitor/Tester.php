@@ -21,13 +21,42 @@ namespace de\weltraumschaf\ebnf\visitor;
 
 require_once __DIR__. DIRECTORY_SEPARATOR . "Visitor.php";
 
+use de\weltraumschaf\ebnf\ast\Node as Node;
+
 /**
  * Implements an AST tree vsitor for testing purposes.
  * 
  */
 class Tester implements Visitor {
     
-    public function visit(Visitable $visitable) {
+    /**
+     * @var array
+     */
+    private $current;
+    private $representative = array();
+    
+    public function visit(Node $visitable) {
+        $this->current = array(
+            "name"  => $visitable->getNodeName(),
+            "attr"  => array(),
+            "nodes" => array()
+        );
+        
+        $class = new \ReflectionClass($visitable);
+        
+        foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
+            /* @var $property ReflectionProperty */
+            $this->current["attr"][$property->getName()] = $visitable->{$property->getName()};
+        }
+        
+        $this->representative[] = $this->current;
+    }
+    
+    public function getRepresentative() {
+        return $this->representative;
+    }
+
+    public function assert(array $expected) {
         
     }
 
