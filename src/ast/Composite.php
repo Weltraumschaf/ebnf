@@ -23,10 +23,12 @@ namespace de\weltraumschaf\ebnf\ast;
 use \IteratorAggregate as IteratorAggregate;
 use \ArrayIterator as ArrayIterator;
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Visitable.php';
+
 /**
  * 
  */
-abstract class Composite implements IteratorAggregate {
+abstract class Composite implements IteratorAggregate, Visitable {
     private $nodes;
     
     public function __construct() {
@@ -52,4 +54,15 @@ abstract class Composite implements IteratorAggregate {
     public function addChild(Node $child) {
         $this->nodes[] = $child;
     }
+    
+    public function accept(Visitor $visitor) {
+        $visitor->visit($this);
+        
+        if ($this->hasChildren()) {
+            foreach ($this as $subnode) {
+                $subnode->accept($visitor);
+            }
+        }
+    }
+
 }

@@ -14,23 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Visitable.php';
 
 /**
  * Has no subnodes.
  */
-class Terminal implements Node {
+class Terminal implements Node, Visitable {
     
     public $value = "";
     
     public function getNodeName() {
         return "terminal";
+    }
+    
+    public function accept(Visitor $visitor) {
+        $visitor->visit($this);
     }
     
 }
