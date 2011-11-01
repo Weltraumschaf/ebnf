@@ -40,6 +40,7 @@ class Parser {
     const NODE_TYPE_IDENTIFIER = "identifier";
     const NODE_TYPE_LOOP       = "loop";
     const NODE_TYPE_OPTION     = "option";
+    const NODE_TYPE_RANGE      = "range";
     const NODE_TYPE_RULE       = "rule";
     const NODE_TYPE_SEQUENCE   = "sequence";
     const NODE_TYPE_SYNTAX     = "syntax";
@@ -212,6 +213,16 @@ class Parser {
         }
 
         if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
+            if ($this->assertToken($this->scanner->peekToken(), Token::OPERATOR, "::")) {
+                echo "range";
+                $range = $this->dom->createElement(self::NODE_TYPE_RANGE);
+                $range->setAttribute("from", $this->scanner->currentToken()->getValue(true));
+                $this->scanner->nextToken(); // Omit ".." literal.
+                $this->scanner->nextToken();
+                $range->setAttribute("to", $this->scanner->currentToken()->getValue(true));
+                return $range;
+            }
+
             $literal = $this->dom->createElement(self::NODE_TYPE_TERMINAL);
             $literal->setAttribute('value', $this->scanner->currentToken()->getValue(true));
 
