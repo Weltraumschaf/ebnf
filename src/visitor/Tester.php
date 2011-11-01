@@ -22,6 +22,8 @@ namespace de\weltraumschaf\ebnf\visitor;
 require_once __DIR__. DIRECTORY_SEPARATOR . "Visitor.php";
 
 use de\weltraumschaf\ebnf\ast\Node as Node;
+use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
+use de\weltraumschaf\ebnf\ast\Rule as Rule;
 
 /**
  * Implements an AST tree vsitor for testing purposes.
@@ -32,7 +34,6 @@ class Tester implements Visitor {
     /**
      * @var array
      */
-    private $current;
     private $representative = array();
     
     public function getRepresentative() {
@@ -40,20 +41,29 @@ class Tester implements Visitor {
     }
 
     public function visit(Node $visitable) {
-        $this->current = array(
-            "name"  => $visitable->getNodeName(),
-            "attr"  => array(),
-            "nodes" => array()
+        if ($visitable instanceof Syntax) {
+            $this->visitSyntax($visitable);
+        } else if ($visitable instanceof Rule) {
+            $this->visitRule($visitable);
+        } else {
+            throw new \InvalidArgumentException("Unsupportd visitable: " . get_class($visitable));
+        }
+    }
+
+    private function visitSyntax(Syntax $syntax) {
+        $this->representative[$syntax->getNodeName()] = array(
+            "meta"  => $syntax->meta,
+            "title" => $syntax->title,
+            "rules" => array()
         );
-        
-        $class = new \ReflectionClass($visitable);
-        
-        foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
-            /* @var $property ReflectionProperty */
-            $this->current["attr"][$property->getName()] = $visitable->{$property->getName()};
+    }
+    
+    private function visitRule(Rule $rule) {
+        if (!isset($this->representative["syntax"])) {
+            throw new \Exception("Does not visited a syntax node before vsiting rule!");
         }
         
-        $this->representative[] = $this->current;
+        $this->representative["syntax"]["rules"][$rule->name] = array();
     }
     
     public function assert(array $expected) {

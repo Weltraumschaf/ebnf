@@ -36,17 +36,12 @@ class TesterTest extends \PHPUnit_Framework_TestCase {
         $tester = new Tester();
         $syntax->accept($tester);
         $this->assertEquals(array(
-            array(
-                "name" => "syntax",
-                "attr" => array(
-                    "meta" => "foo",
-                    "title" => "bar"
-                ),
-                "nodes" => array()
+            "syntax" => array(
+                "meta"  => "foo",
+                "title" => "bar",
+                "rules" => array()
             )
         ), $tester->getRepresentative());
-        
-        $this->markTestIncomplete();
         
         $tester = new Tester();
         $ruleFoo = new Rule();
@@ -57,31 +52,17 @@ class TesterTest extends \PHPUnit_Framework_TestCase {
         $syntax->addChild($ruleBar);
         $syntax->accept($tester);
         $this->assertEquals(array(
-            array(
-                "name" => "syntax",
-                "attr" => array(
-                    "meta" => "foo",
-                    "title" => "bar"
-                ),
-                "nodes" => array(
-                    array(
-                        "name" => "rule",
-                        "attr" => array(
-                            "name" => "foo"
-                        ),
-                        "nodes" => array()
-                    ),
-                    array(
-                        "name" => "rule",
-                        "attr" => array(
-                            "name" => "bar"
-                        ),
-                        "nodes" => array()
-                    )
+            "syntax" => array(
+                "meta"  => "foo",
+                "title" => "bar",
+                "rules" => array(
+                    "foo" => array(),
+                    "bar" => array()
                 )
             )
         ), $tester->getRepresentative());
         
+        $this->markTestIncomplete();
     }
     
     public function testAssertSyntax() {
