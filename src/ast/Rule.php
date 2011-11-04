@@ -21,13 +21,14 @@ namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 class Rule extends Composite implements Node {
     
     public $name = "";
     
     public function getNodeName() {
-        return "rule";
+        return Type::RULE;
     }
 
 }

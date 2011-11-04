@@ -20,6 +20,7 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
@@ -31,7 +32,7 @@ class Identifier implements Node {
     public $value = "";
     
     public function getNodeName() {
-        return "identifier";
+        return Type::IDENTIFIER;
     }
 
     public function accept(Visitor $visitor) {

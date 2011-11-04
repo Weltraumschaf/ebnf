@@ -20,6 +20,7 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
@@ -31,7 +32,7 @@ class Terminal implements Node {
     public $value = "";
     
     public function getNodeName() {
-        return "terminal";
+        return Type::TERMINAL;
     }
     
     public function accept(Visitor $visitor) {

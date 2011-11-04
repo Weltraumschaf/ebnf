@@ -20,6 +20,7 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 class Syntax extends Composite implements Node {
  
@@ -27,7 +28,7 @@ class Syntax extends Composite implements Node {
     public $meta = "";
     
     public function getNodeName() {
-        return "syntax";
+        return Type::SYNTAX;
     }
     
 }

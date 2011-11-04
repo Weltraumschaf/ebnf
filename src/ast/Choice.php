@@ -21,11 +21,12 @@ namespace de\weltraumschaf\ebnf\ast;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 class Choice extends Composite implements Node {
     
     public function getNodeName() {
-        return "choice";
+        return Type::CHOICE;
     }
 
 }
