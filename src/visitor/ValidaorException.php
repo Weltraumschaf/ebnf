@@ -17,19 +17,10 @@
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
-namespace de\weltraumschaf\ebnf\ast;
+namespace de\weltraumschaf\ebnf\visitor;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
+use \Exception as Exception;
 
-class Syntax extends Composite implements Node {
- 
-    public $title = "";
-    public $meta = "";
-    
-    public function getNodeName() {
-        return Type::SYNTAX;
-    }
-    
-}
+ class ValidaorException extends \Exception {
+     const SYNTAXT_DUPLICATED = 1;
+ }

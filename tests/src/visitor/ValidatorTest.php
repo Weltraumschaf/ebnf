@@ -20,20 +20,40 @@
 
 namespace de\weltraumschaf\ebnf\visitor;
 
-require_once 'visitor/Tester.php';
+require_once 'visitor/Validator.php';
 require_once 'ast/Syntax.php';
 
 use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
 use de\weltraumschaf\ebnf\ast\Rule as Rule;
 
-class TesterTest extends \PHPUnit_Framework_TestCase {
+class ValidatorTest extends \PHPUnit_Framework_TestCase {
     
-    public function testGetRepresentative() {
+    public function testIsSyntaxDefined() {
         $syntax = new Syntax();
         $syntax->meta  = "foo";
         $syntax->title = "bar";
         
-        $tester = new Tester();
+        $validator = new Validator();
+        $this->assertFalse($validator->isSyntaxDefined());
+        $syntax->accept($validator);
+        $this->assertTrue($validator->isSyntaxDefined());
+        
+        try {
+            $syntax->accept($validator);
+            $this->fail("Exceptd exception not thrown!");
+        } catch(ValidaorException $e) {
+            $this->assertEquals(ValidaorException::SYNTAXT_DUPLICATED, $e->getCode());
+            $this->assertEquals("You can specify a syntax only once!", $e->getMessage());
+        }
+    }
+    
+    public function testGetRepresentative() {
+        $this->markTestIncomplete();
+        $syntax = new Syntax();
+        $syntax->meta  = "foo";
+        $syntax->title = "bar";
+        
+        $tester = new Validator();
         $syntax->accept($tester);
         $this->assertEquals(array(
             "syntax" => array(
@@ -43,7 +63,7 @@ class TesterTest extends \PHPUnit_Framework_TestCase {
             )
         ), $tester->getRepresentative());
         
-        $tester = new Tester();
+        $tester = new Validator();
         $ruleFoo = new Rule();
         $ruleFoo->name = "foo";
         $syntax->addChild($ruleFoo);
@@ -68,7 +88,7 @@ class TesterTest extends \PHPUnit_Framework_TestCase {
     public function testAssertSyntax() {
         $this->markTestIncomplete();
         
-        $tester = new Tester();
+        $tester = new Validator();
         $syntax = new Syntax();
         $syntax->meta  = "foo";
         $syntax->title = "bar";
