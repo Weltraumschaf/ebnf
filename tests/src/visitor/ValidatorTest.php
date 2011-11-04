@@ -30,22 +30,22 @@ use de\weltraumschaf\ebnf\ast\Rule as Rule;
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
     
     public function testIsSyntaxDefined() {
-//        $syntax = new Syntax();
-//        $syntax->meta  = "foo";
-//        $syntax->title = "bar";
-//        
-//        $validator = new Validator();
-//        $this->assertFalse($validator->isSyntaxDefined());
-//        $syntax->accept($validator);
-//        $this->assertTrue($validator->isSyntaxDefined());
-//        
-//        try {
-//            $syntax->accept($validator);
-//            $this->fail("Exceptd exception not thrown!");
-//        } catch(ValidaorException $e) {
-//            $this->assertEquals(ValidaorException::SYNTAXT_REDECLARATION, $e->getCode());
-//            $this->assertEquals("You can specify a syntax only once!", $e->getMessage());
-//        }
+        $syntax = new Syntax();
+        $syntax->meta  = "foo";
+        $syntax->title = "bar";
+        
+        $validator = new Validator();
+        $this->assertFalse($validator->isSyntaxDefined());
+        $syntax->accept($validator);
+        $this->assertTrue($validator->isSyntaxDefined());
+        
+        try {
+            $syntax->accept($validator);
+            $this->fail("Exceptd exception not thrown!");
+        } catch(ValidaorException $e) {
+            $this->assertEquals(ValidaorException::SYNTAXT_REDECLARATION, $e->getCode());
+            $this->assertEquals("You can specify a syntax only once!", $e->getMessage());
+        }
     }
     
     public function testGetRepresentative() {
