@@ -20,12 +20,14 @@
 
 namespace de\weltraumschaf\ebnf;
 
-use \DOMDocument as DOMDocument;
-use \DOMElement  as DOMElement;
-
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
+
+use \DOMDocument                   as DOMDocument;
+use \DOMElement                    as DOMElement;
+use de\weltraumschaf\ebnf\ast\Type as Type;
 
 /**
  * Parses a stream of EBNF tokens and generate a XML DOM tree.
@@ -35,16 +37,6 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
  */
 class Parser {
     const META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
-
-    const NODE_TYPE_CHOICE     = "choice";
-    const NODE_TYPE_IDENTIFIER = "identifier";
-    const NODE_TYPE_LOOP       = "loop";
-    const NODE_TYPE_OPTION     = "option";
-    const NODE_TYPE_RANGE      = "range";
-    const NODE_TYPE_RULE       = "rule";
-    const NODE_TYPE_SEQUENCE   = "sequence";
-    const NODE_TYPE_SYNTAX     = "syntax";
-    const NODE_TYPE_TERMINAL   = "terminal";
 
     /**
      * Used to receive the tokens.
@@ -76,7 +68,7 @@ class Parser {
      * @return DOMDocument
      */
     public function parse() {
-        $syntax = $this->dom->createElement(self::NODE_TYPE_SYNTAX);
+        $syntax = $this->dom->createElement(Type::SYNTAX);
         $this->scanner->nextToken();
 
         if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
@@ -126,7 +118,7 @@ class Parser {
             $this->raiseError("Production must start with an identifier");
         }
 
-        $production = $this->dom->createElement(self::NODE_TYPE_RULE);
+        $production = $this->dom->createElement(Type::RULE);
         $production->setAttribute('name', $this->scanner->currentToken()->getValue());
         $this->scanner->nextToken();
 
@@ -151,7 +143,7 @@ class Parser {
      * @return DOMElement
      */
     private function parseExpression() {
-        $choice = $this->dom->createElement(self::NODE_TYPE_CHOICE);
+        $choice = $this->dom->createElement(Type::CHOICE);
         $choice->appendChild($this->parseTerm());
         $mul = false;
 
@@ -175,7 +167,7 @@ class Parser {
      * @return DOMElement
      */
     private function parseTerm() {
-        $sequence = $this->dom->createElement(self::NODE_TYPE_SEQUENCE);
+        $sequence = $this->dom->createElement(Type::SEQUENCE);
         $sequence->appendChild($this->parseFactor());
         $this->scanner->nextToken();
         $mul = false;
@@ -206,7 +198,7 @@ class Parser {
      */
     private function parseFactor() {
         if ($this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
-            $identifier = $this->dom->createElement(self::NODE_TYPE_IDENTIFIER);
+            $identifier = $this->dom->createElement(Type::IDENTIFIER);
             $identifier->setAttribute('value', $this->scanner->currentToken()->getValue());
 
             return $identifier;
@@ -215,7 +207,7 @@ class Parser {
         if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
 //            if ($this->assertToken($this->scanner->peekToken(), Token::OPERATOR, "::")) {
 //                echo "range";
-//                $range = $this->dom->createElement(self::NODE_TYPE_RANGE);
+//                $range = $this->dom->createElement(Type::RANGE);
 //                $range->setAttribute("from", $this->scanner->currentToken()->getValue(true));
 //                $this->scanner->nextToken(); // Omit ".." literal.
 //                $this->scanner->nextToken();
@@ -223,7 +215,7 @@ class Parser {
 //                return $range;
 //            }
 
-            $literal = $this->dom->createElement(self::NODE_TYPE_TERMINAL);
+            $literal = $this->dom->createElement(Type::TERMINAL);
             $literal->setAttribute('value', $this->scanner->currentToken()->getValue(true));
 
             return $literal;
@@ -241,7 +233,7 @@ class Parser {
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '[')) {
-            $option = $this->dom->createElement(self::NODE_TYPE_OPTION);
+            $option = $this->dom->createElement(Type::OPTION);
             $this->scanner->nextToken();
             $option->appendChild($this->parseExpression());
 
@@ -253,7 +245,7 @@ class Parser {
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '{')) {
-            $loop = $this->dom->createElement(self::NODE_TYPE_LOOP);
+            $loop = $this->dom->createElement(Type::LOOP);
             $this->scanner->nextToken();
             $loop->appendChild($this->parseExpression());
 
