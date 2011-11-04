@@ -42,13 +42,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             $syntax->accept($validator);
             $this->fail("Exceptd exception not thrown!");
         } catch(ValidaorException $e) {
-            $this->assertEquals(ValidaorException::SYNTAXT_DUPLICATED, $e->getCode());
+            $this->assertEquals(ValidaorException::SYNTAXT_REDECLARATION, $e->getCode());
             $this->assertEquals("You can specify a syntax only once!", $e->getMessage());
         }
     }
     
     public function testGetRepresentative() {
-        $this->markTestIncomplete();
+        
         $syntax = new Syntax();
         $syntax->meta  = "foo";
         $syntax->title = "bar";
@@ -59,10 +59,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             "syntax" => array(
                 "meta"  => "foo",
                 "title" => "bar",
-                "rules" => array()
+                "rule" => array()
             )
         ), $tester->getRepresentative());
-        
+        $this->markTestIncomplete();
         $tester = new Validator();
         $ruleFoo = new Rule();
         $ruleFoo->name = "foo";

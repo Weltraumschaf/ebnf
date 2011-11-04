@@ -43,6 +43,8 @@ class Validator extends VisitorAdapter {
      * @var array
      */
     private $representative = array();
+    private $currentRule;
+    private $currentRuleName;
     
     public function getRepresentative() {
         return $this->representative;
@@ -50,23 +52,45 @@ class Validator extends VisitorAdapter {
 
     protected function visitSyntax(Syntax $syntax) {
         if ($this->isSyntaxDefined()) {
-            throw new ValidaorException("You can specify a syntax only once!", ValidaorException::SYNTAXT_DUPLICATED);
+            throw new ValidaorException(
+                "You can specify a syntax only once!", 
+                ValidaorException::SYNTAXT_REDECLARATION
+            );
         }
         
         $this->representative[$syntax->getNodeName()] = array(
             "meta"  => $syntax->meta,
             "title" => $syntax->title,
-            "rules" => array()
+            "rule" => array()
         );
     }
-//    
-//    protected function visitRule(Rule $rule) {
-//        if (!isset($this->representative["syntax"])) {
-//            throw new \Exception("Does not visited a syntax node before vsiting rule!");
-//        }
-//        
-//        $this->representative["syntax"]["rules"][$rule->name] = array();
-//    }
+    
+    protected function visitRule(Rule $rule) {
+        if (!$this->isSyntaxDefined()) {
+            throw new ValidaorException(
+                "You must specify a syntax at very first!", 
+                ValidaorException::NO_SYNTAXT_DECLARED
+            );
+        }
+        
+        if (null !== $this->currentRule) {
+            $this->addRule($this->currentRule, $this->currentRuleName);
+        }
+        
+        $this->currentRule = array();
+        $this->currentRuleName = $rule->name;
+        
+    }
+    
+    protected function addRule(array $rule, $name) {
+        if (array_key_exists($name, $this->representative[Type::SYNTAX][Type::RULE][$name])) {
+            throw new ValidaorException(
+                "Rule with name '{$name}' already declared!",
+                ValidaorException::RULE_REDECLARATION
+            );
+        }
+        $this->representative[Type::SYNTAX][Type::RULE][$name] = $rule;
+    }
 
     public function assert(array $expected) {
         

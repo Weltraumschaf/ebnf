@@ -22,5 +22,7 @@ namespace de\weltraumschaf\ebnf\visitor;
 use \Exception as Exception;
 
  class ValidaorException extends \Exception {
-     const SYNTAXT_DUPLICATED = 1;
+     const SYNTAXT_REDECLARATION = 1;
+     const NO_SYNTAXT_DECLARED = 2;
+     const RULE_REDECLARATION = 3;
  }
