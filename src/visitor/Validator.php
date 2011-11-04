@@ -73,17 +73,13 @@ class Validator extends VisitorAdapter {
             );
         }
         
-        if (null !== $this->currentRule) {
-            $this->addRule($this->currentRule, $this->currentRuleName);
-        }
-        
         $this->currentRule = array();
         $this->currentRuleName = $rule->name;
-        
+        $this->addRule($this->currentRule, $this->currentRuleName);
     }
     
     protected function addRule(array $rule, $name) {
-        if (array_key_exists($name, $this->representative[Type::SYNTAX][Type::RULE][$name])) {
+        if (array_key_exists($name, $this->representative[Type::SYNTAX][Type::RULE])) {
             throw new ValidaorException(
                 "Rule with name '{$name}' already declared!",
                 ValidaorException::RULE_REDECLARATION
