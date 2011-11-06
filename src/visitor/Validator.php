@@ -74,8 +74,6 @@ class Validator extends VisitorAdapter {
         }
         
         $this->currentRule = array();
-        $this->currentRuleName = $rule->name;
-        $this->addRule($this->currentRule, $this->currentRuleName);
     }
     
     protected function addRule(array $rule, $name) {
@@ -95,4 +93,11 @@ class Validator extends VisitorAdapter {
     public function isSyntaxDefined() {
         return array_key_exists(Type::SYNTAX, $this->representative);
     }
+    
+    protected function afterVisit(Node $visitable) {
+        if ($visitable instanceof Rule) {
+            $this->addRule($this->currentRule, $visitable->name);
+        }
+    }
+
 }
