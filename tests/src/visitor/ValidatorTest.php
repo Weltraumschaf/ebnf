@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
 
@@ -110,6 +109,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
                 )
             )
         ), $tester->getRepresentative());
+    }
+    
+    public function testValidateRuleWithSubnodes() {
+        $this->markTestIncomplete();
     }
     
     public function testAssertSyntax() {

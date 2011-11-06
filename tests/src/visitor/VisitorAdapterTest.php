@@ -44,14 +44,8 @@ class ValidatorAdapterTest extends \PHPUnit_Framework_TestCase {
                 "de\\weltraumschaf\\ebnf\\visitor\\VisitorAdapter",
                 array("beforeVisit", "afterVisit", $visitorMethod)
             );
-            $adapter->expects($this->at(0))
-                    ->method("beforeVisit")
-                    ->with($node);
-            $adapter->expects($this->at(1))
+            $adapter->expects($this->once())
                     ->method($visitorMethod)
-                    ->with($node);
-            $adapter->expects($this->at(2))
-                    ->method("afterVisit")
                     ->with($node);
             $adapter->visit($node);
         }

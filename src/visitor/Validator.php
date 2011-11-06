@@ -24,8 +24,8 @@ require_once __DIR__. DIRECTORY_SEPARATOR . "ValidaorException.php";
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
 use de\weltraumschaf\ebnf\ast\Type        as Type;
-use \de\weltraumschaf\ebnf\ast\Identifier as Identifier;
-use \de\weltraumschaf\ebnf\ast\Loop       as Loop;
+use de\weltraumschaf\ebnf\ast\Identifier  as Identifier;
+use de\weltraumschaf\ebnf\ast\Loop        as Loop;
 use de\weltraumschaf\ebnf\ast\Node        as Node;
 use de\weltraumschaf\ebnf\ast\Option      as Option;
 use de\weltraumschaf\ebnf\ast\Rule        as Rule;
@@ -44,7 +44,6 @@ class Validator extends VisitorAdapter {
      */
     private $representative = array();
     private $currentRule;
-    private $currentRuleName;
     
     public function getRepresentative() {
         return $this->representative;
@@ -94,7 +93,7 @@ class Validator extends VisitorAdapter {
         return array_key_exists(Type::SYNTAX, $this->representative);
     }
     
-    protected function afterVisit(Node $visitable) {
+    public function afterVisit(Node $visitable) {
         if ($visitable instanceof Rule) {
             $this->addRule($this->currentRule, $visitable->name);
         }

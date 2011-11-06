@@ -46,8 +46,6 @@ abstract class VisitorAdapter implements Visitor {
      * @return void
      */
     final public function visit(Node $visitable) {
-        $this->beforeVisit($visitable);
-        
         if ($visitable instanceof Identifier) {
             $this->visitIdentifier($visitable);
         } else if ($visitable instanceof Loop) {
@@ -67,25 +65,11 @@ abstract class VisitorAdapter implements Visitor {
                 "Unsupportd node: " . get_class($visitable) . "!"
             );
         }
-        
-        $this->afterVisit($visitable);
     }
 
-    /**
-     * Templeta method to hook in before specific node vsitor method 
-     * will be invoked.
-     * 
-     * @param Node $visitable 
-     */
-    protected function beforeVisit(Node $visitable) {}
-    
-    /**
-     * Templeta method to hook in after specific node vsitor method 
-     * will be invoked.
-     * 
-     * @param Node $visitable 
-     */
-    protected function afterVisit(Node $visitable) {}
+    public function afterVisit(Node $visitable) {}
+
+    public function beforeVisit(Node $visitable) {}
 
     /**
      * Templeta method to visit an {Identifier} node.

@@ -27,5 +27,26 @@ use \de\weltraumschaf\ebnf\ast\Node as Node;
  * Interfce for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
  */
 interface Visitor {
+    
+    /**
+     * Templeta method to hook in before specific node vsitor method 
+     * will be invoked.
+     * 
+     * @param Node $visitable 
+     */
+    public function beforeVisit(Node $visitable);
+    
+    /**
+     * @param Node $visitable 
+     */
     public function visit(Node $visitable);
+    
+    /**
+     * Templeta method to hook in after specific node vsitor method 
+     * will be invoked.
+     * 
+     * @param Node $visitable 
+     */
+    public function afterVisit(Node $visitable);
+
 }
