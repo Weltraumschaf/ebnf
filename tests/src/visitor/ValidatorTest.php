@@ -48,8 +48,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         }
     }
     
-    public function testGetRepresentative() {
-        
+    public function testValidateSyntax() {
         $syntax = new Syntax();
         $syntax->meta  = "foo meta";
         $syntax->title = "bar title";
@@ -63,14 +62,43 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
                 "rule" => array()
             )
         ), $tester->getRepresentative());
-        
-        $tester = new Validator();
+    }
+    
+    /**
+     * @expectedException        de\weltraumschaf\ebnf\visitor\ValidaorException
+     * @expectedExceptionMessage You must specify a syntax at very first!
+     * @expectedExceptionCode    2
+     */
+    public function testThrowExcpetionValidateRuleBeforeSyntax() {
+        $rule = new Rule();
+        $rule->accept(new Validator());
+    }
+    
+    /**
+     * @expectedException        de\weltraumschaf\ebnf\visitor\ValidaorException
+     * @expectedExceptionMessage Rule with name 'foobar' already declared!
+     * @expectedExceptionCode    3
+     */
+    public function testThrowExcpetionOnRuleRedecalartion() {
+        $syntax  = new Syntax();
+        $ruleFoo = new Rule();
+        $ruleFoo->name = "foobar";
+        $syntax->addChild($ruleFoo);
+        $syntax->addChild($ruleFoo);
+        $syntax->accept(new Validator);
+    }
+    
+    public function testValidateRule() {      
+        $syntax = new Syntax();
+        $syntax->meta  = "foo meta";
+        $syntax->title = "bar title";
         $ruleFoo = new Rule();
         $ruleFoo->name = "foo";
         $syntax->addChild($ruleFoo);
         $ruleBar = new Rule();
         $ruleBar->name = "bar";
         $syntax->addChild($ruleBar);
+        $tester = new Validator();
         $syntax->accept($tester);
         $this->assertEquals(array(
             "syntax" => array(
@@ -82,29 +110,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
                 )
             )
         ), $tester->getRepresentative());
-        
-        $this->markTestIncomplete();
     }
     
     public function testAssertSyntax() {
         $this->markTestIncomplete();
-        
-        $tester = new Validator();
-        $syntax = new Syntax();
-        $syntax->meta  = "foo";
-        $syntax->title = "bar";
-        $syntax->accept($tester);
-        
-        try {
-            $tester->assert(array(
-                "syntax" => array(
-                    "meta" => "foo",
-                    "title" => "bar"
-                )
-            ));
-        } catch (\Exception $e) {
-            $this->fail("Unexpected excpeton thrown!");
-        }
     }
     
 }
