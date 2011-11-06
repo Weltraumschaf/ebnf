@@ -36,7 +36,9 @@ class Identifier implements Node {
     }
 
     public function accept(Visitor $visitor) {
+        $visitor->beforeVisit($this);
         $visitor->visit($this);
+        $visitor->afterVisit($this);
     }
 
 }

@@ -56,6 +56,7 @@ abstract class Composite implements IteratorAggregate {
     }
     
     public function accept(Visitor $visitor) {
+        $visitor->beforeVisit($this);
         $visitor->visit($this);
         
         if ($this->hasChildren()) {
@@ -63,6 +64,8 @@ abstract class Composite implements IteratorAggregate {
                 $subnode->accept($visitor);
             }
         }
+        
+        $visitor->afterVisit($this);
     }
 
 }
