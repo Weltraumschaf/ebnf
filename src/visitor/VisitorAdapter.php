@@ -22,15 +22,15 @@ namespace de\weltraumschaf\ebnf\visitor;
 
 require_once __DIR__. DIRECTORY_SEPARATOR . "Visitor.php";
 
-use \de\weltraumschaf\ebnf\ast\Identifier as Identifier;
-use \de\weltraumschaf\ebnf\ast\Loop       as Loop;
-use de\weltraumschaf\ebnf\ast\Node        as Node;
-use de\weltraumschaf\ebnf\ast\Option      as Option;
-use de\weltraumschaf\ebnf\ast\Rule        as Rule;
-use de\weltraumschaf\ebnf\ast\Sequence    as Sequence;
-use de\weltraumschaf\ebnf\ast\Syntax      as Syntax;
-use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
-use \InvalidArgumentException             as InvalidArgumentException;
+use de\weltraumschaf\ebnf\ast\Identifier as Identifier;
+use de\weltraumschaf\ebnf\ast\Loop       as Loop;
+use de\weltraumschaf\ebnf\ast\Node       as Node;
+use de\weltraumschaf\ebnf\ast\Option     as Option;
+use de\weltraumschaf\ebnf\ast\Rule       as Rule;
+use de\weltraumschaf\ebnf\ast\Sequence   as Sequence;
+use de\weltraumschaf\ebnf\ast\Syntax     as Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal   as Terminal;
+use \InvalidArgumentException            as InvalidArgumentException;
 
 /**
  * Abstract adapbter visitor which provides template methods 
@@ -45,7 +45,9 @@ abstract class VisitorAdapter implements Visitor {
      * 
      * @return void
      */
-    public function visit(Node $visitable) {
+    final public function visit(Node $visitable) {
+        $this->beforeVisit($visitable);
+        
         if ($visitable instanceof Identifier) {
             $this->visitIdentifier($visitable);
         } else if ($visitable instanceof Loop) {
@@ -62,10 +64,28 @@ abstract class VisitorAdapter implements Visitor {
             $this->visitTerminal($visitable);
         } else {
             throw new InvalidArgumentException(
-                "Unsupportd visitable: " . get_class($visitable)
+                "Unsupportd node: " . get_class($visitable) . "!"
             );
         }
+        
+        $this->afterVisit($visitable);
     }
+
+    /**
+     * Templeta method to hook in before specific node vsitor method 
+     * will be invoked.
+     * 
+     * @param Node $visitable 
+     */
+    protected function beforeVisit(Node $visitable) {}
+    
+    /**
+     * Templeta method to hook in after specific node vsitor method 
+     * will be invoked.
+     * 
+     * @param Node $visitable 
+     */
+    protected function afterVisit(Node $visitable) {}
 
     /**
      * Templeta method to visit an {Identifier} node.
