@@ -48,6 +48,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
  *     echo $e . PHP_EOL;
  * }
  * </code>
+ * 
+ * @package ebnf
  */
 class Scanner {
 

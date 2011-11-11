@@ -26,6 +26,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . "Renderer.php";
 
 /**
  * Abstracts the CLI command.
+ * 
+ * @package ebnf
  */
 class Command {
     const EBNF_OK           = 0;

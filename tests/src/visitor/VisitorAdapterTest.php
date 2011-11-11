@@ -31,7 +31,13 @@ require_once 'ast/Sequence.php';
 require_once 'ast/Syntax.php';
 require_once 'ast/Terminal.php';
 
-class ValidatorAdapterTest extends \PHPUnit_Framework_TestCase {
+/**
+ * Tests for {VisitorAdapter}.
+ * 
+ * @package ebnf
+ * @subpackage tests
+ */
+class VisitorAdapterTest extends \PHPUnit_Framework_TestCase {
     
     public function testBeforeAndAfterInvocation() {
         foreach(array(

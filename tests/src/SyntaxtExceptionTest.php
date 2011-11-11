@@ -25,6 +25,9 @@ require_once "Position.php";
 
 /**
  * Testcase for class {SyntaxtException}.
+ * 
+ * @package ebnf
+ * @subpackage tests
  */
 class SyntaxtExceptionTest extends \PHPUnit_Framework_TestCase {
 

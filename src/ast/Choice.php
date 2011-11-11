@@ -23,6 +23,12 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
+/**
+ * Choice node.
+ * 
+ * @package ebnf
+ * @subpackage ast
+ */
 class Choice extends Composite implements Node {
     
     public function getNodeName() {

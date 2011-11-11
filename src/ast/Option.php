@@ -23,6 +23,12 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
+/**
+ * Option node.
+ * 
+ * @package ebnf
+ * @subpackage ast
+ */
 class Option extends Composite implements Node {
     
     public function getNodeName() {

@@ -21,6 +21,9 @@ namespace de\weltraumschaf\ebnf\ast;
 
 /**
  * Represents the type of an EBNF node type.
+ * 
+ * @package ebnf
+ * @subpackage ast
  */
 class Type {
     const CHOICE     = "choice";

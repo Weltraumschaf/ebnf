@@ -22,6 +22,12 @@ namespace de\weltraumschaf\ebnf\ast;
 
 require_once 'ast/Type.php';
 
+/**
+ * Tests for {Type}.
+ * 
+ * @package ebnf
+ * @subpackage tests
+ */
 class TypeTest  extends \PHPUnit_Framework_TestCase {
     public function testIsAndToString() {
         foreach (array(

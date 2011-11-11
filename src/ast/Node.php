@@ -22,14 +22,25 @@ namespace de\weltraumschaf\ebnf\ast;
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
- *
+ * Interface of an AST node.
+ * 
+ * @package ebnf
+ * @subpackage ast
  */
 interface Node {
+    
+    /**
+     * Returns the name of a node.
+     * 
+     * @return string
+     */
     public function getNodeName();
+    
     /**
      * Defines method to accept {Visitors}.
      * 
      * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
      */
     public function accept(Visitor $visitor);
+    
 }

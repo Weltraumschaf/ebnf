@@ -24,6 +24,9 @@ require_once "Scanner.php";
 
 /**
  * Testcase for class {Scanner}.
+ * 
+ * @package ebnf
+ * @subpackage tests
  */
 class ScannerTest extends \PHPUnit_Framework_TestCase {
 

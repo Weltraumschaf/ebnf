@@ -26,6 +26,12 @@ require_once 'ast/Rule.php';
 use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
 use de\weltraumschaf\ebnf\ast\Rule as Rule;
 
+/**
+ * Tests for {Validator}.
+ * 
+ * @package ebnf
+ * @subpackage tests
+ */
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
     
     public function testIsSyntaxDefined() {

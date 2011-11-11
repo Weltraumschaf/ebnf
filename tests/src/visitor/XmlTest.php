@@ -41,6 +41,9 @@ use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
 
 /**
  * Testcases for {Xml}.
+ * 
+ * @package ebnf
+ * @subpackage tests
  */
 class XmlTest extends \PHPUnit_Framework_TestCase {
     

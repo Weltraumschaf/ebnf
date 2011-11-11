@@ -21,6 +21,12 @@ namespace de\weltraumschaf\ebnf\visitor;
 
 use \Exception as Exception;
 
+/**
+ * Excpetions thrown by the {Validator} visitor.
+ *
+ * @package ebnf
+ * @subpackage visitor
+ */
  class ValidaorException extends Exception {
      const SYNTAXT_REDECLARATION = 1;
      const NO_SYNTAXT_DECLARED   = 2;

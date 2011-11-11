@@ -25,6 +25,8 @@ namespace de\weltraumschaf\ebnf;
  *
  * The position contains the line, column and filename where the
  * token occured. The file name is optional.
+ * 
+ * @package ebnf
  */
 class Position {
 

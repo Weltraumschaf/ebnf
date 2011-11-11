@@ -35,6 +35,9 @@ use \InvalidArgumentException            as InvalidArgumentException;
 /**
  * Abstract adapbter visitor which provides template methods 
  * for all visitable node types.
+ * 
+ * @package ebnf
+ * @subpackage visitor
  */
 abstract class VisitorAdapter implements Visitor {
     

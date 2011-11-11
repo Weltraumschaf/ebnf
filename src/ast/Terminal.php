@@ -25,7 +25,12 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
+ * Termianl node.
+ * 
  * Has no subnodes.
+ * 
+ * @package ebnf
+ * @subpackage ast
  */
 class Terminal implements Node {
     

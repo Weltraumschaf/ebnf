@@ -26,6 +26,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
  * Represents a scanned EBNF token with its type, value and position in the source file.
  *
  * A token is a imutable value object.
+ * 
+ * @package ebnf
  */
 class Token {
     const OPERATOR   = 1;

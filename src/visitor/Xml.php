@@ -32,7 +32,10 @@ use de\weltraumschaf\ebnf\ast\Syntax      as Syntax;
 use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
 
 /**
+ * Visitor which generates a XML string from the visited AST tree.
  * 
+ * @package ebnf
+ * @subpackage visitor
  */
 class Xml implements Visitor {
     

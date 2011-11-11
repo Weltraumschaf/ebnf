@@ -25,6 +25,9 @@ use \de\weltraumschaf\ebnf\ast\Node as Node;
  * Defines interface for an AST tree visitor.
  * 
  * Interfce for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+ * 
+ * @package ebnf
+ * @subpackage visitor
  */
 interface Visitor {
     

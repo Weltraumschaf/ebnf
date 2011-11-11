@@ -24,6 +24,9 @@ require_once "Position.php";
 
 /**
  * Testcase for class {Position}.
+ * 
+ * @package ebnf
+ * @subpackage tests
  */
 class PositionTest extends \PHPUnit_Framework_TestCase {
 

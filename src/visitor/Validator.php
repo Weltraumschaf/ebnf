@@ -36,6 +36,8 @@ use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
 /**
  * Implements an AST tree vsitor for testing purposes.
  * 
+ * @package ebnf
+ * @subpackage visitor
  */
 class Validator extends VisitorAdapter {
     

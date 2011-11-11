@@ -23,6 +23,14 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
+/**
+ * Syntax node.
+ * 
+ * The root of the AST.
+ * 
+ * @package ebnf
+ * @subpackage ast
+ */
 class Syntax extends Composite implements Node {
  
     public $title = "";

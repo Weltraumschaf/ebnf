@@ -45,6 +45,9 @@ class ExposedParser extends Parser {
 
 /**
  * Testcase for class {Parser}.
+ * 
+ * @package ebnf
+ * @subpackage tests
  */
 class ParserTest extends \PHPUnit_Framework_TestCase {
 

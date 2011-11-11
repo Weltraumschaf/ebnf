@@ -24,6 +24,9 @@ require_once "Token.php";
 
 /**
  * Testcase for class {Token}.
+ * 
+ * @package ebnf
+ * @subpackage tests
  */
 class TokenTest extends \PHPUnit_Framework_TestCase {
 

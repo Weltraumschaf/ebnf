@@ -30,6 +30,12 @@ require_once "ast/Rule.php";
 require_once "ast/Sequence.php";
 require_once "ast/Syntax.php";
 
+/**
+ * Test for integrating all AST node types.
+ * 
+ * @package ebnf
+ * @subpackage tests
+ */
 class IntegrationTest extends \PHPUnit_Framework_TestCase {
     
     public function testThatNodeIsNotComposite() {

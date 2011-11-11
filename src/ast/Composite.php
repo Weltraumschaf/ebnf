@@ -26,7 +26,12 @@ use \ArrayIterator as ArrayIterator;
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
+ * Abstract base class for nodes which are not leaves and have subnodes.
  * 
+ * Provides interface for {IteratorAggregate} and adding child nodes.
+ * 
+ * @package ebnf
+ * @subpackage ast
  */
 abstract class Composite implements IteratorAggregate {
     private $nodes;

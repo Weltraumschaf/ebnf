@@ -24,6 +24,10 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
+ * Lop node.
+ * 
+ * @package ebnf
+ * @subpackage ast
  */
 class Loop extends Composite implements Node {
     

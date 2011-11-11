@@ -34,6 +34,8 @@ use de\weltraumschaf\ebnf\ast\Type as Type;
  *
  * This class provides only one public method which provides returns
  * the syntax tree as XML DOM tree.
+ * 
+ * @package ebnf
  */
 class Parser {
     const META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
