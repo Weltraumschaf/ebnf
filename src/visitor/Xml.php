@@ -22,7 +22,7 @@ namespace de\weltraumschaf\ebnf\visitor;
 require_once __DIR__. DIRECTORY_SEPARATOR . "Visitor.php";
 
 use de\weltraumschaf\ebnf\ast\Node        as Node;
-use de\weltraumschaf\ebnf\ast\Node        as Composite;
+use de\weltraumschaf\ebnf\ast\Composite   as Composite;
 use de\weltraumschaf\ebnf\ast\Identifier  as Identifier;
 use de\weltraumschaf\ebnf\ast\Loop        as Loop;
 use de\weltraumschaf\ebnf\ast\Option      as Option;
@@ -48,6 +48,7 @@ class Xml implements Visitor {
         
         if (null !== $attr && !empty($attr)) {
             foreach ($attr as $attrName => $value) {
+                $value = htmlspecialchars($value);
                 $tag .= " {$attrName}=\"{$value}\"";
             }
         }
@@ -82,6 +83,7 @@ class Xml implements Visitor {
     private function indent() {
         return str_repeat(" ", $this->indentationLevel * 4);
     }
+    
     private function append($string) {
         $this->xmlString .= (string)$string;
     }

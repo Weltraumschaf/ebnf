@@ -26,7 +26,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 class Option extends Composite implements Node {
     
     public function getNodeName() {
-        return Type::LOOP;
+        return Type::OPTION;
     }
 
 }

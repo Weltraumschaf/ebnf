@@ -31,6 +31,7 @@ require_once 'ast/Syntax.php';
 require_once 'ast/Terminal.php';
 
 use de\weltraumschaf\ebnf\ast\Identifier  as Identifier;
+use de\weltraumschaf\ebnf\ast\Choice      as Choice;
 use de\weltraumschaf\ebnf\ast\Loop        as Loop;
 use de\weltraumschaf\ebnf\ast\Option      as Option;
 use de\weltraumschaf\ebnf\ast\Rule        as Rule;
@@ -46,8 +47,8 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
     public function testCreateOpenTag() {
         $this->assertEquals('<foo>', Xml::createOpenTag("foo"));
         $this->assertEquals(
-            '<foo bar="1">', 
-            Xml::createOpenTag("foo", array("bar" => "1"))
+            '<foo bar="1" baz="&lt;&quot;&gt;&amp;">', 
+            Xml::createOpenTag("foo", array("bar" => "1", "baz" => "<\">&"))
         );
         $this->assertEquals(
             '<foo bar="1" baz="2">', 
@@ -78,7 +79,10 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
 
     public function testGenerateXml() {
         $visitor = new Xml();
-        $this->assertEquals('<?xml version="1.0" encoding="utf-8"?>', $visitor->getXmlString());
+        $this->assertEquals(
+            '<?xml version="1.0" encoding="utf-8"?>', 
+            $visitor->getXmlString()
+        );
         
         $syntax = new Syntax();
         $syntax->meta  = "EBNF defined in itself.";
@@ -99,22 +103,89 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         
         $syntaxRule = new Rule();
         $syntaxRule->name = "syntax";
+        $seq   = new Sequence();
+        $opt   = new Option();
+        $ident = new Identifier();
+        $ident->value = "title";
+        $opt->addChild($ident);
+        $seq->addChild($opt);
+        $terminal = new Terminal();
+        $terminal->value = "{";
+        $seq->addChild($terminal);
+        $loop = new Loop();
+        $ident = new Identifier();
+        $ident->value = "rule";
+        $loop->addChild($ident);
+        $seq->addChild($loop);
+        $terminal = new Terminal();
+        $terminal->value = "}";
+        $seq->addChild($terminal);
+        $opt   = new Option();
+        $ident = new Identifier();
+        $ident->value = "comment";
+        $opt->addChild($ident);
+        $seq->addChild($opt);
+        $syntaxRule->addChild($seq);
         $syntax->addChild($syntaxRule);
         
         $ruleRule = new Rule();
         $ruleRule->name = "rule";
+        $seq   = new Sequence();
+        $ident = new Identifier();
+        $ident->value = "identifier";
+        $seq->addChild($ident);
+        $choice = new Choice();
+        foreach (array("=", ":", ":==") as $literal) {
+            $terminal = new Terminal();
+            $terminal->value = $literal;
+            $choice->addChild($terminal);
+        }
+        $seq->addChild($choice);
+        $ident = new Identifier();
+        $ident->value = "expression";
+        $seq->addChild($ident);
+        $choice = new Choice();
+        foreach (array(".", ";") as $literal) {
+            $terminal = new Terminal();
+            $terminal->value = $literal;
+            $choice->addChild($terminal);
+        }
+        $seq->addChild($choice);
+        $ruleRule->addChild($seq);
         $syntax->addChild($ruleRule);
-        
-        $expressionRule = new Rule();
-        $expressionRule->name = "expression";
-        $syntax->addChild($expressionRule);
-        
-        $termRule = new Rule();
-        $termRule->name = "term";
-        $syntax->addChild($termRule);
         
         $literalRule = new Rule();
         $literalRule->name = "literal";
+        $choice   = new Choice();
+        $seq      = new Sequence();
+        $terminal = new Terminal();
+        $terminal->value = "'";
+        $seq->addChild($terminal);
+        $ident = new Identifier();
+        $ident->value = "character";
+        $seq->addChild($ident);
+        $loop  = new Loop();
+        $ident = new Identifier();
+        $ident->value = "character";
+        $loop->addChild($ident);
+        $seq->addChild($loop);
+        $seq->addChild($terminal);
+        $choice->addChild($seq);
+        $seq      = new Sequence();
+        $terminal = new Terminal();
+        $terminal->value = '"';
+        $seq->addChild($terminal);
+        $ident = new Identifier();
+        $ident->value = "character";
+        $seq->addChild($ident);
+        $loop  = new Loop();
+        $ident = new Identifier();
+        $ident->value = "character";
+        $loop->addChild($ident);
+        $seq->addChild($loop);
+        $seq->addChild($terminal);
+        $choice->addChild($seq);
+        $literalRule->addChild($choice);
         $syntax->addChild($literalRule);
         
         $visitor = new Xml();

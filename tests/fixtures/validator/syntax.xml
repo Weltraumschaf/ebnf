@@ -30,25 +30,6 @@
             </choice>
         </sequence>
     </rule>
-    <rule name="expression">
-        <sequence>
-            <identifier value="term"/>
-            <loop>
-                <sequence>
-                    <terminal value="|"/>
-                    <identifier value="term"/>
-                </sequence>
-            </loop>
-        </sequence>
-    </rule>
-    <rule name="term">
-        <sequence>
-            <identifier value="factor"/>
-            <loop>
-                <identifier value="factor"/>
-            </loop>
-        </sequence>
-    </rule>
     <rule name="literal">
         <choice>
             <sequence>
