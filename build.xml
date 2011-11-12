@@ -13,6 +13,11 @@
         <include name="*.php"/>
         <include name="**/*.php/"/>
     </fileset>
+    
+    <fileset dir="${workspace}/tests" id="tests">
+        <include name="*Test.php"/>
+        <include name="**/*Test.php/"/>
+    </fileset>
 
     <target name="clean" description="Cleans reports and doc folder">
         <delete dir="${reportsdir}" includeemptydirs="true" verbose="false"/>
@@ -57,8 +62,9 @@
         <mkdir dir="${docdir}"/>
 
         <phpdoc title="${phing.project.name}" destdir="${docdir}" sourcecode="false"
-                defaultpackagename="ebnf" output="HTML:frames:phphtmllib">
+                defaultpackagename="ebnf" output="HTML:frames:default">
             <fileset refid="src"/>
+            <fileset refid="tests"/>
         </phpdoc>
     </target>
 

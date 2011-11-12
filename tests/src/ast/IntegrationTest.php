@@ -14,27 +14,54 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
-require_once "ast/Composite.php";
-require_once "ast/Terminal.php";
-require_once "ast/Identifier.php";
-require_once "ast/Choice.php";
-require_once "ast/Loop.php";
-require_once "ast/Option.php";
-require_once "ast/Rule.php";
-require_once "ast/Sequence.php";
-require_once "ast/Syntax.php";
+/**
+ * @see Composite
+ */
+require_once 'ast/Composite.php';
+/**
+ * @see Terminal
+ */
+require_once 'ast/Terminal.php';
+/**
+ * @see Identifier
+ */
+require_once 'ast/Identifier.php';
+/**
+ * @see Choice
+ */
+require_once 'ast/Choice.php';
+/**
+ * @see Loop
+ */
+require_once 'ast/Loop.php';
+/**
+ * @see Option
+ */
+require_once 'ast/Option.php';
+/**
+ * @see Rule
+ */
+require_once 'ast/Rule.php';
+/**
+ * @see Sequence
+ */
+require_once 'ast/Sequence.php';
+/**
+ * @see Syntax
+ */
+require_once 'ast/Syntax.php';
 
 /**
  * Test for integrating all AST node types.
  * 
- * @package ebnf
- * @subpackage tests
+ * @package tests
  */
 class IntegrationTest extends \PHPUnit_Framework_TestCase {
     

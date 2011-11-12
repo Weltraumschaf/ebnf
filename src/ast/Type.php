@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ast
  */
 
 namespace de\weltraumschaf\ebnf\ast;
@@ -22,8 +24,7 @@ namespace de\weltraumschaf\ebnf\ast;
 /**
  * Represents the type of an EBNF node type.
  * 
- * @package ebnf
- * @subpackage ast
+ * @package ast
  */
 class Type {
     const CHOICE     = "choice";
@@ -44,12 +45,12 @@ class Type {
     private $type;
     
     /**
-     * Inititializes imutabe object.
+     * Inititializes imutable object usualy with one of the class constants.
      * 
-     * @param (string) $type 
+     * @param string $type The string representation of ths type.
      */
     public function __construct($type) {
-        $this->type = (string)$type;
+        $this->type = (string) $type;
     }
     
     /**
@@ -64,11 +65,11 @@ class Type {
     /**
      * Compares with given string representation.
      *
-     * @param string $type
+     * @param string $type Usualy one of the class constants.
      * 
      * @return bool
      */
     public function is($type) {
-        return $this->type === (string)$type;
+        return $this->type === (string) $type;
     }
 }

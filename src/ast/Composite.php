@@ -14,52 +14,88 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ast
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
-use \IteratorAggregate as IteratorAggregate;
-use \ArrayIterator as ArrayIterator;
-
+use \IteratorAggregate                    as IteratorAggregate;
+use \ArrayIterator                        as ArrayIterator;
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
  * Abstract base class for nodes which are not leaves and have subnodes.
  * 
- * Provides interface for {IteratorAggregate} and adding child nodes.
+ * Provides interface for {@link IteratorAggregate http://php.net/manual/en/class.iteratoraggregate.php} 
+ * and adding child nodes.
  * 
- * @package ebnf
- * @subpackage ast
+ * @package ast
  */
 abstract class Composite implements IteratorAggregate {
+    
+    /**
+     * Holds the child nodes.
+     * 
+     * @var array
+     */
     private $nodes;
     
+    /**
+     * Initializes object with empty child node array.
+     */
     public function __construct() {
         $this->nodes = array();
     }
     
     /**
-     *
+     * Implements IteratorAggregate for retrieving an interaotr.
+     * 
      * @return ArrayIterator 
      */
     public function getIterator() {
         return new ArrayIterator($this->nodes);
     }
     
+    /**
+     * Count of direct children nodes.
+     * 
+     * @return int
+     */
     public function countChildren() {
         return count($this->nodes);
     }
     
+    /**
+     * Whether the node has direct child nodes or not.
+     * 
+     * @return bool
+     */
     public function hasChildren() {
         return 0 < $this->countChildren();
     }
     
+    /**
+     * Append a child {@link Node} to the list of children.
+     * 
+     * @param Node $child Child node to add.
+     * 
+     * @return void
+     */
     public function addChild(Node $child) {
         $this->nodes[] = $child;
     }
     
+    /**
+     * Defines method to accept {@link Visitors}.
+     * 
+     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * 
+     * @param Visitor $visitor Object which visits te node.
+     * 
+     * @return void
+     */
     public function accept(Visitor $visitor) {
         $visitor->beforeVisit($this);
         $visitor->visit($this);

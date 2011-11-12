@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ast
  */
 
 namespace de\weltraumschaf\ebnf\ast;
@@ -24,8 +26,7 @@ use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 /**
  * Interface of an AST node.
  * 
- * @package ebnf
- * @subpackage ast
+ * @package ast
  */
 interface Node {
     
@@ -37,9 +38,13 @@ interface Node {
     public function getNodeName();
     
     /**
-     * Defines method to accept {Visitors}.
+     * Defines method to accept {@link Visitors}.
      * 
      * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * 
+     * @param Visitor $visitor Object which visits te node.
+     * 
+     * @return void
      */
     public function accept(Visitor $visitor);
     

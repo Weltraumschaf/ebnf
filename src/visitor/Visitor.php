@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package visitor
  */
 
 namespace de\weltraumschaf\ebnf\visitor;
@@ -26,29 +28,36 @@ use \de\weltraumschaf\ebnf\ast\Node as Node;
  * 
  * Interfce for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
  * 
- * @package ebnf
- * @subpackage visitor
+ * @package visitor
  */
 interface Visitor {
     
     /**
-     * Templeta method to hook in before specific node vsitor method 
+     * Template method to hook in before specific node vsitor method 
      * will be invoked.
      * 
-     * @param Node $visitable 
+     * @param Node $visitable Visied {@link Node}.
+     * 
+     * @return void
      */
     public function beforeVisit(Node $visitable);
     
     /**
-     * @param Node $visitable 
+     * Generic visitor method called by a visited {@link Node}.
+     * 
+     * @param Node $visitable Visied {@link Node}.
+     * 
+     * @return void
      */
     public function visit(Node $visitable);
     
     /**
-     * Templeta method to hook in after specific node vsitor method 
+     * Template method to hook in after specific node vsitor method 
      * will be invoked.
      * 
-     * @param Node $visitable 
+     * @param Node $visitable Visied {@link Node}.
+     * 
+     * @return void
      */
     public function afterVisit(Node $visitable);
 

@@ -14,20 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf;
 
-require_once "SyntaxtException.php";
-require_once "Position.php";
+/**
+ * @see SyntaxtException
+ */
+require_once 'SyntaxtException.php';
+/**
+ * @see Position
+ */
+require_once 'Position.php';
 
 /**
- * Testcase for class {SyntaxtException}.
+ * Testcase for class {@link SyntaxtException}.
  * 
- * @package ebnf
- * @subpackage tests
+ * @package tests
  */
 class SyntaxtExceptionTest extends \PHPUnit_Framework_TestCase {
 

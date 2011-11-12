@@ -14,16 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Vincent Tscherter <tscherter@karmin.ch>
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ebnf
  */
 
 namespace de\weltraumschaf\ebnf;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . "Token.php";
-require_once __DIR__ . DIRECTORY_SEPARATOR . "SyntaxtException.php";
-require_once __DIR__ . DIRECTORY_SEPARATOR . "Position.php";
-require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
+/**
+ * @see Token
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
+/**
+ * @see SyntaxtException
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
+/**
+ * @see Position
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
+/**
+ * @see ScannerHelper
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ScannerHelper.php';
 
 /**
  * Scanns an input string for EBNF syntax tokens.

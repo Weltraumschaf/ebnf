@@ -14,12 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ast
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
+/**
+ * @see Node
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+/**
+ * @see Type
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
@@ -29,17 +37,35 @@ use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
  * 
  * Has no subnodes.
  * 
- * @package ebnf
- * @subpackage ast
+ * @package ast
  */
 class Identifier implements Node {
     
+    /**
+     * The literal string.
+     * 
+     * @var string
+     */
     public $value = "";
     
+    /**
+     * Returns the name of a node.
+     * 
+     * @return string
+     */
     public function getNodeName() {
         return Type::IDENTIFIER;
     }
 
+    /**
+     * Defines method to accept {@link Visitors}.
+     * 
+     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * 
+     * @param Visitor $visitor Object which visits te node.
+     * 
+     * @return void
+     */
     public function accept(Visitor $visitor) {
         $visitor->beforeVisit($this);
         $visitor->visit($this);

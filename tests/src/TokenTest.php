@@ -14,19 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf;
 
-require_once "Token.php";
+/**
+ * @see Token
+ */
+require_once 'Token.php';
 
 /**
- * Testcase for class {Token}.
+ * Testcase for class {@link Token}.
  * 
- * @package ebnf
- * @subpackage tests
+ * @package tests
  */
 class TokenTest extends \PHPUnit_Framework_TestCase {
 

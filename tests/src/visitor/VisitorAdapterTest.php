@@ -14,28 +14,54 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf\visitor;
 
+/**
+ * @see VisitorAdapter
+ */
 require_once 'visitor/VisitorAdapter.php';
-
+/**
+ * @see Choice
+ */
 require_once 'ast/Choice.php';
+/**
+ * @see Identifier
+ */
 require_once 'ast/Identifier.php';
+/**
+ * @see Loop
+ */
 require_once 'ast/Loop.php';
+/**
+ * @see Option
+ */
 require_once 'ast/Option.php';
+/**
+ * @see Rule
+ */
 require_once 'ast/Rule.php';
+/**
+ * @see Sequence
+ */
 require_once 'ast/Sequence.php';
+/**
+ * @see Syntax
+ */
 require_once 'ast/Syntax.php';
+/**
+ * @see Terminal
+ */
 require_once 'ast/Terminal.php';
 
 /**
- * Tests for {VisitorAdapter}.
+ * Tests for {@link VisitorAdapter}.
  * 
- * @package ebnf
- * @subpackage tests
+ * @package tests
  */
 class VisitorAdapterTest extends \PHPUnit_Framework_TestCase {
     

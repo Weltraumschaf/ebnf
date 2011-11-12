@@ -14,15 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Vincent Tscherter <tscherter@karmin.ch>
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ebnf
  */
 
 namespace de\weltraumschaf\ebnf;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . "Scanner.php";
-require_once __DIR__ . DIRECTORY_SEPARATOR . "Parser.php";
-require_once __DIR__ . DIRECTORY_SEPARATOR . "Renderer.php";
+/**
+ * @see Scanner
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Scanner.php';
+/**
+ * @see Parser
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Parser.php';
+/**
+ * @see Renderer
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Renderer.php';
 
 /**
  * Abstracts the CLI command.

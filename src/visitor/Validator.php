@@ -14,13 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package visitor
  */
 
 namespace de\weltraumschaf\ebnf\visitor;
 
-require_once __DIR__. DIRECTORY_SEPARATOR . "VisitorAdapter.php";
-require_once __DIR__. DIRECTORY_SEPARATOR . "ValidaorException.php";
+/**
+ * @see VisitorAdapter
+ */
+require_once __DIR__. DIRECTORY_SEPARATOR . 'VisitorAdapter.php';
+/**
+ * @see ValidaorException
+ */
+require_once __DIR__. DIRECTORY_SEPARATOR . 'ValidaorException.php';
+/**
+ * @see Type
+ */
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
 use de\weltraumschaf\ebnf\ast\Type        as Type;
@@ -36,15 +47,18 @@ use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
 /**
  * Implements an AST tree vsitor for testing purposes.
  * 
- * @package ebnf
- * @subpackage visitor
+ * @package visitor
  */
 class Validator extends VisitorAdapter {
-    
+// @codingStandardsIgnoreStart
     /**
      * @var array
      */
     private $representative = array();
+    /**
+     *
+     * @var array
+     */
     private $currentRule;
     
     public function getRepresentative() {
@@ -100,5 +114,5 @@ class Validator extends VisitorAdapter {
             $this->addRule($this->currentRule, $visitable->name);
         }
     }
-
+// @codingStandardsIgnoreEnd
 }

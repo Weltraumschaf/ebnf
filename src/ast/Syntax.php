@@ -14,13 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ast
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
+/**
+ * @see Node
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+/**
+ * @see Composite
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+/**
+ * @see Type
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
@@ -28,14 +39,28 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * 
  * The root of the AST.
  * 
- * @package ebnf
- * @subpackage ast
+ * @package ast
  */
 class Syntax extends Composite implements Node {
  
+    /**
+     * Title literal of string.
+     * 
+     * @var string
+     */
     public $title = "";
+    /**
+     * Meta literal of string.
+     * 
+     * @var string
+     */
     public $meta = "";
     
+    /**
+     * Returns the name of a node.
+     * 
+     * @return string
+     */
     public function getNodeName() {
         return Type::SYNTAX;
     }

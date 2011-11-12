@@ -14,23 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf\visitor;
 
+/**
+ * @see Validator
+ */
 require_once 'visitor/Validator.php';
+/**
+ * @see Syntax
+ */
 require_once 'ast/Syntax.php';
+/**
+ * @see Rule
+ */
 require_once 'ast/Rule.php';
 
 use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
-use de\weltraumschaf\ebnf\ast\Rule as Rule;
+use de\weltraumschaf\ebnf\ast\Rule   as Rule;
 
 /**
- * Tests for {Validator}.
+ * Tests for {@link Validator}.
  * 
- * @package ebnf
- * @subpackage tests
+ * @package tests
  */
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
     

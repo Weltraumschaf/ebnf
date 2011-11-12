@@ -14,12 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package visitor
  */
 
 namespace de\weltraumschaf\ebnf\visitor;
 
+/**
+ * @see Visitor
+ */
 require_once __DIR__. DIRECTORY_SEPARATOR . "Visitor.php";
 
 use de\weltraumschaf\ebnf\ast\Identifier as Identifier;
@@ -36,15 +40,16 @@ use \InvalidArgumentException            as InvalidArgumentException;
  * Abstract adapbter visitor which provides template methods 
  * for all visitable node types.
  * 
- * @package ebnf
- * @subpackage visitor
+ * @package visitor
  */
 abstract class VisitorAdapter implements Visitor {
     
     /**
      * Implements generic visitor interface.
      * 
-     * @param Node $visitable 
+     * Delegates to {@link Node} specific visitor methods.
+     * 
+     * @param Node $visitable Visited node.
      * 
      * @return void
      */
@@ -70,71 +75,107 @@ abstract class VisitorAdapter implements Visitor {
         }
     }
 
-    public function afterVisit(Node $visitable) {}
+    /**
+     * Template method to hook into before the main {@link visit()} method is called.
+     * 
+     * {@link Composite} nodes are responsible to call this method.
+     * 
+     * @param Node $visitable Visited node.
+     * 
+     * @return void
+     */
+    public function afterVisit(Node $visitable) {
+        return null;
+    }
 
-    public function beforeVisit(Node $visitable) {}
+    /**
+     * Template method to hook into after the main {@link visit()} method is called.
+     * 
+     * {@link Composite} nodes are responsible to call this method.
+     * 
+     * @param Node $visitable Visited node.
+     * 
+     * @return void
+     */
+    public function beforeVisit(Node $visitable) {
+        return null;
+    }
 
     /**
-     * Templeta method to visit an {Identifier} node.
+     * Template method to visit an {@link Identifier} node.
      * 
-     * @param Identifier $identifier 
-     * 
-     * @return void
-     */
-    protected function visitIdentifier(Identifier $identifier) {}
-    
-    /**
-     * Templeta method to visit an {Loop} node.
-     * 
-     * @param Loop $loop 
+     * @param Identifier $identifier Visited {@link Identifier} node.
      * 
      * @return void
      */
-    protected function visitLoop(Loop $loop) {}
+    protected function visitIdentifier(Identifier $identifier) {
+        return null;
+    }
     
     /**
-     * Templeta method to visit an {Option} node.
+     * Template method to visit an {@link Loop} node.
      * 
-     * @param Option $option 
+     * @param Loop $loop Visited {@link Loop} node.
      * 
      * @return void
      */
-    protected function visitOption(Option $option) {}
+    protected function visitLoop(Loop $loop) {
+        return null;
+    }
     
     /**
-     * Templeta method to visit an {Rule} node.
+     * Template method to visit an {@link Option} node.
      * 
-     * @param Rule $rule 
+     * @param Option $option Visited {@link Option} node.
      * 
      * @return void
      */
-    protected function visitRule(Rule $rule) {}
+    protected function visitOption(Option $option) {
+        return null;
+    }
     
     /**
-     * Templeta method to visit an {Sequence} node.
+     * Template method to visit an {@link Rule} node.
      * 
-     * @param Sequence $sequence 
+     * @param Rule $rule Visited {@link Rule} node.
      * 
      * @return void
      */
-    protected function visitSequence(Sequence $sequence) {}
+    protected function visitRule(Rule $rule) {
+        return null;
+    }
     
     /**
-     * Templeta method to visit an {Syntax} node.
+     * Template method to visit an {@link Sequence} node.
      * 
-     * @param Syntax $syntax 
+     * @param Sequence $sequence Visited {@link Sequence} node.
+     * 
+     * @return void
+     */
+    protected function visitSequence(Sequence $sequence) {
+        return null;
+    }
+    
+    /**
+     * Template method to visit an {@link Syntax} node.
+     * 
+     * @param Syntax $syntax Visited {@link Syntax} node.
      *
      * @return void
      */
-    protected function visitSyntax(Syntax $syntax) {}
+    protected function visitSyntax(Syntax $syntax) {
+        return null;
+    }
     
     /**
-     * Templeta method to visit an {Terminal} node.
+     * Template method to visit an {@link Terminal} node.
      * 
-     * @param Terminal $terminal 
+     * @param Terminal $terminal Visited {@link Terminal} node.
      * 
      * @return void
      */
-    protected function visitTerminal(Terminal $terminal) {}
+    protected function visitTerminal(Terminal $terminal) {
+        return null;
+    }
     
 }

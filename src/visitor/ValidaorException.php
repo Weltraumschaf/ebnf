@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package visitor
  */
 
 namespace de\weltraumschaf\ebnf\visitor;
@@ -24,11 +26,10 @@ use \Exception as Exception;
 /**
  * Excpetions thrown by the {Validator} visitor.
  *
- * @package ebnf
- * @subpackage visitor
+ * @package visitor
  */
- class ValidaorException extends Exception {
-     const SYNTAXT_REDECLARATION = 1;
-     const NO_SYNTAXT_DECLARED   = 2;
-     const RULE_REDECLARATION    = 3;
- }
+class ValidaorException extends Exception {
+    const SYNTAXT_REDECLARATION = 1;
+    const NO_SYNTAXT_DECLARED   = 2;
+    const RULE_REDECLARATION    = 3;
+}

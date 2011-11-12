@@ -14,19 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
+/**
+ * @see Type
+ */
 require_once 'ast/Type.php';
 
 /**
- * Tests for {Type}.
+ * Tests for {@link Type}.
  * 
- * @package ebnf
- * @subpackage tests
+ * @package tests
  */
 class TypeTest  extends \PHPUnit_Framework_TestCase {
     public function testIsAndToString() {

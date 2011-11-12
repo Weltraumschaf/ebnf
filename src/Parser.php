@@ -14,15 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Vincent Tscherter <tscherter@karmin.ch>
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ebnf
  */
 
 namespace de\weltraumschaf\ebnf;
 
+/**
+ * @see Token
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Token.php';
+/**
+ * @see SyntaxtException
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
+/**
+ * @see Position
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
+/**
+ * @see Type
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
 use \DOMDocument                   as DOMDocument;
@@ -35,9 +49,10 @@ use de\weltraumschaf\ebnf\ast\Type as Type;
  * This class provides only one public method which provides returns
  * the syntax tree as XML DOM tree.
  * 
- * @package ebnf
+ * @package ast
  */
 class Parser {
+    
     const META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
     /**

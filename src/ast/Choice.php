@@ -14,23 +14,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ast
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
+/**
+ * @see Node
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+/**
+ * @see Composite
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+/**
+ * @see Type
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
  * Choice node.
  * 
- * @package ebnf
- * @subpackage ast
+ * @package ast
  */
 class Choice extends Composite implements Node {
     
+    /**
+     * Returns the name of a node.
+     * 
+     * @return string
+     */
     public function getNodeName() {
         return Type::CHOICE;
     }
