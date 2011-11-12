@@ -16,29 +16,38 @@
  *
  * @license http://www.gnu.org/licenses/ GNU General Public License
  * @author  Sven Strittmatter <ich@weltraumschaf.de>
- * @package tests
+ * @package ast
  */
 
-namespace de\weltraumschaf\ebnf;
+namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see Position
+ * @see Node
  */
-require_once 'Position.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
+/**
+ * @see Composite
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+/**
+ * @see Type
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
- * Testcase for class {@link Position}.
+ * Lop node.
  * 
- * @package tests
+ * @package ast
  */
-class PositionTest extends \PHPUnit_Framework_TestCase {
-
-    public function testtoString() {
-        $p = new Position(5, 10);
-        $this->assertEquals("(5, 10)", $p->__toString());
-
-        $p = new Position(7, 8, "/foo/bar/baz.ebnf");
-        $this->assertEquals("/foo/bar/baz.ebnf (7, 8)", $p->__toString());
+class Loop extends Composite implements Node {
+    
+    /**
+     * Returns the name of a node.
+     * 
+     * @return string
+     */
+    public function getNodeName() {
+        return Type::LOOP;
     }
 
 }

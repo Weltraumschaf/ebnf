@@ -14,25 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf;
 
 /**
- * @see {Parser}
+ * @see Parser
  */
-require_once "Parser.php";
+require_once 'Parser.php';
 /**
- * @see {Scanner}
+ * @see Scanner
  */
-require_once "Scanner.php";
+require_once 'Scanner.php';
 /**
- * @see {Token}
+ * @see Token
  */
-require_once "Token.php";
+require_once 'Token.php';
 
+/**
+ * Expose protected methods of  {@link Parser} for testing.
+ * 
+ * @package tests
+ */
 class ExposedParser extends Parser {
     public function exposedAssertToken(Token $token, $type, $value) {
         return parent::assertToken($token, $type, $value);
@@ -44,7 +50,9 @@ class ExposedParser extends Parser {
 }
 
 /**
- * Testcase for class {Parser}.
+ * Testcase for class {@link Parser}.
+ * 
+ * @package tests
  */
 class ParserTest extends \PHPUnit_Framework_TestCase {
 

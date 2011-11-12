@@ -16,29 +16,36 @@
  *
  * @license http://www.gnu.org/licenses/ GNU General Public License
  * @author  Sven Strittmatter <ich@weltraumschaf.de>
- * @package tests
+ * @package ast
  */
 
-namespace de\weltraumschaf\ebnf;
+namespace de\weltraumschaf\ebnf\ast;
+
+use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
- * @see Position
- */
-require_once 'Position.php';
-
-/**
- * Testcase for class {@link Position}.
+ * Interface of an AST node.
  * 
- * @package tests
+ * @package ast
  */
-class PositionTest extends \PHPUnit_Framework_TestCase {
-
-    public function testtoString() {
-        $p = new Position(5, 10);
-        $this->assertEquals("(5, 10)", $p->__toString());
-
-        $p = new Position(7, 8, "/foo/bar/baz.ebnf");
-        $this->assertEquals("/foo/bar/baz.ebnf (7, 8)", $p->__toString());
-    }
-
+interface Node {
+    
+    /**
+     * Returns the name of a node.
+     * 
+     * @return string
+     */
+    public function getNodeName();
+    
+    /**
+     * Defines method to accept {@link Visitors}.
+     * 
+     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * 
+     * @param Visitor $visitor Object which visits te node.
+     * 
+     * @return void
+     */
+    public function accept(Visitor $visitor);
+    
 }

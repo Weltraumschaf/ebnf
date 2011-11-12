@@ -19,31 +19,34 @@
  * @package tests
  */
 
-namespace de\weltraumschaf\ebnf;
+namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see SyntaxtException
+ * @see Type
  */
-require_once 'SyntaxtException.php';
-/**
- * @see Position
- */
-require_once 'Position.php';
+require_once 'ast/Type.php';
 
 /**
- * Testcase for class {@link SyntaxtException}.
+ * Tests for {@link Type}.
  * 
  * @package tests
  */
-class SyntaxtExceptionTest extends \PHPUnit_Framework_TestCase {
-
-    public function testToString() {
-        $e = new SyntaxtException("foo bar", new Position(3, 4));
-        $this->assertEquals("Syntax error: foo bar at (3, 4) (code: 0)!", $e->__toString());
-        $e = new SyntaxtException("foo bar", new Position(3, 4), 4);
-        $this->assertEquals("Syntax error: foo bar at (3, 4) (code: 4)!", $e->__toString());
-        $e = new SyntaxtException("foo bar", new Position(3, 4, "foo.ebnf"));
-        $this->assertEquals("Syntax error: foo bar at foo.ebnf (3, 4) (code: 0)!", $e->__toString());
+class TypeTest  extends \PHPUnit_Framework_TestCase {
+    public function testIsAndToString() {
+        foreach (array(
+            Type:: CHOICE,
+            Type::IDENTIFIER,
+            Type::LOOP,    
+            Type::OPTION,  
+            Type::RANGE,   
+            Type::RULE,    
+            Type::SEQUENCE,
+            Type::SYNTAX,
+            Type::TERMINAL
+        ) as $typeName) {
+            $t = new Type($typeName);
+            $this->assertTrue($t->is($typeName));
+            $this->assertEquals($typeName, $t->__toString());
+        }
     }
-
 }

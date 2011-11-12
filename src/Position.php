@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Vincent Tscherter <tscherter@karmin.ch>
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ebnf
  */
 
 namespace de\weltraumschaf\ebnf;
@@ -25,6 +27,8 @@ namespace de\weltraumschaf\ebnf;
  *
  * The position contains the line, column and filename where the
  * token occured. The file name is optional.
+ * 
+ * @package ebnf
  */
 class Position {
 

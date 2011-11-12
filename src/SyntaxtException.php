@@ -13,18 +13,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Vincent Tscherter <tscherter@karmin.ch>
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ebnf
  */
 
 namespace de\weltraumschaf\ebnf;
 
+use \Exception as Exception;
+
 /**
  * Exception for signaling syntax errors.
  *
- * Provides a {Position} where in the input stream the syntax error occured.
+ * Provides a {@link Position} where in the input stream the syntax error occured.
+ * 
+ * @package ebnf
  */
-class SyntaxtException extends \Exception {
+class SyntaxtException extends Exception {
 
     /**
      * Where in the source the exception occured.

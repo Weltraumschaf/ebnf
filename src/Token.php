@@ -14,18 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Vincent Tscherter <tscherter@karmin.ch>
- * @author Sven Strittmatter <ich@weltraumschaf.de>
+ * @license http://www.gnu.org/licenses/ GNU General Public License
+ * @author  Vincent Tscherter <tscherter@karmin.ch>
+ * @author  Sven Strittmatter <ich@weltraumschaf.de>
+ * @package ebnf
  */
 
 namespace de\weltraumschaf\ebnf;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . "ScannerHelper.php";
+/**
+ * @see ScannerHelper
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ScannerHelper.php';
 
 /**
  * Represents a scanned EBNF token with its type, value and position in the source file.
  *
  * A token is a imutable value object.
+ * 
+ * @package ebnf
  */
 class Token {
     const OPERATOR   = 1;

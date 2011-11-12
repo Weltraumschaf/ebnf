@@ -16,29 +16,20 @@
  *
  * @license http://www.gnu.org/licenses/ GNU General Public License
  * @author  Sven Strittmatter <ich@weltraumschaf.de>
- * @package tests
+ * @package visitor
  */
 
-namespace de\weltraumschaf\ebnf;
+namespace de\weltraumschaf\ebnf\visitor;
+
+use \Exception as Exception;
 
 /**
- * @see Position
+ * Excpetions thrown by the {Validator} visitor.
+ *
+ * @package visitor
  */
-require_once 'Position.php';
-
-/**
- * Testcase for class {@link Position}.
- * 
- * @package tests
- */
-class PositionTest extends \PHPUnit_Framework_TestCase {
-
-    public function testtoString() {
-        $p = new Position(5, 10);
-        $this->assertEquals("(5, 10)", $p->__toString());
-
-        $p = new Position(7, 8, "/foo/bar/baz.ebnf");
-        $this->assertEquals("/foo/bar/baz.ebnf (7, 8)", $p->__toString());
-    }
-
+class ValidaorException extends Exception {
+    const SYNTAXT_REDECLARATION = 1;
+    const NO_SYNTAXT_DECLARED   = 2;
+    const RULE_REDECLARATION    = 3;
 }
