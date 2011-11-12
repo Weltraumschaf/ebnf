@@ -15,34 +15,48 @@
  *
  * @license http://www.gnu.org/licenses/ GNU General Public License
  * @author  Sven Strittmatter <ich@weltraumschaf.de>
- * @package ebnf
+ * @package symbol
  */
 
-namespace de\weltraumschaf\ebnf;
+namespace de\weltraumschaf\ebnf\symbol;
+
+use \InvalidArgumentException as InvalidArgumentException;
 
 /**
- * @package ebnf
+ * @package symbol
  */
-class SymbolTable {
+class RuleSymbolTable {
     
-    private $symbols;
+    /**
+     * @var array
+     */
+    private $rules;
     
     public function __construct() {
-        $this->symbols = array();
-    }
-    
-    public function add(Symbol $s) {
-        if ($this->contains($symbol)) {
-            $this->symbols[] = $s;
-        }
-    }
-    
-    public function contains(Symbol $s) {
-        return null !== $this->lookUpByIdentifier($s->getIdentifier());
-    }
-    
-    public function lookUp($identifier) {
-        return array_key_exists((string) $identifier, $this->symbols);
+        $this->rules = array();
     }
 
+    /**
+     * @param Symbol $s 
+     */
+    public function define(RuleSymbol $s) {
+        if (null !== $this->resolve($s->getName())) {
+            throw new InvalidArgumentException();
+        }
+        
+        $this->rules[$s->getName()] = $s;
+    }
+    
+    /**
+     *
+     * @param string $name
+     * @return Symbol
+     */
+    public function resolve($name) {
+        if (array_key_exists((string) $name, $this->rules)) {
+            return $this->rules[(string) $name];
+        }
+        
+        return null;
+    }
 }

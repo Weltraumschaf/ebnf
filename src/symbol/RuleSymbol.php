@@ -15,29 +15,23 @@
  *
  * @license http://www.gnu.org/licenses/ GNU General Public License
  * @author  Sven Strittmatter <ich@weltraumschaf.de>
- * @package ebnf
+ * @package symbol
  */
 
-namespace de\weltraumschaf\ebnf;
+namespace de\weltraumschaf\ebnf\symbol;
 
 /**
- * @package ebnf
+ * @package symbol
  */
-class Symbol {
-    private $identifier;
-    private $reference;
+class RuleSymbol {
+    private $name;
     
-    public function __construct($identifier, $reference) {
-        $this->identifier = $identifier;
-        $this->reference = $reference;
+    public function __construct($identifier) {
+        $this->name = $identifier;
     }
 
-    public function getIdentifier() {
-        return $this->identifier;
-    }
-
-    public function getReference() {
-        return $this->reference;
+    public function getName() {
+        return $this->name;
     }
 
 }
