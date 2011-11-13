@@ -1,7 +1,7 @@
 # PHP EBNF Image Generator
 
 This package contains classes for scanning and parsing [EBNF][1]
-grammar files and generates images with railroad diagrams of
+grammar files and generate images with railroad diagrams for
 that grammar.
 
 The original code I discovered [here][2]. But that project seems
@@ -13,34 +13,38 @@ to PHP5.
 > EBNF is a code that expresses the grammar of a computer language. An EBNF
 > consists of terminal symbol and non-terminal production rules which are the
 > restrictions governing how terminal symbols can be combined into a legal
-> sequence." [Wikipedia][1]
+> sequence. [Wikipedia][1]
 
 ### Describing EBNF with EBNF as an example:
 
-    syntax     = [ title ] "{" { rule } "}" [ comment ] .
+    syntax     = [ title ] "{" { rule } "}" [ meta ] .
     rule       = identifier ( "=" | ":" | ":==" ) expression ( "." | ";" ) .
     expression = term { "|" term } .
     term       = factor { factor } .
     factor     = identifier
                | literal
                | range
+               | comment
                | "[" expression "]"
                | "(" expression ")"
                | "{" expression "}" .
     identifier = character { character } .
     range      = character ".." character .
     title      = literal .
-    comment    = literal .
+    meta       = literal .
     literal    = "'" character { character } "'"
                | '"' character { character } '"' .
+    comment    = "(*" character { character } "*)" .
     character  = "a" .. "z"
                | "A" .. "Z"
                | "0" .. "9" .
 
 ### Table of symbols
 
-This is a list of symbols implemented in ths package. There are a lot 
-of variants of (E)BNFs wih some more or other symbols.
+Here is a list of symbols implemented in ths package. There are a lot 
+of [variants of (E)BNFs](http://www.cs.man.ac.uk/~pjj/bnf/ebnf.html)
+out in the wild wih some more or other symbols. This package implements
+only a reasonable subset.
     
 <dl>
     <dt>definition</dt>
@@ -63,7 +67,7 @@ of variants of (E)BNFs wih some more or other symbols.
 
 ## Usage
 
-You can either use the shell script from <kbd>bin/ebnf</kbd> for
+You can either use the shell script <kbd>bin/ebnf</kbd> for
 generating images or XML from a grammar file:
 
     $ ./bin/ebnf -s mygrammar.ebnf
@@ -75,11 +79,11 @@ generating images or XML from a grammar file:
 Or you can use the classes for embedding the functionality in your code:
 
     <?php
-    $input   = "..."; // The grammar as string.
+    $input    = "..."; // The grammar as string.
     $file     = "..."; // Where to save.
-    $scanner = new Scanner($input);
-    $parser  = new Parser($scanner);
-    $dom     = $parser->parse();
+    $scanner  = new Scanner($input);
+    $parser   = new Parser($scanner);
+    $dom      = $parser->parse();
     $renderer = new Renderer($format, $file, $dom);
     $renderer->save();
 
