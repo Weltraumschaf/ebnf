@@ -26,27 +26,27 @@ use \InvalidArgumentException as InvalidArgumentException;
  * @package symbol
  */
 class RuleSymbolTable {
-    
+
     /**
      * @var array
      */
     private $rules;
-    
+
     public function __construct() {
         $this->rules = array();
     }
 
     /**
-     * @param Symbol $s 
+     * @param Symbol $s
      */
     public function define(RuleSymbol $s) {
         if (null !== $this->resolve($s->getName())) {
             throw new InvalidArgumentException();
         }
-        
+
         $this->rules[$s->getName()] = $s;
     }
-    
+
     /**
      *
      * @param string $name
@@ -56,7 +56,7 @@ class RuleSymbolTable {
         if (array_key_exists((string) $name, $this->rules)) {
             return $this->rules[(string) $name];
         }
-        
+
         return null;
     }
 }
