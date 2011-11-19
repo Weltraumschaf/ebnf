@@ -38,22 +38,27 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
  * @see Type
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
+/**
+ * @see Syntax
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Syntax.php';
 
-use \DOMDocument                   as DOMDocument;
-use \DOMElement                    as DOMElement;
-use de\weltraumschaf\ebnf\ast\Type as Type;
+use \DOMDocument                     as DOMDocument;
+use \DOMElement                      as DOMElement;
+use de\weltraumschaf\ebnf\ast\Type   as Type;
+use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
 
 /**
  * Parses a stream of EBNF tokens and generate a XML DOM tree.
  *
  * This class provides only one public method which provides returns
  * the syntax tree as XML DOM tree.
- * 
+ *
  * @package ast
  */
 class Parser {
-    
-    const META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
+
+    const DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
     /**
      * Used to receive the tokens.
@@ -62,9 +67,18 @@ class Parser {
      */
     private $scanner;
     /**
+     * Abstract syntax tree in XML.
+     *
+     * @deprecated
      * @var DOMDocument
      */
     private $dom;
+    /**
+     * The abstract syntax tree.
+     *
+     * @var Syntax
+     */
+    private $ast;
 
     /**
      * Initialized with a scanner which produced the token stream.
@@ -74,6 +88,16 @@ class Parser {
     public function __construct(Scanner $scanner) {
         $this->scanner = $scanner;
         $this->dom     = new DOMDocument();
+        $this->ast     = new Syntax();
+    }
+
+    /**
+     * Used to get new AST model until parse will return it.
+
+     * @return Syntax
+     */
+    public function getAst() {
+        return $this->ast;
     }
 
     /**
@@ -90,6 +114,7 @@ class Parser {
 
         if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
             $syntax->setAttribute('title', $this->scanner->currentToken()->getValue(true));
+            $this->ast->title = $this->scanner->currentToken()->getValue(true);
             $this->scanner->nextToken();
         }
 
@@ -113,11 +138,13 @@ class Parser {
         if ($this->scanner->hasNextToken()) {
             if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
                 $syntax->setAttribute('meta', $this->scanner->currentToken()->getValue(true));
+                $this->ast->meta = $this->scanner->currentToken()->getValue(true);
             } else {
                 $this->raiseError("Literal expected as syntax comment");
             }
         } else {
-            $syntax->setAttribute('meta', self::META);
+            $syntax->setAttribute('meta', self::DEFAULT_META);
+            $this->ast->meta = self::DEFAULT_META;
         }
 
         $this->dom->appendChild($syntax);
