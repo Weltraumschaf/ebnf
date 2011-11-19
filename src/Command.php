@@ -34,10 +34,14 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Parser.php';
  * @see Renderer
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Renderer.php';
+/**
+ * @see ReferenceGrammar
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ReferenceGrammar.php';
 
 /**
  * Abstracts the CLI command.
- * 
+ *
  * @package ebnf
  */
 class Command {
@@ -49,7 +53,7 @@ class Command {
 
     /**
      * Command line arguments.
-     * 
+     *
      * @var array
      */
     private $opts;
@@ -122,6 +126,7 @@ class Command {
      * @return string
      */
     private static function usage($baseName) {
+        $example = new ReferenceGrammar();
         return "Usage: {$baseName} -s <file> [-o <file>] [-f png|jpg|gif|xml] [-h]" . PHP_EOL . PHP_EOL .
 
                "  -s <file>  File with EBNF grammar." . PHP_EOL .
@@ -132,21 +137,7 @@ class Command {
                "  -h         This help." . PHP_EOL . PHP_EOL .
 
                "Example grammar:" . PHP_EOL .
-               '"EBNF defined in itself" {'. PHP_EOL .
-               '    syntax     = [ title ] "{" { rule } "}" [ comment ] .'. PHP_EOL .
-               '    rule       = identifier "=" expression ( "." | ";" ) .'. PHP_EOL .
-               '    expression = term { "|" term } .'. PHP_EOL .
-               '    term       = factor { factor } .'. PHP_EOL .
-               '    factor     = identifier'. PHP_EOL .
-               '               | literal'. PHP_EOL .
-               '               | "[" expression "]"'. PHP_EOL .
-               '               | "(" expression ")"'. PHP_EOL .
-               '               | "{" expression "}" .'. PHP_EOL .
-               '    identifier = character { character } .'. PHP_EOL .
-               '    title      = literal .'. PHP_EOL .
-               '    comment    = literal .'. PHP_EOL .
-               '    literal    = "\'" character { character } "\'"'. PHP_EOL .
-               '               | \'"\' character { character } \'"\' .'. PHP_EOL .
+               $example->__toString() . PHP_EOL .
                '}' . PHP_EOL . PHP_EOL;
     }
 
