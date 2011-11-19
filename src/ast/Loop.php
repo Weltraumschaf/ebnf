@@ -36,18 +36,18 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
  * Lop node.
- * 
+ *
  * @package ast
  */
 class Loop extends Composite implements Node {
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {
         return Type::LOOP;
     }
-
+    
 }

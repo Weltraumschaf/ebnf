@@ -25,6 +25,7 @@ namespace de\weltraumschaf\ebnf\ast;
  * @see Composite
  */
 require_once 'ast/Composite.php';
+require_once 'ast/Node.php';
 /**
  * @see Terminal
  */
@@ -58,18 +59,24 @@ require_once 'ast/Sequence.php';
  */
 require_once 'ast/Syntax.php';
 
+class SyntaxStub extends Syntax {
+    public function exposedProbeEquivalenceInternal(Node $other, Notification $result) {
+        parent::probeEquivalenceInternal($other, $result);
+    }
+}
+
 /**
  * Test for integrating all AST node types.
- * 
+ *
  * @package tests
  */
 class IntegrationTest extends \PHPUnit_Framework_TestCase {
-    
+
     public function testThatNodeIsNotComposite() {
         $this->assertNotInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Terminal());
         $this->assertNotInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Identifier());
     }
-    
+
     public function testThatNodeIsComposite() {
         $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Choice());
         $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Loop());
@@ -80,7 +87,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $composite = $this->getMockForAbstractClass("de\weltraumschaf\ebnf\ast\Composite");
         $this->assertInstanceOf("\IteratorAggregate", $composite);
     }
-    
+
     public function testComposite() {
         $composite = $this->getMockForAbstractClass("de\weltraumschaf\ebnf\ast\Composite");
         /* @var $composite Composite */
@@ -89,7 +96,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $iterator = $composite->getIterator();
         $this->assertInstanceOf("\ArrayIterator", $iterator);
         $this->assertEquals(0, $iterator->count());
-        
+
         $nodeOne = $this->getMock("de\weltraumschaf\ebnf\ast\Node");
         $nodeOne->name = "one";
         $composite->addChild($nodeOne);
@@ -100,7 +107,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $iterator->count());
         $this->assertTrue($iterator->offsetExists(0));
         $this->assertSame($nodeOne, $iterator->offsetGet(0));
-        
+
         $nodeTwo = $this->getMock("de\weltraumschaf\ebnf\ast\Node");
         $nodeTwo->name = "two";
         $composite->addChild($nodeTwo);
@@ -114,21 +121,76 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($iterator->offsetExists(1));
         $this->assertSame($nodeTwo, $iterator->offsetGet(1));
     }
-    
+
     public function testIntegration() {
         $syntax = new Syntax();
         $syntax->meta = "foo";
         $syntax->title = "bar";
-        
+
         $firstRule = new Rule();
         $firstRule->name = "first";
         $syntax->addChild($firstRule);
-        
+
         $secondRule = new Rule();
         $secondRule->name = "second";
         $syntax->addChild($secondRule);
 
         $this->markTestIncomplete();
     }
-    
+
+    public function testProbeEquivalenceSyntax() {
+        $syntax1 = new Syntax();
+        $syntax1->title = "foo";
+        $syntax1->meta  = "bar";
+        $syntax2 = new Syntax();
+        $syntax2->title = "foo";
+        $syntax2->meta  = "bar";
+        $syntax3 = new Syntax();
+        $syntax3->title = "bla";
+        $syntax3->meta  = "blub";
+
+        $n = $syntax1->probeEquivalence($syntax1);
+        $this->assertTrue($n->isOk(), $n->report());
+        $n = $syntax1->probeEquivalence($syntax2);
+        $this->assertTrue($n->isOk(), $n->report());
+
+        $n = $syntax2->probeEquivalence($syntax2);
+        $this->assertTrue($n->isOk(), $n->report());
+        $n = $syntax2->probeEquivalence($syntax1);
+        $this->assertTrue($n->isOk(), $n->report());
+
+        $n = $syntax3->probeEquivalence($syntax3);
+        $this->assertTrue($n->isOk(), $n->report());
+
+        $errors  = "Titles of syntx differs: 'foo' != 'bla'!" . PHP_EOL;
+        $errors .= "Meta of syntx differs: 'bar' != 'blub'!";
+        $n = $syntax1->probeEquivalence($syntax3);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals($errors, $n->report());
+        $n = $syntax2->probeEquivalence($syntax3);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals($errors, $n->report());
+        $errors  = "Titles of syntx differs: 'bla' != 'foo'!" . PHP_EOL;
+        $errors .= "Meta of syntx differs: 'blub' != 'bar'!";
+        $n = $syntax3->probeEquivalence($syntax1);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals($errors, $n->report());
+        $n = $syntax3->probeEquivalence($syntax2);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals($errors, $n->report());
+
+        $errors = "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\SyntaxStub' != 'BadNode'!";
+        $stub = new SyntaxStub();
+        $mock = $this->getMock('de\weltraumschaf\ebnf\ast\Node', array(), array(), 'BadNode');
+        $this->assertFalse($mock instanceof Syntax);
+        $n = new Notification();
+        $stub->exposedProbeEquivalenceInternal($mock, $n);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals($errors, $n->report());
+    }
+
+    public function testProbeEquivalenceSyntaxWithRules() {
+        $this->markTestIncomplete();
+    }
+
 }

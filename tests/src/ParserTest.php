@@ -132,7 +132,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Rule", $rule);
             $this->assertEquals("comment", $rule->name);
         }
-        
+
         $this->markTestIncomplete();
+    }
+
+    private function assertEquivalentSyntax(Syntax $expected, Syntax $actual) {
+        $this->assertNotificationOk($expected->probeEquivalence($actual));
+        $this->assertNotificationOk($actual->probeEquivalence($expected));
+    }
+
+    private function assertNotificationOk(Notification $n) {
+        $this->assertTrue($n->isOk(), $n->report());
     }
 }

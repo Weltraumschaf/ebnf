@@ -34,36 +34,36 @@ use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
  * Termianl node.
- * 
+ *
  * Has no subnodes.
- * 
+ *
  * @package ast
  */
 class Terminal implements Node {
-    
+
     /**
      * The literal string value.
-     * 
+     *
      * @var string
      */
     public $value = "";
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {
         return Type::TERMINAL;
     }
-    
+
     /**
      * Defines method to accept {@link Visitors}.
-     * 
+     *
      * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
-     * 
+     *
      * @param Visitor $visitor Object which visits te node.
-     * 
+     *
      * @return void
      */
     public function accept(Visitor $visitor) {
@@ -71,5 +71,14 @@ class Terminal implements Node {
         $visitor->visit($this);
         $visitor->afterVisit($this);
     }
-    
+
+    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+        if ( ! $other instanceof Terminal) {
+            $this->error("Probed node types mismatch: %s != %s!", get_class($this), get_class($other));
+        }
+
+        if ($this->value !== $other->value) {
+            $this->error("Terminal value mismatch: %s != %s!", $this->value, $other->value);
+        }
+    }
 }
