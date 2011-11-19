@@ -118,12 +118,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
-    public function tstParseAst() {
+    public function testParseAst() {
         $p = new Parser(new Scanner($this->loadFixture("rules_with_different_assignment_ops.ebnf")));
         $p->parse();
         $ast = $p->getAst();
         $this->assertEquals("Rules with different assignment operators.", $ast->title);
         $this->assertEquals(Parser::DEFAULT_META, $ast->meta);
+        $this->assertTrue($ast->hasChildren());
+        $this->assertEquals(3, $ast->countChildren());
+        $rules = $ast->getIterator();
+
+        foreach ($rules as $rule) {
+            $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Rule", $rule);
+            $this->assertEquals("comment", $rule->name);
+        }
+        
         $this->markTestIncomplete();
     }
 }

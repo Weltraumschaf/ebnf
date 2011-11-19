@@ -35,18 +35,28 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'SyntaxtException.php';
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 /**
- * @see Type
+ * @see Choice
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Choice.php';
+/**
+ * @see Rule
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Rule.php';
 /**
  * @see Syntax
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Syntax.php';
+/**
+ * @see Type
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
 use \DOMDocument                     as DOMDocument;
 use \DOMElement                      as DOMElement;
-use de\weltraumschaf\ebnf\ast\Type   as Type;
+use de\weltraumschaf\ebnf\ast\Choice as Choice;
+use de\weltraumschaf\ebnf\ast\Rule   as Rule;
 use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
+use de\weltraumschaf\ebnf\ast\Type   as Type;
 
 /**
  * Parses a stream of EBNF tokens and generate a XML DOM tree.
@@ -125,7 +135,9 @@ class Parser {
         $this->scanner->nextToken();
 
         while ($this->scanner->hasNextToken() && $this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
-            $syntax->appendChild($this->parseRule());
+            $rules = $this->parseRule();
+            $syntax->appendChild($rules[0]);
+            $this->ast->addChild($rules[1]);
             $this->scanner->nextToken();
         }
 
@@ -164,6 +176,8 @@ class Parser {
 
         $production = $this->dom->createElement(Type::RULE);
         $production->setAttribute('name', $this->scanner->currentToken()->getValue());
+        $rule = new Rule();
+        $rule->name = $this->scanner->currentToken()->getValue();
         $this->scanner->nextToken();
 
         if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array("=", ":", ":=="))) {
@@ -171,13 +185,15 @@ class Parser {
         }
 
         $this->scanner->nextToken();
-        $production->appendChild($this->parseExpression());
+        $expressions = $this->parseExpression();
+        $production->appendChild($expressions[0]);
+        $rule->addChild($expressions[1]);
 
         if (!$this->assertTokens($this->scanner->currentToken(), Token::OPERATOR, array(".", ";"))) {
             $this->raiseError("Rule must end with '.' or ';'", $this->scanner->backtrackToken(2)->getPosition(true));
         }
 
-        return $production;
+        return array($production, $rule);
     }
 
     /**
@@ -189,6 +205,7 @@ class Parser {
     private function parseExpression() {
         $choice = $this->dom->createElement(Type::CHOICE);
         $choice->appendChild($this->parseTerm());
+        $choiceNode = new Choice();
         $mul = false;
 
         while ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '|')) {
@@ -198,10 +215,11 @@ class Parser {
         }
 
         if ($mul) {
-            return $choice;
+            return array($choice, $choiceNode);
         }
 
-        return $choice->removeChild($choice->firstChild);
+        // @todo returns first child from node
+        return array($choice->removeChild($choice->firstChild), $choiceNode);
     }
 
     /**
@@ -273,13 +291,14 @@ class Parser {
                 $this->raiseError("Group must end with ')'");
             }
 
-            return $expression;
+            return $expression[0];
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '[')) {
             $option = $this->dom->createElement(Type::OPTION);
             $this->scanner->nextToken();
-            $option->appendChild($this->parseExpression());
+            $expression = $this->parseExpression();
+            $option->appendChild($expression[0]);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ']')) {
                 $this->raiseError("Option must end with ']'");
@@ -291,7 +310,8 @@ class Parser {
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '{')) {
             $loop = $this->dom->createElement(Type::LOOP);
             $this->scanner->nextToken();
-            $loop->appendChild($this->parseExpression());
+            $expression = $this->parseExpression();
+            $loop->appendChild($expression[0]);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '}')) {
                 $this->raiseError("Loop must end with '}'");
