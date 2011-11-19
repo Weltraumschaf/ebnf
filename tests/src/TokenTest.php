@@ -25,10 +25,14 @@ namespace de\weltraumschaf\ebnf;
  * @see Token
  */
 require_once 'Token.php';
+/**
+ * @see Position
+ */
+require_once 'Position.php';
 
 /**
  * Testcase for class {@link Token}.
- * 
+ *
  * @package tests
  */
 class TokenTest extends \PHPUnit_Framework_TestCase {
@@ -157,5 +161,22 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf("de\weltraumschaf\ebnf\Position", $end);
         $this->assertEquals(1, $end->getLine());
         $this->assertEquals(8, $end->getColumn());
+    }
+
+    public function testIsOperator() {
+        foreach (array(
+            Token::ASIGN, Token::CHOICE, Token::END_OF_RULE, Token::L_BRACE, Token::L_BRACK, Token::L_PAREN,
+            Token::RANGE, Token::R_BRACE, Token::R_BRACK, Token::R_PAREN
+        ) as $type) {
+            $token = new Token($type, "", new Position(0, 0));
+            $this->assertTrue($token->isOperator());
+        }
+
+        foreach (array(
+            Token::COMMENT, Token::EOF, Token::IDENTIFIER, Token::LITERAL, Token::OPERATOR
+        ) as $type) {
+            $token = new Token($type, "", new Position(0, 0));
+            $this->assertFalse($token->isOperator());
+        }
     }
 }
