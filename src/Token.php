@@ -31,15 +31,60 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'ScannerHelper.php';
  * Represents a scanned EBNF token with its type, value and position in the source file.
  *
  * A token is a imutable value object.
- * 
+ *
  * @package ebnf
  */
 class Token {
+    /**
+     * @deprecated
+     */
     const OPERATOR   = 1;
+    // Special type:
     const LITERAL    = 2;
     const COMMENT    = 3;
     const IDENTIFIER = 4;
     const EOF        = 5;
+    // Operator types:
+    /**
+     * :== or : or =
+     */
+    const ASIGN = 11;
+    /**
+     * . or ;
+     */
+    const END_OF_RULE = 12;
+    /**
+     * (
+     */
+    const L_PAREN = 13;
+    /**
+     * [
+     */
+	const L_BRACK = 14;
+    /**
+     * {
+     */
+	const L_BRACE = 15;
+    /**
+     * )
+     */
+	const R_PAREN = 16;
+    /**
+     * ]
+     */
+	const R_BRACK = 17;
+    /**
+     * }
+     */
+	const R_BRACE = 18;
+    /**
+     * ..
+     */
+    const RANGE = 19;
+    /**
+     * |
+     */
+    const CHOICE = 20;
 
     /**
      * One of the class constants.
@@ -233,7 +278,7 @@ class Token {
      * Human readable string representation.
      *
      * Token values longer than 15 characters are shorened.
-     * 
+     *
      * @return string
      */
     public function __toString() {
@@ -253,4 +298,14 @@ class Token {
         return $str;
     }
 
+    public function isOperator() {
+        static $lookup = array(
+            self::ASIGN, self::CHOICE, self::END_OF_RULE,
+            self::RANGE,
+            self::L_BRACE, self::L_BRACK, self::L_PAREN,
+            self::R_BRACE, self::R_BRACK, self::R_PAREN
+        );
+
+        return in_array($this->getType(), $lookup);
+    }
 }

@@ -36,7 +36,7 @@ require_once 'Token.php';
 
 /**
  * Expose protected methods of  {@link Parser} for testing.
- * 
+ *
  * @package tests
  */
 class ExposedParser extends Parser {
@@ -51,7 +51,7 @@ class ExposedParser extends Parser {
 
 /**
  * Testcase for class {@link Parser}.
- * 
+ *
  * @package tests
  */
 class ParserTest extends \PHPUnit_Framework_TestCase {
@@ -108,7 +108,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             $p->parse()->saveXML(),
             "testgrammar 1"
         );
-        
+
         $this->markTestIncomplete();
         $p = new Parser(new Scanner($this->loadFixture("rules_with_ranges.ebnf")));
         $this->assertXmlStringEqualsXmlFile(
@@ -116,5 +116,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             $p->parse()->saveXML(),
             "rules with ranges"
         );
+    }
+
+    public function tstParseAst() {
+        $p = new Parser(new Scanner($this->loadFixture("rules_with_different_assignment_ops.ebnf")));
+        $p->parse();
+        $ast = $p->getAst();
+        $this->assertEquals("Rules with different assignment operators.", $ast->title);
+        $this->assertEquals(Parser::DEFAULT_META, $ast->meta);
+        $this->markTestIncomplete();
     }
 }
