@@ -32,6 +32,12 @@ require_once 'Renderer.php';
  * @package tests
  */
 class RendererTest extends \PHPUnit_Framework_TestCase {
+    private $fixtureDir;
+
+    public function __construct($name = NULL, array $data = array(), $dataName = '') {
+        parent::__construct($name, $data, $dataName);
+        $this->fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "Renderer";
+    }
 
     public function testRenderXml() {
         $this->markTestIncomplete();
