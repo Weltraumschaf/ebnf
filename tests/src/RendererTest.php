@@ -41,16 +41,23 @@ require_once 'Scanner.php';
  */
 class RendererTest extends \PHPUnit_Framework_TestCase {
     private $fixtureDir;
-    private $testDir;
+    private static $testDir;
 
     public function __construct($name = NULL, array $data = array(), $dataName = '') {
         parent::__construct($name, $data, $dataName);
         $this->fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "Renderer";
-        $this->testDir    = "exampleDir";
+
     }
 
-    protected function setUp() {
-         \vfsStream::setup($this->testDir);
+    public static function setUpBeforeClass() {
+        parent::setUpBeforeClass();
+        self::$testDir = "ebnf_test_files_" . time();
+        system("mkdir -p /tmp/" . self::$testDir);
+    }
+
+    public static function tearDownAfterClass() {
+        system("rm -rf /tmp/" . self::$testDir);
+        parent::tearDownAfterClass();
     }
 
     /**
@@ -64,7 +71,8 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderXml() {
-        $fileName = "{$this->testDir}/out.xml";
+        \vfsStream::setup(self::$testDir);
+        $fileName = self::$testDir . "/out.xml";
         $outUrl   = \vfsStream::url($fileName);
         $renderer = new Renderer(Renderer::FORMAT_XML, $outUrl, $this->createAst());
         $renderer->save();
@@ -75,21 +83,51 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderGif() {
-        $this->markTestIncomplete();
-        $fileName = "{$this->testDir}/out.gif";
-        $outUrl   = \vfsStream::url($fileName);
-        $renderer = new Renderer(Renderer::FORMAT_GIF, $outUrl, $this->createAst());
+//        $this->assertEquals(0, mt_rand() % 108);
+        $fileName = "/tmp/" . self::$testDir . "/out.gif";
+        $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
         $renderer->save();
         $this->assertEquals(
             file_get_contents("{$this->fixtureDir}/test_grammar.gif"),
-            file_get_contents($outUrl)
+            file_get_contents($fileName)
         );
     }
+
     public function testRenderJpg() {
-        $this->markTestIncomplete();
-    }
-    public function testRenderPng() {
-        $this->markTestIncomplete();
+        $fileName = "/tmp/" . self::$testDir . "/out.jpg";
+        $renderer = new Renderer(Renderer::FORMAT_JPG, $fileName, $this->createAst());
+        $renderer->save();
+        $this->assertEquals(
+            file_get_contents("{$this->fixtureDir}/test_grammar.jpg"),
+            file_get_contents($fileName)
+        );
     }
 
+    public function testRenderPng() {
+        $fileName = "/tmp/" . self::$testDir . "/out.png";
+        $renderer = new Renderer(Renderer::FORMAT_PNG, $fileName, $this->createAst());
+        $renderer->save();
+        $this->assertEquals(
+            file_get_contents("{$this->fixtureDir}/test_grammar.png"),
+            file_get_contents($fileName)
+        );
+    }
+
+    /**
+     * @expectedException        \RuntimeException
+     * @expectedExceptionMessage Can't write output to '/foo/bar.xml'!
+     */
+    public function testThrowExceptionOnWriteToNotExistingDir() {
+        $renderer = new Renderer(Renderer::FORMAT_XML, "/foo/bar.xml", $this->createAst());
+        $renderer->save();
+    }
+
+    /**
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Unsupported format: 'foo'!
+     */
+    public function testThrowExceptionOnInvalidFormat() {
+        $renderer = new Renderer("foo", "/tmp/" . self::$testDir . "/out.foo", $this->createAst());
+        $renderer->save();
+    }
 }
