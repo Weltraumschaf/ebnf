@@ -30,6 +30,10 @@
          syntaxCheck="false"
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
+    <php>
+        <ini name="memory_limit" value="2048M"/>
+    </php>
+
     <testsuites>
         <testsuite name="src">
             <directory>./src</directory>
