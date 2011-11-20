@@ -25,3 +25,5 @@ set_include_path(
 );
 
 define("EBNF_TESTS_FIXTURS", __DIR__ . DIRECTORY_SEPARATOR . "fixtures");
+
+require_once 'vfsStream/vfsStream.php';
