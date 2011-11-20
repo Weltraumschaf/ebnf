@@ -83,7 +83,6 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderGif() {
-//        $this->assertEquals(0, mt_rand() % 108);
         $fileName = "/tmp/" . self::$testDir . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
         $renderer->save();
