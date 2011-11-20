@@ -28,12 +28,12 @@ require_once 'Position.php';
 
 /**
  * Testcase for class {@link Position}.
- * 
+ *
  * @package tests
  */
 class PositionTest extends \PHPUnit_Framework_TestCase {
 
-    public function testtoString() {
+    public function testToString() {
         $p = new Position(5, 10);
         $this->assertEquals("(5, 10)", $p->__toString());
 

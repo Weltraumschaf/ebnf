@@ -16,35 +16,35 @@
  *
  * @license http://www.gnu.org/licenses/ GNU General Public License
  * @author  Sven Strittmatter <ich@weltraumschaf.de>
- * @package ast
+ * @package tests
  */
 
 namespace de\weltraumschaf\ebnf\ast;
 
-use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
+/**
+ * @see Notification
+ */
+require_once 'ast/Notification.php';
 
 /**
- * Interface of an AST node.
+ * Tests for {@link Notification}.
  *
- * @package ast
+ * @package tests
  */
-interface Node {
+class NotificationTest  extends \PHPUnit_Framework_TestCase {
 
-    /**
-     * Returns the name of a node.
-     *
-     * @return string
-     */
-    public function getNodeName();
-
-    /**
-     * Defines method to accept {@link Visitors}.
-     *
-     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
-     *
-     * @param Visitor $visitor Object which visits te node.
-     *
-     * @return void
-     */
-    public function accept(Visitor $visitor);
+    public function testErrorCollectingAndReporting() {
+        $n = new Notification();
+        $this->assertTrue($n->isOk());
+        $this->assertEquals("", $n->report());
+        $n->error("An error!");
+        $this->assertFalse($n->isOk());
+        $n->error("Some %s occured at %s!", "FOO", "BAR");
+        $this->assertFalse($n->isOk());
+        $n->error("Error: %s at line %d occued because %s!", "SNAFU", 5, "FOOBAR");
+        $this->assertEquals(
+            "An error!" . PHP_EOL .
+            "Some FOO occured at BAR!" . PHP_EOL .
+            "Error: SNAFU at line 5 occued because FOOBAR!", $n->report());
+    }
 }

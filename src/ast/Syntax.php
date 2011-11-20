@@ -22,13 +22,13 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see Node
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
-/**
  * @see Composite
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+/**
+ * @see Node
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 /**
  * @see Type
  */
@@ -36,33 +36,56 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
  * Syntax node.
- * 
+ *
  * The root of the AST.
- * 
+ *
  * @package ast
  */
 class Syntax extends Composite implements Node {
- 
+
     /**
      * Title literal of string.
-     * 
+     *
      * @var string
      */
     public $title = "";
     /**
      * Meta literal of string.
-     * 
+     *
      * @var string
      */
     public $meta = "";
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {
         return Type::SYNTAX;
     }
-    
+
+    public function probeEquivalence(Syntax $other) {
+        $result = new Notification();
+        $this->probeEquivalenceInternal($other, $result);
+        return $result;
+    }
+
+    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+        if ( ! $other instanceof Syntax) {
+            $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));
+            return;
+        }
+
+        if ($this->title !== $other->title) {
+            $result->error("Titles of syntx differs: '%s' != '%s'!", $this->title, $other->title);
+        }
+
+        if ($this->meta !== $other->meta) {
+            $result->error("Meta of syntx differs: '%s' != '%s'!", $this->meta, $other->meta);
+        }
+
+        parent::probeEquivalenceInternal($other, $result);
+    }
+
 }

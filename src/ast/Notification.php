@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,30 +20,48 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
-use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
-
 /**
- * Interface of an AST node.
- *
- * @package ast
+ * Used to notify collected errors.
  */
-interface Node {
+class Notification {
+    /**
+     * Collected arrays.
+     *
+     * @var array
+     */
+    private $errors = array();
 
     /**
-     * Returns the name of a node.
+     * Collect an line of error.
      *
+     * The first parameter is a sprintf styl format string.
+     *
+     * Example:
+     * error($format, $arg1, $arg2 .. $argN)
+     */
+    public function error() {
+        $this->errors[] = call_user_func_array("sprintf", func_get_args());
+    }
+
+    /**
+     * Returns true if no error was collected.
+     *
+     * @return bool
+     */
+    public function isOk() {
+        return empty($this->errors);
+    }
+
+    /**
+     * Returns all errors concatenated as string.
+     * 
      * @return string
      */
-    public function getNodeName();
+    public function report() {
+        if ($this->isOk()) {
+            return "";
+        }
 
-    /**
-     * Defines method to accept {@link Visitors}.
-     *
-     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
-     *
-     * @param Visitor $visitor Object which visits te node.
-     *
-     * @return void
-     */
-    public function accept(Visitor $visitor);
+        return implode(PHP_EOL, $this->errors);
+    }
 }

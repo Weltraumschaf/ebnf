@@ -36,25 +36,32 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
  * Rule node.
- * 
+ *
  * @package ast
  */
 class Rule extends Composite implements Node {
-    
+
     /**
      * Name literal of rule.
-     * 
+     *
      * @var string
      */
     public $name = "";
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {
         return Type::RULE;
     }
 
+    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+        parent::probeEquivalenceInternal($other, $result);
+
+        if ($this->name !== $other->name) {
+            $result->error("Names of rule differs: '%s' != '%s'!", $this->name, $this->name);
+        }
+    }
 }

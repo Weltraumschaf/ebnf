@@ -36,18 +36,27 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
  * Choice node.
- * 
+ *
  * @package ast
  */
 class Choice extends Composite implements Node {
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {
         return Type::CHOICE;
+    }
+
+    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+        if ( ! $other instanceof Choice) {
+            $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));
+            return;
+        }
+
+        parent::probeEquivalenceInternal($other, $result);
     }
 
 }

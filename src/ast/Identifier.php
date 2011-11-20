@@ -34,23 +34,23 @@ use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
 
 /**
  * Identifier node.
- * 
+ *
  * Has no subnodes.
- * 
+ *
  * @package ast
  */
 class Identifier implements Node {
-    
+
     /**
      * The literal string.
-     * 
+     *
      * @var string
      */
     public $value = "";
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {
@@ -59,11 +59,11 @@ class Identifier implements Node {
 
     /**
      * Defines method to accept {@link Visitors}.
-     * 
+     *
      * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
-     * 
+     *
      * @param Visitor $visitor Object which visits te node.
-     * 
+     *
      * @return void
      */
     public function accept(Visitor $visitor) {
@@ -72,4 +72,14 @@ class Identifier implements Node {
         $visitor->afterVisit($this);
     }
 
+    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+        if ( ! $other instanceof Identifier) {
+            $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));
+            return;
+        }
+
+        if ($this->value !== $other->value) {
+            $this->error("Identifier value mismatch: %s != %s!", $this->value, $other->value);
+        }
+    }
 }
