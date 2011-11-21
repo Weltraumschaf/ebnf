@@ -31,7 +31,7 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <php>
-        <ini name="memory_limit" value="2048M"/>
+        <ini name="memory_limit" value="256M"/>
     </php>
 
     <testsuites>

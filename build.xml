@@ -2,9 +2,8 @@
 <project name="PHP EBNF Image Generator" basedir="." default="main">
     <exec command="dirname '${phing.file}'" outputProperty="workspace"/>
 
-    <echo msg="Using worspace ${workspace}"/>
-    
     <property name="version" value="1.0"/>
+    <property name="builddir" value="${workspace}/build" />
     <property name="srcdir" value="${workspace}/src" />
     <property name="reportsdir" value="${workspace}/reports"/>
     <property name="docdir" value="${workspace}/doc"/>
@@ -13,7 +12,7 @@
         <include name="*.php"/>
         <include name="**/*.php/"/>
     </fileset>
-    
+
     <fileset dir="${workspace}/tests" id="tests">
         <include name="*Test.php"/>
         <include name="**/*Test.php/"/>
@@ -22,10 +21,13 @@
     <target name="clean" description="Cleans reports and doc folder">
         <delete dir="${reportsdir}" includeemptydirs="true" verbose="false"/>
         <delete dir="${docdir}" includeemptydirs="true" verbose="false"/>
+        <delete dir="${builddir}" includeemptydirs="true" verbose="false"/>
     </target>
 
     <target name="prepare" depends="clean" description="Prepares report and doc folders">
         <mkdir dir="${reportsdir}"/>
+        <mkdir dir="${builddir}"/>
+        <echo file="${builddir}/host_os" append="false" message="${host.os}"/>
     </target>
 
     <!-- checkstyle -->

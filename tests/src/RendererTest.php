@@ -104,8 +104,10 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderJpg() {
-        $this->markTestSkipped("Fails on debian.");
-        
+        if (EBNF_TESTS_HOST_OS === EBNF_TESTS_HOST_OS_LINUX) {
+            $this->markTestSkipped("Fails on debian linux.");
+        }
+
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
         }

@@ -25,5 +25,29 @@ set_include_path(
 );
 
 define("EBNF_TESTS_FIXTURS", __DIR__ . DIRECTORY_SEPARATOR . "fixtures");
+define("EBNF_TESTS_HOST_OS_UNKNOWN", 0);
+define("EBNF_TESTS_HOST_OS_DARWIN", 1);
+define("EBNF_TESTS_HOST_OS_LINUX", 2);
 
+$hostOhsFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . "build" . DIRECTORY_SEPARATOR . "host_os";
+
+if (is_readable($hostOhsFile)) {
+    $hostOs = file_get_contents($hostOhsFile);
+
+    switch (strtolower($hostOs)) {
+        case "darwin":
+            define("EBNF_TESTS_HOST_OS", EBNF_TESTS_HOST_OS_DARWIN);
+            break;
+        case "linix":
+            define("EBNF_TESTS_HOST_OS", EBNF_TESTS_HOST_OS_LINUX);
+            break;
+        default:
+            define("EBNF_TESTS_HOST_OS", EBNF_TESTS_HOST_OS_UNKNOWN);
+            break;
+    }
+} else {
+    define("EBNF_TESTS_HOST_OS", EBNF_TESTS_HOST_OS_UNKNOWN);
+}
+
+unset($hostOhsFile, $hostOs);
 require_once 'vfsStream/vfsStream.php';
