@@ -47,7 +47,6 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     public function __construct($name = NULL, array $data = array(), $dataName = '') {
         parent::__construct($name, $data, $dataName);
         $this->fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "Renderer";
-
     }
 
     public static function setUpBeforeClass() {
@@ -98,9 +97,8 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $fileName = "/tmp/" . self::$testDir . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
         $renderer->save();
-        $this->assertEquals(
-            file_get_contents("{$this->fixtureDir}/test_grammar.gif"),
-            file_get_contents($fileName)
+        $this->assertTrue(
+            file_get_contents("{$this->fixtureDir}/test_grammar.gif") === file_get_contents($fileName)
         );
     }
 
@@ -112,9 +110,8 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $fileName = "/tmp/" . self::$testDir . "/out.jpg";
         $renderer = new Renderer(Renderer::FORMAT_JPG, $fileName, $this->createAst());
         $renderer->save();
-        $this->assertEquals(
-            file_get_contents("{$this->fixtureDir}/test_grammar.jpg"),
-            file_get_contents($fileName)
+        $this->assertTrue(
+            file_get_contents("{$this->fixtureDir}/test_grammar.jpg") === file_get_contents($fileName)
         );
     }
 
@@ -126,9 +123,8 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $fileName = "/tmp/" . self::$testDir . "/out.png";
         $renderer = new Renderer(Renderer::FORMAT_PNG, $fileName, $this->createAst());
         $renderer->save();
-        $this->assertEquals(
-            file_get_contents("{$this->fixtureDir}/test_grammar.png"),
-            file_get_contents($fileName)
+        $this->assertTrue(
+            file_get_contents("{$this->fixtureDir}/test_grammar.png") === file_get_contents($fileName)
         );
     }
 
