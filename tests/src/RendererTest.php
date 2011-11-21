@@ -42,6 +42,7 @@ require_once 'Scanner.php';
 class RendererTest extends \PHPUnit_Framework_TestCase {
     private $fixtureDir;
     private static $testDir;
+    private static $isGdInstalled;
 
     public function __construct($name = NULL, array $data = array(), $dataName = '') {
         parent::__construct($name, $data, $dataName);
@@ -51,12 +52,19 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
 
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
+        self::$isGdInstalled = function_exists("imagedestroy");
         self::$testDir = "ebnf_test_files_" . time();
-        system("mkdir -p /tmp/" . self::$testDir);
+
+        if (self::$isGdInstalled) {
+            system("mkdir -p /tmp/" . self::$testDir);
+        }
     }
 
     public static function tearDownAfterClass() {
-        system("rm -rf /tmp/" . self::$testDir);
+        if (self::$isGdInstalled) {
+            system("rm -rf /tmp/" . self::$testDir);
+        }
+
         parent::tearDownAfterClass();
     }
 
@@ -83,6 +91,10 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderGif() {
+        if ( ! self::$isGdInstalled) {
+            $this->markTestSkipped("No GD lib installed!");
+        }
+
         $fileName = "/tmp/" . self::$testDir . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
         $renderer->save();
@@ -93,6 +105,10 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderJpg() {
+        if ( ! self::$isGdInstalled) {
+            $this->markTestSkipped("No GD lib installed!");
+        }
+
         $fileName = "/tmp/" . self::$testDir . "/out.jpg";
         $renderer = new Renderer(Renderer::FORMAT_JPG, $fileName, $this->createAst());
         $renderer->save();
@@ -103,6 +119,10 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderPng() {
+        if ( ! self::$isGdInstalled) {
+            $this->markTestSkipped("No GD lib installed!");
+        }
+
         $fileName = "/tmp/" . self::$testDir . "/out.png";
         $renderer = new Renderer(Renderer::FORMAT_PNG, $fileName, $this->createAst());
         $renderer->save();
