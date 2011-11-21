@@ -176,7 +176,7 @@ class Renderer {
                 imagepng($out, $this->file);
                 break;
             case self::FORMAT_JPG:
-                imagejpeg($out, $this->file);
+                imagejpeg($out, $this->file, 100);
                 break;
             case self::FORMAT_GIF:
                 imagegif($out, $this->file);
