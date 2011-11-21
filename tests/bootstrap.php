@@ -38,7 +38,7 @@ if (is_readable($hostOhsFile)) {
         case "darwin":
             define("EBNF_TESTS_HOST_OS", EBNF_TESTS_HOST_OS_DARWIN);
             break;
-        case "linix":
+        case "linux":
             define("EBNF_TESTS_HOST_OS", EBNF_TESTS_HOST_OS_LINUX);
             break;
         default:
