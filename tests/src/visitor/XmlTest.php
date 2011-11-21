@@ -62,49 +62,49 @@ require_once 'ast/Syntax.php';
  */
 require_once 'ast/Terminal.php';
 
-use de\weltraumschaf\ebnf\ast\Identifier  as Identifier;
-use de\weltraumschaf\ebnf\ast\Choice      as Choice;
-use de\weltraumschaf\ebnf\ast\Loop        as Loop;
-use de\weltraumschaf\ebnf\ast\Option      as Option;
-use de\weltraumschaf\ebnf\ast\Rule        as Rule;
-use de\weltraumschaf\ebnf\ast\Sequence    as Sequence;
-use de\weltraumschaf\ebnf\ast\Syntax      as Syntax;
-use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
+use de\weltraumschaf\ebnf\ast\Identifier;
+use de\weltraumschaf\ebnf\ast\Choice;
+use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Option;
+use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Sequence;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal;
 
 /**
  * Testcases for {@link Xml}.
- * 
+ *
  * @package tests
  */
 class XmlTest extends \PHPUnit_Framework_TestCase {
-    
+
     public function testCreateOpenTag() {
         $this->assertEquals('<foo>', Xml::createOpenTag("foo"));
         $this->assertEquals(
-            '<foo bar="1" baz="&lt;&quot;&gt;&amp;">', 
+            '<foo bar="1" baz="&lt;&quot;&gt;&amp;">',
             Xml::createOpenTag("foo", array("bar" => "1", "baz" => "<\">&"))
         );
         $this->assertEquals(
-            '<foo bar="1" baz="2">', 
+            '<foo bar="1" baz="2">',
             Xml::createOpenTag("foo", array("bar" => "1", "baz" => 2))
         );
         $this->assertEquals(
-            '<foo bar="1" baz="2"/>', 
+            '<foo bar="1" baz="2"/>',
             Xml::createOpenTag("foo", array("bar" => "1", "baz" => 2), false)
         );
     }
-    
+
     public function testCloseOpenTag() {
         $this->assertEquals("</foo>", Xml::createCloseTag("foo"));
         $this->assertEquals("</fooBar>", Xml::createCloseTag("fooBar"));
     }
-    
+
     public function testExtractAttributes() {
         $syntax = new Syntax();
         $syntax->meta  = "foo";
         $syntax->title = "bar";
         $this->assertEquals(
-            array("meta" => "foo", "title" => "bar"), 
+            array("meta" => "foo", "title" => "bar"),
             Xml::extractAttributes($syntax)
         );
         $loop = new Loop();
@@ -114,10 +114,10 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
     public function testGenerateXml() {
         $visitor = new Xml();
         $this->assertEquals(
-            '<?xml version="1.0" encoding="utf-8"?>', 
+            '<?xml version="1.0" encoding="utf-8"?>',
             $visitor->getXmlString()
         );
-        
+
         $syntax = new Syntax();
         $syntax->meta  = "EBNF defined in itself.";
         $syntax->title = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
@@ -125,16 +125,16 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         $syntax->accept($visitor);
         $xml = file_get_contents(EBNF_TESTS_FIXTURS . "/validator/syntax.xml");
         $this->assertEquals(
-            '<?xml version="1.0" encoding="utf-8"?>' . 
+            '<?xml version="1.0" encoding="utf-8"?>' .
             "\n" .
-            '<syntax title="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3" meta="EBNF defined in itself."/>', 
+            '<syntax title="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3" meta="EBNF defined in itself."/>',
             $visitor->getXmlString()
         );
-        
+
         $syntax = new Syntax();
         $syntax->title = "EBNF defined in itself.";
         $syntax->meta  = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
-        
+
         $syntaxRule = new Rule();
         $syntaxRule->name = "syntax";
         $seq   = new Sequence();
@@ -161,7 +161,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         $seq->addChild($opt);
         $syntaxRule->addChild($seq);
         $syntax->addChild($syntaxRule);
-        
+
         $ruleRule = new Rule();
         $ruleRule->name = "rule";
         $seq   = new Sequence();
@@ -187,7 +187,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         $seq->addChild($choice);
         $ruleRule->addChild($seq);
         $syntax->addChild($ruleRule);
-        
+
         $literalRule = new Rule();
         $literalRule->name = "literal";
         $choice   = new Choice();
@@ -221,11 +221,11 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         $choice->addChild($seq);
         $literalRule->addChild($choice);
         $syntax->addChild($literalRule);
-        
+
         $visitor = new Xml();
         $syntax->accept($visitor);
         $xml = file_get_contents(EBNF_TESTS_FIXTURS . "/validator/syntax.xml");
         $this->assertEquals($xml, $visitor->getXmlString());
-        
+
     }
 }

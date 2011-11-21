@@ -26,31 +26,31 @@ namespace de\weltraumschaf\ebnf\visitor;
  */
 require_once __DIR__. DIRECTORY_SEPARATOR . "Visitor.php";
 
-use de\weltraumschaf\ebnf\ast\Identifier as Identifier;
-use de\weltraumschaf\ebnf\ast\Loop       as Loop;
-use de\weltraumschaf\ebnf\ast\Node       as Node;
-use de\weltraumschaf\ebnf\ast\Option     as Option;
-use de\weltraumschaf\ebnf\ast\Rule       as Rule;
-use de\weltraumschaf\ebnf\ast\Sequence   as Sequence;
-use de\weltraumschaf\ebnf\ast\Syntax     as Syntax;
-use de\weltraumschaf\ebnf\ast\Terminal   as Terminal;
-use \InvalidArgumentException            as InvalidArgumentException;
+use de\weltraumschaf\ebnf\ast\Identifier;
+use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Node;
+use de\weltraumschaf\ebnf\ast\Option;
+use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Sequence;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal;
+use \InvalidArgumentException;
 
 /**
- * Abstract adapbter visitor which provides template methods 
+ * Abstract adapbter visitor which provides template methods
  * for all visitable node types.
- * 
+ *
  * @package visitor
  */
 abstract class VisitorAdapter implements Visitor {
-    
+
     /**
      * Implements generic visitor interface.
-     * 
+     *
      * Delegates to {@link Node} specific visitor methods.
-     * 
+     *
      * @param Node $visitable Visited node.
-     * 
+     *
      * @return void
      */
     final public function visit(Node $visitable) {
@@ -77,11 +77,11 @@ abstract class VisitorAdapter implements Visitor {
 
     /**
      * Template method to hook into before the main {@link visit()} method is called.
-     * 
+     *
      * {@link Composite} nodes are responsible to call this method.
-     * 
+     *
      * @param Node $visitable Visited node.
-     * 
+     *
      * @return void
      */
     public function afterVisit(Node $visitable) {
@@ -90,11 +90,11 @@ abstract class VisitorAdapter implements Visitor {
 
     /**
      * Template method to hook into after the main {@link visit()} method is called.
-     * 
+     *
      * {@link Composite} nodes are responsible to call this method.
-     * 
+     *
      * @param Node $visitable Visited node.
-     * 
+     *
      * @return void
      */
     public function beforeVisit(Node $visitable) {
@@ -103,62 +103,62 @@ abstract class VisitorAdapter implements Visitor {
 
     /**
      * Template method to visit an {@link Identifier} node.
-     * 
+     *
      * @param Identifier $identifier Visited {@link Identifier} node.
-     * 
+     *
      * @return void
      */
     protected function visitIdentifier(Identifier $identifier) {
         return null;
     }
-    
+
     /**
      * Template method to visit an {@link Loop} node.
-     * 
+     *
      * @param Loop $loop Visited {@link Loop} node.
-     * 
+     *
      * @return void
      */
     protected function visitLoop(Loop $loop) {
         return null;
     }
-    
+
     /**
      * Template method to visit an {@link Option} node.
-     * 
+     *
      * @param Option $option Visited {@link Option} node.
-     * 
+     *
      * @return void
      */
     protected function visitOption(Option $option) {
         return null;
     }
-    
+
     /**
      * Template method to visit an {@link Rule} node.
-     * 
+     *
      * @param Rule $rule Visited {@link Rule} node.
-     * 
+     *
      * @return void
      */
     protected function visitRule(Rule $rule) {
         return null;
     }
-    
+
     /**
      * Template method to visit an {@link Sequence} node.
-     * 
+     *
      * @param Sequence $sequence Visited {@link Sequence} node.
-     * 
+     *
      * @return void
      */
     protected function visitSequence(Sequence $sequence) {
         return null;
     }
-    
+
     /**
      * Template method to visit an {@link Syntax} node.
-     * 
+     *
      * @param Syntax $syntax Visited {@link Syntax} node.
      *
      * @return void
@@ -166,16 +166,16 @@ abstract class VisitorAdapter implements Visitor {
     protected function visitSyntax(Syntax $syntax) {
         return null;
     }
-    
+
     /**
      * Template method to visit an {@link Terminal} node.
-     * 
+     *
      * @param Terminal $terminal Visited {@link Terminal} node.
-     * 
+     *
      * @return void
      */
     protected function visitTerminal(Terminal $terminal) {
         return null;
     }
-    
+
 }

@@ -21,13 +21,13 @@
 
 namespace de\weltraumschaf\ebnf;
 
-use \Exception as Exception;
+use \Exception;
 
 /**
  * Exception for signaling syntax errors.
  *
  * Provides a {@link Position} where in the input stream the syntax error occured.
- * 
+ *
  * @package ebnf
  */
 class SyntaxtException extends Exception {

@@ -21,7 +21,7 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
-use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
+use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
  * Interface of an AST node.

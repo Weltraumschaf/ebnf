@@ -30,7 +30,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
-use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
+use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
  * Identifier node.

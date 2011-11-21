@@ -34,26 +34,26 @@ require_once 'ast/Syntax.php';
  */
 require_once 'ast/Rule.php';
 
-use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
-use de\weltraumschaf\ebnf\ast\Rule   as Rule;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Rule;
 
 /**
  * Tests for {@link Validator}.
- * 
+ *
  * @package tests
  */
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
-    
+
     public function testIsSyntaxDefined() {
         $syntax = new Syntax();
         $syntax->meta  = "foo";
         $syntax->title = "bar";
-        
+
         $validator = new Validator();
         $this->assertFalse($validator->isSyntaxDefined());
         $syntax->accept($validator);
         $this->assertTrue($validator->isSyntaxDefined());
-        
+
         try {
             $syntax->accept($validator);
             $this->fail("Exceptd exception not thrown!");
@@ -62,12 +62,12 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             $this->assertEquals("You can specify a syntax only once!", $e->getMessage());
         }
     }
-    
+
     public function testValidateSyntax() {
         $syntax = new Syntax();
         $syntax->meta  = "foo meta";
         $syntax->title = "bar title";
-        
+
         $tester = new Validator();
         $syntax->accept($tester);
         $this->assertEquals(array(
@@ -78,7 +78,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             )
         ), $tester->getRepresentative());
     }
-    
+
     /**
      * @expectedException        de\weltraumschaf\ebnf\visitor\ValidaorException
      * @expectedExceptionMessage You must specify a syntax at very first!
@@ -88,7 +88,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         $rule = new Rule();
         $rule->accept(new Validator());
     }
-    
+
     /**
      * @expectedException        de\weltraumschaf\ebnf\visitor\ValidaorException
      * @expectedExceptionMessage Rule with name 'foobar' already declared!
@@ -102,8 +102,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         $syntax->addChild($ruleFoo);
         $syntax->accept(new Validator);
     }
-    
-    public function testValidateRule() {      
+
+    public function testValidateRule() {
         $syntax = new Syntax();
         $syntax->meta  = "foo meta";
         $syntax->title = "bar title";
@@ -126,13 +126,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
             )
         ), $tester->getRepresentative());
     }
-    
+
     public function testValidateRuleWithSubnodes() {
         $this->markTestIncomplete();
     }
-    
+
     public function testAssertSyntax() {
         $this->markTestIncomplete();
     }
-    
+
 }

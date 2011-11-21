@@ -25,6 +25,9 @@ namespace de\weltraumschaf\ebnf\ast;
  * @see Composite
  */
 require_once 'ast/Composite.php';
+/**
+ * @see Node
+ */
 require_once 'ast/Node.php';
 /**
  * @see Terminal

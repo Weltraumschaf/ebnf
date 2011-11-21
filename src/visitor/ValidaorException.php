@@ -21,7 +21,7 @@
 
 namespace de\weltraumschaf\ebnf\visitor;
 
-use \Exception as Exception;
+use \Exception;
 
 /**
  * Excpetions thrown by the {Validator} visitor.

@@ -34,19 +34,19 @@ require_once __DIR__. DIRECTORY_SEPARATOR . 'ValidaorException.php';
  */
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
-use de\weltraumschaf\ebnf\ast\Type        as Type;
-use de\weltraumschaf\ebnf\ast\Identifier  as Identifier;
-use de\weltraumschaf\ebnf\ast\Loop        as Loop;
-use de\weltraumschaf\ebnf\ast\Node        as Node;
-use de\weltraumschaf\ebnf\ast\Option      as Option;
-use de\weltraumschaf\ebnf\ast\Rule        as Rule;
-use de\weltraumschaf\ebnf\ast\Sequence    as Sequence;
-use de\weltraumschaf\ebnf\ast\Syntax      as Syntax;
-use de\weltraumschaf\ebnf\ast\Terminal    as Terminal;
- 
+use de\weltraumschaf\ebnf\ast\Type;
+use de\weltraumschaf\ebnf\ast\Identifier;
+use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Node;
+use de\weltraumschaf\ebnf\ast\Option;
+use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Sequence;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal;
+
 /**
  * Implements an AST tree vsitor for testing purposes.
- * 
+ *
  * @package visitor
  */
 class Validator extends VisitorAdapter {
@@ -60,7 +60,7 @@ class Validator extends VisitorAdapter {
      * @var array
      */
     private $currentRule;
-    
+
     public function getRepresentative() {
         return $this->representative;
     }
@@ -68,29 +68,29 @@ class Validator extends VisitorAdapter {
     protected function visitSyntax(Syntax $syntax) {
         if ($this->isSyntaxDefined()) {
             throw new ValidaorException(
-                "You can specify a syntax only once!", 
+                "You can specify a syntax only once!",
                 ValidaorException::SYNTAXT_REDECLARATION
             );
         }
-        
+
         $this->representative[$syntax->getNodeName()] = array(
             "meta"  => $syntax->meta,
             "title" => $syntax->title,
             "rule" => array()
         );
     }
-    
+
     protected function visitRule(Rule $rule) {
         if (!$this->isSyntaxDefined()) {
             throw new ValidaorException(
-                "You must specify a syntax at very first!", 
+                "You must specify a syntax at very first!",
                 ValidaorException::NO_SYNTAXT_DECLARED
             );
         }
-        
+
         $this->currentRule = array();
     }
-    
+
     protected function addRule(array $rule, $name) {
         if (array_key_exists($name, $this->representative[Type::SYNTAX][Type::RULE])) {
             throw new ValidaorException(
@@ -102,13 +102,13 @@ class Validator extends VisitorAdapter {
     }
 
     public function assert(array $expected) {
-        
+
     }
 
     public function isSyntaxDefined() {
         return array_key_exists(Type::SYNTAX, $this->representative);
     }
-    
+
     public function afterVisit(Node $visitable) {
         if ($visitable instanceof Rule) {
             $this->addRule($this->currentRule, $visitable->name);

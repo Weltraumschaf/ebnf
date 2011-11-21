@@ -21,9 +21,9 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
-use \IteratorAggregate                    as IteratorAggregate;
-use \ArrayIterator                        as ArrayIterator;
-use de\weltraumschaf\ebnf\visitor\Visitor as Visitor;
+use \IteratorAggregate;
+use \ArrayIterator;
+use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
  * Abstract base class for nodes which are not leaves and have subnodes.

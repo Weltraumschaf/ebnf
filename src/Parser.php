@@ -51,12 +51,12 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Syntax.php';
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
-use \DOMDocument                     as DOMDocument;
-use \DOMElement                      as DOMElement;
-use de\weltraumschaf\ebnf\ast\Choice as Choice;
-use de\weltraumschaf\ebnf\ast\Rule   as Rule;
-use de\weltraumschaf\ebnf\ast\Syntax as Syntax;
-use de\weltraumschaf\ebnf\ast\Type   as Type;
+use \DOMDocument;
+use \DOMElement;
+use de\weltraumschaf\ebnf\ast\Choice;
+use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Type;
 
 /**
  * Parses a stream of EBNF tokens and generate a XML DOM tree.

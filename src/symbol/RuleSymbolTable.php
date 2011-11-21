@@ -20,7 +20,7 @@
 
 namespace de\weltraumschaf\ebnf\symbol;
 
-use \InvalidArgumentException as InvalidArgumentException;
+use \InvalidArgumentException;
 
 /**
  * @package symbol
