@@ -99,7 +99,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $renderer->save();
         $this->assertTrue(
             file_get_contents("{$this->fixtureDir}/test_grammar.gif") === file_get_contents($fileName),
-            "Failed rendering gif '{$this->fixtureDir}/test_grammar.gif!'"
+            "Failed rendering gif $fileName}!'"
         );
     }
 
@@ -113,7 +113,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $renderer->save();
         $this->assertTrue(
             file_get_contents("{$this->fixtureDir}/test_grammar.jpg") === file_get_contents($fileName),
-            "Failed rendering jpg '{$this->fixtureDir}/test_grammar.jpg!'"
+            "Failed rendering jpg '{$fileName}!'"
         );
     }
 
@@ -127,7 +127,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $renderer->save();
         $this->assertTrue(
             file_get_contents("{$this->fixtureDir}/test_grammar.png") === file_get_contents($fileName),
-            "Failed rendering png '{$this->fixtureDir}/test_grammar.png!'"
+            "Failed rendering png '{$fileName}!'"
         );
     }
 
