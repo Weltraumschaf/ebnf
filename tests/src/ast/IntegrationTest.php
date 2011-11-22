@@ -91,40 +91,6 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf("\IteratorAggregate", $composite);
     }
 
-    public function testComposite() {
-        $composite = $this->getMockForAbstractClass("de\weltraumschaf\ebnf\ast\Composite");
-        /* @var $composite Composite */
-        $this->assertFalse($composite->hasChildren());
-        $this->assertEquals(0, $composite->countChildren());
-        $iterator = $composite->getIterator();
-        $this->assertInstanceOf("\ArrayIterator", $iterator);
-        $this->assertEquals(0, $iterator->count());
-
-        $nodeOne = $this->getMock("de\weltraumschaf\ebnf\ast\Node");
-        $nodeOne->name = "one";
-        $composite->addChild($nodeOne);
-        $this->assertTrue($composite->hasChildren());
-        $this->assertEquals(1, $composite->countChildren());
-        $iterator = $composite->getIterator();
-        $this->assertInstanceOf("\ArrayIterator", $iterator);
-        $this->assertEquals(1, $iterator->count());
-        $this->assertTrue($iterator->offsetExists(0));
-        $this->assertSame($nodeOne, $iterator->offsetGet(0));
-
-        $nodeTwo = $this->getMock("de\weltraumschaf\ebnf\ast\Node");
-        $nodeTwo->name = "two";
-        $composite->addChild($nodeTwo);
-        $this->assertTrue($composite->hasChildren());
-        $this->assertEquals(2, $composite->countChildren());
-        $iterator = $composite->getIterator();
-        $this->assertInstanceOf("\ArrayIterator", $iterator);
-        $this->assertEquals(2, $iterator->count());
-        $this->assertTrue($iterator->offsetExists(0));
-        $this->assertSame($nodeOne, $iterator->offsetGet(0));
-        $this->assertTrue($iterator->offsetExists(1));
-        $this->assertSame($nodeTwo, $iterator->offsetGet(1));
-    }
-
     public function testIntegration() {
         $syntax = new Syntax();
         $syntax->meta = "foo";
