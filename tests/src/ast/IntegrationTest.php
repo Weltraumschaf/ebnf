@@ -204,6 +204,9 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax2 = new Syntax();
         $syntax2->title = "foo";
         $syntax2->meta  = "bar";
+        $syntax3 = new Syntax();
+        $syntax3->title = "foo";
+        $syntax3->meta  = "bar";
         $rule1 = new Rule();
         $rule1->name = "rule1";
         $syntax1->addChild($rule1);
@@ -220,16 +223,15 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $rule2 = new Rule();
         $rule2->name = "rule2";
         $syntax1->addChild($rule2);
-
         $error  = "Node syntax has different child count than other: 2 != 1!\n";
         $error .= "Other node has not the expected subnode!";
         $n = $syntax1->probeEquivalence($syntax2);
-        $this->assertFalse($n->isOk(), $n->report());
+        $this->assertFalse($n->isOk());
         $this->assertEquals($error, $n->report());
 
         $error  = "Node syntax has different child count than other: 1 != 2!";
         $n = $syntax2->probeEquivalence($syntax1);
-        $this->assertFalse($n->isOk(), $n->report());
+        $this->assertFalse($n->isOk());
         $this->assertEquals($error, $n->report());
 
         $syntax2->addChild($rule2);
@@ -241,7 +243,13 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
-        $this->markTestIncomplete();
+        $rule3 = new Rule();
+        $rule3->name = "rule3";
+        $syntax3->addChild($rule1);
+        $syntax3->addChild($rule3);
+        $n = $syntax1->probeEquivalence($syntax3);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals("Names of rule differs: 'rule2' != 'rule3'!", $n->report());
     }
 
 }

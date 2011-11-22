@@ -50,13 +50,4 @@ class Choice extends Composite implements Node {
         return Type::CHOICE;
     }
 
-    protected function probeEquivalenceInternal(Node $other, Notification $result) {
-        if ( ! $other instanceof Choice) {
-            $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));
-            return;
-        }
-
-        parent::probeEquivalenceInternal($other, $result);
-    }
-
 }

@@ -61,7 +61,7 @@ class Rule extends Composite implements Node {
         parent::probeEquivalenceInternal($other, $result);
 
         if ($this->name !== $other->name) {
-            $result->error("Names of rule differs: '%s' != '%s'!", $this->name, $this->name);
+            $result->error("Names of rule differs: '%s' != '%s'!", $this->name, $other->name);
         }
     }
 }
