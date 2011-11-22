@@ -111,18 +111,40 @@ abstract class Composite implements IteratorAggregate {
 
     protected function probeEquivalenceInternal(Node $other, Notification $result) {
         if (get_class($this) !== get_class($other)) {
-            $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));
+            $result->error(
+                "Probed node types mismatch: '%s' != '%s'!",
+                get_class($this),
+                get_class($other)
+            );
             return;
         }
 
+        if ( ! $other instanceof Composite) {
+            $result->error(
+                "Probed node is not a composite node: '%s' vs. '%s'!",
+                get_class($this),
+                get_class($other)
+            );
+            return;
+        }
+
+        /* @var $other Composite */
         if ($this->countChildren() !== $other->countChildren()) {
             $result->error(
-                "Node %s has different child count htan other: %d != %d!",
+                "Node %s has different child count than other: %d != %d!",
                 $this->getNodeName(), $this->countChildren(), $other->countChildren());
         }
 
-        foreach ($this->getIterator() as $subnode) {
-            $subnode->probeEquivalenceInternal($other, $result);
+        $subnodes      = $this->getIterator();
+        $otherSubnodes = $other->getIterator();
+
+        foreach ($subnodes as $subnode) {
+            if ($otherSubnodes->offsetExists($subnodes->key())) {
+                $subnode->probeEquivalenceInternal($otherSubnodes->offsetGet($subnodes->key()), $result);
+            } else {
+                $result->error("Other node has not the expected subnode!");
+            }
+
         }
     }
 }

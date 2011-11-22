@@ -154,16 +154,21 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
 
         $n = $syntax1->probeEquivalence($syntax1);
         $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
         $n = $syntax1->probeEquivalence($syntax2);
         $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
 
         $n = $syntax2->probeEquivalence($syntax2);
         $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
         $n = $syntax2->probeEquivalence($syntax1);
         $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
 
         $n = $syntax3->probeEquivalence($syntax3);
         $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
 
         $errors  = "Titles of syntx differs: 'foo' != 'bla'!" . PHP_EOL;
         $errors .= "Meta of syntx differs: 'bar' != 'blub'!";
@@ -193,6 +198,49 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testProbeEquivalenceSyntaxWithRules() {
+        $syntax1 = new Syntax();
+        $syntax1->title = "foo";
+        $syntax1->meta  = "bar";
+        $syntax2 = new Syntax();
+        $syntax2->title = "foo";
+        $syntax2->meta  = "bar";
+        $rule1 = new Rule();
+        $rule1->name = "rule1";
+        $syntax1->addChild($rule1);
+        $syntax2->addChild($rule1);
+
+        $n = $syntax1->probeEquivalence($syntax2);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+
+        $n = $syntax2->probeEquivalence($syntax1);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+
+        $rule2 = new Rule();
+        $rule2->name = "rule2";
+        $syntax1->addChild($rule2);
+
+        $error  = "Node syntax has different child count than other: 2 != 1!\n";
+        $error .= "Other node has not the expected subnode!";
+        $n = $syntax1->probeEquivalence($syntax2);
+        $this->assertFalse($n->isOk(), $n->report());
+        $this->assertEquals($error, $n->report());
+
+        $error  = "Node syntax has different child count than other: 1 != 2!";
+        $n = $syntax2->probeEquivalence($syntax1);
+        $this->assertFalse($n->isOk(), $n->report());
+        $this->assertEquals($error, $n->report());
+
+        $syntax2->addChild($rule2);
+        $n = $syntax1->probeEquivalence($syntax2);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+
+        $n = $syntax2->probeEquivalence($syntax1);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+
         $this->markTestIncomplete();
     }
 
