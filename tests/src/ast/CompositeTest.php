@@ -24,15 +24,39 @@ namespace de\weltraumschaf\ebnf\ast;
  * @see Composite
  */
 require_once 'ast/Composite.php';
+/**
+ * @see Notification
+ */
+require_once 'ast/Notification.php';
+/**
+ * @see Node
+ */
+require_once 'ast/Node.php';
+/**
+ * @see Rule
+ */
+require_once 'ast/Rule.php';
+/**
+ * @see Terminal
+ */
+require_once 'ast/Terminal.php';
+
+class ExposingComposite extends Composite {
+    public function exposedProbeEquivalenceInternal(Node $other, Notification $result) {
+        parent::probeEquivalenceInternal($other, $result);
+    }
+}
 
 /**
  * Tests for {@link Composite}.
  *
  * @package tests
  */
-class CompositeTest {
+class CompositeTest extends \PHPUnit_Framework_TestCase {
+
     public function testAddHasChildrenAndGetIterator() {
         $composite = $this->getMockForAbstractClass("de\weltraumschaf\ebnf\ast\Composite");
+        $this->assertInstanceOf("\IteratorAggregate", $composite);
         /* @var $composite Composite */
         $this->assertFalse($composite->hasChildren());
         $this->assertEquals(0, $composite->countChildren());
@@ -63,5 +87,24 @@ class CompositeTest {
         $this->assertSame($nodeOne, $iterator->offsetGet(0));
         $this->assertTrue($iterator->offsetExists(1));
         $this->assertSame($nodeTwo, $iterator->offsetGet(1));
+    }
+
+    public function testProbeEquivalenceInternal() {
+        $comp = new ExposingComposite();
+        $n = new Notification();
+        $comp->exposedProbeEquivalenceInternal(new Terminal(), $n);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals(
+            "Probed node is not a composite node: 'de\weltraumschaf\ebnf\ast\ExposingComposite' vs. 'de\weltraumschaf\ebnf\ast\Terminal'!",
+            $n->report()
+        );
+
+        $n = new Notification();
+        $comp->exposedProbeEquivalenceInternal(new Rule(), $n);
+        $this->assertFalse($n->isOk());
+        $this->assertEquals(
+            "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\ExposingComposite' != 'de\weltraumschaf\ebnf\ast\Rule'!",
+            $n->report()
+        );
     }
 }

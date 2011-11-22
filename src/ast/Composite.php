@@ -110,18 +110,18 @@ abstract class Composite implements IteratorAggregate {
     }
 
     protected function probeEquivalenceInternal(Node $other, Notification $result) {
-        if (get_class($this) !== get_class($other)) {
+        if ( ! $other instanceof Composite) {
             $result->error(
-                "Probed node types mismatch: '%s' != '%s'!",
+                "Probed node is not a composite node: '%s' vs. '%s'!",
                 get_class($this),
                 get_class($other)
             );
             return;
         }
 
-        if ( ! $other instanceof Composite) {
+        if (get_class($this) !== get_class($other)) {
             $result->error(
-                "Probed node is not a composite node: '%s' vs. '%s'!",
+                "Probed node types mismatch: '%s' != '%s'!",
                 get_class($this),
                 get_class($other)
             );

@@ -22,13 +22,13 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see Composite
- */
-require_once 'ast/Composite.php';
-/**
  * @see Node
  */
 require_once 'ast/Node.php';
+/**
+ * @see Notification
+ */
+require_once 'ast/Notification.php';
 /**
  * @see Terminal
  */
@@ -62,6 +62,8 @@ require_once 'ast/Sequence.php';
  */
 require_once 'ast/Syntax.php';
 
+use de\weltraumschaf\ebnf\visitor\Visitor;
+
 class SyntaxStub extends Syntax {
     public function exposedProbeEquivalenceInternal(Node $other, Notification $result) {
         parent::probeEquivalenceInternal($other, $result);
@@ -87,8 +89,6 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Rule());
         $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Sequence());
         $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Syntax());
-        $composite = $this->getMockForAbstractClass("de\weltraumschaf\ebnf\ast\Composite");
-        $this->assertInstanceOf("\IteratorAggregate", $composite);
     }
 
     public function testIntegration() {
