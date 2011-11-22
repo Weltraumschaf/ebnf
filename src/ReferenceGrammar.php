@@ -21,10 +21,13 @@
 namespace de\weltraumschaf\ebnf;
 
 /**
+ * Defines a reference grammar.
+ *
+ * @codeCoverageIgnore
  * @package ebnf
  */
 class ReferenceGrammar {
-    
+
     public function __toString() {
         return '"EBNF defined in itself." {
           syntax     = [ title ] "{" { rule } "}" [ comment ] .
