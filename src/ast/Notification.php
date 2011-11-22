@@ -38,6 +38,8 @@ class Notification {
      *
      * Example:
      * error($format, $arg1, $arg2 .. $argN)
+     *
+     * @return void
      */
     public function error() {
         $this->errors[] = call_user_func_array("sprintf", func_get_args());
@@ -54,7 +56,7 @@ class Notification {
 
     /**
      * Returns all errors concatenated as string.
-     * 
+     *
      * @return string
      */
     public function report() {

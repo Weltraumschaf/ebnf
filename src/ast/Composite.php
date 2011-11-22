@@ -109,6 +109,15 @@ abstract class Composite implements IteratorAggregate {
         $visitor->afterVisit($this);
     }
 
+    /**
+     * Probes equivalence of itself against an other node and collects all
+     * errors in the passed {@link Notification} object.
+     *
+     * @param Node         $other  Node to compare against.
+     * @param Notification $result Object which collects all equivlanece violations.
+     *
+     * @return void
+     */
     protected function probeEquivalenceInternal(Node $other, Notification $result) {
         if ( ! $other instanceof Composite) {
             $result->error(
@@ -132,7 +141,10 @@ abstract class Composite implements IteratorAggregate {
         if ($this->countChildren() !== $other->countChildren()) {
             $result->error(
                 "Node %s has different child count than other: %d != %d!",
-                $this->getNodeName(), $this->countChildren(), $other->countChildren());
+                $this->getNodeName(),
+                $this->countChildren(),
+                $other->countChildren()
+            );
         }
 
         $subnodes      = $this->getIterator();

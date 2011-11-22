@@ -103,7 +103,7 @@ class Parser {
 
     /**
      * Used to get new AST model until parse will return it.
-
+     *
      * @return Syntax
      */
     public function getAst() {
@@ -267,15 +267,15 @@ class Parser {
         }
 
         if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
-//            if ($this->assertToken($this->scanner->peekToken(), Token::OPERATOR, "::")) {
-//                echo "range";
-//                $range = $this->dom->createElement(Type::RANGE);
-//                $range->setAttribute("from", $this->scanner->currentToken()->getValue(true));
-//                $this->scanner->nextToken(); // Omit ".." literal.
-//                $this->scanner->nextToken();
-//                $range->setAttribute("to", $this->scanner->currentToken()->getValue(true));
-//                return $range;
-//            }
+            /*if ($this->assertToken($this->scanner->peekToken(), Token::OPERATOR, "::")) {
+                echo "range";
+                $range = $this->dom->createElement(Type::RANGE);
+                $range->setAttribute("from", $this->scanner->currentToken()->getValue(true));
+                $this->scanner->nextToken(); // Omit ".." literal.
+                $this->scanner->nextToken();
+                $range->setAttribute("to", $this->scanner->currentToken()->getValue(true));
+                return $range;
+            }*/
 
             $literal = $this->dom->createElement(Type::TERMINAL);
             $literal->setAttribute('value', $this->scanner->currentToken()->getValue(true));

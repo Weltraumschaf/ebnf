@@ -38,7 +38,7 @@ class Token {
     /**
      * @deprecated
      */
-    const OPERATOR   = 1;
+    const OPERATOR = 1;
     // Special type:
     const LITERAL    = 2;
     const COMMENT    = 3;
@@ -60,23 +60,23 @@ class Token {
     /**
      * [
      */
-	const L_BRACK = 14;
+    const L_BRACK = 14;
     /**
      * {
      */
-	const L_BRACE = 15;
+    const L_BRACE = 15;
     /**
      * )
      */
-	const R_PAREN = 16;
+    const R_PAREN = 16;
     /**
      * ]
      */
-	const R_BRACK = 17;
+    const R_BRACK = 17;
     /**
      * }
      */
-	const R_BRACE = 18;
+    const R_BRACE = 18;
     /**
      * ..
      */
@@ -298,6 +298,13 @@ class Token {
         return $str;
     }
 
+    /**
+     * Returns whether the token is of an operator type or not.
+     *
+     * @staticvar array $lookup
+     *
+     * @return bool
+     */
     public function isOperator() {
         static $lookup = array(
             self::ASIGN, self::CHOICE, self::END_OF_RULE,

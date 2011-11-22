@@ -65,12 +65,29 @@ class Syntax extends Composite implements Node {
         return Type::SYNTAX;
     }
 
+    /**
+     * Compares a given syntax with it self and returns an {@link Notification}
+     * object with all found errors.
+     *
+     * @param Syntax $other Syntax to compare with.
+     *
+     * @return Notification
+     */
     public function probeEquivalence(Syntax $other) {
         $result = new Notification();
         $this->probeEquivalenceInternal($other, $result);
         return $result;
     }
 
+    /**
+     * Probes equivalence of itself against an other node and collects all
+     * errors in the passed {@link Notification} object.
+     *
+     * @param Node         $other  Node to compare against.
+     * @param Notification $result Object which collects all equivlanece violations.
+     *
+     * @return void
+     */
     protected function probeEquivalenceInternal(Node $other, Notification $result) {
         if ( ! $other instanceof Syntax) {
             $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));

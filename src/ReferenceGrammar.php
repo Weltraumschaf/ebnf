@@ -28,6 +28,11 @@ namespace de\weltraumschaf\ebnf;
  */
 class ReferenceGrammar {
 
+    /**
+     * Returns the reference grammar as string.
+     *
+     * @return string
+     */
     public function __toString() {
         return '"EBNF defined in itself." {
           syntax     = [ title ] "{" { rule } "}" [ comment ] .
