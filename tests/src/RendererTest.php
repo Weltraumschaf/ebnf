@@ -104,13 +104,17 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderJpg() {
-        if (EBNF_TESTS_HOST_OS === EBNF_TESTS_HOST_OS_LINUX) {
-            $this->markTestSkipped("Fails on debian linux.");
-        }
-
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
         }
+
+        $fixture = $this->fixtureDir . "/test_grammar";
+
+        if (EBNF_TESTS_HOST_OS === EBNF_TESTS_HOST_OS_LINUX) {
+            $fixture .= "_linux";
+        }
+
+        $fixture .= ".jpg";
 
         $fileName = "/tmp/" . self::$testDir . "/out.jpg";
         $renderer = new Renderer(Renderer::FORMAT_JPG, $fileName, $this->createAst());
