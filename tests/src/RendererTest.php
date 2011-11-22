@@ -79,13 +79,15 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
 
     public function testRenderXml() {
         \vfsStream::setup(self::$testDir);
+        $fixture  = "{$this->fixtureDir}/test_grammar.xml";
         $fileName = self::$testDir . "/out.xml";
         $outUrl   = \vfsStream::url($fileName);
         $renderer = new Renderer(Renderer::FORMAT_XML, $outUrl, $this->createAst());
         $renderer->save();
         $this->assertEquals(
-            file_get_contents("{$this->fixtureDir}/test_grammar.xml"),
-            file_get_contents($outUrl)
+            file_get_contents($fixture),
+            file_get_contents($outUrl),
+            "Reference file {$fixture}"
         );
     }
 
@@ -94,12 +96,14 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
             $this->markTestSkipped("No GD lib installed!");
         }
 
+        $fixture  = "{$this->fixtureDir}/test_grammar.gif";
         $fileName = "/tmp/" . self::$testDir . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
         $renderer->save();
         $this->assertTrue(
-            file_get_contents("{$this->fixtureDir}/test_grammar.gif") === file_get_contents($fileName),
-            "Failed rendering gif $fileName}!'"
+            file_get_contents($fixture) === file_get_contents($fileName),
+            "Failed rendering gif $fileName}!'",
+            "Reference file {$fixture}"
         );
     }
 
@@ -120,8 +124,9 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         $renderer = new Renderer(Renderer::FORMAT_JPG, $fileName, $this->createAst());
         $renderer->save();
         $this->assertTrue(
-            file_get_contents("{$this->fixtureDir}/test_grammar.jpg") === file_get_contents($fileName),
-            "Failed rendering jpg '{$fileName}!'"
+            file_get_contents($fixture) === file_get_contents($fileName),
+            "Failed rendering jpg '{$fileName}!'",
+            "Reference file {$fixture}"
         );
     }
 
@@ -130,12 +135,14 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
             $this->markTestSkipped("No GD lib installed!");
         }
 
+        $fixture  = "{$this->fixtureDir}/test_grammar.png";
         $fileName = "/tmp/" . self::$testDir . "/out.png";
         $renderer = new Renderer(Renderer::FORMAT_PNG, $fileName, $this->createAst());
         $renderer->save();
         $this->assertTrue(
-            file_get_contents("{$this->fixtureDir}/test_grammar.png") === file_get_contents($fileName),
-            "Failed rendering png '{$fileName}!'"
+            file_get_contents($fixture) === file_get_contents($fileName),
+            "Failed rendering png '{$fileName}!'",
+            "Reference file {$fixture}"
         );
     }
 
