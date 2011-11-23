@@ -66,20 +66,6 @@ class Syntax extends Composite implements Node {
     }
 
     /**
-     * Compares a given syntax with it self and returns an {@link Notification}
-     * object with all found errors.
-     *
-     * @param Syntax $other Syntax to compare with.
-     *
-     * @return Notification
-     */
-    public function probeEquivalence(Syntax $other) {
-        $result = new Notification();
-        $this->probeEquivalenceInternal($other, $result);
-        return $result;
-    }
-
-    /**
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
@@ -88,9 +74,13 @@ class Syntax extends Composite implements Node {
      *
      * @return void
      */
-    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+    public function probeEquivalence(Node $other, Notification $result) {
         if ( ! $other instanceof Syntax) {
-            $result->error("Probed node types mismatch: '%s' != '%s'!", get_class($this), get_class($other));
+            $result->error(
+                "Probed node types mismatch: '%s' != '%s'!",
+                get_class($this),
+                get_class($other)
+            );
             return;
         }
 
@@ -102,7 +92,7 @@ class Syntax extends Composite implements Node {
             $result->error("Meta of syntx differs: '%s' != '%s'!", $this->meta, $other->meta);
         }
 
-        parent::probeEquivalenceInternal($other, $result);
+        parent::probeEquivalence($other, $result);
     }
 
 }

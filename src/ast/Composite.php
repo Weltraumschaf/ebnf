@@ -118,7 +118,7 @@ abstract class Composite implements IteratorAggregate {
      *
      * @return void
      */
-    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+    public function probeEquivalence(Node $other, Notification $result) {
         if ( ! $other instanceof Composite) {
             $result->error(
                 "Probed node is not a composite node: '%s' vs. '%s'!",
@@ -152,7 +152,7 @@ abstract class Composite implements IteratorAggregate {
 
         foreach ($subnodes as $subnode) {
             if ($otherSubnodes->offsetExists($subnodes->key())) {
-                $subnode->probeEquivalenceInternal($otherSubnodes->offsetGet($subnodes->key()), $result);
+                $subnode->probeEquivalence($otherSubnodes->offsetGet($subnodes->key()), $result);
             } else {
                 $result->error("Other node has not the expected subnode!");
             }

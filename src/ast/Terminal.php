@@ -81,7 +81,7 @@ class Terminal implements Node {
      *
      * @return void
      */
-    protected function probeEquivalenceInternal(Node $other, Notification $result) {
+    public function probeEquivalence(Node $other, Notification $result) {
         if ( ! $other instanceof Terminal) {
             $result->error("Probed node types mismatch: %s != %s!", get_class($this), get_class($other));
         }

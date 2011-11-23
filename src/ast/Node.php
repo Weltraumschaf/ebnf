@@ -47,4 +47,15 @@ interface Node {
      * @return void
      */
     public function accept(Visitor $visitor);
+
+    /**
+     * Probes equivalence of itself against an other node and collects all
+     * errors in the passed {@link Notification} object.
+     *
+     * @param Node         $other  Node to compare against.
+     * @param Notification $result Object which collects all equivlanece violations.
+     *
+     * @return void
+     */
+    public function probeEquivalence(Node $other, Notification $result);
 }

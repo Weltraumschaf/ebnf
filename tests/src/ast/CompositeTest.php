@@ -41,10 +41,10 @@ require_once 'ast/Rule.php';
  */
 require_once 'ast/Terminal.php';
 
+/**
+ * @todo remove
+ */
 class ExposingComposite extends Composite {
-    public function exposedProbeEquivalenceInternal(Node $other, Notification $result) {
-        parent::probeEquivalenceInternal($other, $result);
-    }
 }
 
 /**
@@ -92,7 +92,7 @@ class CompositeTest extends \PHPUnit_Framework_TestCase {
     public function testProbeEquivalenceInternal() {
         $comp = new ExposingComposite();
         $n = new Notification();
-        $comp->exposedProbeEquivalenceInternal(new Terminal(), $n);
+        $comp->probeEquivalence(new Terminal(), $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals(
             "Probed node is not a composite node: 'de\weltraumschaf\ebnf\ast\ExposingComposite' vs. 'de\weltraumschaf\ebnf\ast\Terminal'!",
@@ -100,7 +100,7 @@ class CompositeTest extends \PHPUnit_Framework_TestCase {
         );
 
         $n = new Notification();
-        $comp->exposedProbeEquivalenceInternal(new Rule(), $n);
+        $comp->probeEquivalence(new Rule(), $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals(
             "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\ExposingComposite' != 'de\weltraumschaf\ebnf\ast\Rule'!",

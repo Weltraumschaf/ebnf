@@ -64,9 +64,12 @@ require_once 'ast/Syntax.php';
 
 use de\weltraumschaf\ebnf\visitor\Visitor;
 
+/**
+ * @todo remove
+ */
 class SyntaxStub extends Syntax {
     public function exposedProbeEquivalenceInternal(Node $other, Notification $result) {
-        parent::probeEquivalenceInternal($other, $result);
+        parent::probeEquivalence($other, $result);
     }
 }
 
@@ -95,14 +98,27 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax = new Syntax();
         $syntax->meta = "foo";
         $syntax->title = "bar";
+        $it = $syntax->getIterator();
+        $this->assertEquals(0, $it->count());
+        $this->assertFalse($it->offsetExists(0));
 
-        $firstRule = new Rule();
-        $firstRule->name = "first";
-        $syntax->addChild($firstRule);
+        $rule1 = new Rule();
+        $rule1->name = "first";
+        $syntax->addChild($rule1);
 
-        $secondRule = new Rule();
-        $secondRule->name = "second";
-        $syntax->addChild($secondRule);
+        $it = $syntax->getIterator();
+        $this->assertEquals(1, $it->count());
+        $this->assertTrue($it->offsetExists(0));
+        $this->assertSame($rule1, $it->offsetGet(0));
+
+        $rule2 = new Rule();
+        $rule2->name = "second";
+        $syntax->addChild($rule2);
+
+        $it = $syntax->getIterator();
+        $this->assertEquals(2, $it->count());
+        $this->assertTrue($it->offsetExists(1));
+        $this->assertSame($rule2, $it->offsetGet(1));
 
         $this->markTestIncomplete();
     }
@@ -118,38 +134,47 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax3->title = "bla";
         $syntax3->meta  = "blub";
 
-        $n = $syntax1->probeEquivalence($syntax1);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax1, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
-        $n = $syntax1->probeEquivalence($syntax2);
-        $this->assertTrue($n->isOk(), $n->report());
-        $this->assertEquals("", $n->report());
-
-        $n = $syntax2->probeEquivalence($syntax2);
-        $this->assertTrue($n->isOk(), $n->report());
-        $this->assertEquals("", $n->report());
-        $n = $syntax2->probeEquivalence($syntax1);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax2, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
-        $n = $syntax3->probeEquivalence($syntax3);
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax2, $n);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax1, $n);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+
+        $n = new Notification();
+        $syntax3->probeEquivalence($syntax3, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
         $errors  = "Titles of syntx differs: 'foo' != 'bla'!" . PHP_EOL;
         $errors .= "Meta of syntx differs: 'bar' != 'blub'!";
-        $n = $syntax1->probeEquivalence($syntax3);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax3, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($errors, $n->report());
-        $n = $syntax2->probeEquivalence($syntax3);
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax3, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($errors, $n->report());
         $errors  = "Titles of syntx differs: 'bla' != 'foo'!" . PHP_EOL;
         $errors .= "Meta of syntx differs: 'blub' != 'bar'!";
-        $n = $syntax3->probeEquivalence($syntax1);
+        $n = new Notification();
+        $syntax3->probeEquivalence($syntax1, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($errors, $n->report());
-        $n = $syntax3->probeEquivalence($syntax2);
+        $n = new Notification();
+        $syntax3->probeEquivalence($syntax2, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($errors, $n->report());
 
@@ -178,11 +203,13 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax1->addChild($rule1);
         $syntax2->addChild($rule1);
 
-        $n = $syntax1->probeEquivalence($syntax2);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax2, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
-        $n = $syntax2->probeEquivalence($syntax1);
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax1, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
@@ -191,21 +218,25 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax1->addChild($rule2);
         $error  = "Node syntax has different child count than other: 2 != 1!\n";
         $error .= "Other node has not the expected subnode!";
-        $n = $syntax1->probeEquivalence($syntax2);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax2, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($error, $n->report());
 
         $error  = "Node syntax has different child count than other: 1 != 2!";
-        $n = $syntax2->probeEquivalence($syntax1);
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax1, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($error, $n->report());
 
         $syntax2->addChild($rule2);
-        $n = $syntax1->probeEquivalence($syntax2);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax2, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
-        $n = $syntax2->probeEquivalence($syntax1);
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax1, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
@@ -213,9 +244,56 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $rule3->name = "rule3";
         $syntax3->addChild($rule1);
         $syntax3->addChild($rule3);
-        $n = $syntax1->probeEquivalence($syntax3);
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax3, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals("Names of rule differs: 'rule2' != 'rule3'!", $n->report());
     }
 
+    public function testProbeEquivalenceSyntaxWithRulesAndSubnodes() {
+        $syntax1 = new Syntax();
+        $syntax1->title = "foo";
+        $syntax1->meta  = "bar";
+        $syntax2 = new Syntax();
+        $syntax2->title = "foo";
+        $syntax2->meta  = "bar";
+
+        $rule = new Rule();
+        $rule->name = "rule1";
+
+        $opt   = new Option();
+        $ident = new Identifier();
+        $ident->value = "title";
+        $opt->addChild($ident);
+
+        $term = new Terminal();
+        $term->value = "{";
+
+        $loop  = new Loop();
+        $ident = new Identifier();
+        $ident->value = "rule";
+        $loop->addChild($ident);
+
+        $term = new Terminal();
+        $term->value = "}";
+
+        $seq = new Sequence();
+        $seq->addChild($opt);
+        $seq->addChild($term);
+        $seq->addChild($loop);
+
+        $rule->addChild($seq);
+        $syntax1->addChild($rule);
+        $syntax2->addChild($rule);
+
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax2, $n);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax1, $n);
+        $this->assertTrue($n->isOk(), $n->report());
+        $this->assertEquals("", $n->report());
+    }
 }
