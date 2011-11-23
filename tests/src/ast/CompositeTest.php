@@ -42,12 +42,6 @@ require_once 'ast/Rule.php';
 require_once 'ast/Terminal.php';
 
 /**
- * @todo remove
- */
-class ExposingComposite extends Composite {
-}
-
-/**
  * Tests for {@link Composite}.
  *
  * @package tests
@@ -90,12 +84,12 @@ class CompositeTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testProbeEquivalenceInternal() {
-        $comp = new ExposingComposite();
+        $comp = $this->getMockForAbstractClass('de\weltraumschaf\ebnf\ast\Composite', array(), "SomeComposite");
         $n = new Notification();
         $comp->probeEquivalence(new Terminal(), $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals(
-            "Probed node is not a composite node: 'de\weltraumschaf\ebnf\ast\ExposingComposite' vs. 'de\weltraumschaf\ebnf\ast\Terminal'!",
+            "Probed node is not a composite node: 'SomeComposite' vs. 'de\weltraumschaf\ebnf\ast\Terminal'!",
             $n->report()
         );
 
@@ -103,7 +97,7 @@ class CompositeTest extends \PHPUnit_Framework_TestCase {
         $comp->probeEquivalence(new Rule(), $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals(
-            "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\ExposingComposite' != 'de\weltraumschaf\ebnf\ast\Rule'!",
+            "Probed node types mismatch: 'SomeComposite' != 'de\weltraumschaf\ebnf\ast\Rule'!",
             $n->report()
         );
     }

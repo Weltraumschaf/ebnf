@@ -65,15 +65,6 @@ require_once 'ast/Syntax.php';
 use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
- * @todo remove
- */
-class SyntaxStub extends Syntax {
-    public function exposedProbeEquivalenceInternal(Node $other, Notification $result) {
-        parent::probeEquivalence($other, $result);
-    }
-}
-
-/**
  * Test for integrating all AST node types.
  *
  * @package tests
@@ -178,12 +169,12 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($n->isOk());
         $this->assertEquals($errors, $n->report());
 
-        $errors = "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\SyntaxStub' != 'BadNode'!";
-        $stub = new SyntaxStub();
+        $errors = "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\Syntax' != 'BadNode'!";
+        $stub = new Syntax();
         $mock = $this->getMock('de\weltraumschaf\ebnf\ast\Node', array(), array(), 'BadNode');
         $this->assertFalse($mock instanceof Syntax);
         $n = new Notification();
-        $stub->exposedProbeEquivalenceInternal($mock, $n);
+        $stub->probeEquivalence($mock, $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals($errors, $n->report());
     }
