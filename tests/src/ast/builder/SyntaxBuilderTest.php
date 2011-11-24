@@ -2,22 +2,50 @@
 namespace de\weltraumschaf\ebnf\ast\builder;
 
 require_once 'ast/Choice.php';
+require_once 'ast/Composite.php';
 require_once 'ast/Identifier.php';
 require_once 'ast/Loop.php';
+require_once 'ast/Node.php';
 require_once 'ast/Option.php';
 require_once 'ast/Rule.php';
 require_once 'ast/Sequence.php';
 require_once 'ast/Syntax.php';
 require_once 'ast/Terminal.php';
+require_once 'visitor/Xml.php';
 
 use de\weltraumschaf\ebnf\ast\Choice;
+use de\weltraumschaf\ebnf\ast\Composite;
 use de\weltraumschaf\ebnf\ast\Identifier;
 use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Node;
 use de\weltraumschaf\ebnf\ast\Option;
 use de\weltraumschaf\ebnf\ast\Rule;
 use de\weltraumschaf\ebnf\ast\Syntax;
 use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Terminal;
+use de\weltraumschaf\ebnf\visitor\Xml;
+
+abstract class Builder {
+
+    /**
+     * @var Composite
+     */
+    protected $node;
+
+    /**
+     * @var Builder
+     */
+    private $parent;
+
+    public function __construct(Composite $seq, Builder $parent) {
+        $this->node   = $seq;
+        $this->parent = $parent;
+    }
+
+    public function end() {
+        return $this->parent;
+    }
+}
 
 class SyntaxBuilder {
     /**
@@ -38,20 +66,16 @@ class SyntaxBuilder {
         $this->syntax->addChild($rule);
         return new RuleBuilder($rule, $this);
     }
+
+    public function getAst() {
+        return $this->syntax;
+    }
 }
 
-class RuleBuilder {
-    /**
-     * @var Rule
-     */
-    private $rule;
-    /**
-     * @var SyntaxBuilder
-     */
-    private $parent;
+class RuleBuilder extends Builder {
 
     public function __construct(Rule $rule, SyntaxBuilder $parent) {
-        $this->rule = $rule;
+        $this->node = $rule;
         $this->parent = $parent;
     }
 
@@ -62,178 +86,141 @@ class RuleBuilder {
     public function terminal($value) {
         $t = new Terminal();
         $t->value = (string) $value;
-        $this->rule->addChild($t);
+        $this->node->addChild($t);
         return $this;
     }
 
     public function identifier($value) {
         $i = new Identifier();
         $i->value = (string) $value;
-        $this->rule->addChild($i);
+        $this->node->addChild($i);
         return $this;
     }
 
     public function sequence() {
         $seq = new Sequence();
-        $this->rule->addChild($seq);
+        $this->node->addChild($seq);
         return new SequenceBuilder($seq, $this);
     }
 
     public function choice() {
         $choice = new Choice();
-        $this->rule->addChild($choice);
+        $this->node->addChild($choice);
         return new ChoiceBuilder($choice, $this);
     }
 
     public function loop() {
         $loop = new Loop();
-        $this->rule->addChild($loop);
+        $this->node->addChild($loop);
         return new LoopBuilder($loop, $this);
     }
 }
 
-class SequenceBuilder {
-    /**
-     * @var Sequence
-     */
-    private $seq;
-    /**
-     * @var RuleBuilder
-     */
-    private $parent;
-
-    public function __construct(Sequence $seq, RuleBuilder $parent) {
-        $this->seq = $seq;
-        $this->parent = $parent;
-    }
+class SequenceBuilder extends Builder {
 
     public function option() {
         $option = new Option();
-        $this->seq->addChild($option);
+        $this->node->addChild($option);
         return new OptionBuilder($option, $this);
     }
 
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->seq->addChild($i);
-        return $this;
+    public function loop() {
+        $loop = new Loop();
+        $this->node->addChild($loop);
+        return new LoopBuilder($loop, $this);
     }
 
-    public function terminal() {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->seq->addChild($t);
-        return $ths;
-    }
-
-    public function rule($name) {
-        return $this->parent->rule($name);
-    }
-}
-
-class ChoiceBuilder {
-    /**
-     * @var Choice
-     */
-    private $choice;
-    /**
-     * @var RuleBuilder
-     */
-    private $parent;
-
-    function __construct(Choice $choice, RuleBuilder $parent) {
-        $this->choice = $choice;
-        $this->parent = $parent;
+    public function choice() {
+        $choice = new Choice();
+        $this->node->addChild($choice);
+        return new ChoiceBuilder($choice, $this);
     }
 
     public function identifier($value) {
         $i = new Identifier();
         $i->value = (string) $value;
-        $this->choice->addChild($i);
-        return $this;
-    }
-
-    public function terminal() {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->choice->addChild($t);
-        return $ths;
-    }
-
-    public function rule($name) {
-        return $this->parent->rule($name);
-    }
-}
-
-class OptionBuilder {
-
-    private $option;
-    private $parent;
-
-    function __construct(Option $option, $parent) {
-        $this->option = $option;
-        $this->parent = $parent;
-    }
-
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->option->addChild($i);
+        $this->node->addChild($i);
         return $this;
     }
 
     public function terminal($value) {
         $t = new Terminal();
         $t->value = (string) $value;
-        $this->option->addChild($t);
+        $this->node->addChild($t);
+        return $this;
+    }
+
+}
+
+class ChoiceBuilder extends Builder {
+
+    public function sequence() {
+        $seq = new Sequence();
+        $this->node->addChild($seq);
+        return new SequenceBuilder($seq, $this);
+    }
+
+    public function identifier($value) {
+        $i = new Identifier();
+        $i->value = (string) $value;
+        $this->node->addChild($i);
+        return $this;
+    }
+
+    public function terminal($value) {
+        $t = new Terminal();
+        $t->value = (string) $value;
+        $this->node->addChild($t);
+        return $this;
+    }
+
+}
+
+class OptionBuilder extends Builder {
+
+    public function identifier($value) {
+        $i = new Identifier();
+        $i->value = (string) $value;
+        $this->node->addChild($i);
+        return $this;
+    }
+
+    public function terminal($value) {
+        $t = new Terminal();
+        $t->value = (string) $value;
+        $this->node->addChild($t);
         return $this;
     }
 
     public function loop() {
         $loop = new Loop();
-        $this->option->addChild($loop);
+        $this->node->addChild($loop);
         return new LoopBuilder($loop, $this);
-    }
-
-    public function rule($name) {
-        return $this->parent->rule($name);
     }
 }
 
-class LoopBuilder {
-
-    private $loop;
-    private $parent;
-
-    function __construct(Loop $loop, $parent) {
-        $this->loop = $loop;
-        $this->parent = $parent;
-    }
+class LoopBuilder extends Builder {
 
     public function identifier($value) {
         $i = new Identifier();
         $i->value = (string) $value;
-        $this->loop->addChild($i);
+        $this->node->addChild($i);
         return $this;
     }
 
     public function terminal($value) {
         $t = new Terminal();
         $t->value = (string) $value;
-        $this->loop->addChild($t);
+        $this->node->addChild($t);
         return $this;
     }
 
     public function option() {
         $option = new Option();
-        $this->loop->addChild($option);
+        $this->node->addChild($option);
         return new OptionBuilder($option, $this);
     }
 
-    public function rule($name) {
-        return $this->parent->rule($name);
-    }
 }
 
 class SyntaxBuilderTest extends \PHPUnit_Framework_TestCase {
@@ -244,17 +231,54 @@ class SyntaxBuilderTest extends \PHPUnit_Framework_TestCase {
                     ->sequence()
                         ->option()
                             ->identifier("title")
+                        ->end()
                         ->terminal("{")
                         ->loop()
                             ->identifier("rule")
+                        ->end()
                         ->terminal("}")
                         ->option()
                             ->identifier("comment")
-                ->rule("second-rule")
+                        ->end()
+                    ->end()
+                ->rule("rule")
+                    ->sequence()
+                        ->identifier("identifier")
+                        ->choice()
+                            ->terminal("=")
+                            ->terminal(":")
+                            ->terminal(":==")
+                        ->end()
+                        ->identifier("expression")
+                        ->choice()
+                            ->terminal(".")
+                            ->terminal(";")
+                        ->end()
+                    ->end()
+                ->rule("literal")
                     ->choice()
-                ->rule("third-rule")
-                    ->terminal("foo")
-                ->rule("fourth-rule")
-                    ->identifier("bar");
+                        ->sequence()
+                            ->terminal("'")
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal("'")
+                        ->end()
+                        ->sequence()
+                            ->terminal('"')
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal('"')
+                        ->end()
+                    ->end();
+
+        $syntax  = $builder->getAst();
+        $xml     = file_get_contents(EBNF_TESTS_FIXTURS . "/visitor/syntax.xml");
+        $visitor = new Xml();
+        $syntax->accept($visitor);
+        $this->assertEquals($xml, $visitor->getXmlString());
     }
 }
