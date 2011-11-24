@@ -42,7 +42,7 @@ use de\weltraumschaf\ebnf\ast\Rule;
 use de\weltraumschaf\ebnf\ast\Syntax;
 
 /**
- *
+ * Builder to generate a {@link Syntax} AST with a fluent interface.
  */
 class SyntaxBuilder {
     /**
@@ -50,13 +50,34 @@ class SyntaxBuilder {
      */
     private $syntax;
 
-    public function syntaxt($title, $meta) {
+    /**
+     * Initializes a {@link Syntax} object.
+     */
+    public function __construct() {
         $this->syntax = new Syntax();
-        $this->syntax->title = (string)$title;
-        $this->syntax->meta = (string)$meta;
+    }
+
+    /**
+     * Declare titel and meta of {@link Syntax}.
+     *
+     * @param string $title Title of the syntaxt.
+     * @param string $meta  Meta of the syntax.
+     *
+     * @return SyntaxBuilder
+     */
+    public function syntaxt($title, $meta) {
+        $this->syntax->title = (string) $title;
+        $this->syntax->meta  = (string) $meta;
         return $this;
     }
 
+    /**
+     * Declare a {@link Rule} for the syntax.
+     *
+     * @param string $name Name of the rule.
+     *
+     * @return RuleBuilder
+     */
     public function rule($name) {
         $rule = new Rule();
         $rule->name = (string) $name;
@@ -64,6 +85,11 @@ class SyntaxBuilder {
         return new RuleBuilder($rule, $this);
     }
 
+    /**
+     * Return the AST sytax node.
+     *
+     * @return Syntax
+     */
     public function getAst() {
         return $this->syntax;
     }

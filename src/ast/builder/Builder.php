@@ -64,61 +64,128 @@ use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Terminal;
 
 /**
+ * Generic builder which provides fluent interface to define syntaxt rules.
  *
+ * Example:
+ * <code>
+ * <?php
+ * ->sequence()
+ *     ->option()
+ *         ->identifier("title")
+ *     ->end()
+ *     ->terminal("{")
+ *     ->loop()
+ *         ->identifier("rule")
+ *     ->end()
+ *     ->terminal("}")
+ *     ->option()
+ *         ->identifier("comment")
+ *     ->end()
+ * ->end()
+ * </code>
  */
 class Builder {
 
     /**
+     * The composite node which is builded.
+     *
      * @var Composite
      */
     protected $node;
 
     /**
+     * A previous invoked builder.
+     *
      * @var Builder
      */
     protected $parent;
 
+    /**
+     * Initializes the builder which the builded node and the invoking builder.
+     *
+     * @param Composite $node   Node to build.
+     * @param Builder   $parent Invoking builder.
+     */
     public function __construct(Composite $node, Builder $parent) {
         $this->node   = $node;
         $this->parent = $parent;
     }
 
+    /**
+     * Returns the invoking builder.
+     *
+     * @return Builder
+     */
     public function end() {
         return $this->parent;
     }
 
+    /**
+     * Add a {@link Terminal} node to the current node.
+     *
+     * @param string $value The terminal literal.
+     *
+     * @return Builder
+     */
     public function terminal($value) {
-        $t = new Terminal();
+        $t        = new Terminal();
         $t->value = (string) $value;
         $this->node->addChild($t);
         return $this;
     }
 
+    /**
+     * Add an {@link Identifier} node to the current node.
+     *
+     * @param type $value The identifier literal.
+     *
+     * @return Builder
+     */
     public function identifier($value) {
-        $i = new Identifier();
+        $i        = new Identifier();
         $i->value = (string) $value;
         $this->node->addChild($i);
         return $this;
     }
 
+    /**
+     * Add a {@link Sequence} node to the current node.
+     *
+     * @return Builder
+     */
     public function sequence() {
         $seq = new Sequence();
         $this->node->addChild($seq);
         return new Builder($seq, $this);
     }
 
+    /**
+     * Add a {@link Option} node to the current node.
+     *
+     * @return Builder
+     */
     public function option() {
         $option = new Option();
         $this->node->addChild($option);
         return new Builder($option, $this);
     }
 
+    /**
+     * Add a {@link Choice} node to the current node.
+     *
+     * @return Builder
+     */
     public function choice() {
         $choice = new Choice();
         $this->node->addChild($choice);
         return new Builder($choice, $this);
     }
 
+    /**
+     * Add a {@link Loop} node to the current node.
+     *
+     * @return Builder
+     */
     public function loop() {
         $loop = new Loop();
         $this->node->addChild($loop);

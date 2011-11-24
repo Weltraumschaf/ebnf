@@ -19,7 +19,6 @@
  * @package ast
  */
 
-
 namespace de\weltraumschaf\ebnf\ast\builder;
 
 /**
@@ -30,15 +29,28 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Builder.php';
 use de\weltraumschaf\ebnf\ast\Rule;
 
 /**
- *
+ * Speacial {@link Builder} exension for building rules.
  */
 class RuleBuilder extends Builder {
 
+    /**
+     * Expects a {@link SyntaxBuilder} as parent.
+     *
+     * @param Rule          $rule   The rule node.
+     * @param SyntaxBuilder $parent The syntax the rule belongs to.
+     */
     public function __construct(Rule $rule, SyntaxBuilder $parent) {
-        $this->node = $rule;
+        $this->node   = $rule;
         $this->parent = $parent;
     }
 
+    /**
+     * Delegates to {@link SyntaxBuilder::rule()}.
+     *
+     * @param string $name Name of the rule.
+     *
+     * @return RuleBuilder
+     */
     public function rule($name) {
         return $this->parent->rule($name);
     }
