@@ -41,11 +41,11 @@ to PHP5.
 
 ### Table of symbols
 
-Here is a list of symbols implemented in ths package. There are a lot 
+Here is a list of symbols implemented in ths package. There are a lot
 of [variants of (E)BNFs](http://www.cs.man.ac.uk/~pjj/bnf/ebnf.html)
 out in the wild wih some more or other symbols. This package implements
 only a reasonable subset.
-    
+
 <dl>
     <dt>definition</dt>
         <dd>= or : or :==</dd>
@@ -119,11 +119,6 @@ Generate API doc (in the folder <kbd>doc/</kbd>):
 Or you run all targets with:
 
     $ phing
-
-## Todo
-- implement ranges 'a' .. 'z'
-- make "syntax desc" { .... } optional
-- implement grammar validation
 
 [1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [2]: http://karmin.ch/ebnf/index

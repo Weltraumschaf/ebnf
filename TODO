@@ -1,0 +1,10 @@
+TODO
+====
+
+- PEAR package
+    - make time/date dynamic in build.xml
+    - take version from build.xml
+- integrate AST in Parser
+- implement ranges 'a' .. 'z'
+- make "syntax desc" { .... } optional
+- implement grammar validation
