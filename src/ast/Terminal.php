@@ -83,11 +83,16 @@ class Terminal implements Node {
      */
     public function probeEquivalence(Node $other, Notification $result) {
         if ( ! $other instanceof Terminal) {
-            $result->error("Probed node types mismatch: %s != %s!", get_class($this), get_class($other));
+            $result->error(
+                "Probed node types mismatch: '%s' != '%s'!",
+                get_class($this),
+                get_class($other)
+            );
+            return;
         }
 
         if ($this->value !== $other->value) {
-            $result->error("Terminal value mismatch: %s != %s!", $this->value, $other->value);
+            $result->error("Terminal value mismatch: '%s' != '%s'!", $this->value, $other->value);
         }
     }
 }
