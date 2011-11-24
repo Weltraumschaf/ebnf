@@ -19,52 +19,28 @@
  * @package ast
  */
 
+
 namespace de\weltraumschaf\ebnf\ast\builder;
 
 /**
  * @see Builder
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Builder.php';
-/**
- * @see RuleBuilder
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'RuleBuilder.php';
-/**
- * @see Rule
- */
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Rule.php';
-/**
- * @see Syntax
- */
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Syntax.php';
 
 use de\weltraumschaf\ebnf\ast\Rule;
-use de\weltraumschaf\ebnf\ast\Syntax;
 
 /**
  *
  */
-class SyntaxBuilder {
-    /**
-     * @var Syntax
-     */
-    private $syntax;
+class RuleBuilder extends Builder {
 
-    public function syntaxt($title, $meta) {
-        $this->syntax = new Syntax();
-        $this->syntax->title = (string)$title;
-        $this->syntax->meta = (string)$meta;
-        return $this;
+    public function __construct(Rule $rule, SyntaxBuilder $parent) {
+        $this->node = $rule;
+        $this->parent = $parent;
     }
 
     public function rule($name) {
-        $rule = new Rule();
-        $rule->name = (string) $name;
-        $this->syntax->addChild($rule);
-        return new RuleBuilder($rule, $this);
+        return $this->parent->rule($name);
     }
 
-    public function getAst() {
-        return $this->syntax;
-    }
 }
