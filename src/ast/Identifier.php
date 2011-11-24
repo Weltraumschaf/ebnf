@@ -88,7 +88,7 @@ class Identifier implements Node {
         }
 
         if ($this->value !== $other->value) {
-            $this->error("Identifier value mismatch: %s != %s!", $this->value, $other->value);
+            $result->error("Identifier value mismatch: '%s' != '%s'!", $this->value, $other->value);
         }
     }
 }
