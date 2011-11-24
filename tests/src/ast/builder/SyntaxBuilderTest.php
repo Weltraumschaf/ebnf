@@ -45,6 +45,44 @@ abstract class Builder {
     public function end() {
         return $this->parent;
     }
+
+    public function terminal($value) {
+        $t = new Terminal();
+        $t->value = (string) $value;
+        $this->node->addChild($t);
+        return $this;
+    }
+
+    public function identifier($value) {
+        $i = new Identifier();
+        $i->value = (string) $value;
+        $this->node->addChild($i);
+        return $this;
+    }
+
+    public function sequence() {
+        $seq = new Sequence();
+        $this->node->addChild($seq);
+        return new SequenceBuilder($seq, $this);
+    }
+
+    public function option() {
+        $option = new Option();
+        $this->node->addChild($option);
+        return new OptionBuilder($option, $this);
+    }
+
+    public function choice() {
+        $choice = new Choice();
+        $this->node->addChild($choice);
+        return new ChoiceBuilder($choice, $this);
+    }
+
+    public function loop() {
+        $loop = new Loop();
+        $this->node->addChild($loop);
+        return new LoopBuilder($loop, $this);
+    }
 }
 
 class SyntaxBuilder {
@@ -83,143 +121,20 @@ class RuleBuilder extends Builder {
         return $this->parent->rule($name);
     }
 
-    public function terminal($value) {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->node->addChild($t);
-        return $this;
-    }
-
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->node->addChild($i);
-        return $this;
-    }
-
-    public function sequence() {
-        $seq = new Sequence();
-        $this->node->addChild($seq);
-        return new SequenceBuilder($seq, $this);
-    }
-
-    public function choice() {
-        $choice = new Choice();
-        $this->node->addChild($choice);
-        return new ChoiceBuilder($choice, $this);
-    }
-
-    public function loop() {
-        $loop = new Loop();
-        $this->node->addChild($loop);
-        return new LoopBuilder($loop, $this);
-    }
 }
 
 class SequenceBuilder extends Builder {
-
-    public function option() {
-        $option = new Option();
-        $this->node->addChild($option);
-        return new OptionBuilder($option, $this);
-    }
-
-    public function loop() {
-        $loop = new Loop();
-        $this->node->addChild($loop);
-        return new LoopBuilder($loop, $this);
-    }
-
-    public function choice() {
-        $choice = new Choice();
-        $this->node->addChild($choice);
-        return new ChoiceBuilder($choice, $this);
-    }
-
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->node->addChild($i);
-        return $this;
-    }
-
-    public function terminal($value) {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->node->addChild($t);
-        return $this;
-    }
 
 }
 
 class ChoiceBuilder extends Builder {
 
-    public function sequence() {
-        $seq = new Sequence();
-        $this->node->addChild($seq);
-        return new SequenceBuilder($seq, $this);
-    }
-
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->node->addChild($i);
-        return $this;
-    }
-
-    public function terminal($value) {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->node->addChild($t);
-        return $this;
-    }
-
 }
 
 class OptionBuilder extends Builder {
-
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->node->addChild($i);
-        return $this;
-    }
-
-    public function terminal($value) {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->node->addChild($t);
-        return $this;
-    }
-
-    public function loop() {
-        $loop = new Loop();
-        $this->node->addChild($loop);
-        return new LoopBuilder($loop, $this);
-    }
 }
 
 class LoopBuilder extends Builder {
-
-    public function identifier($value) {
-        $i = new Identifier();
-        $i->value = (string) $value;
-        $this->node->addChild($i);
-        return $this;
-    }
-
-    public function terminal($value) {
-        $t = new Terminal();
-        $t->value = (string) $value;
-        $this->node->addChild($t);
-        return $this;
-    }
-
-    public function option() {
-        $option = new Option();
-        $this->node->addChild($option);
-        return new OptionBuilder($option, $this);
-    }
 
 }
 
