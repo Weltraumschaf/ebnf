@@ -224,7 +224,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
 
         $visitor = new Xml();
         $syntax->accept($visitor);
-        $xml = file_get_contents(EBNF_TESTS_FIXTURS . "/validator/syntax.xml");
+        $xml = file_get_contents(EBNF_TESTS_FIXTURS . "/visitor/syntax.xml");
         $this->assertEquals($xml, $visitor->getXmlString());
 
     }
