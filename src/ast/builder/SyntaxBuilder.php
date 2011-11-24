@@ -43,6 +43,8 @@ use de\weltraumschaf\ebnf\ast\Syntax;
 
 /**
  * Builder to generate a {@link Syntax} AST with a fluent interface.
+ *
+ * @package ast
  */
 class SyntaxBuilder {
     /**

@@ -30,6 +30,8 @@ use de\weltraumschaf\ebnf\ast\Rule;
 
 /**
  * Speacial {@link Builder} exension for building rules.
+ *
+ * @package ast
  */
 class RuleBuilder extends Builder {
 

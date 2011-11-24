@@ -64,7 +64,7 @@ use de\weltraumschaf\ebnf\ast\Type;
  * This class provides only one public method which provides returns
  * the syntax tree as XML DOM tree.
  *
- * @package ast
+ * @package ebnf
  */
 class Parser {
 

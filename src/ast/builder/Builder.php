@@ -83,6 +83,8 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  *     ->end()
  * ->end()
  * </code>
+ *
+ * @package ast
  */
 class Builder {
 
