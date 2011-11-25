@@ -92,8 +92,7 @@
         </phpmd>
     </target>
 
-<!--    <target name="pear" depends="prepare, test">-->
-    <target name="pear" depends="prepare">
+    <target name="pear" depends="prepare, test, checkstyle">
         <mkdir dir="${builddir}/pear"/>
 
         <copy todir="${builddir}/pear">
