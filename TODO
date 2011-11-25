@@ -2,6 +2,7 @@ TODO
 ====
 
 - install bin/ebnf via PEAR
+- build autoloader
 - Generate whole PEAR package in build.xml w/o manual invoking of
   pfm to generate file list with md5.
 - integrate AST in Parser
