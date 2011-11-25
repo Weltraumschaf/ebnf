@@ -20,8 +20,14 @@
 
 namespace de\weltraumschaf\ebnf;
 
-use \Exception   as Exception;
+if (strpos('@php_bin@', '@php_bin') === 0) {
+    // In uninstalled ev enviroment include from repositories src/ first.
+    set_include_path(implode(PATH_SEPARATOR, array(
+        dirname(__DIR__) . DIRECTORY_SEPARATOR . "src",
+        get_include_path()
+    )));
+}
 
-require_once dirname(__DIR__) . "/src/Command.php";
+require_once "Command.php";
 
 exit(Command::main(getopt("s:f:o:hd"), basename(__FILE__)));
