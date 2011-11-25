@@ -21,6 +21,7 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
+require_once 'ast/builder/SyntaxBuilder.php';
 /**
  * @see Node
  */
@@ -63,6 +64,7 @@ require_once 'ast/Sequence.php';
 require_once 'ast/Syntax.php';
 
 use de\weltraumschaf\ebnf\visitor\Visitor;
+use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
 
 /**
  * Test for integrating all AST node types.
@@ -242,40 +244,40 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testProbeEquivalenceSyntaxWithRulesAndSubnodes() {
-        $syntax1 = new Syntax();
-        $syntax1->title = "foo";
-        $syntax1->meta  = "bar";
-        $syntax2 = new Syntax();
-        $syntax2->title = "foo";
-        $syntax2->meta  = "bar";
-
-        $rule = new Rule();
-        $rule->name = "rule1";
-
-        $opt   = new Option();
-        $ident = new Identifier();
-        $ident->value = "title";
-        $opt->addChild($ident);
-
-        $term = new Terminal();
-        $term->value = "{";
-
-        $loop  = new Loop();
-        $ident = new Identifier();
-        $ident->value = "rule";
-        $loop->addChild($ident);
-
-        $term = new Terminal();
-        $term->value = "}";
-
-        $seq = new Sequence();
-        $seq->addChild($opt);
-        $seq->addChild($term);
-        $seq->addChild($loop);
-
-        $rule->addChild($seq);
-        $syntax1->addChild($rule);
-        $syntax2->addChild($rule);
+        $builder = new SyntaxBuilder();
+        $builder->syntax("foo", "bar")
+                ->rule("syntax")
+                    ->sequence()
+                        ->option()
+                            ->identifier("title")
+                        ->end()
+                        ->terminal("{")
+                        ->loop()
+                            ->identifier("rule")
+                        ->end()
+                        ->terminal("}")
+                        ->option()
+                            ->identifier("comment")
+                        ->end()
+                    ->end();
+        $syntax1 = $builder->getAst();
+        $builder->clear()
+                ->syntax("foo", "bar")
+                ->rule("syntax")
+                    ->sequence()
+                        ->option()
+                            ->identifier("title")
+                        ->end()
+                        ->terminal("{")
+                        ->loop()
+                            ->identifier("rule")
+                        ->end()
+                        ->terminal("}")
+                        ->option()
+                            ->identifier("comment")
+                        ->end()
+                    ->end();
+        $syntax2 = $builder->getAst();
 
         $n = new Notification();
         $syntax1->probeEquivalence($syntax2, $n);

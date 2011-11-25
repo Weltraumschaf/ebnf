@@ -56,7 +56,7 @@ class SyntaxBuilder {
      * Initializes a {@link Syntax} object.
      */
     public function __construct() {
-        $this->syntax = new Syntax();
+        $this->clear();
     }
 
     /**
@@ -94,5 +94,10 @@ class SyntaxBuilder {
      */
     public function getAst() {
         return $this->syntax;
+    }
+
+    public function clear() {
+        $this->syntax = new Syntax();
+        return $this;
     }
 }
