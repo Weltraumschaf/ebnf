@@ -25,41 +25,48 @@
         http://github.com/Weltraumschaf/ebnf/README.md
     </notes>
     <contents>
-        <dir baseinstalldir="EBNF" name="/">
-            <file baseinstalldir="EBNF" md5sum="4b90f897c1d8008a062807415c8ff049" name="bin/ebnf" role="data" />
-            <file baseinstalldir="EBNF" md5sum="ce3f36f0d01498b9bc4d58597041c7a0" name="src/Command.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="124127cd5a6ad3cb3a7abea37c9ead61" name="src/Parser.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="11c3c1875e525f61971018fb31fcd1a8" name="src/Position.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="d0ebf2c82804ce3894ae0609d302fd4e" name="src/ReferenceGrammar.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="7212b425a7c2f39508f776523e1c5de8" name="src/Renderer.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="0afc4b94fe81ab97c239e2b3093dfac9" name="src/Scanner.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="4bb964390c34843128b4341d0174d2c3" name="src/ScannerHelper.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="f0115eab20e11bf0c1e6724dcf6225bc" name="src/SyntaxtException.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="31a03f9b300cb933fe434afe24e12cb1" name="src/Token.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="e6169815c1f65fc1bc3df5dd916a2f07" name="src/ast/Choice.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="52ceb7772b10d2e6767da42df24c3ccf" name="src/ast/Composite.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="5a7e3b8b4b3b36f718f2197f3cf89214" name="src/ast/Identifier.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="670769664a88b6dedf2b493ee2fc57e3" name="src/ast/Loop.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="9dd4d1cc3a2a0d34a242e35a856fd30b" name="src/ast/Node.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="d2c197cf7e940158aa9b3ac85fa425ee" name="src/ast/Notification.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="99e4f8b4af53bce3d0653113e873c620" name="src/ast/Option.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="fdd8ba8a6984a5941243a087ba7d78e6" name="src/ast/Rule.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="84eb94ba55b769d4ecc1b0acaebfe502" name="src/ast/Sequence.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="b6860f42b67ef53eda573d9f9a2f906e" name="src/ast/Syntax.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="d029991c6eafc91026cf69b59b2fdf01" name="src/ast/Terminal.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="0bdef9cf387d3e9cf3a0607b2d1beed2" name="src/ast/Type.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="fedb3f1319c225a42ba08a01cd5101d0" name="src/ast/builder/Builder.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="f6795bc914fd9dc88c64a6a2405cbe2b" name="src/ast/builder/RuleBuilder.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="af9da107b898608f067add48b656ea05" name="src/ast/builder/SyntaxBuilder.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="325290532bc09ceed517db164072cfe6" name="src/symbol/RuleSymbol.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="dac47d3da1e6f2e8e97770d8328256ce" name="src/symbol/RuleSymbolTable.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="efb12aceea6eb7e49f924fa5da91b863" name="src/visitor/ValidaorException.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="8b2687e955e0ae273e9a1abcf3fe164a" name="src/visitor/Validator.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="1f4d1425d0fd4e10495bff38fe69b7a9" name="src/visitor/Visitor.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="80330d0768946dd54877cc3efa238533" name="src/visitor/VisitorAdapter.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="21c19f75694acb239a27a2b124fdde39" name="src/visitor/Xml.php" role="php" />
-            <file baseinstalldir="EBNF" md5sum="73fdbcc7196895501feab70c4a68db5a" name="LICENSE" role="data" />
-            <file baseinstalldir="EBNF" md5sum="a1b030ea413e8c474b404ad74f95d8ec" name="README.md" role="data" />
+        <dir name="/">
+            <file baseinstalldir="/" md5sum="56ed2a1def81b523e21d1d22744864bc" name="EBNF/Command.php" role="php" />
+            <file baseinstalldir="/" md5sum="124127cd5a6ad3cb3a7abea37c9ead61" name="EBNF/Parser.php" role="php" />
+            <file baseinstalldir="/" md5sum="11c3c1875e525f61971018fb31fcd1a8" name="EBNF/Position.php" role="php" />
+            <file baseinstalldir="/" md5sum="d0ebf2c82804ce3894ae0609d302fd4e" name="EBNF/ReferenceGrammar.php" role="php" />
+            <file baseinstalldir="/" md5sum="7212b425a7c2f39508f776523e1c5de8" name="EBNF/Renderer.php" role="php" />
+            <file baseinstalldir="/" md5sum="0afc4b94fe81ab97c239e2b3093dfac9" name="EBNF/Scanner.php" role="php" />
+            <file baseinstalldir="/" md5sum="4bb964390c34843128b4341d0174d2c3" name="EBNF/ScannerHelper.php" role="php" />
+            <file baseinstalldir="/" md5sum="f0115eab20e11bf0c1e6724dcf6225bc" name="EBNF/SyntaxtException.php" role="php" />
+            <file baseinstalldir="/" md5sum="31a03f9b300cb933fe434afe24e12cb1" name="EBNF/Token.php" role="php" />
+            <file baseinstalldir="/" md5sum="e6169815c1f65fc1bc3df5dd916a2f07" name="EBNF/ast/Choice.php" role="php" />
+            <file baseinstalldir="/" md5sum="52ceb7772b10d2e6767da42df24c3ccf" name="EBNF/ast/Composite.php" role="php" />
+            <file baseinstalldir="/" md5sum="5a7e3b8b4b3b36f718f2197f3cf89214" name="EBNF/ast/Identifier.php" role="php" />
+            <file baseinstalldir="/" md5sum="670769664a88b6dedf2b493ee2fc57e3" name="EBNF/ast/Loop.php" role="php" />
+            <file baseinstalldir="/" md5sum="9dd4d1cc3a2a0d34a242e35a856fd30b" name="EBNF/ast/Node.php" role="php" />
+            <file baseinstalldir="/" md5sum="d2c197cf7e940158aa9b3ac85fa425ee" name="EBNF/ast/Notification.php" role="php" />
+            <file baseinstalldir="/" md5sum="99e4f8b4af53bce3d0653113e873c620" name="EBNF/ast/Option.php" role="php" />
+            <file baseinstalldir="/" md5sum="fdd8ba8a6984a5941243a087ba7d78e6" name="EBNF/ast/Rule.php" role="php" />
+            <file baseinstalldir="/" md5sum="84eb94ba55b769d4ecc1b0acaebfe502" name="EBNF/ast/Sequence.php" role="php" />
+            <file baseinstalldir="/" md5sum="b6860f42b67ef53eda573d9f9a2f906e" name="EBNF/ast/Syntax.php" role="php" />
+            <file baseinstalldir="/" md5sum="d029991c6eafc91026cf69b59b2fdf01" name="EBNF/ast/Terminal.php" role="php" />
+            <file baseinstalldir="/" md5sum="0bdef9cf387d3e9cf3a0607b2d1beed2" name="EBNF/ast/Type.php" role="php" />
+            <file baseinstalldir="/" md5sum="fedb3f1319c225a42ba08a01cd5101d0" name="EBNF/ast/builder/Builder.php" role="php" />
+            <file baseinstalldir="/" md5sum="f6795bc914fd9dc88c64a6a2405cbe2b" name="EBNF/ast/builder/RuleBuilder.php" role="php" />
+            <file baseinstalldir="/" md5sum="af9da107b898608f067add48b656ea05" name="EBNF/ast/builder/SyntaxBuilder.php" role="php" />
+            <file baseinstalldir="/" md5sum="325290532bc09ceed517db164072cfe6" name="EBNF/symbol/RuleSymbol.php" role="php" />
+            <file baseinstalldir="/" md5sum="dac47d3da1e6f2e8e97770d8328256ce" name="EBNF/symbol/RuleSymbolTable.php" role="php" />
+            <file baseinstalldir="/" md5sum="efb12aceea6eb7e49f924fa5da91b863" name="EBNF/visitor/ValidaorException.php" role="php" />
+            <file baseinstalldir="/" md5sum="8b2687e955e0ae273e9a1abcf3fe164a" name="EBNF/visitor/Validator.php" role="php" />
+            <file baseinstalldir="/" md5sum="1f4d1425d0fd4e10495bff38fe69b7a9" name="EBNF/visitor/Visitor.php" role="php" />
+            <file baseinstalldir="/" md5sum="80330d0768946dd54877cc3efa238533" name="EBNF/visitor/VisitorAdapter.php" role="php" />
+            <file baseinstalldir="/" md5sum="21c19f75694acb239a27a2b124fdde39" name="EBNF/visitor/Xml.php" role="php" />
+            <file baseinstalldir="/" md5sum="73fdbcc7196895501feab70c4a68db5a" name="LICENSE" role="data" />
+            <file baseinstalldir="/" md5sum="a1b030ea413e8c474b404ad74f95d8ec" name="README.md" role="data" />
+            <file baseinstalldir="/" md5sum="18e35e5a340b3ebc1b21c86d39871a4f" name="ebnf.php" role="script">
+                <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+                <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+            </file>
+            <file baseinstalldir="/" md5sum="3366365ec20a36aad22e28099f33488f" name="ebnf.bat" role="script">
+                <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+                <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+            </file>
         </dir>
     </contents>
     <dependencies>
@@ -72,7 +79,23 @@
             </pearinstaller>
         </required>
     </dependencies>
-    <phprelease />
+    <phprelease>
+        <installconditions>
+            <os>
+                <name>windows</name>
+            </os>
+        </installconditions>
+        <filelist>
+            <install as="ebnf.php" name="ebnf.php" />
+            <install as="ebnf.bat" name="ebnf.bat" />
+        </filelist>
+    </phprelease>
+    <phprelease>
+        <filelist>
+            <install as="ebnf.php" name="ebnf.php" />
+            <ignore name="ebnf.bat" />
+        </filelist>
+    </phprelease>
     <changelog>
         <release>
             <version>
