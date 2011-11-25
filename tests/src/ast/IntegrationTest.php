@@ -288,5 +288,63 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax2->probeEquivalence($syntax1, $n);
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
+
+        $builder->clear()
+                ->syntax("foo", "bar")
+                ->rule("syntax")
+                    ->sequence()
+                        ->option()
+                            ->identifier("title")
+                        ->end()
+                        ->terminal("{")
+                        ->loop()
+                            ->identifier("rule")
+                        ->end()
+                        ->terminal("}")
+                        ->option()
+                            ->identifier("comment")
+                        ->end()
+                    ->end();
+        $syntax1 = $builder->getAst();
+        $builder->clear()
+                ->syntax("snafu", "bar")
+                ->rule("syntax")
+                    ->sequence()
+                        ->option()
+                            ->identifier("bla")
+                        ->end()
+                        ->terminal("{")
+                        ->loop()
+                            ->identifier("snafu")
+                        ->end()
+                        ->terminal("}")
+                        ->option()
+                            ->identifier("blub")
+                        ->end()
+                    ->end();
+        $syntax2 = $builder->getAst();
+
+        $n = new Notification();
+        $syntax1->probeEquivalence($syntax2, $n);
+        $this->assertFalse($n->isOk(), $n->report());
+        $this->assertEquals(
+            "Titles of syntx differs: 'foo' != 'snafu'!\n" .
+            "Identifier value mismatch: 'title' != 'bla'!\n" .
+            "Identifier value mismatch: 'rule' != 'snafu'!\n" .
+            "Identifier value mismatch: 'comment' != 'blub'!",
+            $n->report()
+        );
+
+        $n = new Notification();
+        $syntax2->probeEquivalence($syntax1, $n);
+        $this->assertFalse($n->isOk(), $n->report());
+        $this->assertEquals(
+            "Titles of syntx differs: 'snafu' != 'foo'!\n" .
+            "Identifier value mismatch: 'bla' != 'title'!\n" .
+            "Identifier value mismatch: 'snafu' != 'rule'!\n" .
+            "Identifier value mismatch: 'blub' != 'comment'!",
+            $n->report()
+        );
+
     }
 }
