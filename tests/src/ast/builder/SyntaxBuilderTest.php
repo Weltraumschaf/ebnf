@@ -9,7 +9,7 @@ use de\weltraumschaf\ebnf\visitor\Xml;
 class SyntaxBuilderTest extends \PHPUnit_Framework_TestCase {
     public function testbuilder() {
         $builder = new SyntaxBuilder();
-        $builder->syntaxt("EBNF defined in itself.", "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3")
+        $builder->syntax("EBNF defined in itself.", "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3")
                 ->rule("syntax")
                     ->sequence()
                         ->option()
