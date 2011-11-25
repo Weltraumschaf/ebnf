@@ -86,32 +86,17 @@
             </os>
         </installconditions>
         <filelist>
-            <install as="ebnf.php" name="ebnf.php" />
+            <install as="ebnf" name="ebnf.php" />
             <install as="ebnf.bat" name="ebnf.bat" />
         </filelist>
     </phprelease>
     <phprelease>
         <filelist>
-            <install as="ebnf.php" name="ebnf.php" />
+            <install as="ebnf" name="ebnf.php" />
             <ignore name="ebnf.bat" />
         </filelist>
     </phprelease>
     <changelog>
-        <release>
-            <version>
-                <release>1.1</release>
-                <api>1.1</api>
-            </version>
-            <stability>
-                <release>stable</release>
-                <api>stable</api>
-            </stability>
-            <date>2011-11-24</date>
-            <license uri="http://www.gnu.org/licenses/ ">GNU General Public License</license>
-            <notes>
-http://github.com/Weltraumschaf/ebnf/README.md
-            </notes>
-        </release>
         <release>
             <version>
                 <release>1.1.0</release>

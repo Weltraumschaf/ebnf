@@ -92,20 +92,24 @@
         </phpmd>
     </target>
 
-    <target name="pear" depends="prepare, test, checkstyle">
-        <mkdir dir="${builddir}/pear"/>
+<!--    <target name="pear" depends="prepare, test, checkstyle">-->
+    <target name="pear" depends="prepare">
+        <mkdir dir="${builddir}/pear/EBNF"/>
 
         <copy todir="${builddir}/pear">
             <fileset dir="${workspace}">
-                <include name="src/**"/>
-                <include name="bin/**"/>
                 <include name="LICENSE"/>
                 <include name="package.xml"/>
                 <include name="README.md"/>
             </fileset>
         </copy>
+        <copy file="${workspace}/bin/ebnf.php" tofile="${builddir}/pear/ebnf.php"/>
+        <copy file="${workspace}/bin/ebnf.bat" tofile="${builddir}/pear/ebnf.bat"/>
+        <copy todir="${builddir}/pear/EBNF">
+            <fileset refid="src" />
+        </copy>
 
-        <exec command="pear package ${builddir}/pear/package.xml" dir="${builddir}/pear"/>
+        <exec command="pear package ${builddir}/pear/package.xml" dir="${builddir}/pear" passthru="true"/>
 
         <copy todir="${builddir}">
             <fileset dir="${builddir}/pear">
