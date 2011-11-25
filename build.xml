@@ -92,13 +92,17 @@
         </phpmd>
     </target>
 
-    <target name="pear" depends="prepare, test">
+<!--    <target name="pear" depends="prepare, test">-->
+    <target name="pear" depends="prepare">
         <mkdir dir="${builddir}/pear"/>
 
         <copy todir="${builddir}/pear">
-            <fileset refid="src" />
             <fileset dir="${workspace}">
+                <include name="src/**"/>
+                <include name="bin/**"/>
+                <include name="LICENSE"/>
                 <include name="package.xml"/>
+                <include name="README.md"/>
             </fileset>
         </copy>
 
@@ -110,7 +114,7 @@
             </fileset>
         </copy>
 
-<!--        <delete dir="${builddir}/pear" includeemptydirs="true" verbose="false"/>-->
+        <delete dir="${builddir}/pear" includeemptydirs="true" verbose="false"/>
     </target>
 
     <target name="main" description="Runs tests and checkstyle." depends="test, checkstyle, pdepend, pmd, doc"/>
