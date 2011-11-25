@@ -39,6 +39,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Renderer.php';
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ReferenceGrammar.php';
 
+use \Exception as Exception;
+
 /**
  * Abstracts the CLI command.
  *
