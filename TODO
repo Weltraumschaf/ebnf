@@ -1,10 +1,9 @@
 TODO
 ====
 
-- PEAR package
-    - make time/date dynamic in build.xml
-    - take version from build.xml
-    - take project name from build.xml
+- install bin/ebnf via PEAR
+- Generate whole PEAR package in build.xml w/o manual invoking of
+  pfm to generate file list with md5.
 - integrate AST in Parser
 - implement ranges 'a' .. 'z'
 - make "syntax desc" { .... } optional
