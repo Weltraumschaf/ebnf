@@ -92,5 +92,26 @@
         </phpmd>
     </target>
 
+    <target name="pear" depends="prepare, test">
+        <mkdir dir="${builddir}/pear"/>
+
+        <copy todir="${builddir}/pear">
+            <fileset refid="src" />
+            <fileset dir="${workspace}">
+                <include name="package.xml"/>
+            </fileset>
+        </copy>
+
+        <exec command="pear package ${builddir}/pear/package.xml" dir="${builddir}/pear"/>
+
+        <copy todir="${builddir}">
+            <fileset dir="${builddir}/pear">
+                <include name="*.tgz"/>
+            </fileset>
+        </copy>
+
+<!--        <delete dir="${builddir}/pear" includeemptydirs="true" verbose="false"/>-->
+    </target>
+
     <target name="main" description="Runs tests and checkstyle." depends="test, checkstyle, pdepend, pmd, doc"/>
 </project>
