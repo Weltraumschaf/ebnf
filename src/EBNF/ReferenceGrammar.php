@@ -25,6 +25,7 @@ namespace de\weltraumschaf\ebnf;
  *
  * @codeCoverageIgnore
  * @package ebnf
+ * @version @@version@@
  */
 class ReferenceGrammar {
 

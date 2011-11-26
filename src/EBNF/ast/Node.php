@@ -27,6 +27,7 @@ use de\weltraumschaf\ebnf\visitor\Visitor;
  * Interface of an AST node.
  *
  * @package ast
+ * @version @@version@@
  */
 interface Node {
 

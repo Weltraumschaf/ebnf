@@ -22,6 +22,9 @@ namespace de\weltraumschaf\ebnf\ast;
 
 /**
  * Used to notify collected errors.
+ *
+ * @package ast
+ * @version @@version@@
  */
 class Notification {
     /**

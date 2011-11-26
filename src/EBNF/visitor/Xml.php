@@ -42,6 +42,7 @@ use \ReflectionProperty;
  * {@link Visitor} which generates a XML string from the visited AST tree.
  *
  * @package visitor
+ * @version @@version@@
  */
 class Xml implements Visitor {
 

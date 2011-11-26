@@ -41,6 +41,7 @@ use \InvalidArgumentException;
  * for all visitable node types.
  *
  * @package visitor
+ * @version @@version@@
  */
 abstract class VisitorAdapter implements Visitor {
 

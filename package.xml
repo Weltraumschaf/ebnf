@@ -10,11 +10,11 @@
         <email>weltraumschaf@googlemail.com</email>
         <active>yes</active>
     </lead>
-    <date>2011-11-24</date>
-    <time>23:49:13</time>
+    <date>@@date@@</date>
+    <time>@@time@@</time>
     <version>
-        <release>1.1.0</release>
-        <api>1.1.0</api>
+        <release>@@version@@</release>
+        <api>@@version@@</api>
     </version>
     <stability>
         <release>stable</release>
@@ -109,7 +109,7 @@
             <date>2011-11-24</date>
             <license uri="http://www.gnu.org/licenses/ ">GNU General Public License</license>
             <notes>
-http://github.com/Weltraumschaf/ebnf/README.md
+                First version installable via PEAR. Providing library and command line tool.
             </notes>
         </release>
     </changelog>

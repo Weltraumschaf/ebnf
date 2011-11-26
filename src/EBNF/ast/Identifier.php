@@ -38,6 +38,7 @@ use de\weltraumschaf\ebnf\visitor\Visitor;
  * Has no subnodes.
  *
  * @package ast
+ * @version @@version@@
  */
 class Identifier implements Node {
 

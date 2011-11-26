@@ -28,6 +28,6 @@ if (strpos('@php_bin@', '@php_bin') === 0) {
     )));
 }
 
-require_once "Command.php";
+require_once "EBNF/Command.php";
 
 exit(Command::main(getopt("s:f:o:hd"), basename(__FILE__)));

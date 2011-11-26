@@ -65,6 +65,7 @@ use de\weltraumschaf\ebnf\ast\Type;
  * the syntax tree as XML DOM tree.
  *
  * @package ebnf
+ * @version @@version@@
  */
 class Parser {
 

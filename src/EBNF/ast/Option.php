@@ -36,14 +36,15 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 /**
  * Option node.
- * 
+ *
  * @package ast
+ * @version @@version@@
  */
 class Option extends Composite implements Node {
-    
+
     /**
      * Returns the name of a node.
-     * 
+     *
      * @return string
      */
     public function getNodeName() {

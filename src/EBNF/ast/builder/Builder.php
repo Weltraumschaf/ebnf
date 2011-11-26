@@ -85,6 +85,7 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  * </code>
  *
  * @package ast
+ * @version @@version@@
  */
 class Builder {
 

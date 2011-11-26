@@ -23,8 +23,9 @@ namespace de\weltraumschaf\ebnf\ast;
 
 /**
  * Represents the type of an EBNF node type.
- * 
+ *
  * @package ast
+ * @version @@version@@
  */
 class Type {
     const CHOICE     = "choice";
@@ -36,26 +37,26 @@ class Type {
     const SEQUENCE   = "sequence";
     const SYNTAX     = "syntax";
     const TERMINAL   = "terminal";
-    
+
     /**
      * String representation.
-     * 
+     *
      * @var string
      */
     private $type;
-    
+
     /**
      * Inititializes imutable object usualy with one of the class constants.
-     * 
+     *
      * @param string $type The string representation of ths type.
      */
     public function __construct($type) {
         $this->type = (string) $type;
     }
-    
+
     /**
      * Returns string representation.
-     * 
+     *
      * @return string
      */
     public function __toString() {
@@ -66,7 +67,7 @@ class Type {
      * Compares with given string representation.
      *
      * @param string $type Usualy one of the class constants.
-     * 
+     *
      * @return bool
      */
     public function is($type) {

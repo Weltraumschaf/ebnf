@@ -24,6 +24,7 @@ use \InvalidArgumentException;
 
 /**
  * @package symbol
+ * @version @@version@@
  */
 class RuleSymbolTable {
 

@@ -38,6 +38,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * Rule node.
  *
  * @package ast
+ * @version @@version@@
  */
 class Rule extends Composite implements Node {
 

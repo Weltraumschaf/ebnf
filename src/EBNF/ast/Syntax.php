@@ -40,6 +40,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * The root of the AST.
  *
  * @package ast
+ * @version @@version@@
  */
 class Syntax extends Composite implements Node {
 

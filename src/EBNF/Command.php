@@ -45,6 +45,7 @@ use \Exception as Exception;
  * Abstracts the CLI command.
  *
  * @package ebnf
+ * @version @@version@@
  */
 class Command {
     const EBNF_OK           = 0;

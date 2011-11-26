@@ -29,6 +29,7 @@ use \de\weltraumschaf\ebnf\ast\Node;
  * Interfce for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
  *
  * @package visitor
+ * @version @@version@@
  */
 interface Visitor {
 

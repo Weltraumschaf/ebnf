@@ -33,6 +33,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'ScannerHelper.php';
  * A token is a imutable value object.
  *
  * @package ebnf
+ * @version @@version@@
  */
 class Token {
     /**

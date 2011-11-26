@@ -38,6 +38,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * Choice node.
  *
  * @package ast
+ * @version @@version@@
  */
 class Choice extends Composite implements Node {
 

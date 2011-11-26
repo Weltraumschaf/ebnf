@@ -19,10 +19,10 @@
  */
 
 error_reporting(E_ALL | E_STRICT);
-set_include_path(
-    dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" .
+set_include_path(implode(PATH_SEPARATOR, array(
+    dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "EBNF",
     PATH_SEPARATOR . get_include_path()
-);
+)));
 
 define("EBNF_TESTS_FIXTURS", __DIR__ . DIRECTORY_SEPARATOR . "fixtures");
 define("EBNF_TESTS_HOST_OS_UNKNOWN", 0);

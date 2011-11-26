@@ -24,8 +24,9 @@ namespace de\weltraumschaf\ebnf;
 
 /**
  * Helper methods for the scanner.
- * 
+ *
  * @package ebnf
+ * @version @@version@@
  */
 class ScannerHelper {
     /**

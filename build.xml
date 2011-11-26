@@ -2,9 +2,9 @@
 <project name="PHP EBNF Image Generator" basedir="." default="main">
     <exec command="dirname '${phing.file}'" outputProperty="workspace"/>
 
-    <property name="version" value="1.0"/>
+    <property name="version" value="1.1.1"/>
     <property name="builddir" value="${workspace}/build" />
-    <property name="srcdir" value="${workspace}/src" />
+    <property name="srcdir" value="${workspace}/src/EBNF" />
     <property name="reportsdir" value="${workspace}/reports"/>
     <property name="docdir" value="${workspace}/doc"/>
 
@@ -92,23 +92,37 @@
         </phpmd>
     </target>
 
-<!--    <target name="pear" depends="prepare, test, checkstyle">-->
-    <target name="pear" depends="prepare">
+    <exec command="date +'%Y-%m-%d'" outputProperty="build.date"/>
+    <exec command="date +'%T'" outputProperty="build.time"/>
+    <target name="pear" depends="prepare, test, checkstyle">
         <mkdir dir="${builddir}/pear/EBNF"/>
 
         <copy todir="${builddir}/pear">
+            <filterchain>
+                <replacetokens begintoken="@@" endtoken="@@">
+                    <token key="summary" value="${project.name}" />
+                    <token key="version" value="${version}" />
+                    <token key="date" value="${build.date}" />
+                    <token key="time" value="${build.time}" />
+                </replacetokens>
+            </filterchain>
             <fileset dir="${workspace}">
                 <include name="LICENSE"/>
                 <include name="package.xml"/>
                 <include name="README.md"/>
             </fileset>
         </copy>
+        <copy todir="${builddir}/pear/EBNF">
+            <filterchain>
+                <replacetokens begintoken="@@" endtoken="@@">
+                    <token key="version" value="${version}" />
+                </replacetokens>
+            </filterchain>
+            <fileset refid="src"/>
+        </copy>
         <copy file="${workspace}/bin/ebnf.php" tofile="${builddir}/pear/ebnf.php"/>
         <copy file="${workspace}/bin/ebnf.bat" tofile="${builddir}/pear/ebnf.bat"/>
-        <copy todir="${builddir}/pear/EBNF">
-            <fileset refid="src" />
-        </copy>
-
+        
         <exec command="pear package ${builddir}/pear/package.xml" dir="${builddir}/pear" passthru="true"/>
 
         <copy todir="${builddir}">

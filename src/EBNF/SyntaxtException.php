@@ -29,6 +29,7 @@ use \Exception;
  * Provides a {@link Position} where in the input stream the syntax error occured.
  *
  * @package ebnf
+ * @version @@version@@
  */
 class SyntaxtException extends Exception {
 

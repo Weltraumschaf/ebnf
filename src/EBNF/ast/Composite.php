@@ -32,6 +32,7 @@ use de\weltraumschaf\ebnf\visitor\Visitor;
  * and adding child nodes.
  *
  * @package ast
+ * @version @@version@@
  */
 abstract class Composite implements IteratorAggregate {
 

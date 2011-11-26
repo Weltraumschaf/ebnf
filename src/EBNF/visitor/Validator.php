@@ -48,6 +48,7 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  * Implements an AST tree vsitor for testing purposes.
  *
  * @package visitor
+ * @version @@version@@
  */
 class Validator extends VisitorAdapter {
 // @codingStandardsIgnoreStart

@@ -22,10 +22,11 @@ namespace de\weltraumschaf\ebnf\symbol;
 
 /**
  * @package symbol
+ * @version @@version@@
  */
 class RuleSymbol {
     private $name;
-    
+
     public function __construct($identifier) {
         $this->name = $identifier;
     }

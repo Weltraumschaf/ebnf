@@ -27,6 +27,7 @@ use \Exception;
  * Excpetions thrown by the {Validator} visitor.
  *
  * @package visitor
+ * @version @@version@@
  */
 class ValidaorException extends Exception {
     const SYNTAXT_REDECLARATION = 1;
