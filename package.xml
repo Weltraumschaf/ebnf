@@ -3,7 +3,11 @@
     <name>EBNF</name>
     <channel>pear.weltraumschaf.de</channel>
     <summary>PHP EBNF Image Generator</summary>
-    <description>[TBD Write description]</description>
+    <description>
+        This package contains classes for scanning and parsing EBNF
+        grammar files and generate images with railroad diagrams for
+        that grammar.
+    </description>
     <lead>
         <name>Sven Strittmatter</name>
         <user>Weltraumschaf</user>
@@ -109,7 +113,22 @@
             <date>2011-11-24</date>
             <license uri="http://www.gnu.org/licenses/ ">GNU General Public License</license>
             <notes>
-                First version installable via PEAR. Providing library and command line tool.
+                Installs commandlines. Not tested for Windows yet.
+            </notes>
+        </release>
+        <release>
+            <version>
+                <release>1.0.0</release>
+                <api>1.0.0</api>
+            </version>
+            <stability>
+                <release>stable</release>
+                <api>stable</api>
+            </stability>
+            <date>2011-11-24</date>
+            <license uri="http://www.gnu.org/licenses/ ">GNU General Public License</license>
+            <notes>
+                First version installable via PEAR providing the naked library.
             </notes>
         </release>
     </changelog>
