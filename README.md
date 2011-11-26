@@ -1,12 +1,59 @@
 # PHP EBNF Image Generator
 
-This package contains classes for scanning and parsing [EBNF][1]
+This package contains classes for scanning and parsing [EBNF][WP-EBNF]
 grammar files and generate images with railroad diagrams for
 that grammar.
 
-The original code I discovered [here][2]. But that project seems
+The original code I discovered [here][KARMIN]. But that project seems
 to be disconinued. So I decided to refactor and port the code
 to PHP5.
+
+## Install
+
+You can install the EBNF package library and the command line tool via
+[PEAR][PEAR]:
+
+### Registering the channel:
+
+    pear channel-discover pear.weltraumschaf.de
+
+### Installing a package:
+
+    pear install weltraumschaf/EBNF
+
+This package has no more dependency than the [GD][GD] extension. After the
+successful installation you should be able to invoke the command line tool:
+
+    $ ebnf -h
+
+## Usage
+
+You can either use the shell script <kbd>bin/ebnf</kbd> for
+generating images or XML from a grammar file:
+
+    $ ./bin/ebnf -s mygrammar.ebnf
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.png
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.jpg -f jpg
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.gif -f gif
+    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.xml -f xml
+
+Or you can use the classes for embedding the functionality in your code:
+
+    <?php
+    require_once "EBNF/Scanner.php";
+    require_once "EBNF/Parser.php";
+    require_once "EBNF/Renderer.php";
+
+    $input    = "..."; // The grammar as string.
+    $file     = "..."; // Where to save.
+    $scanner  = new Scanner($input);
+    $parser   = new Parser($scanner);
+    $dom      = $parser->parse();
+    $renderer = new Renderer($format, $file, $dom);
+    $renderer->save();
+
+It's necessary to add the PEAR source directory to the include path or include
+the files absolute to work.
 
 ## Short introduction to EBNF
 
@@ -65,28 +112,6 @@ only a reasonable subset.
         <dd>(* ... *)</dd>
 </dl>
 
-## Usage
-
-You can either use the shell script <kbd>bin/ebnf</kbd> for
-generating images or XML from a grammar file:
-
-    $ ./bin/ebnf -s mygrammar.ebnf
-    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.png
-    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.jpg -f jpg
-    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.gif -f gif
-    $ ./bin/ebnf -s mygrammar.ebnf -o mygrammar.xml -f xml
-
-Or you can use the classes for embedding the functionality in your code:
-
-    <?php
-    $input    = "..."; // The grammar as string.
-    $file     = "..."; // Where to save.
-    $scanner  = new Scanner($input);
-    $parser   = new Parser($scanner);
-    $dom      = $parser->parse();
-    $renderer = new Renderer($format, $file, $dom);
-    $renderer->save();
-
 ## Development
 
 If you want to build the project (unittests, apidoc etc.) clone the repo
@@ -98,7 +123,7 @@ and install the required PECL/PEAR dependencies
     $ cd ebnf
     $ ./install_deps
 
-After that you can invoke the [Phing][3] targets
+After that you can invoke the [Phing][PHING] targets
 
 To show all available targets type:
 
@@ -120,6 +145,8 @@ Or you run all targets with:
 
     $ phing
 
-[1]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
-[2]: http://karmin.ch/ebnf/index
-[3]: http://www.phing.info/
+[WP-EBNF]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
+[PEAR]:    http://pear.weltraumschaf.de/
+[GD]:      http://php.net/manual/de/book.image.php
+[KARMIN]:  http://karmin.ch/ebnf/index
+[PHING]:   http://www.phing.info/
