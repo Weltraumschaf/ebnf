@@ -60,7 +60,7 @@ the files absolute to work.
 > EBNF is a code that expresses the grammar of a computer language. An EBNF
 > consists of terminal symbol and non-terminal production rules which are the
 > restrictions governing how terminal symbols can be combined into a legal
-> sequence. [Wikipedia][1]
+> sequence. [Wikipedia][WP-EBNF]
 
 ### Describing EBNF with EBNF as an example:
 
@@ -88,10 +88,9 @@ the files absolute to work.
 
 ### Table of symbols
 
-Here is a list of symbols implemented in ths package. There are a lot
-of [variants of (E)BNFs](http://www.cs.man.ac.uk/~pjj/bnf/ebnf.html)
-out in the wild wih some more or other symbols. This package implements
-only a reasonable subset.
+Here is a list of symbols implemented in the package. There are a lot
+of [variants of (E)BNFs][EBNF-VARIANTS] out in the wild with some more
+or other symbols. This package implements only a reasonable subset.
 
 <dl>
     <dt>definition</dt>
@@ -145,8 +144,9 @@ Or you run all targets with:
 
     $ phing
 
-[WP-EBNF]: http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
-[PEAR]:    http://pear.weltraumschaf.de/
-[GD]:      http://php.net/manual/de/book.image.php
-[KARMIN]:  http://karmin.ch/ebnf/index
-[PHING]:   http://www.phing.info/
+[WP-EBNF]:       http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
+[PEAR]:          http://pear.weltraumschaf.de/
+[GD]:            http://php.net/manual/de/book.image.php
+[KARMIN]:        http://karmin.ch/ebnf/index
+[EBNF-VARIANTS]: http://www.cs.man.ac.uk/~pjj/bnf/ebnf.html
+[PHING]:         http://www.phing.info/
