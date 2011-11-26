@@ -1,8 +1,7 @@
 TODO
 ====
 
-- install bin/ebnf via PEAR
-- build autoloader
+- made jenkins build which generates report and cli build steps only w/ cli output
 - Generate whole PEAR package in build.xml w/o manual invoking of
   pfm to generate file list with md5.
 - integrate AST in Parser
