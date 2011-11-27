@@ -51,3 +51,4 @@ if (is_readable($hostOhsFile)) {
 
 unset($hostOhsFile, $hostOs);
 require_once 'vfsStream/vfsStream.php';
+require_once 'TestDirHelper.php';

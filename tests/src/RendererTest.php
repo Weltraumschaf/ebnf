@@ -41,6 +41,9 @@ require_once 'Scanner.php';
  */
 class RendererTest extends \PHPUnit_Framework_TestCase {
     private $fixtureDir;
+    /**
+     * @var TestDirHelper
+     */
     private static $testDir;
     private static $isGdInstalled;
 
@@ -52,16 +55,16 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
         self::$isGdInstalled = function_exists("imagedestroy");
-        self::$testDir = "ebnf_test_files_" . time();
 
         if (self::$isGdInstalled) {
-            system("mkdir -p /tmp/" . self::$testDir);
+            self::$testDir = new TestDirHelper();
+            self::$testDir->create();
         }
     }
 
     public static function tearDownAfterClass() {
         if (self::$isGdInstalled) {
-            system("rm -rf /tmp/" . self::$testDir);
+            self::$testDir->remove();
         }
 
         parent::tearDownAfterClass();
@@ -78,10 +81,9 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testRenderXml() {
-        \vfsStream::setup(self::$testDir);
+        \vfsStream::setup("testdir");
         $fixture  = "{$this->fixtureDir}/test_grammar.xml";
-        $fileName = self::$testDir . "/out.xml";
-        $outUrl   = \vfsStream::url($fileName);
+        $outUrl   = \vfsStream::url("testdir/out.xml");
         $renderer = new Renderer(Renderer::FORMAT_XML, $outUrl, $this->createAst());
         $renderer->save();
         $this->assertEquals(
@@ -97,7 +99,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         }
 
         $fixture  = "{$this->fixtureDir}/test_grammar.gif";
-        $fileName = "/tmp/" . self::$testDir . "/out.gif";
+        $fileName = self::$testDir->get() . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
         $renderer->save();
         $this->assertTrue(
@@ -120,7 +122,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
 
         $fixture .= ".jpg";
 
-        $fileName = "/tmp/" . self::$testDir . "/out.jpg";
+        $fileName = self::$testDir->get() . "/out.jpg";
         $renderer = new Renderer(Renderer::FORMAT_JPG, $fileName, $this->createAst());
         $renderer->save();
         $this->assertTrue(
@@ -136,7 +138,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         }
 
         $fixture  = "{$this->fixtureDir}/test_grammar.png";
-        $fileName = "/tmp/" . self::$testDir . "/out.png";
+        $fileName = self::$testDir->get() . "/out.png";
         $renderer = new Renderer(Renderer::FORMAT_PNG, $fileName, $this->createAst());
         $renderer->save();
         $this->assertTrue(
@@ -160,7 +162,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Unsupported format: 'foo'!
      */
     public function testThrowExceptionOnInvalidFormat() {
-        $renderer = new Renderer("foo", "/tmp/" . self::$testDir . "/out.foo", $this->createAst());
+        $renderer = new Renderer("foo", self::$testDir->get() . "/out.foo", $this->createAst());
         $renderer->save();
     }
 }
