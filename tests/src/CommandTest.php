@@ -33,9 +33,31 @@ require_once 'Command.php';
  */
 class CommandTest extends \PHPUnit_Framework_TestCase {
 
+    private $fixtureDir;
+
+    /**
+     * @var TestDirHelper
+     */
+    private static $testDir;
+
+    public function __construct($name = NULL, array $data = array(), $dataName = '') {
+        parent::__construct($name, $data, $dataName);
+        $this->fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "Renderer";
+    }
+
+    public static function setUpBeforeClass() {
+        parent::setUpBeforeClass();
+        self::$testDir = new TestDirHelper();
+        self::$testDir->create();
+    }
+
+    public static function tearDownAfterClass() {
+        self::$testDir->remove();
+        parent::tearDownAfterClass();
+    }
+
     public function testGenerateXml() {
-        $fixturesDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "Renderer";
-        $syntaxFile  = $fixturesDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
+        $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         \vfsStream::setup("testdir");
         $this->assertEquals(Command::EBNF_OK, Command::main(array(
             "s" => $syntaxFile,
@@ -43,10 +65,62 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
             "f" => "xml"
         )));
         $this->assertEquals(
-            file_get_contents($fixturesDir . DIRECTORY_SEPARATOR . "test_grammar.xml"),
+            file_get_contents($this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.xml"),
             file_get_contents(\vfsStream::url("testdir/out.xml"))
         );
 
+    }
+
+    public function testGeneratePng() {
+        $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
+        $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.png";
+        $this->assertEquals(Command::EBNF_OK, Command::main(array(
+            "s" => $syntaxFile,
+            "o" => $outFile,
+            "f" => "png"
+        )));
+        $this->assertTrue(
+            file_get_contents($this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.png") ===
+            file_get_contents($outFile)
+        );
+    }
+
+    public function testGenerateJpg() {
+        $this->markTestIncomplete();
+        $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
+        $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.jpg";
+        $this->assertEquals(Command::EBNF_OK, Command::main(array(
+            "s" => $syntaxFile,
+            "o" => $outFile,
+            "f" => "jpg"
+        )));
+
+        $fixture = $this->fixtureDir . "/test_grammar";
+
+        if (EBNF_TESTS_HOST_OS === EBNF_TESTS_HOST_OS_LINUX) {
+            $fixture .= "_linux";
+        }
+
+        $fixture .= ".jpg";
+
+        $this->assertTrue(
+            file_get_contents($this->fixtureDir . DIRECTORY_SEPARATOR . $fixture) ===
+            file_get_contents($outFile)
+        );
+    }
+
+    public function testGenerateGif() {
+        $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
+        $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.gif";
+        $this->assertEquals(Command::EBNF_OK, Command::main(array(
+            "s" => $syntaxFile,
+            "o" => $outFile,
+            "f" => "gif"
+        )));
+        $this->assertTrue(
+            file_get_contents($this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.gif") ===
+            file_get_contents($outFile)
+        );
     }
 
 }
