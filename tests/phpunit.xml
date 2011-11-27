@@ -45,7 +45,6 @@
             <directory suffix=".php">../src</directory>
 
             <exclude>
-                <file>../src/Command.php</file>
                 <file>./bootstrap.php</file>
                 <directory>./fixtures</directory>
             </exclude>
