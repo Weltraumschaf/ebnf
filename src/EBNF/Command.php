@@ -38,8 +38,13 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Renderer.php';
  * @see ReferenceGrammar
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ReferenceGrammar.php';
+/**
+ * @see Xml
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'visitor' . DIRECTORY_SEPARATOR . 'Xml.php';
 
 use \Exception as Exception;
+use de\weltraumschaf\ebnf\visitor\Xml;
 
 /**
  * Abstracts the CLI command.
@@ -190,11 +195,19 @@ class Command {
             $outfile .= $format;
         }
 
-        $scanner  = new Scanner($input);
-        $parser   = new Parser($scanner);
-        $ast      = $parser->parse();
-        $renderer = new Renderer($format, $outfile, $ast);
-        $renderer->save();
+        $scanner = new Scanner($input);
+        $parser  = new Parser($scanner);
+        $ast     = $parser->parse();
+
+        if (Renderer::FORMAT_XML === $format) {
+            $visitor = new Xml();
+            $parser->getAst()->accept($visitor);
+            file_put_contents($outfile, $visitor->getXmlString());
+        } else {
+            $renderer = new Renderer($format, $outfile, $ast);
+            $renderer->save();
+        }
+
         return self::EBNF_OK;
     }
 }

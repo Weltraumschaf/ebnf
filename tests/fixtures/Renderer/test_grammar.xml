@@ -1,2 +1,171 @@
-<?xml version="1.0"?>
-<syntax title="EBNF defined in itself." meta="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3"><rule name="syntax"><sequence><option><identifier value="title"/></option><terminal value="{"/><loop><identifier value="rule"/></loop><terminal value="}"/><option><identifier value="comment"/></option></sequence></rule><rule name="rule"><sequence><identifier value="identifier"/><choice><terminal value="="/><terminal value=":"/><terminal value=":=="/></choice><identifier value="expression"/><choice><terminal value="."/><terminal value=";"/></choice></sequence></rule><rule name="expression"><sequence><identifier value="term"/><loop><sequence><terminal value="|"/><identifier value="term"/></sequence></loop></sequence></rule><rule name="term"><sequence><identifier value="factor"/><loop><identifier value="factor"/></loop></sequence></rule><rule name="factor"><choice><identifier value="identifier"/><identifier value="literal"/><identifier value="range"/><sequence><terminal value="["/><identifier value="expression"/><terminal value="]"/></sequence><sequence><terminal value="("/><identifier value="expression"/><terminal value=")"/></sequence><sequence><terminal value="{"/><identifier value="expression"/><terminal value="}"/></sequence></choice></rule><rule name="identifier"><sequence><identifier value="character"/><loop><identifier value="character"/></loop></sequence></rule><rule name="range"><sequence><identifier value="character"/><terminal value=".."/><identifier value="character"/></sequence></rule><rule name="title"><identifier value="literal"/></rule><rule name="comment"><identifier value="literal"/></rule><rule name="literal"><choice><sequence><terminal value="'"/><identifier value="character"/><loop><identifier value="character"/></loop><terminal value="'"/></sequence><sequence><terminal value="&quot;"/><identifier value="character"/><loop><identifier value="character"/></loop><terminal value="&quot;"/></sequence></choice></rule><rule name="character"><choice><terminal value="a"/><terminal value="b"/><terminal value="c"/><terminal value="d"/><terminal value="e"/><terminal value="f"/><terminal value="g"/><terminal value="h"/><terminal value="i"/><terminal value="j"/><terminal value="k"/><terminal value="l"/><terminal value="m"/><terminal value="n"/><terminal value="o"/><terminal value="p"/><terminal value="q"/><terminal value="r"/><terminal value="s"/><terminal value="t"/><terminal value="u"/><terminal value="v"/><terminal value="w"/><terminal value="x"/><terminal value="y"/><terminal value="z"/><terminal value="A"/><terminal value="B"/><terminal value="C"/><terminal value="D"/><terminal value="E"/><terminal value="F"/><terminal value="G"/><terminal value="H"/><terminal value="I"/><terminal value="J"/><terminal value="K"/><terminal value="L"/><terminal value="M"/><terminal value="N"/><terminal value="O"/><terminal value="P"/><terminal value="Q"/><terminal value="R"/><terminal value="S"/><terminal value="T"/><terminal value="U"/><terminal value="V"/><terminal value="W"/><terminal value="X"/><terminal value="Y"/><terminal value="Z"/></choice></rule></syntax>
+<?xml version="1.0" encoding="utf-8"?>
+<syntax title="EBNF defined in itself." meta="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3">
+    <rule name="syntax">
+        <sequence>
+            <option>
+                <identifier value="title"/>
+            </option>
+            <terminal value="{"/>
+            <loop>
+                <identifier value="rule"/>
+            </loop>
+            <terminal value="}"/>
+            <option>
+                <identifier value="comment"/>
+            </option>
+        </sequence>
+    </rule>
+    <rule name="rule">
+        <sequence>
+            <identifier value="identifier"/>
+            <choice>
+                <terminal value="="/>
+                <terminal value=":"/>
+                <terminal value=":=="/>
+            </choice>
+            <identifier value="expression"/>
+            <choice>
+                <terminal value="."/>
+                <terminal value=";"/>
+            </choice>
+        </sequence>
+    </rule>
+    <rule name="expression">
+        <sequence>
+            <identifier value="term"/>
+            <loop>
+                <sequence>
+                    <terminal value="|"/>
+                    <identifier value="term"/>
+                </sequence>
+            </loop>
+        </sequence>
+    </rule>
+    <rule name="term">
+        <sequence>
+            <identifier value="factor"/>
+            <loop>
+                <identifier value="factor"/>
+            </loop>
+        </sequence>
+    </rule>
+    <rule name="factor">
+        <choice>
+            <identifier value="identifier"/>
+            <identifier value="literal"/>
+            <identifier value="range"/>
+            <sequence>
+                <terminal value="["/>
+                <identifier value="expression"/>
+                <terminal value="]"/>
+            </sequence>
+            <sequence>
+                <terminal value="("/>
+                <identifier value="expression"/>
+                <terminal value=")"/>
+            </sequence>
+            <sequence>
+                <terminal value="{"/>
+                <identifier value="expression"/>
+                <terminal value="}"/>
+            </sequence>
+        </choice>
+    </rule>
+    <rule name="identifier">
+        <sequence>
+            <identifier value="character"/>
+            <loop>
+                <identifier value="character"/>
+            </loop>
+        </sequence>
+    </rule>
+    <rule name="range">
+        <sequence>
+            <identifier value="character"/>
+            <terminal value=".."/>
+            <identifier value="character"/>
+        </sequence>
+    </rule>
+    <rule name="title">
+        <identifier value="literal"/>
+    </rule>
+    <rule name="comment">
+        <identifier value="literal"/>
+    </rule>
+    <rule name="literal">
+        <choice>
+            <sequence>
+                <terminal value="'"/>
+                <identifier value="character"/>
+                <loop>
+                    <identifier value="character"/>
+                </loop>
+                <terminal value="'"/>
+            </sequence>
+            <sequence>
+                <terminal value="&quot;"/>
+                <identifier value="character"/>
+                <loop>
+                    <identifier value="character"/>
+                </loop>
+                <terminal value="&quot;"/>
+            </sequence>
+        </choice>
+    </rule>
+    <rule name="character">
+        <choice>
+            <terminal value="a"/>
+            <terminal value="b"/>
+            <terminal value="c"/>
+            <terminal value="d"/>
+            <terminal value="e"/>
+            <terminal value="f"/>
+            <terminal value="g"/>
+            <terminal value="h"/>
+            <terminal value="i"/>
+            <terminal value="j"/>
+            <terminal value="k"/>
+            <terminal value="l"/>
+            <terminal value="m"/>
+            <terminal value="n"/>
+            <terminal value="o"/>
+            <terminal value="p"/>
+            <terminal value="q"/>
+            <terminal value="r"/>
+            <terminal value="s"/>
+            <terminal value="t"/>
+            <terminal value="u"/>
+            <terminal value="v"/>
+            <terminal value="w"/>
+            <terminal value="x"/>
+            <terminal value="y"/>
+            <terminal value="z"/>
+            <terminal value="A"/>
+            <terminal value="B"/>
+            <terminal value="C"/>
+            <terminal value="D"/>
+            <terminal value="E"/>
+            <terminal value="F"/>
+            <terminal value="G"/>
+            <terminal value="H"/>
+            <terminal value="I"/>
+            <terminal value="J"/>
+            <terminal value="K"/>
+            <terminal value="L"/>
+            <terminal value="M"/>
+            <terminal value="N"/>
+            <terminal value="O"/>
+            <terminal value="P"/>
+            <terminal value="Q"/>
+            <terminal value="R"/>
+            <terminal value="S"/>
+            <terminal value="T"/>
+            <terminal value="U"/>
+            <terminal value="V"/>
+            <terminal value="W"/>
+            <terminal value="X"/>
+            <terminal value="Y"/>
+            <terminal value="Z"/>
+        </choice>
+    </rule>
+</syntax>
