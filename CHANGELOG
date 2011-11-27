@@ -1,0 +1,12 @@
+Changelog
+=========
+
+1.2.0
+-----
+
+ - Introduce AST as semantic model and an internal DSL to build a syntax tree.
+
+1.1.0
+-----
+
+ - Introduce PEAR instalation.

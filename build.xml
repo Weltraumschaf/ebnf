@@ -2,7 +2,7 @@
 <project name="PHP EBNF Image Generator" basedir="." default="main">
     <exec command="dirname '${phing.file}'" outputProperty="workspace"/>
 
-    <property name="version" value="1.1.1"/>
+    <property name="version" value="1.2.0"/>
     <property name="builddir" value="${workspace}/build" />
     <property name="srcdir" value="${workspace}/src/EBNF" />
     <property name="reportsdir" value="${workspace}/reports"/>
@@ -122,7 +122,7 @@
         </copy>
         <copy file="${workspace}/bin/ebnf.php" tofile="${builddir}/pear/ebnf.php"/>
         <copy file="${workspace}/bin/ebnf.bat" tofile="${builddir}/pear/ebnf.bat"/>
-        
+
         <exec command="pear package ${builddir}/pear/package.xml" dir="${builddir}/pear" passthru="true"/>
 
         <copy todir="${builddir}">
