@@ -269,7 +269,6 @@ class Parser {
         while ($this->scanner->currentToken()->isNotEquals(array('.', '=', '|', ')', ']', '}'))) {
             $factor   = $this->parseFactor();
             $sequence->appendChild($factor[0]);
-            $sequenceNode = new Sequence();
             $sequenceNode->addChild($factor[1]);
             $this->scanner->nextToken();
             $mul = true;

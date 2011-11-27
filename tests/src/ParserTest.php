@@ -157,6 +157,37 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
                     ->end();
 
         $this->assertEquivalentSyntax($builder->getAst(), $p->getAst());
+
+        $p = new Parser(new Scanner($this->loadFixture("rules_with_literals.ebnf")));
+        $p->parse();
+        $builder->clear()
+                ->syntax("Rules with literal.")
+                ->rule("literal")
+                    ->choice()
+                        ->sequence()
+                            ->terminal("'")
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal("'")
+                        ->end()
+                        ->sequence()
+                            ->terminal('"')
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal('"')
+                        ->end()
+                    ->end()
+                ->end();
+
+//        $this->assertEquals(new \stdClass(), $p->getAst());
+        $this->assertEquivalentSyntax($builder->getAst(), $p->getAst());
     }
 
+    public function testParseErrors() {
+        $this->markTestIncomplete("Implement test with errornous syntax fixtures.");
+    }
 }
