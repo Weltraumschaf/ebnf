@@ -49,7 +49,6 @@ class Renderer {
     const FORMAT_PNG = "png";
     const FORMAT_JPG = "jpg";
     const FORMAT_GIF = "gif";
-    const FORMAT_XML = "xml";
 
     /**
      * GD lib color resource for white.
@@ -153,23 +152,6 @@ class Renderer {
      * @return void
      */
     public function save() {
-        if (self::FORMAT_XML === $this->format) {
-            $out = $this->dom->saveXML();
-
-            if (false === @file_put_contents($this->file, $out)) {
-                throw new \RuntimeException("Can't write output to '{$this->file}'!");
-            }
-        } else {
-            $this->saveImage();
-        }
-    }
-
-    /**
-     * Render and saves especialy all image formats.
-     *
-     * @return void
-     */
-    private function saveImage() {
         $out = $this->renderNode($this->dom->firstChild, true);
 
         switch ($this->format) {

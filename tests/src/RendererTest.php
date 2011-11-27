@@ -80,19 +80,6 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         return $parser->parse();
     }
 
-    public function testRenderXml() {
-        \vfsStream::setup("testdir");
-        $fixture  = "{$this->fixtureDir}/test_grammar.xml";
-        $outUrl   = \vfsStream::url("testdir/out.xml");
-        $renderer = new Renderer(Renderer::FORMAT_XML, $outUrl, $this->createAst());
-        $renderer->save();
-        $this->assertEquals(
-            file_get_contents($fixture),
-            file_get_contents($outUrl),
-            "Reference file {$fixture}"
-        );
-    }
-
     public function testRenderGif() {
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
@@ -146,15 +133,6 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
             "Failed rendering png '{$fileName}!'",
             "Reference file {$fixture}"
         );
-    }
-
-    /**
-     * @expectedException        \RuntimeException
-     * @expectedExceptionMessage Can't write output to '/foo/bar.xml'!
-     */
-    public function testThrowExceptionOnWriteToNotExistingDir() {
-        $renderer = new Renderer(Renderer::FORMAT_XML, "/foo/bar.xml", $this->createAst());
-        $renderer->save();
     }
 
     /**

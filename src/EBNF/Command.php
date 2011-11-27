@@ -184,7 +184,7 @@ class Command {
         }
 
         if (isset($this->opts["f"]) && !empty($this->opts["f"])) {
-            $format = $this->opts["f"];
+            $format = strtolower(trim($this->opts["f"]));
         }
 
         if (isset($this->opts["o"]) && !empty($this->opts["o"])) {
@@ -199,7 +199,7 @@ class Command {
         $parser  = new Parser($scanner);
         $ast     = $parser->parse();
 
-        if (Renderer::FORMAT_XML === $format) {
+        if ("xml" === $format) {
             $visitor = new Xml();
             $parser->getAst()->accept($visitor);
             file_put_contents($outfile, $visitor->getXmlString());
