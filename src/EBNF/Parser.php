@@ -39,13 +39,33 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Choice.php';
 /**
+ * @see Identifier
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Identifier.php';
+/**
+ * @see Loop
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Loop.php';
+/**
+ * @see Option
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Option.php';
+/**
  * @see Rule
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Rule.php';
 /**
+ * @see Sequence
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Sequence.php';
+/**
  * @see Syntax
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Syntax.php';
+/**
+ * @see Terminal
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Terminal.php';
 /**
  * @see Type
  */
@@ -54,8 +74,13 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
 use \DOMDocument;
 use \DOMElement;
 use de\weltraumschaf\ebnf\ast\Choice;
+use de\weltraumschaf\ebnf\ast\Identifier;
+use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Option;
 use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal;
 use de\weltraumschaf\ebnf\ast\Type;
 
 /**
@@ -205,13 +230,17 @@ class Parser {
      */
     private function parseExpression() {
         $choice = $this->dom->createElement(Type::CHOICE);
-        $choice->appendChild($this->parseTerm());
+        $term  = $this->parseTerm();
+        $choice->appendChild($term[0]);
         $choiceNode = new Choice();
+        $choiceNode->addChild($term[1]);
         $mul = false;
 
         while ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '|')) {
             $this->scanner->nextToken();
-            $choice->appendChild($this->parseTerm());
+            $term  = $this->parseTerm();
+            $choice->appendChild($term[0]);
+            $choiceNode->addChild($term[1]);
             $mul = true;
         }
 
@@ -219,8 +248,7 @@ class Parser {
             return array($choice, $choiceNode);
         }
 
-        // @todo returns first child from node
-        return array($choice->removeChild($choice->firstChild), $choiceNode);
+        return array($choice->removeChild($choice->firstChild), $choiceNode->getIterator()->offsetGet(0));
     }
 
     /**
@@ -231,21 +259,27 @@ class Parser {
      */
     private function parseTerm() {
         $sequence = $this->dom->createElement(Type::SEQUENCE);
-        $sequence->appendChild($this->parseFactor());
+        $factor   = $this->parseFactor();
+        $sequence->appendChild($factor[0]);
+        $sequenceNode = new Sequence();
+        $sequenceNode->addChild($factor[1]);
         $this->scanner->nextToken();
         $mul = false;
 
         while ($this->scanner->currentToken()->isNotEquals(array('.', '=', '|', ')', ']', '}'))) {
-            $sequence->appendChild($this->parseFactor());
+            $factor   = $this->parseFactor();
+            $sequence->appendChild($factor[0]);
+            $sequenceNode = new Sequence();
+            $sequenceNode->addChild($factor[1]);
             $this->scanner->nextToken();
             $mul = true;
         }
 
         if ($mul) {
-            return $sequence;
+            return array($sequence, $sequenceNode);
         }
 
-        return $sequence->removeChild($sequence->firstChild);
+        return array($sequence->removeChild($sequence->firstChild), $sequenceNode->getIterator()->offsetGet(0));
     }
 
     /**
@@ -263,8 +297,9 @@ class Parser {
         if ($this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
             $identifier = $this->dom->createElement(Type::IDENTIFIER);
             $identifier->setAttribute('value', $this->scanner->currentToken()->getValue());
-
-            return $identifier;
+            $identifierNode = new Identifier();
+            $identifierNode->value = $this->scanner->currentToken()->getValue();
+            return array($identifier, $identifierNode);
         }
 
         if ($this->scanner->currentToken()->isType(Token::LITERAL)) {
@@ -280,8 +315,9 @@ class Parser {
 
             $literal = $this->dom->createElement(Type::TERMINAL);
             $literal->setAttribute('value', $this->scanner->currentToken()->getValue(true));
-
-            return $literal;
+            $literalNode = new Terminal();
+            $literalNode->value = $this->scanner->currentToken()->getValue(true);
+            return array($literal, $literalNode);
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '(')) {
@@ -292,7 +328,7 @@ class Parser {
                 $this->raiseError("Group must end with ')'");
             }
 
-            return $expression[0];
+            return $expression;
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '[')) {
@@ -300,12 +336,14 @@ class Parser {
             $this->scanner->nextToken();
             $expression = $this->parseExpression();
             $option->appendChild($expression[0]);
+            $optionNode = new Option();
+            $optionNode->addChild($expression[1]);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ']')) {
                 $this->raiseError("Option must end with ']'");
             }
 
-            return $option;
+            return array($option, $optionNode);
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '{')) {
@@ -313,12 +351,14 @@ class Parser {
             $this->scanner->nextToken();
             $expression = $this->parseExpression();
             $loop->appendChild($expression[0]);
+            $loopNode = new Loop();
+            $loopNode->addChild($expression[1]);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '}')) {
                 $this->raiseError("Loop must end with '}'");
             }
 
-            return $loop;
+            return array($loop, $loopNode);
         }
 
         $this->raiseError("Factor expected");

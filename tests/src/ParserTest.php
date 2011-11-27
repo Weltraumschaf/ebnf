@@ -147,15 +147,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
         $builder = new SyntaxBuilder();
         $builder->syntax("Rules with different assignment operators.")
                     ->rule("comment1")
-                        ->identifier("literal")
+                        ->identifier("literal1")
                     ->end()
                     ->rule("comment2")
-                        ->identifier("literal")
+                        ->identifier("literal2")
                     ->end()
                     ->rule("comment3")
-                        ->identifier("literal")
+                        ->identifier("literal3")
                     ->end();
-        $this->markTestIncomplete();
+
         $this->assertEquivalentSyntax($builder->getAst(), $p->getAst());
     }
 
