@@ -28,7 +28,7 @@ require_once 'Scanner.php';
 
 /**
  * Testcase for class {@link Scanner}.
- * 
+ *
  * @package tests
  */
 class ScannerTest extends \PHPUnit_Framework_TestCase {
@@ -120,20 +120,20 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
                                         "type" => Token::LITERAL,    "line" => 1, "col" => 1),
             array("value" => "{",       "type" => Token::OPERATOR,   "line" => 1, "col" => 46),
 
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 2, "col" => 5),
-            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 13),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 2, "col" => 17),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 25),
+            array("value" => "comment1","type" => Token::IDENTIFIER, "line" => 2, "col" => 5),
+            array("value" => "=",       "type" => Token::OPERATOR,   "line" => 2, "col" => 14),
+            array("value" => "literal1","type" => Token::IDENTIFIER, "line" => 2, "col" => 18),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 2, "col" => 27),
 
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 3, "col" => 5),
-            array("value" => ":",       "type" => Token::OPERATOR,   "line" => 3, "col" => 13),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 3, "col" => 17),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 25),
+            array("value" => "comment2","type" => Token::IDENTIFIER, "line" => 3, "col" => 5),
+            array("value" => ":",       "type" => Token::OPERATOR,   "line" => 3, "col" => 14),
+            array("value" => "literal2","type" => Token::IDENTIFIER, "line" => 3, "col" => 18),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 3, "col" => 27),
 
-            array("value" => "comment", "type" => Token::IDENTIFIER, "line" => 4, "col" => 5),
-            array("value" => ":==",     "type" => Token::OPERATOR,   "line" => 4, "col" => 13),
-            array("value" => "literal", "type" => Token::IDENTIFIER, "line" => 4, "col" => 17),
-            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 4, "col" => 25),
+            array("value" => "comment3","type" => Token::IDENTIFIER, "line" => 4, "col" => 5),
+            array("value" => ":==",     "type" => Token::OPERATOR,   "line" => 4, "col" => 14),
+            array("value" => "literal3","type" => Token::IDENTIFIER, "line" => 4, "col" => 18),
+            array("value" => ".",       "type" => Token::OPERATOR,   "line" => 4, "col" => 27),
 
             array("value" => "}",       "type" => Token::OPERATOR,   "line" => 5, "col" => 1),
             array("value" => "",        "type" => Token::EOF,        "line" => 5, "col" => 1),

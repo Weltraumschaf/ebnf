@@ -68,7 +68,7 @@ class SyntaxBuilder {
      *
      * @return SyntaxBuilder
      */
-    public function syntax($title, $meta) {
+    public function syntax($title, $meta = Syntax::DEFAULT_META) {
         $this->syntax->title = (string) $title;
         $this->syntax->meta  = (string) $meta;
         return $this;

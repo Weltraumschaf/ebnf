@@ -33,6 +33,15 @@ require_once 'Scanner.php';
  * @see Token
  */
 require_once 'Token.php';
+/**
+ * @see SyntaxBuilder
+ */
+require_once 'ast/builder/SyntaxBuilder.php';
+require_once 'ast/Notification.php';
+
+use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Notification;
 
 /**
  * Expose protected methods of  {@link Parser} for testing.
@@ -58,6 +67,20 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
     private function loadFixture($file) {
         return file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . $file);
+    }
+
+
+    private function assertEquivalentSyntax(Syntax $expected, Syntax $actual) {
+        $n = new Notification();
+        $expected->probeEquivalence($actual, $n);
+        $this->assertNotificationOk($n);
+        $n = new Notification();
+        $actual->probeEquivalence($expected, $n);
+        $this->assertNotificationOk($n);
+    }
+
+    private function assertNotificationOk(Notification $n) {
+        $this->assertTrue($n->isOk(), $n->report());
     }
 
     public function testAssertToken() {
@@ -121,27 +144,19 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     public function testParseAst() {
         $p = new Parser(new Scanner($this->loadFixture("rules_with_different_assignment_ops.ebnf")));
         $p->parse();
-        $ast = $p->getAst();
-        $this->assertEquals("Rules with different assignment operators.", $ast->title);
-        $this->assertEquals(Parser::DEFAULT_META, $ast->meta);
-        $this->assertTrue($ast->hasChildren());
-        $this->assertEquals(3, $ast->countChildren());
-        $rules = $ast->getIterator();
-
-        foreach ($rules as $rule) {
-            $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Rule", $rule);
-            $this->assertEquals("comment", $rule->name);
-        }
-
+        $builder = new SyntaxBuilder();
+        $builder->syntax("Rules with different assignment operators.")
+                    ->rule("comment1")
+                        ->identifier("literal")
+                    ->end()
+                    ->rule("comment2")
+                        ->identifier("literal")
+                    ->end()
+                    ->rule("comment3")
+                        ->identifier("literal")
+                    ->end();
         $this->markTestIncomplete();
+        $this->assertEquivalentSyntax($builder->getAst(), $p->getAst());
     }
 
-    private function assertEquivalentSyntax(Syntax $expected, Syntax $actual) {
-        $this->assertNotificationOk($expected->probeEquivalence($actual));
-        $this->assertNotificationOk($actual->probeEquivalence($expected));
-    }
-
-    private function assertNotificationOk(Notification $n) {
-        $this->assertTrue($n->isOk(), $n->report());
-    }
 }

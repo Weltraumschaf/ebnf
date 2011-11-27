@@ -44,6 +44,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  */
 class Syntax extends Composite implements Node {
 
+    const DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
+
     /**
      * Title literal of string.
      *
@@ -55,7 +57,7 @@ class Syntax extends Composite implements Node {
      *
      * @var string
      */
-    public $meta = "";
+    public $meta = self::DEFAULT_META;
 
     /**
      * Returns the name of a node.
