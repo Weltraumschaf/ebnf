@@ -42,9 +42,13 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'ReferenceGrammar.php';
  * @see Xml
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'visitor' . DIRECTORY_SEPARATOR . 'Xml.php';
+/**
+ * @see TextSyntaxTree
+ */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'visitor' . DIRECTORY_SEPARATOR . 'TextSyntaxTree.php';
 
 use \Exception as Exception;
-use de\weltraumschaf\ebnf\visitor\Xml;
+use de\weltraumschaf\ebnf\visitor\TextSyntaxTree;
 
 /**
  * Abstracts the CLI command.
@@ -58,6 +62,8 @@ class Command {
     const EBNF_NO_SYNTAX    = 2;
     const EBNF_SYNTAX_ERROR = 3;
     const EBNF_FATAL_ERROR  = 4;
+
+    const OPTS = "s:f:o:hdt";
 
     /**
      * Command line arguments.
@@ -141,6 +147,7 @@ class Command {
                "  -o <file>  Output file. If omitted the input file name is used and the file extensions" . PHP_EOL .
                "             will be substituded with the format." . PHP_EOL .
                "  -f format  Format for generated image (png, jpg, gif, xml). Default is png." . PHP_EOL .
+               "  -t         Prints textual representation of the syntax tree to stdout." . PHP_EOL .
                "  -d         Enables debug output." . PHP_EOL .
                "  -h         This help." . PHP_EOL . PHP_EOL .
 
@@ -187,6 +194,10 @@ class Command {
             $format = strtolower(trim($this->opts["f"]));
         }
 
+        if (isset($this->opts["t"])) {
+            $format = "texttree";
+        }
+
         if (isset($this->opts["o"]) && !empty($this->opts["o"])) {
             $outfile = $this->opts["o"];
         } else {
@@ -199,7 +210,11 @@ class Command {
         $parser  = new Parser($scanner);
         $ast     = $parser->parse();
 
-        if ("xml" === $format) {
+        if ("texttree" === $format) {
+            $visitor = new TextSyntaxTree();
+            $parser->getAst()->accept($visitor);
+            echo $visitor->getText();
+        } else if ("xml" === $format) {
             $visitor = new Xml();
             $parser->getAst()->accept($visitor);
             file_put_contents($outfile, $visitor->getXmlString());

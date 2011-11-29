@@ -30,4 +30,4 @@ if (strpos('@php_bin@', '@php_bin') === 0) {
 
 require_once "EBNF/Command.php";
 
-exit(Command::main(getopt("s:f:o:hd"), basename(__FILE__)));
+exit(Command::main(getopt(Command::OPTS), basename(__FILE__)));
