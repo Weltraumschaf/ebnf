@@ -4,7 +4,10 @@ TODO
 - made jenkins build which generates report and cli build steps only w/ cli output
 - Generate whole PEAR package in build.xml w/o manual invoking of
   pfm to generate file list with md5.
-- integrate AST in Parser
+- refactor renderer to use AST
 - implement ranges 'a' .. 'z'
 - make "syntax desc" { .... } optional
 - implement grammar validation
+- make Graphiz visitor for AST structur and grammar
+    - http://ociotec.com/eht-graphviz-plugin-para-wordpress
+    - http://www.graphviz.org/Resources.php
