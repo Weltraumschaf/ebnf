@@ -29,6 +29,7 @@ use de\weltraumschaf\ebnf\ast\Node;
 use de\weltraumschaf\ebnf\ast\Composite;
 use de\weltraumschaf\ebnf\ast\Identifier;
 use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Syntax;
 use de\weltraumschaf\ebnf\ast\Terminal;
 
 /**
@@ -41,16 +42,36 @@ class TextSyntaxTree implements Visitor {
     private $text = "";
     private $indentationLevel = 0;
 
+    private $pipes = array();
+
     private function indent() {
-        return str_repeat(" ", $this->indentationLevel * self::DEFAULT_INDENTATION);
+        $return = str_repeat(" ", $this->indentationLevel * self::DEFAULT_INDENTATION);
+
+        return $return;
     }
 
     public function beforeVisit(Node $visitable) {
-        // do nothing here.
+        if ($visitable instanceof Syntax || $visitable instanceof Rule) {
+            return;
+        }
+
+        $this->indentationLevel++;
     }
 
     public function visit(Node $visitable) {
-        $this->text .= "{$this->indent()}[{$visitable->getNodeName()}";
+        if ( ! $visitable instanceof Syntax) {
+            $text = $this->indent();
+
+            foreach ($this->pipes as $index => $isShowed) {
+                if ($isShowed) {
+                    $text[$index] = "|";
+                }
+            }
+
+            $this->text .= "{$text} +--";
+        }
+
+        $this->text .= "[{$visitable->getNodeName()}";
 
         if ($visitable instanceof Rule) {
             $this->text .= "='{$visitable->name}'";
@@ -58,17 +79,25 @@ class TextSyntaxTree implements Visitor {
             $this->text .= "='{$visitable->value}'";
         }
 
-        if ($visitable instanceof Composite) {
-            $this->indentationLevel++;
-        }
-
         $this->text .= "]" . PHP_EOL;
+
+        if ($visitable instanceof Composite && $visitable->countChildren() > 1) {
+            $pipe = ($this->indentationLevel + 1) * self::DEFAULT_INDENTATION + 1;
+            $this->pipes[$pipe] = true;
+        }
     }
 
     public function afterVisit(Node $visitable) {
-        if ($visitable instanceof Composite) {
-            $this->indentationLevel--;
+        if ($visitable instanceof Composite && $visitable->countChildren() > 1) {
+            $pipe = ($this->indentationLevel + 1) * self::DEFAULT_INDENTATION + 1;
+            $this->pipes[$pipe] = false ;
         }
+
+        if ($visitable instanceof Syntax) {
+            return;
+        }
+
+        $this->indentationLevel--;
     }
 
     public function getText() {

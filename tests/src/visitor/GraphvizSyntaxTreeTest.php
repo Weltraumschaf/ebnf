@@ -33,7 +33,8 @@ use de\weltraumschaf\ebnf\Parser;
  * @package tests
  */
 class GraphvizSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
-    public function testFoo() {
+
+    public function testGenerateDotSyntax() {
 //        $file    = EBNF_TESTS_FIXTURS . "/Renderer/test_grammar.ebnf";
         $file    = EBNF_TESTS_FIXTURS . "/rules_with_literals.ebnf";
         $scanner = new Scanner(file_get_contents($file));
@@ -74,5 +75,7 @@ class GraphvizSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
     n9 -> { n10 n11 n12 n14 };
     n12 -> n13;
 }', $visitor->getDotString());
+
+        $this->markTestIncomplete("ORdering of nodes maybe wrong.");
     }
 }

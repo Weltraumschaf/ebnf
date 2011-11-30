@@ -11,3 +11,4 @@ TODO
 - make Graphiz visitor for AST structur and grammar
     - http://ociotec.com/eht-graphviz-plugin-para-wordpress
     - http://www.graphviz.org/Resources.php
+- look at antialiasing GD http://mierendo.com/software/antialiased_arcs/

@@ -13,6 +13,7 @@ require_once 'EBNF/Parser.php';
 require_once 'EBNF/visitor/GraphvizSyntaxTree.php';
 
 use de\weltraumschaf\ebnf\visitor\GraphvizSyntaxTree;
+use de\weltraumschaf\ebnf\visitor\TextSyntaxTree;
 use de\weltraumschaf\ebnf\ast\Node;
 use de\weltraumschaf\ebnf\ast\Syntax;
 
