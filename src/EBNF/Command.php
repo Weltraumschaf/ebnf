@@ -49,6 +49,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'visitor' . DIRECTORY_SEPARATOR . '
 
 use \Exception as Exception;
 use de\weltraumschaf\ebnf\visitor\TextSyntaxTree;
+use de\weltraumschaf\ebnf\visitor\Xml;
 
 /**
  * Abstracts the CLI command.
