@@ -8,3 +8,4 @@ TODO
 - implement ranges 'a' .. 'z'
 - make "syntax desc" { .... } optional
 - implement grammar validation
+- look at antialiasing GD http://mierendo.com/software/antialiased_arcs/
