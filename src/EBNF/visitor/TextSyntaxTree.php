@@ -45,7 +45,7 @@ class TextSyntaxTree implements Visitor {
     private $pipes = array();
 
     private function indent() {
-        $return = str_repeat(" ", $this->indentationLevel * self::DEFAULT_INDENTATION);
+        $return = str_repeat(" ", max(0, $this->indentationLevel * self::DEFAULT_INDENTATION));
 
         return $return;
     }

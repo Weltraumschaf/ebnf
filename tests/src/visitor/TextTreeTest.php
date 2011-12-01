@@ -45,6 +45,86 @@ use de\weltraumschaf\ebnf\ast\Terminal;
 class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
 
     public function testGenerateText() {
+        $ast     = new Syntax();
+        $visitor = new TextSyntaxTree();
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "[syntax]" . PHP_EOL,
+            $visitor->getText()
+        );
+
+        $visitor = new TextSyntaxTree();
+        $rule    = new Rule();
+        $rule->name = "rule-1";
+        $ast->addChild($rule);
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "[syntax]" . PHP_EOL .
+            " +--[rule='rule-1']" . PHP_EOL,
+            $visitor->getText()
+        );
+
+        $visitor = new TextSyntaxTree();
+        $rule    = new Rule();
+        $rule->name = "rule-2";
+        $ast->addChild($rule);
+
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "[syntax]" . PHP_EOL .
+            " +--[rule='rule-1']" . PHP_EOL .
+            " +--[rule='rule-2']" . PHP_EOL,
+            $visitor->getText()
+        );
+
+        $ast        = new Syntax();
+        $rule       = new Rule();
+        $choice     = new Choice();
+        $visitor    = new TextSyntaxTree();
+        $rule->name = "name";
+        $rule->addChild($choice);
+        $ast->addChild($rule);
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "[syntax]" . PHP_EOL .
+            " +--[rule='name']" . PHP_EOL .
+            "     +--[choice]" . PHP_EOL,
+            $visitor->getText()
+        );
+
+        $visitor = new TextSyntaxTree();
+        $ident   = new Identifier();
+        $ident->value = "ident";
+        $choice->addChild($ident);
+        $term = new Terminal();
+        $term->value = "term";
+        $choice->addChild($term);
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "[syntax]" . PHP_EOL .
+            " +--[rule='name']" . PHP_EOL .
+            "     +--[choice]" . PHP_EOL .
+            "         +--[identifier='ident']" . PHP_EOL .
+            "         +--[terminal='term']" . PHP_EOL,
+            $visitor->getText()
+        );
+
+        $visitor = new TextSyntaxTree();
+        $rule    = new Rule();
+        $rule->name = "other";
+        $ast->addChild($rule);
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "[syntax]" . PHP_EOL .
+            " +--[rule='name']" . PHP_EOL .
+            "     +--[choice]" . PHP_EOL .
+            "         +--[identifier='ident']" . PHP_EOL .
+            "         +--[terminal='term']" . PHP_EOL .
+            " +--[rule='other']" . PHP_EOL ,
+            $visitor->getText()
+        );
+
+        $this->markTestIncomplete();
         $fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "visitor" . DIRECTORY_SEPARATOR . "TextSyntaxTree";
         $file       = EBNF_TESTS_FIXTURS . "/rules_with_literals.ebnf";
         $scanner    = new Scanner(file_get_contents($file));
@@ -58,7 +138,6 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
             file_get_contents($fixtureDir . DIRECTORY_SEPARATOR . "rules_with_literals"),
             $visitor->getText()
         );
-        $this->markTestIncomplete();
     }
 
     public function testFormatNode() {
