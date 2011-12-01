@@ -96,4 +96,16 @@ class Terminal implements Node {
             $result->error("Terminal value mismatch: '%s' != '%s'!", $this->value, $other->value);
         }
     }
+
+    /**
+     * Always returns 1.
+     *
+     * {@inheritdoc}
+     *
+     * @return int
+     */
+    public function depth() {
+        return 1;
+    }
+
 }

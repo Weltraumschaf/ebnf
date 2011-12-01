@@ -101,4 +101,42 @@ class CompositeTest extends \PHPUnit_Framework_TestCase {
             $n->report()
         );
     }
+
+    public function testDepth() {
+        $syntax = new Syntax();
+        $this->assertEquals(1, $syntax->depth());
+
+        $rule = new Rule();
+        $this->assertEquals(1, $rule->depth());
+        $syntax->addChild($rule);
+        $this->assertEquals(2, $syntax->depth());
+
+        $seq = new Sequence();
+        $this->assertEquals(1, $seq->depth());
+        $rule->addChild($seq);
+        $this->assertEquals(2, $rule->depth());
+        $this->assertEquals(3, $syntax->depth());
+
+        $ident = new Identifier();
+        $this->assertEquals(1, $ident->depth());
+        $seq->addChild($ident);
+        $this->assertEquals(2, $seq->depth());
+        $this->assertEquals(3, $rule->depth());
+        $this->assertEquals(4, $syntax->depth());
+
+        $loop = new Loop();
+        $this->assertEquals(1, $loop->depth());
+        $seq->addChild($loop);
+        $this->assertEquals(2, $seq->depth());
+        $this->assertEquals(3, $rule->depth());
+        $this->assertEquals(4, $syntax->depth());
+
+        $term = new Terminal();
+        $this->assertEquals(1, $term->depth());
+        $loop->addChild($term);
+        $this->assertEquals(2, $loop->depth());
+        $this->assertEquals(3, $seq->depth());
+        $this->assertEquals(4, $rule->depth());
+        $this->assertEquals(5, $syntax->depth());
+    }
 }

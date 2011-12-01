@@ -92,4 +92,16 @@ class Identifier implements Node {
             $result->error("Identifier value mismatch: '%s' != '%s'!", $this->value, $other->value);
         }
     }
+
+    /**
+     * Always returns 1.
+     *
+     * {@inheritdoc}
+     *
+     * @return int
+     */
+    public function depth() {
+        return 1;
+    }
+
 }

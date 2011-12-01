@@ -65,4 +65,9 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("Identifier value mismatch: 'b' != 'a'!",$n->report());
     }
 
+    public function testDepth() {
+        $ident = new Identifier();
+        $this->assertEquals(1, $ident->depth());
+    }
+
 }

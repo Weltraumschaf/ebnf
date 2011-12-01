@@ -65,4 +65,8 @@ class TerminalTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("Terminal value mismatch: 'b' != 'a'!", $n->report());
     }
 
+    public function testDepth() {
+        $term1 = new Terminal();
+        $this->assertEquals(1, $term1->depth());
+    }
 }

@@ -160,4 +160,23 @@ abstract class Composite implements IteratorAggregate {
 
         }
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return int
+     */
+    public function depth() {
+        if ( ! $this->hasChildren()) {
+            return 1;
+        }
+
+        $depths = array();
+
+        foreach ($this->getIterator() as $subnode) {
+            $depths[] = $subnode->depth();
+        }
+
+        return max($depths) + 1;
+    }
 }
