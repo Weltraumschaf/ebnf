@@ -26,6 +26,16 @@ require_once 'visitor/TextSyntaxTree.php';
 
 use de\weltraumschaf\ebnf\Scanner;
 use de\weltraumschaf\ebnf\Parser;
+use de\weltraumschaf\ebnf\ast\Node;
+use de\weltraumschaf\ebnf\ast\Choice;
+use de\weltraumschaf\ebnf\ast\Composite;
+use de\weltraumschaf\ebnf\ast\Identifier;
+use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Option;
+use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Sequence;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal;
 
 /**
  * Test for {@link TextSyntaxTree}.
@@ -33,6 +43,7 @@ use de\weltraumschaf\ebnf\Parser;
  * @package tests
  */
 class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
+
     public function testGenerateText() {
         $fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "visitor" . DIRECTORY_SEPARATOR . "TextSyntaxTree";
         $file       = EBNF_TESTS_FIXTURS . "/rules_with_literals.ebnf";
@@ -48,5 +59,25 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
             $visitor->getText()
         );
         $this->markTestIncomplete();
+    }
+
+    public function testFormatNode() {
+        $this->assertEquals("[choice]", TextSyntaxTree::formatNode(new Choice()));
+        $this->assertEquals("[identifier]", TextSyntaxTree::formatNode(new Identifier()));
+        $ident = new Identifier();
+        $ident->value = "foobar";
+        $this->assertEquals("[identifier='foobar']", TextSyntaxTree::formatNode($ident));
+        $this->assertEquals("[loop]", TextSyntaxTree::formatNode(new Loop()));
+        $this->assertEquals("[option]", TextSyntaxTree::formatNode(new Option()));
+        $this->assertEquals("[rule]", TextSyntaxTree::formatNode(new Rule()));
+        $rule = new Rule();
+        $rule->name = "snafu";
+        $this->assertEquals("[rule='snafu']", TextSyntaxTree::formatNode($rule));
+        $this->assertEquals("[sequence]", TextSyntaxTree::formatNode(new Sequence()));
+        $this->assertEquals("[syntax]", TextSyntaxTree::formatNode(new Syntax()));
+        $this->assertEquals("[terminal]", TextSyntaxTree::formatNode(new Terminal()));
+        $term = new Terminal();
+        $term->value = "foobar";
+        $this->assertEquals("[terminal='foobar']", TextSyntaxTree::formatNode($term));
     }
 }

@@ -50,6 +50,21 @@ class TextSyntaxTree implements Visitor {
         return $return;
     }
 
+    public static function formatNode(Node $n) {
+        $text = "[{$n->getNodeName()}";
+
+        if ($n instanceof Rule && ! empty($n->name)) {
+                $text .= "='{$n->name}'";
+        } else if ($n instanceof Terminal || $n instanceof Identifier) {
+            if ( ! empty($n->value)) {
+                $text .= "='{$n->value}'";
+            }
+        }
+
+        $text .= "]";
+        return $text;
+    }
+
     public function beforeVisit(Node $visitable) {
         if ($visitable instanceof Syntax || $visitable instanceof Rule) {
             return;
@@ -62,24 +77,16 @@ class TextSyntaxTree implements Visitor {
         if ( ! $visitable instanceof Syntax) {
             $text = $this->indent();
 
-            foreach ($this->pipes as $index => $isShowed) {
-                if ($isShowed) {
-                    $text[$index] = "|";
-                }
-            }
+//            foreach ($this->pipes as $index => $isShowed) {
+//                if ($isShowed) {
+//                    $text[$index] = "|";
+//                }
+//            }
 
             $this->text .= "{$text} +--";
         }
 
-        $this->text .= "[{$visitable->getNodeName()}";
-
-        if ($visitable instanceof Rule) {
-            $this->text .= "='{$visitable->name}'";
-        } else if ($visitable instanceof Terminal || $visitable instanceof Identifier) {
-            $this->text .= "='{$visitable->value}'";
-        }
-
-        $this->text .= "]" . PHP_EOL;
+        $this->text .= self::formatNode($visitable) . PHP_EOL;
 
         if ($visitable instanceof Composite && $visitable->countChildren() > 1) {
             $pipe = ($this->indentationLevel + 1) * self::DEFAULT_INDENTATION + 1;
