@@ -18,6 +18,8 @@
  * @package symbol
  */
 
+//@codingStandardsIgnoreFile
+
 namespace de\weltraumschaf\ebnf\symbol;
 
 /**

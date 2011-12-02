@@ -18,6 +18,8 @@
  * @package visitor
  */
 
+//@codingStandardsIgnoreFile
+
 namespace de\weltraumschaf\ebnf\visitor;
 
 /**
