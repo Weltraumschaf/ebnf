@@ -134,5 +134,5 @@
         <delete dir="${builddir}/pear" includeemptydirs="true" verbose="false"/>
     </target>
 
-    <target name="main" description="Runs tests and checkstyle." depends="test, checkstyle, pdepend, pmd, doc"/>
+    <target name="main" description="Runs tests, pmd, pdepend, checkstyle and doc." depends="test, checkstyle, pdepend, pmd, doc"/>
 </project>
