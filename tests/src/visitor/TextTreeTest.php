@@ -23,6 +23,7 @@ namespace de\weltraumschaf\ebnf\visitor;
 require_once 'Scanner.php';
 require_once 'Parser.php';
 require_once 'visitor/TextSyntaxTree.php';
+require_once 'ast/builder/SyntaxBuilder.php';
 
 use de\weltraumschaf\ebnf\Scanner;
 use de\weltraumschaf\ebnf\Parser;
@@ -36,7 +37,7 @@ use de\weltraumschaf\ebnf\ast\Rule;
 use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Syntax;
 use de\weltraumschaf\ebnf\ast\Terminal;
-
+use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
 /**
  * Test for {@link TextSyntaxTree}.
  *
@@ -44,8 +45,88 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  */
 class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
 
+
+    public function testCreateRow() {
+        $this->assertEquals(array(), TextSyntaxTree::createRow(-3));
+        $this->assertEquals(array(), TextSyntaxTree::createRow(0));
+        $this->assertEquals(array("", ), TextSyntaxTree::createRow(1));
+        $this->assertEquals(array("", "", ""), TextSyntaxTree::createRow(3));
+        $this->assertEquals(array("", "", "", "", ""), TextSyntaxTree::createRow(5));
+    }
+
+    public function testGenerateMatrix() {
+        $builder = new SyntaxBuilder();
+        $builder->syntax("fobar")
+                ->rule("one")
+                ->rule("two")
+                ->rule("three");
+        $ast = $builder->getAst();
+        $this->assertEquals(2, $ast->depth());
+        $visitor = new TextSyntaxTree();
+        $this->assertEquals(array(), $visitor->getMatrix());
+        $this->assertEquals(0, $visitor->getDepth());
+        $ast->accept($visitor);
+
+        $this->assertEquals(2, $visitor->getDepth());
+        $matrix = $visitor->getMatrix();
+        $this->assertEquals(4, count($matrix));
+        $this->assertEquals("[syntax]",  $matrix[0][0]);
+        $this->assertEquals("",          $matrix[0][1]);
+        $this->assertEquals(" +--",       $matrix[1][0]);
+        $this->assertEquals("[rule='one']", $matrix[1][1]);
+        $this->assertEquals(" +--",       $matrix[2][0]);
+        $this->assertEquals("[rule='two']", $matrix[2][1]);
+        $this->assertEquals(" +--",       $matrix[3][0]);
+        $this->assertEquals("[rule='three']", $matrix[3][1]);
+
+        $builder->clear()
+                ->syntax("foo")
+                ->rule("literal")
+                    ->choice()
+                        ->sequence()
+                            ->terminal("'")
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal("'")
+                        ->end()
+                        ->sequence()
+                            ->terminal('"')
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal('"')
+                        ->end()
+                    ->end();
+
+        $ast = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(6, $visitor->getDepth());
+        $this->assertEquals(array(
+            array("[syntax]", "", "", "", "", ""),
+            array(" +--",     "[rule='literal']", "", "", "", ""),
+            array("    ",     " +--", "[choice]", "", "", ""),
+            array("    ",     "    ", " +--", "[sequence]", "", ""),
+            array("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
+            array("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""),
+            array("    ",     "    ", " |  ", " +--",       "[loop]", ""),
+            array("    ",     "    ", " |  ", " |  ",       " +--", "[identifier='character']"),
+            array("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
+            array("    ",     "    ", " +--", "[sequence]", "", ""),
+            array("    ",     "    ", "    ", " +--",       "[terminal='\"']", ""),
+            array("    ",     "    ", "    ", " +--",       "[identifier='character']", ""),
+            array("    ",     "    ", "    ", " +--",       "[loop]", ""),
+            array("    ",     "    ", "    ", " |  ",       " +--", "[identifier='character']"),
+            array("    ",     "    ", "    ", " +--",       "[terminal='\"']", ""),
+        ), $visitor->getMatrix());
+    }
+
     public function testGenerateText() {
-        $ast     = new Syntax();
+        $builder = new SyntaxBuilder();
+        $builder->syntax("foo");
+        $ast     = $builder->getAst();
         $visitor = new TextSyntaxTree();
         $ast->accept($visitor);
         $this->assertEquals(
@@ -54,9 +135,8 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
         );
 
         $visitor = new TextSyntaxTree();
-        $rule    = new Rule();
-        $rule->name = "rule-1";
-        $ast->addChild($rule);
+        $builder->rule("rule-1");
+        $ast = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(
             "[syntax]" . PHP_EOL .
@@ -65,10 +145,8 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
         );
 
         $visitor = new TextSyntaxTree();
-        $rule    = new Rule();
-        $rule->name = "rule-2";
-        $ast->addChild($rule);
-
+        $builder->rule("rule-2");
+        $ast = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(
             "[syntax]" . PHP_EOL .
@@ -77,13 +155,11 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
             $visitor->getText()
         );
 
-        $ast        = new Syntax();
-        $rule       = new Rule();
-        $choice     = new Choice();
-        $visitor    = new TextSyntaxTree();
-        $rule->name = "name";
-        $rule->addChild($choice);
-        $ast->addChild($rule);
+        $choice = $builder->clear()
+                          ->rule("name")
+                              ->choice();
+        $ast     = $builder->getAst();
+        $visitor = new TextSyntaxTree();
         $ast->accept($visitor);
         $this->assertEquals(
             "[syntax]" . PHP_EOL .
@@ -92,13 +168,10 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
             $visitor->getText()
         );
 
-        $visitor = new TextSyntaxTree();
-        $ident   = new Identifier();
-        $ident->value = "ident";
-        $choice->addChild($ident);
-        $term = new Terminal();
-        $term->value = "term";
-        $choice->addChild($term);
+        $choice->identifier("ident")
+               ->terminal("term")
+               ->end();
+        $ast = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(
             "[syntax]" . PHP_EOL .
@@ -110,21 +183,22 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
         );
 
         $visitor = new TextSyntaxTree();
-        $rule    = new Rule();
-        $rule->name = "other";
-        $ast->addChild($rule);
+        $builder->clear()
+                ->syntax("foobar")
+                    ->rule("one")
+                        ->choice()
+                        ->end()
+                    ->rule("two");
+        $ast = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(
             "[syntax]" . PHP_EOL .
-            " +--[rule='name']" . PHP_EOL .
-            "     +--[choice]" . PHP_EOL .
-            "         +--[identifier='ident']" . PHP_EOL .
-            "         +--[terminal='term']" . PHP_EOL .
-            " +--[rule='other']" . PHP_EOL ,
+            " +--[rule='one']" . PHP_EOL .
+            " |   +--[choice]" . PHP_EOL .
+            " +--[rule='two']" . PHP_EOL ,
             $visitor->getText()
         );
 
-        $this->markTestIncomplete();
         $fixtureDir = EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "visitor" . DIRECTORY_SEPARATOR . "TextSyntaxTree";
         $file       = EBNF_TESTS_FIXTURS . "/rules_with_literals.ebnf";
         $scanner    = new Scanner(file_get_contents($file));
