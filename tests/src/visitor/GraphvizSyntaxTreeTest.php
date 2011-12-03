@@ -20,8 +20,17 @@
 
 namespace de\weltraumschaf\ebnf\visitor;
 
+/**
+ * @see Scanner
+ */
 require_once 'Scanner.php';
+/**
+ * @see Parser
+ */
 require_once 'Parser.php';
+/**
+ * @see GraphvizSyntaxTree
+ */
 require_once 'visitor/GraphvizSyntaxTree.php';
 
 use de\weltraumschaf\ebnf\Scanner;
@@ -31,6 +40,7 @@ use de\weltraumschaf\ebnf\Parser;
  * Test for {@link GraphvizSyntaxTree}.
  *
  * @package tests
+ * @version @@version@@
  */
 class GraphvizSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
 

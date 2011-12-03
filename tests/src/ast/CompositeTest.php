@@ -45,6 +45,7 @@ require_once 'ast/Terminal.php';
  * Tests for {@link Composite}.
  *
  * @package tests
+ * @version @@version@@
  */
 class CompositeTest extends \PHPUnit_Framework_TestCase {
 

@@ -100,8 +100,6 @@ class Terminal implements Node {
     /**
      * Always returns 1.
      *
-     * {@inheritdoc}
-     *
      * @return int
      */
     public function depth() {

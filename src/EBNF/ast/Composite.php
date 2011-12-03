@@ -162,7 +162,7 @@ abstract class Composite implements IteratorAggregate {
     }
 
     /**
-     * {@inheritdoc}
+     * Chooses the max depth of its direct childs and returns it plus one.
      *
      * @return int
      */

@@ -63,10 +63,21 @@
         <delete dir="${docdir}" includeemptydirs="true" verbose="false"/>
         <mkdir dir="${docdir}"/>
 
-        <phpdoc title="${phing.project.name}" destdir="${docdir}" sourcecode="false"
-                defaultpackagename="ebnf" output="HTML:frames:default">
+        <phpdoc title="${phing.project.name}"
+                destdir="${docdir}"
+                sourcecode="false"
+                defaultpackagename="ebnf"
+                defaultcategoryname="weltraumschaf"
+                output="HTML:frames:default"
+                ignoretags="@codeCoverageIgnore,@expectedException,@expectedExceptionMessage,@expectedExceptionCode">
             <fileset refid="src"/>
             <fileset refid="tests"/>
+            <projdocfileset dir="${workspace}">
+                <include name="README.md"/>
+                <include name="CHANGELOG"/>
+                <include name="LICENSE"/>
+                <include name="TODO"/>
+            </projdocfileset>
         </phpdoc>
     </target>
 

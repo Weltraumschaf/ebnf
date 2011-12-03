@@ -33,6 +33,9 @@ use de\weltraumschaf\ebnf\ast\Identifier;
 use de\weltraumschaf\ebnf\ast\Rule;
 use \de\weltraumschaf\ebnf\ast\Composite;
 
+/**
+ * @package visitor
+ */
 class GraphvizSyntaxTree implements Visitor {
 
     private $file;

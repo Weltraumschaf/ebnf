@@ -20,9 +20,21 @@
 
 namespace de\weltraumschaf\ebnf\visitor;
 
+/**
+ * @see Scanner
+ */
 require_once 'Scanner.php';
+/**
+ * @see Parser
+ */
 require_once 'Parser.php';
+/**
+ * @see TextSyntaxTree
+ */
 require_once 'visitor/TextSyntaxTree.php';
+/**
+ * @see SyntaxBuilder
+ */
 require_once 'ast/builder/SyntaxBuilder.php';
 
 use de\weltraumschaf\ebnf\Scanner;
@@ -42,6 +54,7 @@ use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
  * Test for {@link TextSyntaxTree}.
  *
  * @package tests
+ * @version @@version@@
  */
 class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
 

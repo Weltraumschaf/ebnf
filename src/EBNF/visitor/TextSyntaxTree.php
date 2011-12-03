@@ -62,6 +62,7 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  * column by column and row by row.
  *
  * @package visitor
+ * @version @@version@@
  */
 class TextSyntaxTree implements Visitor {
 

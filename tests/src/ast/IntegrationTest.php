@@ -21,6 +21,9 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
+/**
+ * @see SyntaxBuilder
+ */
 require_once 'ast/builder/SyntaxBuilder.php';
 /**
  * @see Node

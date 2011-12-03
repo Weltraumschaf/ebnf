@@ -95,9 +95,7 @@ class Identifier implements Node {
 
     /**
      * Always returns 1.
-     *
-     * {@inheritdoc}
-     *
+     * 
      * @return int
      */
     public function depth() {
