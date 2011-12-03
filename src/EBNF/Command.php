@@ -80,6 +80,10 @@ class Command {
      */
     private $baseName;
 
+    private $format;
+    private $outfile;
+    private $infile;
+
     /**
      * Invokes the command.
      *
@@ -131,6 +135,9 @@ class Command {
     private function __construct(array $opts, $baseName) {
         $this->opts     = $opts;
         $this->baseName = (string) $baseName;
+        $this->format   = Renderer::FORMAT_PNG;
+        $this->outfile  = "";
+        $this->infile   = "";
     }
 
     /**
@@ -158,33 +165,20 @@ class Command {
     }
 
     /**
-     * Runs the cummand and returns error code.
+     * Colects all necessary CLI parameters.
+     *
+     * Returns != {self::EBNF_OK} on error.
      *
      * @return int
      */
-    private function execute() {
-        $format  = Renderer::FORMAT_PNG;
-        $outfile = "";
-
+    private function findOptions() {
         if (isset($this->opts["h"])) {
             echo self::usage($this->baseName);
             return self::EBNF_OK;
         }
 
         if (isset($this->opts["s"]) && !empty($this->opts["s"])) {
-            $infile = $this->opts["s"];
-
-            if (!is_readable($infile)) {
-                echo "Can't read EBNF file '{$infile}'!\n";
-                return self::EBNF_READ_ERROR;
-            }
-
-            $input = file_get_contents($infile);
-
-            if (false === $input || empty($input)) {
-                echo "Can't read content from EBNF file '{$infile}'!\n";
-                return self::EBNF_READ_ERROR;
-            }
+            $this->infile = $this->opts["s"];
         } else {
             echo "Error: Please specify a syntax file!\n\n";
             echo self::usage($this->baseName);
@@ -192,38 +186,76 @@ class Command {
         }
 
         if (isset($this->opts["f"]) && !empty($this->opts["f"])) {
-            $format = strtolower(trim($this->opts["f"]));
+            $this->format = strtolower(trim($this->opts["f"]));
         }
 
         if (isset($this->opts["t"])) {
-            $format = "texttree";
+            $this->format = "texttree";
         }
 
         if (isset($this->opts["o"]) && !empty($this->opts["o"])) {
-            $outfile = $this->opts["o"];
+            $this->outfile = $this->opts["o"];
         } else {
-            $outfile  = basename($infile);
-            $outfile  = substr($outfile, 0, strrpos($outfile, ".") + 1);
-            $outfile .= $format;
-        }
-
-        $scanner = new Scanner($input);
-        $parser  = new Parser($scanner);
-        $ast     = $parser->parse();
-
-        if ("texttree" === $format) {
-            $visitor = new TextSyntaxTree();
-            $parser->getAst()->accept($visitor);
-            echo $visitor->getText();
-        } else if ("xml" === $format) {
-            $visitor = new Xml();
-            $parser->getAst()->accept($visitor);
-            file_put_contents($outfile, $visitor->getXmlString());
-        } else {
-            $renderer = new Renderer($format, $outfile, $ast);
-            $renderer->save();
+            $this->outfile  = basename($this->infile);
+            $this->outfile  = substr($this->outfile, 0, strrpos($this->outfile, ".") + 1);
+            $this->outfile .= $this->format;
         }
 
         return self::EBNF_OK;
     }
+
+    /**
+     * Runs the cummand and returns error code.
+     *
+     * @return int
+     */
+    private function execute() {
+        $returnCode = $this->findOptions();
+
+        if (self::EBNF_OK !== $returnCode) {
+            return $returnCode;
+        }
+
+        if (!is_readable($this->infile)) {
+            echo "Can't read EBNF file '{$infile}'!\n";
+            return self::EBNF_READ_ERROR;
+        }
+
+        $input = file_get_contents($this->infile);
+
+        if (false === $input || empty($input)) {
+            echo "Can't read content from EBNF file '{$infile}'!\n";
+            return self::EBNF_READ_ERROR;
+        }
+
+        $this->generateOutput($input);
+        return self::EBNF_OK;
+    }
+
+    /**
+     * Generates either CLI or file output depending on -f option.
+     *
+     * @param string $input The input grammar.
+     *
+     * @return void
+     */
+    private function generateOutput($input) {
+        $scanner = new Scanner($input);
+        $parser  = new Parser($scanner);
+        $ast     = $parser->parse();
+
+        if ("texttree" === $this->format) {
+            $visitor = new TextSyntaxTree();
+            $parser->getAst()->accept($visitor);
+            echo $visitor->getText();
+        } else if ("xml" === $this->format) {
+            $visitor = new Xml();
+            $parser->getAst()->accept($visitor);
+            file_put_contents($this->outfile, $visitor->getXmlString());
+        } else {
+            $renderer = new Renderer($this->format, $this->outfile, $ast);
+            $renderer->save();
+        }
+    }
+
 }
