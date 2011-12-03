@@ -4,7 +4,10 @@ Changelog
 1.2.0
 -----
 
- - Introduce AST as semantic model and an internal DSL to build a syntax tree.
+ - Introduce and integrate AST as semantic model and an internal DSL to build a syntax tree.
+ - Add visitor to generate ASCII formated syntax tree as CLI output.
+ - Integrate ASCII formatted syntax tree to CLI command.
+ - Reduce cyclomatic complexity of Command::execute().
 
 1.1.0
 -----
