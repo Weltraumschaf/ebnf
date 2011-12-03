@@ -1,0 +1,43 @@
+http://stackoverflow.com/questions/3056968/algorithm-to-render-a-horizontal-binary-ish-tree-in-text-ascii-form
+
+[syntax]
+ +--[rule='rule']
+     +--[identifier='identifier']
+
+
+rule
+---------->-[identifier]->---|
+
+
+======
+
+rule
+---------->-[terminal]->---|
+
+======
+
+[syntax]
+ +--[rule='literal']
+     +--[choice]
+         +--[sequence]
+         |   +--[terminal=''']
+         |   +--[identifier='character']
+         |   +--[loop]
+         |   |   +--[identifier='character']
+         |   +--[terminal=''']
+         +--[sequence]
+             +--[terminal='"']
+             +--[identifier='character']
+             +--[loop]
+             |   +--[identifier='character']
+             +--[terminal='"']
+             
+[rule][choice][term]  [identifier] [loop]   [identifier]       [terminal]            
+literal
+--------+-->--(')-->--[character]-->--+---------->----------+-->--(')-->--+---|
+        |                             |                     |             |
+        |                             +--<--[character]--<--+             |
+        |                                                                 |
+        +-->--(")-->--[character]-->--+---------->----------+-->--(")-->--+
+                                      |                     |
+                                      +--<--[character]--<--+
