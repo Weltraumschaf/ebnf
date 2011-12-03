@@ -118,6 +118,7 @@
                 </replacetokens>
             </filterchain>
             <fileset dir="${workspace}">
+                <include name="CHANGELOG"/>
                 <include name="LICENSE"/>
                 <include name="package.xml"/>
                 <include name="README.md"/>
