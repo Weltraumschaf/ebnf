@@ -50,6 +50,7 @@ use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Syntax;
 use de\weltraumschaf\ebnf\ast\Terminal;
 use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
+
 /**
  * Test for {@link TextSyntaxTree}.
  *
@@ -57,7 +58,6 @@ use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
  * @version @@version@@
  */
 class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
-
 
     public function testCreateRow() {
         $this->assertEquals(array(), TextSyntaxTree::createRow(-3));
