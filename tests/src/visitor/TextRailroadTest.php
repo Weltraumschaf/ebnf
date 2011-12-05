@@ -21,84 +21,55 @@
 namespace de\weltraumschaf\ebnf\visitor;
 
 /**
+ * @see Choice
+ */
+require_once 'ast/Choice.php';
+/**
+ * @see Identifier
+ */
+require_once 'ast/Identifier.php';
+/**
+ * @see Loop
+ */
+require_once 'ast/Loop.php';
+/**
+ * @see Option
+ */
+require_once 'ast/Option.php';
+/**
+ * @see Rule
+ */
+require_once 'ast/Rule.php';
+/**
+ * @see Sequence
+ */
+require_once 'ast/Sequence.php';
+/**
+ * @see Syntax
+ */
+require_once 'ast/Syntax.php';
+/**
+ * @see Terminal
+ */
+require_once 'ast/Terminal.php';
+/**
  * @see SyntaxBuilder
  */
 require_once 'ast/builder/SyntaxBuilder.php';
-require_once 'visitor//Visitor.php';
-require_once 'visitor//TextSyntaxTree.php';
+/**
+ * @see TextRailroad
+ */
+require_once 'visitor/TextRailroad.php';
 
 use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
-use de\weltraumschaf\ebnf\ast\Node;
-
-class TextRailroad implements Visitor {
-
-    /**
-     * The formatted ASCII text.
-     *
-     * Lazy computed.
-     *
-     * @var string
-     */
-    private $text;
-    /**
-     * The matrix.
-     *
-     * Two dimenaionals array. Initialized on visiting a {@link Syntax} node.
-     * So it is important that the syntax node is the root node of the tree.
-     * The matrix grows row by row by visiting each child node. A child node
-     * represents a row.
-     *
-     * @var array
-     */
-    private $matrix = array();
-
-    /**
-     * Returns the two dimensional matrix.
-     *
-     * @return array
-     */
-    public function getMatrix() {
-        return $this->matrix;
-    }
-
-    public function beforeVisit(Node $visitable) {
-        if ($visitable instanceof Syntax) {
-            $this->matrix = array();
-        }
-
-        // While we're visiting the output will change anyway.
-        $this->text = null;
-    }
-
-    public function visit(Node $visitable) {
-
-    }
-
-    public function afterVisit(Node $visitable) {
-
-    }
-
-    /**
-     * Concatenates the matrix columns and rows adn returns the ASCII formatted text.
-     *
-     * After all visiting is done this method only generates the string once and memizes
-     * the result.
-     *
-     * @return string
-     */
-    public function getText() {
-        if (null === $this->text) {
-            $buffer = "";
-
-            foreach ($this->matrix as $row) {
-                $buffer .= implode("", $row) . PHP_EOL;
-            }
-
-            $this->text = $buffer;
-        }
-        return $this->text;
-    }
-}
+use de\weltraumschaf\ebnf\ast\Choice;
+use de\weltraumschaf\ebnf\ast\Identifier;
+use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Option;
+use de\weltraumschaf\ebnf\ast\Rule;
+use de\weltraumschaf\ebnf\ast\Sequence;
+use de\weltraumschaf\ebnf\ast\Syntax;
+use de\weltraumschaf\ebnf\ast\Terminal;
 
 /**
  * Test for {@link TextSyntaxTree}.
@@ -108,19 +79,62 @@ class TextRailroad implements Visitor {
  */
 class TextRailroadTest extends \PHPUnit_Framework_TestCase {
 
-    public function testGenerateMatrix() {
+    public function testFormatNode() {
+        $n = new Terminal();
+        $n->value = "term";
+        $this->assertEquals("-(term)-", TextRailroad::formatNode($n));
+        $n = new Identifier();
+        $n->value = "ident";
+        $this->assertEquals("-[ident]-", TextRailroad::formatNode($n));
+        $n = new Rule();
+        $n->name = "foobar";
+        $this->assertEquals("foobar", TextRailroad::formatNode($n));
 
+        foreach (array(
+            new Choice(), new Loop(), new Option(), new Sequence(), new Syntax()
+        ) as $n) {
+            $this->assertEquals("", TextRailroad::formatNode($n));
+        }
+        $this->markTestIncomplete("all other nodes.");
+    }
+
+    public function testGenerateMatrix() {
+        $builder = new SyntaxBuilder();
+        $builder->syntax("foobar")
+                ->rule("rule")
+                    ->identifier("identifier")
+                ->end();
+        $visitor = new TextRailroad();
+        $ast     = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("rule"),
+            array("-----", "->-", "-[identifier]-", "->-", "--|")
+        ), $visitor->getMatrix());
+
+        $builder->clear()
+                ->syntax("foobar")
+                ->rule("rule")
+                    ->terminal("terminal")
+                ->end();
+        $ast     = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("rule"),
+            array("-----", "->-", "-(terminal)-", "->-", "--|")
+        ), $visitor->getMatrix());
+
+        $this->markTestIncomplete();
     }
 
     public function testGetText() {
-//        $this->markTestIncomplete();
+        $this->markTestIncomplete();
         $builder = new SyntaxBuilder();
         $builder->syntax("foobar")
                 ->rule("rule")
                     ->identifier("identifier");
 
-//        $visitor = new TextRailroad();
-        $visitor = new TextSyntaxTree();
+        $visitor = new TextRailroad();
         $ast     = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(
