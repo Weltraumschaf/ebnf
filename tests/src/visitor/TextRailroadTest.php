@@ -117,29 +117,112 @@ class TextRailroadTest extends \PHPUnit_Framework_TestCase {
                 ->rule("rule")
                     ->terminal("terminal")
                 ->end();
-        $ast     = $builder->getAst();
+        $ast = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(array(
             array("rule"),
             array("-----", "->-", "-(terminal)-", "->-", "--|")
         ), $visitor->getMatrix());
 
+        $builder->clear()
+                ->syntax("foobar")
+                ->rule("rule1")
+                    ->identifier("identifier")
+                ->end()
+                ->rule("rule2")
+                    ->terminal("terminal")
+                ->end();
+        $ast = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("rule1"),
+            array("------", "->-", "-[identifier]-", "->-", "--|"),
+            array("rule2"),
+            array("------", "->-", "-(terminal)-", "->-", "--|")
+        ), $visitor->getMatrix());
+
+        $builder->clear()
+                ->syntax("foobar")
+                ->rule("rule1")
+                    ->sequence()
+                        ->identifier("identifier")
+                        ->terminal("terminal")
+                        ->identifier("identifier")
+                    ->end()
+                ->end();
+        $ast = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("rule1"),
+            array("------", "->-", "-[identifier]-", "->-", "-(terminal)-", "->-", "-[identifier]-", "->-", "--|")
+        ), $visitor->getMatrix());
+
+        $builder->clear()
+                ->syntax("foo")
+                ->rule("literal")
+                    ->choice()
+                        ->sequence()
+                            ->terminal("'")
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal("'")
+                        ->end()
+                        ->sequence()
+                            ->terminal('"')
+                            ->identifier("character")
+                            ->loop()
+                                ->identifier("character")
+                            ->end()
+                            ->terminal('"')
+                        ->end()
+                    ->end();
+            $this->markTestIncomplete();
+        $ast = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("literal"),
+            array("--------", "-+-",  "-(')-", "->-", "-[character]-", "->-", "-+-", "---", "------>------", "---", "-+-", "->-",  "-(')-", "->-", "-+-", "--|"),
+//            array("        ", " | ",  "     ", "   ", "             ", "   ", " | ", "   ", "             ", "   ", " | ", "   ",  "     ", "   ", " | "),
+//            array("        ", " | ",  "     ", "   ", "             ", "   ", " +-", "-<-", "-[character]-", "-<-", "-+ ", "   ",  "     ", "   ", " | "),
+//            array("        ", " | ",  "     ", "   ", "             ", "   ", "   ", "   ", "             ", "   ", "   ", "   ",  "     ", "   ", " | "),
+//            array("        ", "-+-", "-(\")-", "->-", "-[character]-", "->-", "-+-", "---", "------>------", "---", "-+-", "->-", "-(\")-", "->-", "-+-"),
+//            array("        ", "   ",  "     ", "   ", "             ", "   ", " | ", "   ", "             ", "   ", " | ", "   ",  "     ", "   ", "   "),
+//            array("        ", "   ",  "     ", "   ", "             ", "   ", " +-", "-<-", "-[character]-", "-<-", "-+ ", "   ",  "     ", "   ", "   ")
+        ), $visitor->getMatrix());
+
         $this->markTestIncomplete();
     }
 
     public function testGetText() {
-        $this->markTestIncomplete();
         $builder = new SyntaxBuilder();
         $builder->syntax("foobar")
                 ->rule("rule")
-                    ->identifier("identifier");
+                    ->identifier("identifier")
+                ->end();
 
         $visitor = new TextRailroad();
         $ast     = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(
             "rule" . PHP_EOL .
-            "---------->-[identifier]->---|" . PHP_EOL, $visitor->getText()
+            "------>--[identifier]-->---|" . PHP_EOL, $visitor->getText()
         );
+
+        $builder->clear()
+                ->syntax("foobar")
+                ->rule("rule")
+                    ->terminal("terminal")
+                ->end();
+
+        $ast     = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(
+            "rule" . PHP_EOL .
+            "------>--(terminal)-->---|" . PHP_EOL, $visitor->getText()
+        );
+
+        $this->markTestIncomplete();
     }
 }

@@ -108,18 +108,23 @@ class TextRailroad implements Visitor {
 
     public function visit(Node $visitable) {
         if ($visitable instanceof Rule) {
-            $this->matrix[] = array($visitable->name);
-            $this->matrix[] = array(str_repeat("-", strlen($visitable->name) + 1), self::LTR);
+            $this->matrix[$this->currentRow] = array();
+            $this->matrix[$this->currentRow][] = self::formatNode($visitable);
+            $this->currentRow++;
+            $this->matrix[$this->currentRow] = array();
+            $this->matrix[$this->currentRow][] = str_repeat("-", strlen($visitable->name) + 1);
         } else if ($visitable instanceof Identifier || $visitable instanceof Terminal) {
-            $this->matrix[count($this->matrix) - 1][] = self::formatNode($visitable);
-            $this->matrix[count($this->matrix) - 1][] = self::LTR;
+            $this->matrix[$this->currentRow][] = self::LTR;
+            $this->matrix[$this->currentRow][] = self::formatNode($visitable);
         }
 
     }
 
     public function afterVisit(Node $visitable) {
         if ($visitable instanceof Rule) {
-            $this->matrix[count($this->matrix) - 1][] = self::END;
+            $this->matrix[$this->currentRow][] = self::LTR;
+            $this->matrix[$this->currentRow][] = self::END;
+            $this->currentRow++;
         }
     }
 
