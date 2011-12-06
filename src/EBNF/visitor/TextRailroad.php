@@ -31,6 +31,18 @@ use de\weltraumschaf\ebnf\ast\Terminal;
 
 class TextRailroad implements Visitor {
 
+    const LINE = "-";
+    const END  = "--|";
+    const LTR  = "->-";
+    const RTL  = "-<-";
+    const FORK = "-+-";
+
+    const PARAM_TOKEN = "@param@";
+
+    const IDENT = "-[@param@]-";
+    const TERM  = "-(@param@)-";
+    const RULE  = "@param@";
+
     /**
      * The formatted ASCII text.
      *
@@ -50,6 +62,8 @@ class TextRailroad implements Visitor {
      * @var array
      */
     private $matrix = array();
+    private $currentRow;
+    private $currentCol;
 
     /**
      * Returns the two dimensional matrix.
@@ -60,21 +74,32 @@ class TextRailroad implements Visitor {
         return $this->matrix;
     }
 
+    public static function renderStringTemplate($t, $param = "") {
+        return str_replace(self::PARAM_TOKEN, (string) $param, (string) $t);
+    }
+
     public static function formatNode(Node $n) {
+        $t = $p = "";
+
         if ($n instanceof Terminal) {
-            return "-({$n->value})-";
+            $t= self::TERM;
+            $p = $n->value;
         } else if ($n instanceof Identifier) {
-            return "-[{$n->value}]-";
+            $t= self::IDENT;
+            $p = $n->value;
         } else if ($n instanceof Rule) {
-            return $n->name;
-        } else {
-            return "";
+            $t= self::RULE;
+            $p = $n->name;;
         }
+
+        return self::renderStringTemplate($t, $p);
     }
 
     public function beforeVisit(Node $visitable) {
         if ($visitable instanceof Syntax) {
             $this->matrix = array();
+            $this->currentRow = 0;
+            $this->currentCol = 0;
         }
 
         // While we're visiting the output will change anyway.
@@ -84,17 +109,17 @@ class TextRailroad implements Visitor {
     public function visit(Node $visitable) {
         if ($visitable instanceof Rule) {
             $this->matrix[] = array($visitable->name);
-            $this->matrix[] = array(str_repeat("-", strlen($visitable->name) + 1), "->-");
+            $this->matrix[] = array(str_repeat("-", strlen($visitable->name) + 1), self::LTR);
         } else if ($visitable instanceof Identifier || $visitable instanceof Terminal) {
             $this->matrix[count($this->matrix) - 1][] = self::formatNode($visitable);
-            $this->matrix[count($this->matrix) - 1][] = "->-";
+            $this->matrix[count($this->matrix) - 1][] = self::LTR;
         }
 
     }
 
     public function afterVisit(Node $visitable) {
         if ($visitable instanceof Rule) {
-            $this->matrix[count($this->matrix) - 1][] = "--|";
+            $this->matrix[count($this->matrix) - 1][] = self::END;
         }
     }
 
