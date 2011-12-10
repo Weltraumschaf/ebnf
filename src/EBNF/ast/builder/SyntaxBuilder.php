@@ -82,7 +82,7 @@ class SyntaxBuilder {
      * @return RuleBuilder
      */
     public function rule($name) {
-        $rule       = new Rule();
+        $rule       = new Rule($this->syntax);
         $rule->name = (string) $name;
         $this->syntax->addChild($rule);
         return new RuleBuilder($rule, $this);
@@ -99,7 +99,7 @@ class SyntaxBuilder {
 
     /**
      * Resets the builde for starting to define a new syntax.
-     * 
+     *
      * @return SyntaxBuilder
      */
     public function clear() {

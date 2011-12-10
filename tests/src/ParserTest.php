@@ -132,7 +132,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             "testgrammar 1"
         );
 
-        $this->markTestIncomplete();
+        $this->markTestIncomplete("Implement range parsing.");
         $p = new Parser(new Scanner($this->loadFixture("rules_with_ranges.ebnf")));
         $this->assertXmlStringEqualsXmlFile(
             EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_ranges.xml",

@@ -42,12 +42,12 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase {
 
     public function testProbeEquivalence() {
         $n = new Notification();
-        $ident1 = new Identifier();
+        $ident1 = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident1->value = "a";
-        $ident2 = new Identifier();
+        $ident2 = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident2->value = "b";
 
-        $ident1->probeEquivalence(new Terminal(), $n);
+        $ident1->probeEquivalence(new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node')), $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals(
             "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\Identifier' != 'de\weltraumschaf\ebnf\ast\Terminal'!",
@@ -66,7 +66,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testDepth() {
-        $ident = new Identifier();
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $this->assertEquals(1, $ident->depth());
     }
 

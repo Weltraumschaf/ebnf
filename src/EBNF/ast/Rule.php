@@ -22,10 +22,6 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see Node
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
-/**
  * @see Composite
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
@@ -40,7 +36,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * @package ast
  * @version @@version@@
  */
-class Rule extends Composite implements Node {
+class Rule extends AbstractComposite {
 
     /**
      * Name literal of rule.

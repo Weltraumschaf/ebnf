@@ -24,27 +24,51 @@ namespace de\weltraumschaf\ebnf\ast;
 /**
  * @see Composite
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'AbstractComposite.php';
-/**
- * @see Type
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 
 /**
- * Choice node.
+ * Encapsulates the algorithm to calculate the depth of an {@link Composite} node.
  *
  * @package ast
  * @version @@version@@
  */
-class Choice extends AbstractComposite {
+class DepthCalculator {
 
     /**
-     * Returns the name of a node.
+     * The subject to calculate for.
      *
-     * @return string
+     * @var Composite
      */
-    public function getNodeName() {
-        return Type::CHOICE;
+    private $node;
+
+    /**
+     * Initializes the imutable object.
+     *
+     * @param Composite $node Calculation subject.
+     */
+    public function __construct(Composite $node) {
+        $this->node = $node;
+    }
+
+    /**
+     * Calculates the depth on each call.
+     *
+     * It will return at least 1 if the subject node as no children.
+     *
+     * @return int
+     */
+    public function depth() {
+        if ( ! $this->node->hasChildren()) {
+            return 1;
+        }
+
+        $depths = array();
+
+        foreach ($this->node->getIterator() as $subnode) {
+            $depths[] = $subnode->depth();
+        }
+
+        return max($depths) + 1;
     }
 
 }

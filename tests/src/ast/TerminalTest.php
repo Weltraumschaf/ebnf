@@ -42,12 +42,12 @@ class TerminalTest extends \PHPUnit_Framework_TestCase {
 
     public function testProbeEquivalence() {
         $n = new Notification();
-        $term1 = new Terminal();
+        $term1 = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $term1->value = "a";
-        $term2 = new Terminal();
+        $term2 = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $term2->value = "b";
 
-        $term1->probeEquivalence(new Identifier(), $n);
+        $term1->probeEquivalence(new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node')), $n);
         $this->assertFalse($n->isOk());
         $this->assertEquals(
             "Probed node types mismatch: 'de\weltraumschaf\ebnf\ast\Terminal' != 'de\weltraumschaf\ebnf\ast\Identifier'!",
@@ -66,7 +66,7 @@ class TerminalTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testDepth() {
-        $term1 = new Terminal();
+        $term1 = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $this->assertEquals(1, $term1->depth());
     }
 }

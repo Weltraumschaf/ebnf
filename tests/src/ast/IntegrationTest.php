@@ -77,17 +77,41 @@ use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
 class IntegrationTest extends \PHPUnit_Framework_TestCase {
 
     public function testThatNodeIsNotComposite() {
-        $this->assertNotInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Terminal());
-        $this->assertNotInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Identifier());
+        $this->assertNotInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
+        $this->assertNotInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
     }
 
     public function testThatNodeIsComposite() {
-        $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Choice());
-        $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Loop());
-        $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Option());
-        $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Rule());
-        $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Sequence());
-        $this->assertInstanceOf("de\weltraumschaf\ebnf\ast\Composite", new Syntax());
+        $this->assertInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Choice($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
+        $this->assertInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Loop($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
+        $this->assertInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Option($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
+        $this->assertInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
+        $this->assertInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
+        $this->assertInstanceOf(
+            'de\weltraumschaf\ebnf\ast\Composite',
+            new Syntax($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
+        );
     }
 
     public function testIntegration() {
@@ -98,7 +122,8 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $it->count());
         $this->assertFalse($it->offsetExists(0));
 
-        $rule1 = new Rule();
+        $rule1 = new Rule($syntax);
+        $this->assertSame($syntax, $rule1->getParent());
         $rule1->name = "first";
         $syntax->addChild($rule1);
 
@@ -107,16 +132,17 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($it->offsetExists(0));
         $this->assertSame($rule1, $it->offsetGet(0));
 
-        $rule2 = new Rule();
+        $rule2 = new Rule($syntax);
         $rule2->name = "second";
+        $this->assertSame($syntax, $rule1->getParent());
         $syntax->addChild($rule2);
 
         $it = $syntax->getIterator();
         $this->assertEquals(2, $it->count());
+        $this->assertTrue($it->offsetExists(0));
+        $this->assertSame($rule1, $it->offsetGet(0));
         $this->assertTrue($it->offsetExists(1));
         $this->assertSame($rule2, $it->offsetGet(1));
-
-        $this->markTestIncomplete();
     }
 
     public function testProbeEquivalenceSyntax() {
@@ -194,7 +220,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $syntax3 = new Syntax();
         $syntax3->title = "foo";
         $syntax3->meta  = "bar";
-        $rule1 = new Rule();
+        $rule1 = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $rule1->name = "rule1";
         $syntax1->addChild($rule1);
         $syntax2->addChild($rule1);
@@ -209,7 +235,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
-        $rule2 = new Rule();
+        $rule2 = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $rule2->name = "rule2";
         $syntax1->addChild($rule2);
         $error  = "Node syntax has different child count than other: 2 != 1!\n";
@@ -236,7 +262,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($n->isOk(), $n->report());
         $this->assertEquals("", $n->report());
 
-        $rule3 = new Rule();
+        $rule3 = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $rule3->name = "rule3";
         $syntax3->addChild($rule1);
         $syntax3->addChild($rule3);

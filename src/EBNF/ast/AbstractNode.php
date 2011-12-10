@@ -22,29 +22,44 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see Composite
+ * @see Node
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'AbstractComposite.php';
-/**
- * @see Type
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 
 /**
- * Choice node.
+ * Abstract representation of AST nodes which are not the root
+ * node {@link Syntax} but any other kind of {@link Node}.
  *
  * @package ast
  * @version @@version@@
  */
-class Choice extends AbstractComposite {
+abstract class AbstractNode implements Node {
 
     /**
-     * Returns the name of a node.
+     * The direct ancestor int the AST tree.
      *
-     * @return string
+     * @var Node
      */
-    public function getNodeName() {
-        return Type::CHOICE;
+    private $parent;
+
+    /**
+     * Initializes the node with it's parent. This is imutable.
+     *
+     * May the node itself change, it is not possible to set the
+     * reference to the parent node.
+     *
+     * @param Node $parent Ancestor node.
+     */
+    public function __construct(Node $parent) {
+        $this->parent = $parent;
     }
 
+    /**
+     * Returns the parent node.
+     *
+     * @return Node
+     */
+    public function getParent() {
+        return $this->parent;
+    }
 }

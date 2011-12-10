@@ -50,6 +50,7 @@ use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Syntax;
 use de\weltraumschaf\ebnf\ast\Terminal;
 use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
+
 /**
  * Test for {@link TextSyntaxTree}.
  *
@@ -57,7 +58,6 @@ use de\weltraumschaf\ebnf\ast\builder\SyntaxBuilder;
  * @version @@version@@
  */
 class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
-
 
     public function testCreateRow() {
         $this->assertEquals(array(), TextSyntaxTree::createRow(-3));
@@ -228,21 +228,46 @@ class TextSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFormatNode() {
-        $this->assertEquals("[choice]", TextSyntaxTree::formatNode(new Choice()));
-        $this->assertEquals("[identifier]", TextSyntaxTree::formatNode(new Identifier()));
-        $ident = new Identifier();
+        $this->assertEquals(
+            "[choice]",
+            TextSyntaxTree::formatNode(new Choice($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $this->assertEquals(
+            "[identifier]",
+                TextSyntaxTree::formatNode(new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "foobar";
         $this->assertEquals("[identifier='foobar']", TextSyntaxTree::formatNode($ident));
-        $this->assertEquals("[loop]", TextSyntaxTree::formatNode(new Loop()));
-        $this->assertEquals("[option]", TextSyntaxTree::formatNode(new Option()));
-        $this->assertEquals("[rule]", TextSyntaxTree::formatNode(new Rule()));
-        $rule = new Rule();
+        $this->assertEquals(
+            "[loop]",
+            TextSyntaxTree::formatNode(new Loop($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $this->assertEquals(
+            "[option]",
+            TextSyntaxTree::formatNode(new Option($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $this->assertEquals(
+            "[rule]",
+            TextSyntaxTree::formatNode(new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $rule = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $rule->name = "snafu";
         $this->assertEquals("[rule='snafu']", TextSyntaxTree::formatNode($rule));
-        $this->assertEquals("[sequence]", TextSyntaxTree::formatNode(new Sequence()));
-        $this->assertEquals("[syntax]", TextSyntaxTree::formatNode(new Syntax()));
-        $this->assertEquals("[terminal]", TextSyntaxTree::formatNode(new Terminal()));
-        $term = new Terminal();
+        $this->assertEquals(
+            "[sequence]",
+            TextSyntaxTree::formatNode(new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $this->assertEquals(
+            "[syntax]",
+            TextSyntaxTree::formatNode(new Syntax($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $this->assertEquals(
+            "[terminal]",
+            TextSyntaxTree::formatNode(new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node')))
+        );
+        $term = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $term->value = "foobar";
         $this->assertEquals("[terminal='foobar']", TextSyntaxTree::formatNode($term));
     }

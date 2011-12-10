@@ -107,10 +107,13 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
             array("meta" => "foo", "title" => "bar"),
             Xml::extractAttributes($syntax)
         );
-        $loop = new Loop();
+        $loop = new Loop($this->getMock("de\weltraumschaf\ebnf\ast\Node"));
         $this->assertEquals(array(), Xml::extractAttributes($loop));
     }
 
+    /**
+     * @todo use ast builder
+     */
     public function testGenerateXml() {
         $visitor = new Xml();
         $this->assertEquals(
@@ -135,52 +138,52 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         $syntax->title = "EBNF defined in itself.";
         $syntax->meta  = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
-        $syntaxRule = new Rule();
+        $syntaxRule = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $syntaxRule->name = "syntax";
-        $seq   = new Sequence();
-        $opt   = new Option();
-        $ident = new Identifier();
+        $seq   = new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $opt   = new Option($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "title";
         $opt->addChild($ident);
         $seq->addChild($opt);
-        $terminal = new Terminal();
+        $terminal = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $terminal->value = "{";
         $seq->addChild($terminal);
-        $loop = new Loop();
-        $ident = new Identifier();
+        $loop = new Loop($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "rule";
         $loop->addChild($ident);
         $seq->addChild($loop);
-        $terminal = new Terminal();
+        $terminal = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $terminal->value = "}";
         $seq->addChild($terminal);
-        $opt   = new Option();
-        $ident = new Identifier();
+        $opt   = new Option($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "comment";
         $opt->addChild($ident);
         $seq->addChild($opt);
         $syntaxRule->addChild($seq);
         $syntax->addChild($syntaxRule);
 
-        $ruleRule = new Rule();
+        $ruleRule = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ruleRule->name = "rule";
-        $seq   = new Sequence();
-        $ident = new Identifier();
+        $seq   = new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "identifier";
         $seq->addChild($ident);
-        $choice = new Choice();
+        $choice = new Choice($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         foreach (array("=", ":", ":==") as $literal) {
-            $terminal = new Terminal();
+            $terminal = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
             $terminal->value = $literal;
             $choice->addChild($terminal);
         }
         $seq->addChild($choice);
-        $ident = new Identifier();
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "expression";
         $seq->addChild($ident);
-        $choice = new Choice();
+        $choice = new Choice($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         foreach (array(".", ";") as $literal) {
-            $terminal = new Terminal();
+            $terminal = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
             $terminal->value = $literal;
             $choice->addChild($terminal);
         }
@@ -188,32 +191,32 @@ class XmlTest extends \PHPUnit_Framework_TestCase {
         $ruleRule->addChild($seq);
         $syntax->addChild($ruleRule);
 
-        $literalRule = new Rule();
+        $literalRule = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $literalRule->name = "literal";
-        $choice   = new Choice();
-        $seq      = new Sequence();
-        $terminal = new Terminal();
+        $choice   = new Choice($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $seq      = new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $terminal = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $terminal->value = "'";
         $seq->addChild($terminal);
-        $ident = new Identifier();
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "character";
         $seq->addChild($ident);
-        $loop  = new Loop();
-        $ident = new Identifier();
+        $loop  = new Loop($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "character";
         $loop->addChild($ident);
         $seq->addChild($loop);
         $seq->addChild($terminal);
         $choice->addChild($seq);
-        $seq      = new Sequence();
-        $terminal = new Terminal();
+        $seq      = new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $terminal = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $terminal->value = '"';
         $seq->addChild($terminal);
-        $ident = new Identifier();
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "character";
         $seq->addChild($ident);
-        $loop  = new Loop();
-        $ident = new Identifier();
+        $loop  = new Loop($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
+        $ident = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ident->value = "character";
         $loop->addChild($ident);
         $seq->addChild($loop);

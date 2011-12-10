@@ -22,60 +22,29 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 use \IteratorAggregate;
-use \ArrayIterator;
-use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
- * Abstract base class for nodes which are not leaves and have subnodes.
- *
- * Provides interface for {@link IteratorAggregate http://php.net/manual/en/class.iteratoraggregate.php}
- * and adding child nodes.
+ * Represents an object in the AST model which can have
+ * some child {@link Node nodes}.
  *
  * @package ast
  * @version @@version@@
  */
-abstract class Composite implements IteratorAggregate {
-
-    /**
-     * Holds the child nodes.
-     *
-     * @var array
-     */
-    private $nodes;
-
-    /**
-     * Initializes object with empty child node array.
-     */
-    public function __construct() {
-        $this->nodes = array();
-    }
-
-    /**
-     * Implements IteratorAggregate for retrieving an interaotr.
-     *
-     * @return ArrayIterator
-     */
-    public function getIterator() {
-        return new ArrayIterator($this->nodes);
-    }
+interface Composite extends IteratorAggregate {
 
     /**
      * Count of direct children nodes.
      *
      * @return int
      */
-    public function countChildren() {
-        return count($this->nodes);
-    }
+    public function countChildren();
 
     /**
      * Whether the node has direct child nodes or not.
      *
      * @return bool
      */
-    public function hasChildren() {
-        return 0 < $this->countChildren();
-    }
+    public function hasChildren();
 
     /**
      * Append a child {@link Node} to the list of children.
@@ -84,99 +53,6 @@ abstract class Composite implements IteratorAggregate {
      *
      * @return void
      */
-    public function addChild(Node $child) {
-        $this->nodes[] = $child;
-    }
-
-    /**
-     * Defines method to accept {@link Visitors}.
-     *
-     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
-     *
-     * @param Visitor $visitor Object which visits te node.
-     *
-     * @return void
-     */
-    public function accept(Visitor $visitor) {
-        $visitor->beforeVisit($this);
-        $visitor->visit($this);
-
-        if ($this->hasChildren()) {
-            foreach ($this as $subnode) {
-                $subnode->accept($visitor);
-            }
-        }
-
-        $visitor->afterVisit($this);
-    }
-
-    /**
-     * Probes equivalence of itself against an other node and collects all
-     * errors in the passed {@link Notification} object.
-     *
-     * @param Node         $other  Node to compare against.
-     * @param Notification $result Object which collects all equivlanece violations.
-     *
-     * @return void
-     */
-    public function probeEquivalence(Node $other, Notification $result) {
-        if ( ! $other instanceof Composite) {
-            $result->error(
-                "Probed node is not a composite node: '%s' vs. '%s'!",
-                get_class($this),
-                get_class($other)
-            );
-            return;
-        }
-
-        if (get_class($this) !== get_class($other)) {
-            $result->error(
-                "Probed node types mismatch: '%s' != '%s'!",
-                get_class($this),
-                get_class($other)
-            );
-            return;
-        }
-
-        /* @var $other Composite */
-        if ($this->countChildren() !== $other->countChildren()) {
-            $result->error(
-                "Node %s has different child count than other: %d != %d!",
-                $this->getNodeName(),
-                $this->countChildren(),
-                $other->countChildren()
-            );
-        }
-
-        $subnodes      = $this->getIterator();
-        $otherSubnodes = $other->getIterator();
-
-        foreach ($subnodes as $subnode) {
-            if ($otherSubnodes->offsetExists($subnodes->key())) {
-                $subnode->probeEquivalence($otherSubnodes->offsetGet($subnodes->key()), $result);
-            } else {
-                $result->error("Other node has not the expected subnode!");
-            }
-
-        }
-    }
-
-    /**
-     * Chooses the max depth of its direct childs and returns it plus one.
-     *
-     * @return int
-     */
-    public function depth() {
-        if ( ! $this->hasChildren()) {
-            return 1;
-        }
-
-        $depths = array();
-
-        foreach ($this->getIterator() as $subnode) {
-            $depths[] = $subnode->depth();
-        }
-
-        return max($depths) + 1;
-    }
+    public function addChild(Node $child);
+    
 }
