@@ -99,7 +99,6 @@ class TextRailroadTest extends \PHPUnit_Framework_TestCase {
         ) as $n) {
             $this->assertEquals("", TextRailroad::formatNode($n));
         }
-        $this->markTestIncomplete("all other nodes.");
     }
 
     public function testGenerateMatrix() {
