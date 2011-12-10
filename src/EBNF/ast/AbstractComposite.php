@@ -58,7 +58,7 @@ abstract class AbstractComposite extends AbstractNode implements Composite {
     /**
      * Initializes object with empty child node array and parent node.
      *
-     * @param Node The parent node.
+     * @param Node $parent The parent node.
      */
     public function __construct(Node $parent = null) {
         parent::__construct($parent);

@@ -73,8 +73,11 @@ class Syntax implements Node, Composite {
      */
     private $nodes;
 
+    /**
+     * Initializes root node with 0 child nodes.
+     */
     public function __construct() {
-        $this->nodes  = array();
+        $this->nodes = array();
     }
 
     /**

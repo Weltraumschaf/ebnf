@@ -52,7 +52,7 @@ class Identifier extends AbstractNode {
     /**
      * Initializes object with empty value and parent node.
      *
-     * @param Node The parent node.
+     * @param Node $parent The parent node.
      */
     public function __construct(Node $parent) {
         parent::__construct($parent);
