@@ -63,7 +63,7 @@ class Position {
      * @param int    $column Column of occurence.
      * @param string $file   Optional file name.
      */
-    function __construct($line, $column, $file = null) {
+    public function __construct($line, $column, $file = null) {
         $this->line   = (int) $line;
         $this->column = (int) $column;
 
