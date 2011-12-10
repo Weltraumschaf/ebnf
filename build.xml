@@ -6,7 +6,7 @@
     <property name="builddir" value="${workspace}/build" />
     <property name="srcdir" value="${workspace}/src/EBNF" />
     <property name="reportsdir" value="${workspace}/reports"/>
-    <property name="docdir" value="${workspace}/doc"/>
+    <property name="docdir" value="${workspace}/doc/api"/>
 
     <fileset dir="${srcdir}" id="src">
         <include name="*.php"/>
