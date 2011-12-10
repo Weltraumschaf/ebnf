@@ -76,6 +76,7 @@ use \DOMElement;
 use de\weltraumschaf\ebnf\ast\Choice;
 use de\weltraumschaf\ebnf\ast\Identifier;
 use de\weltraumschaf\ebnf\ast\Loop;
+use de\weltraumschaf\ebnf\ast\Node;
 use de\weltraumschaf\ebnf\ast\Option;
 use de\weltraumschaf\ebnf\ast\Rule;
 use de\weltraumschaf\ebnf\ast\Sequence;
