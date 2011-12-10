@@ -123,7 +123,6 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($it->offsetExists(0));
 
         $rule1 = new Rule($syntax);
-        $this->assertTrue($rule1->hasParent());
         $this->assertSame($syntax, $rule1->getParent());
         $rule1->name = "first";
         $syntax->addChild($rule1);
@@ -135,7 +134,6 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase {
 
         $rule2 = new Rule($syntax);
         $rule2->name = "second";
-        $this->assertTrue($rule2->hasParent());
         $this->assertSame($syntax, $rule1->getParent());
         $syntax->addChild($rule2);
 

@@ -21,7 +21,13 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
+/**
+ * @see AbstractNode
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'AbstractNode.php';
+/**
+ * @see Composite
+ */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 /**
  * @see DepthCalculator
