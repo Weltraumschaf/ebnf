@@ -86,6 +86,6 @@ class GraphvizSyntaxTreeTest extends \PHPUnit_Framework_TestCase {
     n12 -> n13;
 }', $visitor->getDotString());
 
-        $this->markTestIncomplete("Ordering of nodes maybe wrong.");
+        $this->markTestIncomplete("TODO: Ordering of nodes maybe wrong.");
     }
 }

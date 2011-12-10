@@ -86,7 +86,6 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGenerateJpg() {
-//        $this->markTestIncomplete();
         $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.jpg";
         $this->assertEquals(Command::EBNF_OK, Command::main(array(

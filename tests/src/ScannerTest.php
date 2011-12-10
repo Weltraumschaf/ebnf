@@ -317,7 +317,7 @@ EOD;
     }
 
     public function testRaiseErrorOnInvalidCharacter() {
-        $this->markTestIncomplete("Throw excpetion on invalid characters.");
+        $this->markTestIncomplete("TODO: Throw excpetion on invalid characters.");
     }
 
     private function assertTokens($grammar, array $expectations, $msg = "") {
