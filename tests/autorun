@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## 
+## Autorun all fast tests on each source code change.
+## 
+## The tool PyWatch is required (http://heisel.org/blog/code/pywatch/).
+## Install on mac os: sudo easy_intsall pywatch
+## 
+
+find ../src/ -name '*.php*' | xargs pywatch "phpunit --exclude-group slow"
