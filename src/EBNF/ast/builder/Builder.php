@@ -131,7 +131,7 @@ class Builder {
      * @return Builder
      */
     public function terminal($value) {
-        $t        = new Terminal();
+        $t        = new Terminal($this->node);
         $t->value = (string) $value;
         $this->node->addChild($t);
         return $this;
@@ -145,7 +145,7 @@ class Builder {
      * @return Builder
      */
     public function identifier($value) {
-        $i        = new Identifier();
+        $i        = new Identifier($this->node);
         $i->value = (string) $value;
         $this->node->addChild($i);
         return $this;
@@ -157,7 +157,7 @@ class Builder {
      * @return Builder
      */
     public function sequence() {
-        $seq = new Sequence();
+        $seq = new Sequence($this->node);
         $this->node->addChild($seq);
         return new Builder($seq, $this);
     }
@@ -168,7 +168,7 @@ class Builder {
      * @return Builder
      */
     public function option() {
-        $option = new Option();
+        $option = new Option($this->node);
         $this->node->addChild($option);
         return new Builder($option, $this);
     }
@@ -179,7 +179,7 @@ class Builder {
      * @return Builder
      */
     public function choice() {
-        $choice = new Choice();
+        $choice = new Choice($this->node);
         $this->node->addChild($choice);
         return new Builder($choice, $this);
     }
@@ -190,7 +190,7 @@ class Builder {
      * @return Builder
      */
     public function loop() {
-        $loop = new Loop();
+        $loop = new Loop($this->node);
         $this->node->addChild($loop);
         return new Builder($loop, $this);
     }

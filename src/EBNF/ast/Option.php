@@ -22,13 +22,9 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * @see Node
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
-/**
  * @see Composite
  */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'AbstractComposite.php';
 /**
  * @see Type
  */
@@ -40,7 +36,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * @package ast
  * @version @@version@@
  */
-class Option extends Composite implements Node {
+class Option extends AbstractComposite {
 
     /**
      * Returns the name of a node.

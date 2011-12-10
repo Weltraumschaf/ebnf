@@ -40,14 +40,24 @@ use de\weltraumschaf\ebnf\visitor\Visitor;
  * @package ast
  * @version @@version@@
  */
-class Identifier implements Node {
+class Identifier extends AbstractNode {
 
     /**
      * The literal string.
      *
      * @var string
      */
-    public $value = "";
+    public $value;
+
+    /**
+     * Initializes object with empty value and parent node.
+     *
+     * @param Node The parent node.
+     */
+    public function __construct(Node $parent) {
+        parent::__construct($parent);
+        $this->value = "";
+    }
 
     /**
      * Returns the name of a node.
@@ -95,7 +105,7 @@ class Identifier implements Node {
 
     /**
      * Always returns 1.
-     * 
+     *
      * @return int
      */
     public function depth() {

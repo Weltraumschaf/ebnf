@@ -80,18 +80,22 @@ use de\weltraumschaf\ebnf\ast\Terminal;
 class TextRailroadTest extends \PHPUnit_Framework_TestCase {
 
     public function testFormatNode() {
-        $n = new Terminal();
+        $n = new Terminal($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $n->value = "term";
         $this->assertEquals("-(term)-", TextRailroad::formatNode($n));
-        $n = new Identifier();
+        $n = new Identifier($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $n->value = "ident";
         $this->assertEquals("-[ident]-", TextRailroad::formatNode($n));
-        $n = new Rule();
+        $n = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $n->name = "foobar";
         $this->assertEquals("foobar", TextRailroad::formatNode($n));
 
         foreach (array(
-            new Choice(), new Loop(), new Option(), new Sequence(), new Syntax()
+            new Choice($this->getMock('de\weltraumschaf\ebnf\ast\Node')),
+            new Loop($this->getMock('de\weltraumschaf\ebnf\ast\Node')),
+            new Option($this->getMock('de\weltraumschaf\ebnf\ast\Node')),
+            new Sequence($this->getMock('de\weltraumschaf\ebnf\ast\Node')),
+            new Syntax($this->getMock('de\weltraumschaf\ebnf\ast\Node'))
         ) as $n) {
             $this->assertEquals("", TextRailroad::formatNode($n));
         }
@@ -100,11 +104,12 @@ class TextRailroadTest extends \PHPUnit_Framework_TestCase {
 
     public function testGenerateMatrix() {
         $builder = new SyntaxBuilder();
+        $visitor = new TextRailroad();
         $builder->syntax("foobar")
                 ->rule("rule")
                     ->identifier("identifier")
                 ->end();
-        $visitor = new TextRailroad();
+
         $ast     = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(array(
@@ -156,7 +161,51 @@ class TextRailroadTest extends \PHPUnit_Framework_TestCase {
             array("rule1"),
             array("------", "->-", "-[identifier]-", "->-", "-(terminal)-", "->-", "-[identifier]-", "->-", "--|")
         ), $visitor->getMatrix());
+$this->markTestIncomplete();
+        $builder->clear()
+                ->syntax("foo")
+                ->rule("literal")
+                    ->choice()
+                        ->terminal("'")
+                        ->terminal('"')
+                    ->end()
+                ->end();
+        $ast = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("literal"),array(),array(),array(),
+//            array("--------", "-+-", "->-",  "-(')-", "->-", "-+-", "--|"),
+//            array("        ", " | ", "   ",  "     ", "   ", " | "),
+//            array("        ", " +-", "->-", "-(\")-", "->_", "-+ "),
+        ), $visitor->getMatrix());
 
+$this->markTestIncomplete();
+
+        $builder->clear()
+                ->syntax("foo")
+                ->rule("literal")
+                    ->choice()
+                        ->sequence()
+                            ->terminal("'")
+                            ->identifier("character")
+                            ->terminal("'")
+                        ->end()
+                        ->sequence()
+                            ->terminal('"')
+                            ->identifier("character")
+                            ->terminal('"')
+                        ->end()
+                    ->end()
+                ->end();
+        $ast = $builder->getAst();
+        $ast->accept($visitor);
+        $this->assertEquals(array(
+            array("literal"),
+            array("--------", "-+-",  "-(')-", "->-", "-[character]-", "->-",  "-(')-", "->-", "-+-", "--|"),
+            array("        ", " | ",  "     ", "   ", "             ", "   ",  "     ", "   ", " | "),
+            array("        ", " +-", "-(\")-", "->-", "-[character]-", "->-", "-(\")-", "->-", "-+ "),
+        ), $visitor->getMatrix());
+$this->markTestIncomplete();
         $builder->clear()
                 ->syntax("foo")
                 ->rule("literal")
@@ -177,13 +226,14 @@ class TextRailroadTest extends \PHPUnit_Framework_TestCase {
                             ->end()
                             ->terminal('"')
                         ->end()
-                    ->end();
-            $this->markTestIncomplete();
+                    ->end()
+                ->end();
+
         $ast = $builder->getAst();
         $ast->accept($visitor);
         $this->assertEquals(array(
-            array("literal"),
-            array("--------", "-+-",  "-(')-", "->-", "-[character]-", "->-", "-+-", "---", "------>------", "---", "-+-", "->-",  "-(')-", "->-", "-+-", "--|"),
+            array("literal"),array(),
+//            array("--------", "-+-",  "-(')-", "->-", "-[character]-", "->-", "-+-", "---", "------>------", "---", "-+-", "->-",  "-(')-", "->-", "-+-", "--|"),
 //            array("        ", " | ",  "     ", "   ", "             ", "   ", " | ", "   ", "             ", "   ", " | ", "   ",  "     ", "   ", " | "),
 //            array("        ", " | ",  "     ", "   ", "             ", "   ", " +-", "-<-", "-[character]-", "-<-", "-+ ", "   ",  "     ", "   ", " | "),
 //            array("        ", " | ",  "     ", "   ", "             ", "   ", "   ", "   ", "             ", "   ", "   ", "   ",  "     ", "   ", " | "),

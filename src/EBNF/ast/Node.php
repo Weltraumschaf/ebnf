@@ -66,7 +66,7 @@ interface Node {
      * Nodes with no child have a depth of 1. Nodes with childs have
      * the max depth of the childs plus one. The depth is same as the
      * length of of the longest path in the tree.
-     * 
+     *
      * @return int
      */
     public function depth();

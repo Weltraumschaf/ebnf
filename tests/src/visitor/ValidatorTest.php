@@ -85,7 +85,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      * @expectedExceptionCode    2
      */
     public function testThrowExcpetionValidateRuleBeforeSyntax() {
-        $rule = new Rule();
+        $rule = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $rule->accept(new Validator());
     }
 
@@ -96,7 +96,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
      */
     public function testThrowExcpetionOnRuleRedecalartion() {
         $syntax  = new Syntax();
-        $ruleFoo = new Rule();
+        $ruleFoo = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ruleFoo->name = "foobar";
         $syntax->addChild($ruleFoo);
         $syntax->addChild($ruleFoo);
@@ -107,10 +107,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         $syntax = new Syntax();
         $syntax->meta  = "foo meta";
         $syntax->title = "bar title";
-        $ruleFoo = new Rule();
+        $ruleFoo = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ruleFoo->name = "foo";
         $syntax->addChild($ruleFoo);
-        $ruleBar = new Rule();
+        $ruleBar = new Rule($this->getMock('de\weltraumschaf\ebnf\ast\Node'));
         $ruleBar->name = "bar";
         $syntax->addChild($ruleBar);
         $tester = new Validator();

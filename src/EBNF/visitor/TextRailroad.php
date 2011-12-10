@@ -24,6 +24,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR .  'Visitor.php';
 
 use de\weltraumschaf\ebnf\ast\Node;
 use de\weltraumschaf\ebnf\ast\Composite;
+use \de\weltraumschaf\ebnf\ast\Choice;
 use de\weltraumschaf\ebnf\ast\Identifier;
 use de\weltraumschaf\ebnf\ast\Rule;
 use de\weltraumschaf\ebnf\ast\Syntax;
@@ -65,15 +66,6 @@ class TextRailroad implements Visitor {
     private $currentRow;
     private $currentCol;
 
-    /**
-     * Returns the two dimensional matrix.
-     *
-     * @return array
-     */
-    public function getMatrix() {
-        return $this->matrix;
-    }
-
     public static function renderStringTemplate($t, $param = "") {
         return str_replace(self::PARAM_TOKEN, (string) $param, (string) $t);
     }
@@ -95,36 +87,78 @@ class TextRailroad implements Visitor {
         return self::renderStringTemplate($t, $p);
     }
 
+    private function addRow() {
+        $this->currentRow++;
+        $this->matrix[$this->currentRow] = array();
+        $this->currentCol = 0;
+    }
+
+    public function addCol() {
+        $cols = func_get_args();
+
+        if ( ! empty($cols)) {
+            foreach ($cols as $col) {
+                $this->matrix[$this->currentRow][$this->currentCol] = $col;
+                $this->currentCol++;
+            }
+        }
+    }
+
     public function beforeVisit(Node $visitable) {
+//        echo "before {$visitable->getNodeName()}\n";
         if ($visitable instanceof Syntax) {
-            $this->matrix = array();
-            $this->currentRow = 0;
-            $this->currentCol = 0;
+            $this->matrix     = array();
+            $this->currentRow = -1;
         }
 
         // While we're visiting the output will change anyway.
         $this->text = null;
     }
 
+    public function getElement($col, $row = null) {
+        if (null === $row) {
+            $row = $this->currentRow;
+        }
+
+        return $this->matrix[$row][$col];
+    }
+
+    public function setElement($val, $col, $row = null) {
+        if (null === $row) {
+            $row = $this->currentRow;
+        }
+
+        $this->matrix[$row][$col] = $val;
+    }
+
     public function visit(Node $visitable) {
+//        echo "{$visitable->getNodeName()}\n";
         if ($visitable instanceof Rule) {
-            $this->matrix[$this->currentRow] = array();
-            $this->matrix[$this->currentRow][] = self::formatNode($visitable);
-            $this->currentRow++;
-            $this->matrix[$this->currentRow] = array();
-            $this->matrix[$this->currentRow][] = str_repeat("-", strlen($visitable->name) + 1);
+            $this->addRow();
+            $this->addCol(self::formatNode($visitable));
+            $this->addRow();
+            $this->addCol(str_repeat("-", strlen($visitable->name) + 1));
+        } else if ($visitable instanceof Choice) {
+            $this->addCol(self::FORK);
+        } else if ($visitable instanceof Loop) {
+            $this->addCol(self::FORK);
         } else if ($visitable instanceof Identifier || $visitable instanceof Terminal) {
-            $this->matrix[$this->currentRow][] = self::LTR;
-            $this->matrix[$this->currentRow][] = self::formatNode($visitable);
+            if ($this->getElement($this->currentCol - 1) !== self::FORK) {
+                $this->addCol(self::LTR);
+            }
+
+            $this->addCol(self::formatNode($visitable));
         }
 
     }
 
     public function afterVisit(Node $visitable) {
+//        echo "after {$visitable->getNodeName()}\n";
         if ($visitable instanceof Rule) {
-            $this->matrix[$this->currentRow][] = self::LTR;
-            $this->matrix[$this->currentRow][] = self::END;
-            $this->currentRow++;
+            $this->addCol(self::LTR, self::END);
+        } else if ($visitable instanceof Choice) {
+            $this->addCol(self::FORK);
+            $this->addRow();
         }
     }
 
@@ -147,5 +181,14 @@ class TextRailroad implements Visitor {
             $this->text = $buffer;
         }
         return $this->text;
+    }
+
+    /**
+     * Returns the two dimensional matrix.
+     *
+     * @return array
+     */
+    public function getMatrix() {
+        return $this->matrix;
     }
 }

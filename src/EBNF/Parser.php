@@ -202,7 +202,7 @@ class Parser {
 
         $production = $this->dom->createElement(Type::RULE);
         $production->setAttribute('name', $this->scanner->currentToken()->getValue());
-        $rule = new Rule();
+        $rule = new Rule($this->ast);
         $rule->name = $this->scanner->currentToken()->getValue();
         $this->scanner->nextToken();
 
@@ -211,7 +211,7 @@ class Parser {
         }
 
         $this->scanner->nextToken();
-        $expressions = $this->parseExpression();
+        $expressions = $this->parseExpression($rule);
         $production->appendChild($expressions[0]);
         $rule->addChild($expressions[1]);
 
@@ -228,17 +228,17 @@ class Parser {
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseExpression() {
-        $choice = $this->dom->createElement(Type::CHOICE);
-        $term  = $this->parseTerm();
+    private function parseExpression($parent) {
+        $choice     = $this->dom->createElement(Type::CHOICE);
+        $choiceNode = new Choice($parent);
+        $term       = $this->parseTerm($choiceNode);
         $choice->appendChild($term[0]);
-        $choiceNode = new Choice();
         $choiceNode->addChild($term[1]);
         $mul = false;
 
         while ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '|')) {
             $this->scanner->nextToken();
-            $term  = $this->parseTerm();
+            $term  = $this->parseTerm($choiceNode);
             $choice->appendChild($term[0]);
             $choiceNode->addChild($term[1]);
             $mul = true;
@@ -257,17 +257,17 @@ class Parser {
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseTerm() {
-        $sequence = $this->dom->createElement(Type::SEQUENCE);
-        $factor   = $this->parseFactor();
+    private function parseTerm($parent) {
+        $sequence     = $this->dom->createElement(Type::SEQUENCE);
+        $sequenceNode = new Sequence($parent);
+        $factor       = $this->parseFactor($sequenceNode);
         $sequence->appendChild($factor[0]);
-        $sequenceNode = new Sequence();
         $sequenceNode->addChild($factor[1]);
         $this->scanner->nextToken();
         $mul = false;
 
         while ($this->scanner->currentToken()->isNotEquals(array('.', '=', '|', ')', ']', '}'))) {
-            $factor   = $this->parseFactor();
+            $factor   = $this->parseFactor($sequenceNode);
             $sequence->appendChild($factor[0]);
             $sequenceNode->addChild($factor[1]);
             $this->scanner->nextToken();
@@ -292,11 +292,11 @@ class Parser {
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseFactor() {
+    private function parseFactor($parent) {
         if ($this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
             $identifier = $this->dom->createElement(Type::IDENTIFIER);
             $identifier->setAttribute('value', $this->scanner->currentToken()->getValue());
-            $identifierNode = new Identifier();
+            $identifierNode = new Identifier($parent);
             $identifierNode->value = $this->scanner->currentToken()->getValue();
             return array($identifier, $identifierNode);
         }
@@ -314,14 +314,14 @@ class Parser {
 
             $literal = $this->dom->createElement(Type::TERMINAL);
             $literal->setAttribute('value', $this->scanner->currentToken()->getValue(true));
-            $literalNode = new Terminal();
+            $literalNode = new Terminal($parent);
             $literalNode->value = $this->scanner->currentToken()->getValue(true);
             return array($literal, $literalNode);
         }
 
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '(')) {
             $this->scanner->nextToken();
-            $expression = $this->parseExpression();
+            $expression = $this->parseExpression($parent);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ')')) {
                 $this->raiseError("Group must end with ')'");
@@ -333,9 +333,9 @@ class Parser {
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '[')) {
             $option = $this->dom->createElement(Type::OPTION);
             $this->scanner->nextToken();
-            $expression = $this->parseExpression();
+            $expression = $this->parseExpression($parent);
             $option->appendChild($expression[0]);
-            $optionNode = new Option();
+            $optionNode = new Option($parent);
             $optionNode->addChild($expression[1]);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, ']')) {
@@ -348,9 +348,9 @@ class Parser {
         if ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '{')) {
             $loop = $this->dom->createElement(Type::LOOP);
             $this->scanner->nextToken();
-            $expression = $this->parseExpression();
+            $expression = $this->parseExpression($parent);
             $loop->appendChild($expression[0]);
-            $loopNode = new Loop();
+            $loopNode = new Loop($parent);
             $loopNode->addChild($expression[1]);
 
             if (!$this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '}')) {

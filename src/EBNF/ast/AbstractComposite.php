@@ -21,50 +21,26 @@
 
 namespace de\weltraumschaf\ebnf\ast;
 
-/**
- * @see Composite
- */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'AbstractNode.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Composite.php';
 /**
  * @see DepthCalculator
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'DepthCalculator.php';
-/**
- * @see Node
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
-/**
- * @see Type
- */
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 
 use \ArrayIterator;
 use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
- * Syntax node.
+ * Abstract base class for nodes which are not leaves and have subnodes.
  *
- * The root of the AST.
+ * Provides interface for {@link IteratorAggregate http://php.net/manual/en/class.iteratoraggregate.php}
+ * and adding child nodes.
  *
  * @package ast
  * @version @@version@@
  */
-class Syntax implements Node, Composite {
-
-    const DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
-
-    /**
-     * Title literal of string.
-     *
-     * @var string
-     */
-    public $title = "";
-    /**
-     * Meta literal of string.
-     *
-     * @var string
-     */
-    public $meta = self::DEFAULT_META;
+abstract class AbstractComposite extends AbstractNode implements Composite {
 
     /**
      * Holds the child nodes.
@@ -73,17 +49,14 @@ class Syntax implements Node, Composite {
      */
     private $nodes;
 
-    public function __construct() {
-        $this->nodes  = array();
-    }
-
     /**
-     * Returns the name of a node.
+     * Initializes object with empty child node array and parent node.
      *
-     * @return string
+     * @param Node The parent node.
      */
-    public function getNodeName() {
-        return Type::SYNTAX;
+    public function __construct(Node $parent = null) {
+        parent::__construct($parent);
+        $this->nodes = array();
     }
 
     /**
@@ -125,6 +98,28 @@ class Syntax implements Node, Composite {
     }
 
     /**
+     * Defines method to accept {@link Visitors}.
+     *
+     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     *
+     * @param Visitor $visitor Object which visits te node.
+     *
+     * @return void
+     */
+    public function accept(Visitor $visitor) {
+        $visitor->beforeVisit($this);
+        $visitor->visit($this);
+
+        if ($this->hasChildren()) {
+            foreach ($this->getIterator() as $subnode) {
+                $subnode->accept($visitor);
+            }
+        }
+
+        $visitor->afterVisit($this);
+    }
+
+    /**
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
@@ -134,21 +129,22 @@ class Syntax implements Node, Composite {
      * @return void
      */
     public function probeEquivalence(Node $other, Notification $result) {
-        if ( ! $other instanceof Syntax) {
+        if ( ! $other instanceof Composite) {
             $result->error(
-                "Probed node types mismatch: '%s' != '%s'!",
+                "Probed node is not a composite node: '%s' vs. '%s'!",
                 get_class($this),
                 get_class($other)
             );
             return;
         }
 
-        if ($this->title !== $other->title) {
-            $result->error("Titles of syntx differs: '%s' != '%s'!", $this->title, $other->title);
-        }
-
-        if ($this->meta !== $other->meta) {
-            $result->error("Meta of syntx differs: '%s' != '%s'!", $this->meta, $other->meta);
+        if (get_class($this) !== get_class($other)) {
+            $result->error(
+                "Probed node types mismatch: '%s' != '%s'!",
+                get_class($this),
+                get_class($other)
+            );
+            return;
         }
 
         /* @var $other Composite */
@@ -175,28 +171,6 @@ class Syntax implements Node, Composite {
     }
 
     /**
-     * Defines method to accept {@link Visitors}.
-     *
-     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
-     *
-     * @param Visitor $visitor Object which visits te node.
-     *
-     * @return void
-     */
-    public function accept(Visitor $visitor) {
-        $visitor->beforeVisit($this);
-        $visitor->visit($this);
-
-        if ($this->hasChildren()) {
-            foreach ($this->getIterator() as $subnode) {
-                $subnode->accept($visitor);
-            }
-        }
-
-        $visitor->afterVisit($this);
-    }
-
-    /**
      * Chooses the max depth of its direct childs and returns it plus one.
      *
      * @return int
@@ -206,4 +180,5 @@ class Syntax implements Node, Composite {
 
         return $calc->depth();
     }
+
 }
