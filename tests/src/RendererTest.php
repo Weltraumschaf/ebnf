@@ -38,6 +38,8 @@ require_once 'Scanner.php';
  * Testcase for class {@link Renderer}.
  *
  * @package tests
+ * @version @@version@@
+ * @group   slow
  */
 class RendererTest extends \PHPUnit_Framework_TestCase {
     private $fixtureDir;
@@ -84,7 +86,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
         }
-
+        
         $fixture  = "{$this->fixtureDir}/test_grammar.gif";
         $fileName = self::$testDir->get() . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());

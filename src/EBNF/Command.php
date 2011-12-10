@@ -56,6 +56,7 @@ use de\weltraumschaf\ebnf\visitor\Xml;
  *
  * @package ebnf
  * @version @@version@@
+ * @group   slow
  */
 class Command {
     const EBNF_OK           = 0;
@@ -209,7 +210,7 @@ class Command {
      *
      * @return int
      */
-    private function execute() {
+    public function execute() {
         $returnCode = $this->findOptions();
 
         if (self::EBNF_OK !== $returnCode) {
