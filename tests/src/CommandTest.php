@@ -86,7 +86,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGenerateJpg() {
-        $this->markTestIncomplete();
+//        $this->markTestIncomplete();
         $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.jpg";
         $this->assertEquals(Command::EBNF_OK, Command::main(array(
@@ -104,7 +104,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $fixture .= ".jpg";
 
         $this->assertTrue(
-            file_get_contents($this->fixtureDir . DIRECTORY_SEPARATOR . $fixture) ===
+            file_get_contents($fixture) ===
             file_get_contents($outFile)
         );
     }
