@@ -202,7 +202,7 @@ class Parser {
 
         $production = $this->dom->createElement(Type::RULE);
         $production->setAttribute('name', $this->scanner->currentToken()->getValue());
-        $rule = new Rule($this->ast);
+        $rule       = new Rule($this->ast);
         $rule->name = $this->scanner->currentToken()->getValue();
         $this->scanner->nextToken();
 
@@ -225,10 +225,12 @@ class Parser {
     /**
      * Parses an EBNF expression: expression = term { "|" term } .
      *
+     * @param Node $parent Parent node.
+     *
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseExpression($parent) {
+    private function parseExpression(Node $parent) {
         $choice     = $this->dom->createElement(Type::CHOICE);
         $choiceNode = new Choice($parent);
         $term       = $this->parseTerm($choiceNode);
@@ -238,7 +240,7 @@ class Parser {
 
         while ($this->assertToken($this->scanner->currentToken(), Token::OPERATOR, '|')) {
             $this->scanner->nextToken();
-            $term  = $this->parseTerm($choiceNode);
+            $term = $this->parseTerm($choiceNode);
             $choice->appendChild($term[0]);
             $choiceNode->addChild($term[1]);
             $mul = true;
@@ -254,10 +256,12 @@ class Parser {
     /**
      * Parses an EBNF term: term = factor { factor } .
      *
+     * @param Node $parent Parent node.
+     *
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseTerm($parent) {
+    private function parseTerm(Node $parent) {
         $sequence     = $this->dom->createElement(Type::SEQUENCE);
         $sequenceNode = new Sequence($parent);
         $factor       = $this->parseFactor($sequenceNode);
@@ -267,7 +271,7 @@ class Parser {
         $mul = false;
 
         while ($this->scanner->currentToken()->isNotEquals(array('.', '=', '|', ')', ']', '}'))) {
-            $factor   = $this->parseFactor($sequenceNode);
+            $factor = $this->parseFactor($sequenceNode);
             $sequence->appendChild($factor[0]);
             $sequenceNode->addChild($factor[1]);
             $this->scanner->nextToken();
@@ -289,14 +293,16 @@ class Parser {
      *        | "(" expression ")"
      *        | "{" expression "}" .
      *
+     * @param Node $parent Parent node.
+     *
      * @throws SyntaxtException
      * @return DOMElement
      */
-    private function parseFactor($parent) {
+    private function parseFactor(Node $parent) {
         if ($this->scanner->currentToken()->isType(Token::IDENTIFIER)) {
             $identifier = $this->dom->createElement(Type::IDENTIFIER);
             $identifier->setAttribute('value', $this->scanner->currentToken()->getValue());
-            $identifierNode = new Identifier($parent);
+            $identifierNode        = new Identifier($parent);
             $identifierNode->value = $this->scanner->currentToken()->getValue();
             return array($identifier, $identifierNode);
         }
@@ -314,7 +320,7 @@ class Parser {
 
             $literal = $this->dom->createElement(Type::TERMINAL);
             $literal->setAttribute('value', $this->scanner->currentToken()->getValue(true));
-            $literalNode = new Terminal($parent);
+            $literalNode        = new Terminal($parent);
             $literalNode->value = $this->scanner->currentToken()->getValue(true);
             return array($literal, $literalNode);
         }
