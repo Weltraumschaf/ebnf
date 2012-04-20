@@ -1,7 +1,5 @@
 .DS_Store
-/nbproject/private/
-/.idea/
-/reports
-/doc
-/build/
-/PHPUnit-3.6.4/
+php/nbproject/private/
+php/reports
+php/doc
+php/build/
