@@ -21,7 +21,7 @@
 namespace de\weltraumschaf\ebnf\ast;
 
 /**
- * Used to notify collected errors.
+ * Used to notify collected AST errors.
  *
  * @package ast
  * @version @@version@@
@@ -37,7 +37,7 @@ class Notification {
     /**
      * Collect an line of error.
      *
-     * The first parameter is a sprintf styl format string.
+     * The first parameter is a sprintf style format string.
      *
      * Example:
      * error($format, $arg1, $arg2 .. $argN)
