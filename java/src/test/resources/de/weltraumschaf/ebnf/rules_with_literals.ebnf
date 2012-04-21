@@ -1,0 +1,4 @@
+"Rules with literal." {
+    literal = "'" character { character } "'"
+            | '"' character { character } '"' .
+}

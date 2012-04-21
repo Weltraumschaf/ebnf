@@ -40,11 +40,11 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Position.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'ScannerHelper.php';
 
 /**
- * Scanns an input string for EBNF syntax tokens.
+ * Scans an input string for EBNF syntax tokens.
  *
  * This class implements a standard lexical scanner pattern with one
- * character lookahead and interaotr interface for receiving token by token.
- * On lexiacl syntax errors a SyntaxException will be thrown.
+ * character lookahead and iterator interface for receiving token by token.
+ * On lexical syntax errors a SyntaxException will be thrown.
  *
  * Example:
  * <code>
@@ -152,7 +152,7 @@ class Scanner {
     }
 
     /**
-     * Returns the file frm where the input stream comes.
+     * Returns the file from where the input stream comes.
      *
      * May be null.
      *
@@ -163,7 +163,7 @@ class Scanner {
     }
 
     /**
-     * Retruns if there is a next character in the input stream.
+     * Returns if there is a next character in the input stream.
      *
      * @return bool
      */
@@ -365,7 +365,7 @@ class Scanner {
     }
 
     /**
-     * Scanns an identifier [a-zA-Z\-_].
+     * Scans an identifier [a-zA-Z\-_].
      *
      * @return Token
      */
@@ -389,7 +389,7 @@ class Scanner {
     }
 
     /**
-     * Scanns a literal (any character inside single or double quotes.
+     * Scans a literal (any character inside single or double quotes.
      *
      * @return Token
      */
@@ -412,7 +412,7 @@ class Scanner {
     }
 
     /**
-     * Scan a comment (any character inside '(*' and '*)'.
+     * Scans a comment (any character inside '(*' and '*)'.
      *
      * @return Token
      */
@@ -437,7 +437,7 @@ class Scanner {
     }
 
     /**
-     * Scan a operator.
+     * Scans an operator.
      *
      * @return Token
      */
