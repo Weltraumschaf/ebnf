@@ -3,6 +3,7 @@ package de.weltraumschaf.ebnf;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 
 /**
@@ -20,6 +22,7 @@ import static org.mockito.Mockito.*;
 public class ScannerTest {
 
     class Expectation {
+
         private final String value;
         private final TokenType type;
         private final int line;
@@ -27,9 +30,9 @@ public class ScannerTest {
 
         public Expectation(String value, TokenType type, int line, int col) {
             this.value = value;
-            this.type  = type;
-            this.line  = line;
-            this.col   = col;
+            this.type = type;
+            this.line = line;
+            this.col = col;
         }
 
         public int getCol() {
@@ -48,15 +51,16 @@ public class ScannerTest {
             return value;
         }
     }
-
     private static final String FIXTURE_DIR = "/de/weltraumschaf/ebnf";
 
-    private BufferedReader createSourceFromFixture(String fixtureFile) throws FileNotFoundException, URISyntaxException {
+    private BufferedReader createSourceFromFixture(String fixtureFile) throws FileNotFoundException,
+                                                                              URISyntaxException {
         URL resource = getClass().getResource(FIXTURE_DIR + '/' + fixtureFile);
         return ReaderHelper.createFrom(resource.toURI());
     }
 
-    private void assertTokens(BufferedReader grammar, List<Expectation> expectations, String msg) throws SyntaxError {
+    private void assertTokens(BufferedReader grammar, List<Expectation> expectations, String msg)
+            throws SyntaxError, IOException {
         Scanner scanner = new Scanner(grammar);
         int count = 0;
 
@@ -65,13 +69,17 @@ public class ScannerTest {
             Token token = scanner.currentToken();
             assertNotNull(token);
             Expectation expectation = expectations.get(count);
-            assertEquals(String.format("%s %d type: %s", msg, count, token.getValue()), expectation.getType(), token.getType());
-            assertEquals(String.format("%s %d value: %s", msg, count, token.getValue()), expectation.getValue(), token.getValue());
+            assertEquals(String.format("%s %d type: %s", msg, count, token.getValue()), expectation.
+                    getType(), token.getType());
+            assertEquals(String.format("%s %d value: %s", msg, count, token.getValue()),
+                         expectation.getValue(), token.getValue());
 
             Position position = token.getPosition();
             assertNull(position.getFile());
-            assertEquals(String.format("%s %d line: %s", msg, count, token.getValue()), expectation.getLine(), position.getLine());
-            assertEquals(String.format("%s %d col: %s", msg, count, token.getValue()), expectation.getCol(), position.getColumn());
+            assertEquals(String.format("%s %d line: %s", msg, count, token.getValue()), expectation.
+                    getLine(), position.getLine());
+            assertEquals(String.format("%s %d col: %s", msg, count, token.getValue()), expectation.
+                    getCol(), position.getColumn());
             ++count;
         }
 
@@ -80,7 +88,7 @@ public class ScannerTest {
         int[] backtracks = {1, 3, 20, 200000};
         for (int i = 0; i < backtracks.length; ++i) {
             int backtrack = backtracks[i];
-            int index = count - backtrack + 1;
+            int index = count - (backtrack + 1);
 
             if (index < 0) {
                 try {
@@ -100,48 +108,48 @@ public class ScannerTest {
                 assertEquals(expectation.getCol(), position.getColumn());
             }
         }
+
+        scanner.close();
     }
 
     @Test public void testNext() throws Exception {
+        Scanner scanner = new Scanner(ReaderHelper.createFrom(""));
+        assertNull(scanner.currentToken());
+        assertNull(scanner.currentToken());
+
         assertTokens(createSourceFromFixture("rules_with_ranges.ebnf"), Arrays.asList(
-            new Expectation("\"Rules with ranges.\"", TokenType.LITERAL, 1, 1),
-            new Expectation("{",       TokenType.L_BRACE,   1, 22),
-
-            new Expectation("lower", TokenType.IDENTIFIER, 2, 5),
-            new Expectation("=",     TokenType.ASIGN,   2, 15),
-            new Expectation("\"a\"",   TokenType.LITERAL,    2, 17),
-            new Expectation("..",    TokenType.RANGE,   2, 21),
-            new Expectation("\"z\"",   TokenType.LITERAL,    2, 24),
-            new Expectation(".",     TokenType.END_OF_RULE,   2, 28),
-
-            new Expectation("upper", TokenType.IDENTIFIER, 3, 5),
-            new Expectation("=",     TokenType.ASIGN,   3, 15),
-            new Expectation("\"A\"",   TokenType.LITERAL,    3, 17),
-            new Expectation("..",    TokenType.RANGE,   3, 21),
-            new Expectation("\"Z\"",   TokenType.LITERAL,    3, 24),
-            new Expectation(".",     TokenType.END_OF_RULE,   3, 28),
-
-            new Expectation("number", TokenType.IDENTIFIER, 4, 5),
-            new Expectation("=",         TokenType.ASIGN,   4, 15),
-            new Expectation("\"0\"",     TokenType.LITERAL,    4, 17),
-            new Expectation("..",        TokenType.RANGE,   4, 21),
-            new Expectation("\"9\"",     TokenType.LITERAL,    4, 24),
-            new Expectation(".",         TokenType.END_OF_RULE,   4, 28),
-
-            new Expectation("alpha-num", TokenType.IDENTIFIER, 5, 5),
-            new Expectation("=",         TokenType.ASIGN,   5, 15),
-            new Expectation("\"a\"",     TokenType.LITERAL,    5, 17),
-            new Expectation("..",        TokenType.RANGE,   5, 21),
-            new Expectation("\"z\"",     TokenType.LITERAL,    5, 24),
-            new Expectation("|",         TokenType.CHOICE,   5, 28),
-            new Expectation("\"0\"",     TokenType.LITERAL,    5, 30),
-            new Expectation("..",        TokenType.RANGE,   5, 34),
-            new Expectation("\"9\"",     TokenType.LITERAL,    5, 37),
-            new Expectation(".",         TokenType.END_OF_RULE,   5, 41),
-
-            new Expectation("}", TokenType.R_BRACE, 6, 1),
-            new Expectation("",  TokenType.EOF,      6, 1)
-        ), "Rules with range.");
+                new Expectation("\"Rules with ranges.\"", TokenType.LITERAL, 1, 1),
+                new Expectation("{", TokenType.L_BRACE, 1, 22),
+                new Expectation("lower", TokenType.IDENTIFIER, 2, 5),
+                new Expectation("=", TokenType.ASIGN, 2, 15),
+                new Expectation("\"a\"", TokenType.LITERAL, 2, 17),
+                new Expectation("..", TokenType.RANGE, 2, 21),
+                new Expectation("\"z\"", TokenType.LITERAL, 2, 24),
+                new Expectation(".", TokenType.END_OF_RULE, 2, 28),
+                new Expectation("upper", TokenType.IDENTIFIER, 3, 5),
+                new Expectation("=", TokenType.ASIGN, 3, 15),
+                new Expectation("\"A\"", TokenType.LITERAL, 3, 17),
+                new Expectation("..", TokenType.RANGE, 3, 21),
+                new Expectation("\"Z\"", TokenType.LITERAL, 3, 24),
+                new Expectation(".", TokenType.END_OF_RULE, 3, 28),
+                new Expectation("number", TokenType.IDENTIFIER, 4, 5),
+                new Expectation("=", TokenType.ASIGN, 4, 15),
+                new Expectation("\"0\"", TokenType.LITERAL, 4, 17),
+                new Expectation("..", TokenType.RANGE, 4, 21),
+                new Expectation("\"9\"", TokenType.LITERAL, 4, 24),
+                new Expectation(".", TokenType.END_OF_RULE, 4, 28),
+                new Expectation("alpha-num", TokenType.IDENTIFIER, 5, 5),
+                new Expectation("=", TokenType.ASIGN, 5, 15),
+                new Expectation("\"a\"", TokenType.LITERAL, 5, 17),
+                new Expectation("..", TokenType.RANGE, 5, 21),
+                new Expectation("\"z\"", TokenType.LITERAL, 5, 24),
+                new Expectation("|", TokenType.CHOICE, 5, 28),
+                new Expectation("\"0\"", TokenType.LITERAL, 5, 30),
+                new Expectation("..", TokenType.RANGE, 5, 34),
+                new Expectation("\"9\"", TokenType.LITERAL, 5, 37),
+                new Expectation(".", TokenType.END_OF_RULE, 5, 41),
+                new Expectation("}", TokenType.R_BRACE, 6, 1),
+                new Expectation(null, TokenType.EOF, 6, 1)), "Rules with range.");
 
         assertTokens(createSourceFromFixture("rules_with_comments.ebnf"), Arrays.asList(
             new Expectation("\"Rules with comments.\"", TokenType.LITERAL,    1, 1),
@@ -167,7 +175,7 @@ public class ScannerTest {
             new Expectation(".",       TokenType.END_OF_RULE,   6, 26),
 
             new Expectation("}",       TokenType.R_BRACE,   7, 1),
-            new Expectation("",        TokenType.EOF,        7, 1)
+            new Expectation(null,        TokenType.EOF,        7, 1)
         ), "Rule with comment.");
 
         assertTokens(createSourceFromFixture("rules_with_different_assignment_ops.ebnf"), Arrays.asList(
@@ -191,7 +199,7 @@ public class ScannerTest {
             new Expectation(".",       TokenType.END_OF_RULE,   4, 27),
 
             new Expectation("}",       TokenType.R_BRACE,   5, 1),
-            new Expectation("",        TokenType.EOF,        5, 1)
+            new Expectation(null,        TokenType.EOF,        5, 1)
         ), "Assignemnt operators.");
 
         assertTokens(createSourceFromFixture("rules_with_literals.ebnf"), Arrays.asList(
@@ -217,7 +225,7 @@ public class ScannerTest {
             new Expectation(".",         TokenType.END_OF_RULE,   3, 47),
 
             new Expectation("}",       TokenType.R_BRACE,   4, 1),
-            new Expectation("",        TokenType.EOF,        4, 1)
+            new Expectation(null,        TokenType.EOF,        4, 1)
         ), "Rules with literal.");
 
         assertTokens(createSourceFromFixture("testgrammar_1.ebnf"), Arrays.asList(
@@ -352,11 +360,10 @@ public class ScannerTest {
             new Expectation("\"9\"",        TokenType.LITERAL,    20, 23),
             new Expectation(".",          TokenType.END_OF_RULE,   20, 27),
             new Expectation("}",          TokenType.R_BRACE,   21, 1),
-            new Expectation("",           TokenType.EOF,        21, 1)
+            new Expectation(null,           TokenType.EOF,        21, 1)
         ), "testgrammar_1.ebnf");
 
-        BufferedReader grammar = ReaderHelper.createFrom("\ncomment := literal .\n");
-        Scanner scanner = new Scanner(grammar);
+        scanner = new Scanner(ReaderHelper.createFrom("\ncomment := literal .\n"));
 
         try {
             while (scanner.hasNextToken()) {
@@ -367,9 +374,11 @@ public class ScannerTest {
         } catch (SyntaxError ex) {
             assertEquals("Expecting '=' but seen ' '", ex.getMessage());
             Position pos = ex.getPosition();
-            assertEquals(1, pos.getLine());
+            assertEquals(2, pos.getLine());
             assertEquals(11, pos.getColumn());
         }
+
+        scanner.close();
     }
 
     @Ignore
@@ -378,22 +387,23 @@ public class ScannerTest {
     }
 
     @Test public void testRaiseError() {
-        Position pos = new Position(5, 3);
-        Scanner s = mock(Scanner.class);
-        when(s.createPosition()).thenReturn(pos);
-        verify(s, times(1)).createPosition();
+        Position position = new Position(5, 3);
+        Scanner scanner = mock(Scanner.class, Mockito.CALLS_REAL_METHODS);
+        when(scanner.createPosition()).thenReturn(position);
         String msg = "an error";
 
         try {
-            s.raiseError(msg);
+            scanner.raiseError(msg);
             fail("Expected exception not thrown!");
         } catch (SyntaxError e) {
-            assertSame(e.getPosition(), pos);
-            assertEquals(String.format("Syntax error: %s at %s (code: 0)!", msg, pos), e.toString());
+            verify(scanner, times(1)).createPosition();
+            assertSame(e.getPosition(), position);
+            assertEquals(String.format("Syntax error: %s at %s (code: 0)!", msg, position), e.
+                    toString());
         }
     }
 
-    @Test public void testPeekToken() throws SyntaxError {
+    @Test public void testPeekToken() throws SyntaxError, IOException {
         BufferedReader grammar = ReaderHelper.createFrom("comment :== literal .");
         Scanner scanner = new Scanner(grammar);
         scanner.nextToken();

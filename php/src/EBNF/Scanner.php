@@ -430,7 +430,7 @@ class Scanner {
                 break;
             }
 
-            $this->checkNewline();
+            $this->checkNewline(); // Comments cann be multiline.
         }
 
         return new Token(Token::COMMENT, $str, $pos);
