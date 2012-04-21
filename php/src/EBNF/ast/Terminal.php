@@ -33,9 +33,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
 use de\weltraumschaf\ebnf\visitor\Visitor;
 
 /**
- * Termianl node.
+ * Terminal node.
  *
- * Has no subnodes.
+ * Has no sub nodes.
  *
  * @package ast
  * @version @@version@@

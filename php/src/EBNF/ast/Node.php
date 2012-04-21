@@ -41,7 +41,7 @@ interface Node {
     /**
      * Defines method to accept {@link Visitors}.
      *
-     * Imlements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
      *
      * @param Visitor $visitor Object which visits te node.
      *

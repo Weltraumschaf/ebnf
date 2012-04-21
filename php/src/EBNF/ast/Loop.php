@@ -36,7 +36,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Type.php';
  * @package ast
  * @version @@version@@
  */
-class Loop extends AbstractComposite{
+class Loop extends AbstractComposite {
 
     /**
      * Returns the name of a node.

@@ -36,7 +36,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'Node.php';
 abstract class AbstractNode implements Node {
 
     /**
-     * The direct ancestor int the AST tree.
+     * The direct ancestor in the AST tree.
      *
      * @var Node
      */
