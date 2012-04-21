@@ -278,7 +278,7 @@ class Token {
     /**
      * Human readable string representation.
      *
-     * Token values longer than 15 characters are shorened.
+     * Token values longer than 15 characters are shortened.
      *
      * @return string
      */
