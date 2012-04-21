@@ -1,5 +1,7 @@
 package de.weltraumschaf.ebnf;
 
+import de.weltraumschaf.ebnf.util.ScannerHelper;
+
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>

@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.util;
 
 /**
  * Helper methods for the scanner.
