@@ -26,7 +26,7 @@ use \Exception;
 /**
  * Exception for signaling syntax errors.
  *
- * Provides a {@link Position} where in the input stream the syntax error occured.
+ * Provides a {@link Position} where in the input stream the syntax error occurred.
  *
  * @package ebnf
  * @version @@version@@
@@ -44,7 +44,7 @@ class SyntaxtException extends Exception {
      * Initializes the exception.
      *
      * @param string    $message  Error message.
-     * @param Position  $pos      Where the error occured.
+     * @param Position  $pos      Where the error occurred.
      * @param int       $code     Optional error code.
      * @param Exception $previous Optional previous exception.
      */
@@ -54,7 +54,7 @@ class SyntaxtException extends Exception {
     }
 
     /**
-     * Returns the position where the error occured.
+     * Returns the position where the error occurred.
      *
      * @return Position
      */
