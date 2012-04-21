@@ -26,7 +26,7 @@ use \de\weltraumschaf\ebnf\ast\Node;
 /**
  * Defines interface for an AST tree visitor.
  *
- * Interfce for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+ * Interface for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
  *
  * @package visitor
  * @version @@version@@
@@ -37,7 +37,7 @@ interface Visitor {
      * Template method to hook in before specific node vsitor method
      * will be invoked.
      *
-     * @param Node $visitable Visied {@link Node}.
+     * @param Node $visitable Visited {@link Node}.
      *
      * @return void
      */
@@ -46,17 +46,17 @@ interface Visitor {
     /**
      * Generic visitor method called by a visited {@link Node}.
      *
-     * @param Node $visitable Visied {@link Node}.
+     * @param Node $visitable Visited {@link Node}.
      *
      * @return void
      */
     public function visit(Node $visitable);
 
     /**
-     * Template method to hook in after specific node vsitor method
+     * Template method to hook in after specific node visitor method
      * will be invoked.
      *
-     * @param Node $visitable Visied {@link Node}.
+     * @param Node $visitable Visited {@link Node}.
      *
      * @return void
      */
