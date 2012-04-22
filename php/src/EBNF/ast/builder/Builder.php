@@ -64,7 +64,7 @@ use de\weltraumschaf\ebnf\ast\Sequence;
 use de\weltraumschaf\ebnf\ast\Terminal;
 
 /**
- * Generic builder which provides fluent interface to define syntaxt rules.
+ * Generic builder which provides fluent interface to define syntax rules.
  *
  * Example:
  * <code>
