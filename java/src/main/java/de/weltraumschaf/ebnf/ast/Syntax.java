@@ -171,4 +171,18 @@ public class Syntax implements Node, Composite {
     public int depth() {
         return new DepthCalculator(this).depth();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("<SYNTAX title=%s, meta=%s>", title, meta));
+
+        if (hasChildren()) {
+            for (Node child : getChildren()) {
+                sb.append('\n').append(child.toString());
+            }
+        }
+
+        return sb.toString();
+    }
 }

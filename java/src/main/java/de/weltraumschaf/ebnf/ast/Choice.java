@@ -21,4 +21,17 @@ public class Choice extends AbstractComposite {
         return NodeType.CHOICE.toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<CHOICE>");
+
+        if (hasChildren()) {
+            for (Node child : getChildren()) {
+                sb.append('\n').append(child.toString());
+            }
+        }
+
+        return sb.toString();
+    }
 }

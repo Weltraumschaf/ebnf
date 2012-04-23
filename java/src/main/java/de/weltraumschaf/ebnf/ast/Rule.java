@@ -48,4 +48,17 @@ public class Rule extends AbstractComposite {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("<RULE name=%s>", name));
+
+        if (hasChildren()) {
+            for (Node child : getChildren()) {
+                sb.append('\n').append(child.toString());
+            }
+        }
+
+        return sb.toString();
+    }
 }

@@ -85,10 +85,7 @@ use de\weltraumschaf\ebnf\ast\Terminal;
 use de\weltraumschaf\ebnf\ast\Type;
 
 /**
- * Parses a stream of EBNF tokens and generate a XML DOM tree.
- *
- * This class provides only one public method which provides returns
- * the syntax tree as XML DOM tree.
+ * Parses a stream of EBNF tokens and generate a XML DOM or abstract syntax tree.
  *
  * @package ebnf
  * @version @@version@@

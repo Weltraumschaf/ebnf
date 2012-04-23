@@ -85,4 +85,8 @@ public class Identifier extends AbstractNode {
         return 1;
     }
 
+    @Override
+    public String toString() {
+        return String.format("<IDENTIFIER value=%s>", value);
+    }
 }

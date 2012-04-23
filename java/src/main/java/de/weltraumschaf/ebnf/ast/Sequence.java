@@ -21,4 +21,18 @@ public class Sequence extends AbstractComposite {
         return NodeType.SEQUENCE.toString();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<SEQUENCE>");
+
+        if (hasChildren()) {
+            for (Node child : getChildren()) {
+                sb.append('\n').append(child.toString());
+            }
+        }
+
+        return sb.toString();
+    }
+
 }
