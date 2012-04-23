@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<syntax title="EBNF defined in itself." meta="xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3">
+    <rule name="syntax">
+        <sequence>
+            <option>
+                <identifier value="title"/>
+            </option>
+            <terminal value="{"/>
+            <loop>
+                <identifier value="rule"/>
+            </loop>
+            <terminal value="}"/>
+            <option>
+                <identifier value="comment"/>
+            </option>
+        </sequence>
+    </rule>
+    <rule name="rule">
+        <sequence>
+            <identifier value="identifier"/>
+            <choice>
+                <terminal value="="/>
+                <terminal value=":"/>
+                <terminal value=":=="/>
+            </choice>
+            <identifier value="expression"/>
+            <choice>
+                <terminal value="."/>
+                <terminal value=";"/>
+            </choice>
+        </sequence>
+    </rule>
+    <rule name="literal">
+        <choice>
+            <sequence>
+                <terminal value="&apos;"/>
+                <identifier value="character"/>
+                <loop>
+                    <identifier value="character"/>
+                </loop>
+                <terminal value="&apos;"/>
+            </sequence>
+            <sequence>
+                <terminal value="&quot;"/>
+                <identifier value="character"/>
+                <loop>
+                    <identifier value="character"/>
+                </loop>
+                <terminal value="&quot;"/>
+            </sequence>
+        </choice>
+    </rule>
+</syntax>

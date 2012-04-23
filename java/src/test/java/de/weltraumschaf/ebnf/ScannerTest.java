@@ -51,6 +51,7 @@ public class ScannerTest {
             return value;
         }
     }
+    
     private static final String FIXTURE_DIR = "/de/weltraumschaf/ebnf";
 
     private BufferedReader createSourceFromFixture(String fixtureFile) throws FileNotFoundException,
