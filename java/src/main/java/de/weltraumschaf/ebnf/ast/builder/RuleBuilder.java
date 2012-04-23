@@ -35,12 +35,13 @@ public class RuleBuilder {
     public GenericBuilder<RuleBuilder> rule(String name) {
         Rule rule = new Rule(syntax);
         rule.name = name;
+        syntax.addChild(rule);
         return new GenericBuilder<RuleBuilder>(this, rule);
     }
 
     /**
      * Returns the created syntax.
-     * 
+     *
      * @return
      */
     public Syntax build() {

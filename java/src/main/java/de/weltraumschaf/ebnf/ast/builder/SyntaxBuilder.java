@@ -36,11 +36,6 @@ import de.weltraumschaf.ebnf.ast.Syntax;
 public class SyntaxBuilder {
 
     /**
-     * Default meta string.
-     */
-    public static final String DEFAULT_META = "EBNF defined in itself.";
-
-    /**
      * It is not intended to create an object from outside.
      *
      * Use the syntax builder method.
@@ -55,7 +50,7 @@ public class SyntaxBuilder {
      * @return
      */
     public static RuleBuilder syntax(String title) {
-        return syntax(title, DEFAULT_META);
+        return syntax(title, Syntax.DEFAULT_META);
     }
 
     /**
@@ -71,5 +66,5 @@ public class SyntaxBuilder {
         syntax.meta   = meta;
         return new RuleBuilder(syntax);
     }
-    
+
 }

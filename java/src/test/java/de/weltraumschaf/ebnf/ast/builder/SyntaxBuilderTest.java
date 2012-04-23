@@ -2,7 +2,13 @@ package de.weltraumschaf.ebnf.ast.builder;
 
 import de.weltraumschaf.ebnf.ast.Syntax;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
-import org.junit.Ignore;
+import de.weltraumschaf.ebnf.visitor.Xml;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import org.apache.commons.io.FileUtils;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -14,8 +20,7 @@ import org.junit.Test;
  */
 public class SyntaxBuilderTest {
 
-    @Ignore
-    @Test public void testBuilder() {
+    @Test public void testBuilder() throws IOException, URISyntaxException {
         Syntax syntax = syntax("EBNF defined in itself.")
             .rule("syntax")
                 .sequence()
@@ -69,10 +74,11 @@ public class SyntaxBuilderTest {
             .end()
         .build();
 
-//        xml     = file_get_contents(EBNF_TESTS_FIXTURS . "/visitor/syntax.xml");
-//        visitor = new Xml();
-//        syntax.accept(visitor);
-//        this.assertEquals(xml, visitor.getXmlString());
+        URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
+        String xml   = FileUtils.readFileToString(new File(resource.toURI()));
+        Xml visitor  = new Xml();
+        syntax.accept(visitor);
+        assertEquals(xml, visitor.getXmlString());
     }
 
 }
