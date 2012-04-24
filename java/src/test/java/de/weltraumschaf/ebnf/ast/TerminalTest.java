@@ -12,12 +12,19 @@ import static org.mockito.Mockito.mock;
 public class TerminalTest {
 
     @Test public void testProbeEquivalence() {
-        Notification n = new Notification();
+        Notification n;
         Terminal term1 = new Terminal(mock(Node.class));
         term1.value = "a";
+        n = new Notification();
+        term1.probeEquivalence(term1, n);
+        assertTrue(n.isOk());
+
         Terminal term2 = new Terminal(mock(Node.class));
         term2.value = "b";
-
+        n = new Notification();
+        term2.probeEquivalence(term2, n);
+        assertTrue(n.isOk());
+        
         term1.probeEquivalence(new Identifier(mock(Node.class)), n);
         assertFalse(n.isOk());
         assertEquals(

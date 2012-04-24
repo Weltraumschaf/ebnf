@@ -12,11 +12,19 @@ import static org.mockito.Mockito.mock;
 public class IdentifierTest {
 
     @Test public void testProbeEquivalence() {
-        Notification n = new Notification();
+        Notification n;
+
         Identifier ident1 = new Identifier(mock(Node.class));
         ident1.value = "a";
+        n = new Notification();
+        ident1.probeEquivalence(ident1, n);
+        assertTrue(n.isOk());
+
         Identifier ident2 = new Identifier(mock(Node.class));
         ident2.value = "b";
+        n = new Notification();
+        ident2.probeEquivalence(ident2, n);
+        assertTrue(n.isOk());
 
         ident1.probeEquivalence(new Terminal(mock(Node.class)), n);
         assertFalse(n.isOk());

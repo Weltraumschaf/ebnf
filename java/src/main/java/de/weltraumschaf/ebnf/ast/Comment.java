@@ -3,16 +3,14 @@ package de.weltraumschaf.ebnf.ast;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**
- * Terminal node.
- *
- * Has no sub nodes.
+ * Comment node.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Terminal extends AbstractNode {
+public class Comment extends AbstractNode {
 
     /**
-     * The literal string value.
+     * The comment string value.
      */
     public String value = "";
 
@@ -21,7 +19,7 @@ public class Terminal extends AbstractNode {
      *
      * @param parent The parent node.
      */
-    public Terminal(Node parent) {
+    public Comment(Node parent) {
         super(parent);
     }
 
@@ -42,7 +40,7 @@ public class Terminal extends AbstractNode {
      *
      * @param Visitor Object which visits te node.
      *
-     * @return
+     * @return void
      */
     @Override
     public void accept(Visitor visitor) {
@@ -58,15 +56,15 @@ public class Terminal extends AbstractNode {
      * @param Node         Node to compare against.
      * @param Notification Object which collects all equivalence violations.
      *
-     * @return 
+     * @return void
      */
     @Override
     public void probeEquivalence(Node other, Notification result) {
         try {
-            Terminal terminal = (Terminal) other;
+            Comment terminal = (Comment) other;
 
             if (!value.equals(terminal.value)) {
-                result.error("Terminal value mismatch: '%s' != '%s'!", value, terminal.value);
+                result.error("Comment value mismatch: '%s' != '%s'!", value, terminal.value);
             }
         } catch (ClassCastException ex) {
             result.error(
@@ -89,6 +87,7 @@ public class Terminal extends AbstractNode {
 
     @Override
     public String toString() {
-        return String.format("<TERMINAL value=%s>", value);
+        return String.format("<COMMENT value=%s>", value);
     }
+
 }
