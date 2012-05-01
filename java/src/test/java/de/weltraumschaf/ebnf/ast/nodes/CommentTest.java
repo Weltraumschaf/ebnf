@@ -1,5 +1,7 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.Notification;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -13,23 +15,23 @@ public class CommentTest {
 
     @Test public void testProbeEquivalence() {
         Notification n;
-        Comment comment1 = new Comment(mock(Node.class));
+        Comment comment1 = Comment.newInstance();
         comment1.value = "a";
         n = new Notification();
         comment1.probeEquivalence(comment1, n);
         assertTrue(n.isOk());
 
-        Comment comment2 = new Comment(mock(Node.class));
+        Comment comment2 = Comment.newInstance();
         comment2.value = "b";
         n = new Notification();
         comment2.probeEquivalence(comment2, n);
         assertTrue(n.isOk());
 
         n = new Notification();
-        comment1.probeEquivalence(new Identifier(mock(Node.class)), n);
+        comment1.probeEquivalence(Identifier.newInstance(), n);
         assertFalse(n.isOk());
         assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.Comment' != 'class de.weltraumschaf.ebnf.ast.Identifier'!",
+            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Comment' != 'class de.weltraumschaf.ebnf.ast.nodes.Identifier'!",
             n.report()
         );
 
@@ -45,7 +47,7 @@ public class CommentTest {
     }
 
     @Test public void testDepth() {
-        Comment comment1 = new Comment(mock(Node.class));
+        Comment comment1 = Comment.newInstance();
         assertEquals(1, comment1.depth());
     }
 }

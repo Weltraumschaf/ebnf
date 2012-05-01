@@ -1,6 +1,6 @@
 package de.weltraumschaf.ebnf.ast.builder;
 
-import de.weltraumschaf.ebnf.ast.Syntax;
+import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 
 /**
  * Entry point to build an AST.
@@ -61,10 +61,7 @@ public class SyntaxBuilder {
      * @return
      */
     public static RuleBuilder syntax(String title, String meta) {
-        Syntax syntax = new Syntax();
-        syntax.title  = title;
-        syntax.meta   = meta;
-        return new RuleBuilder(syntax);
+        return new RuleBuilder(Syntax.newInstance(title, meta));
     }
 
 }

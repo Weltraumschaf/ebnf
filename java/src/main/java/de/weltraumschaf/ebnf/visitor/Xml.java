@@ -2,6 +2,7 @@ package de.weltraumschaf.ebnf.visitor;
 
 import de.weltraumschaf.ebnf.ast.Composite;
 import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;

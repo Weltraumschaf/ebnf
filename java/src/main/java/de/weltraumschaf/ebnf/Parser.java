@@ -1,6 +1,7 @@
 package de.weltraumschaf.ebnf;
 
-import de.weltraumschaf.ebnf.ast.*;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.nodes.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Parser {
      */
     public Parser(Scanner scanner) {
         this.scanner = scanner;
-        ast     = new Syntax();
+        ast     = Syntax.newInstance();
     }
 
     /**
@@ -61,7 +62,7 @@ public class Parser {
         }
 
         if (!assertToken(scanner.currentToken(), TokenType.R_BRACE, "}")) {
-            raiseError("Syntax must end with '}' but saw {scanner.currentToken()}");
+            raiseError(String.format("Syntax must end with '}' but saw '%s'", scanner.currentToken()));
         }
 
         scanner.nextToken();
@@ -72,8 +73,6 @@ public class Parser {
             } else {
                 raiseError("Literal expected as syntax comment");
             }
-        } else {
-            ast.meta = Syntax.DEFAULT_META;
         }
 
         return ast;
@@ -90,8 +89,7 @@ public class Parser {
             raiseError("Production must start with an identifier");
         }
 
-        Rule rule = new Rule(ast);
-        rule.name = scanner.currentToken().getValue();
+        Rule rule = Rule.newInstance(ast, scanner.currentToken().getValue());
         scanner.nextToken();
 
         if (!assertTokens(scanner.currentToken(), TokenType.ASIGN, Arrays.asList("=", ":", ":=="))) {
@@ -118,7 +116,7 @@ public class Parser {
      * @return
      */
     private Node parseExpression(Node parent) throws SyntaxError, IOException {
-        Choice choiceNode = new Choice(parent);
+        Choice choiceNode = Choice.newInstance(parent);
         Node term       = parseTerm(choiceNode);
         choiceNode.addChild(term);
         boolean multipleTerms = false;
@@ -142,8 +140,8 @@ public class Parser {
      * @return
      */
     private Node parseTerm(Node parent) throws SyntaxError, IOException {
-        Sequence sequenceNode = new Sequence(parent);
-        Node factor       = parseFactor(sequenceNode);
+        Sequence sequenceNode = Sequence.newInstance(parent);
+        Node factor           = parseFactor(sequenceNode);
         sequenceNode.addChild(factor);
         scanner.nextToken();
         boolean multipleFactors = false;
@@ -162,10 +160,10 @@ public class Parser {
     /**
      * Parses an EBNF factor:
      * factor = identifier
-     *        | literal
-     *        | "[" expression "]"
-     *        | "(" expression ")"
-     *        | "{" expression "}" .
+     *       | literal
+     *       | "[" expression "]"
+     *       | "(" expression ")"
+     *       | "{" expression "}" .
      *
      * @param Node parent Parent node.
      *
@@ -174,9 +172,8 @@ public class Parser {
      */
     private Node parseFactor(Node parent) throws SyntaxError, IOException {
         if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
-            Identifier identifierNode        = new Identifier(parent);
-            identifierNode.value = scanner.currentToken().getValue();
-            return identifierNode;
+            Identifier identifier = Identifier.newInstance(parent, scanner.currentToken().getValue());
+            return identifier;
         }
 
         if (scanner.currentToken().isType(TokenType.LITERAL)) {
@@ -190,9 +187,12 @@ public class Parser {
                 return range;
             }*/
 
-            Terminal literalNode        = new Terminal(parent);
-            literalNode.value = scanner.currentToken().getValue(true);
-            return literalNode;
+            Terminal literal = Terminal.newInstance(parent, scanner.currentToken().getValue(true));
+            return literal;
+        }
+
+        if (scanner.currentToken().isType(TokenType.COMMENT)) {
+            return Comment.newInstance(parent, scanner.currentToken().getValue());
         }
 
         if (assertToken(scanner.currentToken(), TokenType.L_PAREN, "(")) {
@@ -209,27 +209,27 @@ public class Parser {
         if (assertToken(scanner.currentToken(), TokenType.L_BRACK, "[")) {
             scanner.nextToken();
             Node expression = parseExpression(parent);
-            Option optionNode = new Option(parent);
-            optionNode.addChild(expression);
+            Option option   = Option.newInstance(parent);
+            option.addChild(expression);
 
             if (!assertToken(scanner.currentToken(), TokenType.R_BRACK, "]")) {
                 raiseError("Option must end with ']'");
             }
 
-            return optionNode;
+            return option;
         }
 
         if (assertToken(scanner.currentToken(), TokenType.L_BRACE, "{")) {
             scanner.nextToken();
             Node expression = parseExpression(parent);
-            Loop loopNode = new Loop(parent);
-            loopNode.addChild(expression);
+            Loop loop       = Loop.newInstance(parent);
+            loop.addChild(expression);
 
             if (!assertToken(scanner.currentToken(), TokenType.R_BRACE, "}")) {
                 raiseError("Loop must end with '}'");
             }
 
-            return loopNode;
+            return loop;
         }
 
         raiseError("Factor expected");

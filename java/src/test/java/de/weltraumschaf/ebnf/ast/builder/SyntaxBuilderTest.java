@@ -1,7 +1,8 @@
 package de.weltraumschaf.ebnf.ast.builder;
 
-import de.weltraumschaf.ebnf.ast.Syntax;
+import com.google.common.collect.ImmutableBiMap.Builder;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
+import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.visitor.Xml;
 import java.io.File;
 import java.io.IOException;

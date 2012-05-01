@@ -1,13 +1,25 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
+
+import de.weltraumschaf.ebnf.ast.AbstractComposite;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 
 /**
  * Choice node.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Choice extends AbstractComposite {
+public final class Choice extends AbstractComposite {
 
-    public Choice(Node parent) {
+    public static Choice newInstance() {
+        return newInstance(Null.newInstance());
+    }
+
+    public static Choice newInstance(Node parent) {
+        return new Choice(parent);
+    }
+
+    private Choice(Node parent) {
         super(parent);
     }
 

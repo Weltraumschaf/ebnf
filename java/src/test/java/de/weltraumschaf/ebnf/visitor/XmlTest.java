@@ -1,16 +1,17 @@
 package de.weltraumschaf.ebnf.visitor;
 
-import de.weltraumschaf.ebnf.ast.*;
+import com.google.common.collect.Maps;
+import de.weltraumschaf.ebnf.ast.nodes.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 /**
  * Unit test for Xml.
@@ -20,29 +21,17 @@ import static org.mockito.Mockito.mock;
 public class XmlTest {
 
     @Test public void testCreateOpenTag() {
+        Map<String, String> fix1 = Maps.newHashMap();
+        fix1.put("bar", "1");
+        fix1.put("baz", "<\">&");
+        Map<String, String> fix2 = Maps.newHashMap();
+        fix2.put("bar", "1");
+        fix2.put("baz", "2");
+
         assertEquals("<foo>", Xml.createOpenTag("foo"));
-        assertEquals(
-            "<foo baz=\"&lt;&quot;&gt;&amp;\" bar=\"1\">",
-            Xml.createOpenTag("foo", new HashMap<String, String>() {{
-                put("bar", "1");
-                put("baz", "<\">&");
-            }})
-        );
-        assertEquals(
-            "<foo baz=\"2\" bar=\"1\">",
-            Xml.createOpenTag("foo", new HashMap<String, String>() {{
-                put("bar", "1");
-                put("baz", "2");
-            }})
-        );
-        assertEquals(
-            "<foo baz=\"2\" bar=\"1\"/>",
-            Xml.createOpenTag("foo", new HashMap<String, String>() {{
-                    put("bar", "1");
-                    put("baz", "2");
-                }},
-            false
-        ));
+        assertEquals("<foo baz=\"&lt;&quot;&gt;&amp;\" bar=\"1\">", Xml.createOpenTag("foo", fix1));
+        assertEquals("<foo baz=\"2\" bar=\"1\">", Xml.createOpenTag("foo", fix2));
+        assertEquals("<foo baz=\"2\" bar=\"1\"/>", Xml.createOpenTag("foo", fix2, false));
     }
 
     @Test public void testCloseOpenTag() {
@@ -51,18 +40,14 @@ public class XmlTest {
     }
 
     @Test public void testExtractAttributes() {
-        Syntax syntax = new Syntax();
-        syntax.meta  = "foo";
-        syntax.title = "bar";
-        assertEquals(
-            new HashMap<String, String>() {{
-                put("meta", "foo");
-                put("title", "bar");
-            }},
-            Xml.extractAttributes(syntax)
-        );
+        Map<String, String> fix = Maps.newHashMap();
+        fix.put("meta", "foo");
+        fix.put("title", "bar");
 
-        Loop loop = new Loop(mock(Node.class));
+        Syntax syntax = Syntax.newInstance("bar", "foo");
+        assertEquals(fix, Xml.extractAttributes(syntax));
+
+        Loop loop = Loop.newInstance();
         assertEquals(new HashMap<String, String>(), Xml.extractAttributes(loop));
     }
 
@@ -76,9 +61,7 @@ public class XmlTest {
             visitor.getXmlString()
         );
 
-        Syntax syntax = new Syntax();
-        syntax.meta  = "EBNF defined in itself.";
-        syntax.title = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
+        Syntax syntax = Syntax.newInstance("xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3", "EBNF defined in itself.");
         visitor = new Xml();
         syntax.accept(visitor);
         assertEquals(
@@ -87,59 +70,57 @@ public class XmlTest {
             visitor.getXmlString()
         );
 
-        syntax = new Syntax();
-        syntax.title = "EBNF defined in itself.";
-        syntax.meta  = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
+        syntax = Syntax.newInstance("EBNF defined in itself.", "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3");
 
-        Rule syntaxRule = new Rule(mock(Node.class));
+        Rule syntaxRule = Rule.newInstance();
         syntaxRule.name = "syntax";
-        Sequence seq   = new Sequence(mock(Node.class));
-        Option opt   = new Option(mock(Node.class));
-        Identifier ident = new Identifier(mock(Node.class));
+        Sequence seq   = Sequence.newInstance();
+        Option opt   = Option.newInstance();
+        Identifier ident = Identifier.newInstance();
         ident.value = "title";
         opt.addChild(ident);
         seq.addChild(opt);
-        Terminal terminal = new Terminal(mock(Node.class));
+        Terminal terminal = Terminal.newInstance();
         terminal.value = "{";
         seq.addChild(terminal);
-        Loop loop = new Loop(mock(Node.class));
-        ident = new Identifier(mock(Node.class));
+        Loop loop = Loop.newInstance();
+        ident = Identifier.newInstance();
         ident.value = "rule";
         loop.addChild(ident);
         seq.addChild(loop);
-        terminal = new Terminal(mock(Node.class));
+        terminal = Terminal.newInstance();
         terminal.value = "}";
         seq.addChild(terminal);
-        opt   = new Option(mock(Node.class));
-        ident = new Identifier(mock(Node.class));
+        opt   = Option.newInstance();
+        ident = Identifier.newInstance();
         ident.value = "comment";
         opt.addChild(ident);
         seq.addChild(opt);
         syntaxRule.addChild(seq);
         syntax.addChild(syntaxRule);
 
-        Rule ruleRule = new Rule(mock(Node.class));
+        Rule ruleRule = Rule.newInstance();
         ruleRule.name = "rule";
-        seq   = new Sequence(mock(Node.class));
-        ident = new Identifier(mock(Node.class));
+        seq   = Sequence.newInstance();
+        ident = Identifier.newInstance();
         ident.value = "identifier";
         seq.addChild(ident);
-        Choice choice = new Choice(mock(Node.class));
+        Choice choice = Choice.newInstance();
 
         for (String literal : Arrays.asList("=", ":", ":==" )) {
-            terminal = new Terminal(mock(Node.class));
+            terminal = Terminal.newInstance();
             terminal.value = literal;
             choice.addChild(terminal);
         }
 
         seq.addChild(choice);
-        ident = new Identifier(mock(Node.class));
+        ident = Identifier.newInstance();
         ident.value = "expression";
         seq.addChild(ident);
-        choice = new Choice(mock(Node.class));
+        choice = Choice.newInstance();
 
         for (String literal : Arrays.asList(".", ";")) {
-            terminal = new Terminal(mock(Node.class));
+            terminal = Terminal.newInstance();
             terminal.value = literal;
             choice.addChild(terminal);
         }
@@ -148,32 +129,32 @@ public class XmlTest {
         ruleRule.addChild(seq);
         syntax.addChild(ruleRule);
 
-        Rule literalRule = new Rule(mock(Node.class));
+        Rule literalRule = Rule.newInstance();
         literalRule.name = "literal";
-        choice   = new Choice(mock(Node.class));
-        seq      = new Sequence(mock(Node.class));
-        terminal = new Terminal(mock(Node.class));
+        choice   = Choice.newInstance();
+        seq      = Sequence.newInstance();
+        terminal = Terminal.newInstance();
         terminal.value = "'";
         seq.addChild(terminal);
-        ident = new Identifier(mock(Node.class));
+        ident = Identifier.newInstance();
         ident.value = "character";
         seq.addChild(ident);
-        loop  = new Loop(mock(Node.class));
-        ident = new Identifier(mock(Node.class));
+        loop  = Loop.newInstance();
+        ident = Identifier.newInstance();
         ident.value = "character";
         loop.addChild(ident);
         seq.addChild(loop);
         seq.addChild(terminal);
         choice.addChild(seq);
-        seq      = new Sequence(mock(Node.class));
-        terminal = new Terminal(mock(Node.class));
+        seq      = Sequence.newInstance();
+        terminal = Terminal.newInstance();
         terminal.value = "\"";
         seq.addChild(terminal);
-        ident = new Identifier(mock(Node.class));
+        ident = Identifier.newInstance();
         ident.value = "character";
         seq.addChild(ident);
-        loop  = new Loop(mock(Node.class));
-        ident = new Identifier(mock(Node.class));
+        loop  = Loop.newInstance();
+        ident = Identifier.newInstance();
         ident.value = "character";
         loop.addChild(ident);
         seq.addChild(loop);

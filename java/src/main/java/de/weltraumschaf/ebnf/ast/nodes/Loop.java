@@ -1,4 +1,8 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
+
+import de.weltraumschaf.ebnf.ast.AbstractComposite;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 
 /**
  * Lop node.
@@ -7,8 +11,16 @@ package de.weltraumschaf.ebnf.ast;
  */
 public class Loop extends AbstractComposite {
 
-    public Loop(Node parent) {
+    private Loop(Node parent) {
         super(parent);
+    }
+
+    public static Loop newInstance() {
+        return newInstance(Null.newInstance());
+    }
+
+    public static Loop newInstance(Node parent) {
+        return new Loop(parent);
     }
 
     /**

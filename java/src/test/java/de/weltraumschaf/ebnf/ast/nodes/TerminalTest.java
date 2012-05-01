@@ -1,5 +1,7 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.Notification;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -13,22 +15,22 @@ public class TerminalTest {
 
     @Test public void testProbeEquivalence() {
         Notification n;
-        Terminal term1 = new Terminal(mock(Node.class));
+        Terminal term1 = Terminal.newInstance();
         term1.value = "a";
         n = new Notification();
         term1.probeEquivalence(term1, n);
         assertTrue(n.isOk());
 
-        Terminal term2 = new Terminal(mock(Node.class));
+        Terminal term2 = Terminal.newInstance();
         term2.value = "b";
         n = new Notification();
         term2.probeEquivalence(term2, n);
         assertTrue(n.isOk());
-        
-        term1.probeEquivalence(new Identifier(mock(Node.class)), n);
+
+        term1.probeEquivalence(Identifier.newInstance(), n);
         assertFalse(n.isOk());
         assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.Terminal' != 'class de.weltraumschaf.ebnf.ast.Identifier'!",
+            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Terminal' != 'class de.weltraumschaf.ebnf.ast.nodes.Identifier'!",
             n.report()
         );
 
@@ -44,7 +46,7 @@ public class TerminalTest {
     }
 
     @Test public void testDepth() {
-        Terminal term1 = new Terminal(mock(Node.class));
+        Terminal term1 = Terminal.newInstance();
         assertEquals(1, term1.depth());
     }
 

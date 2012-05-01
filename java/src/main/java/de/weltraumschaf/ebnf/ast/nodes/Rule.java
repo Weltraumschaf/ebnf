@@ -1,21 +1,36 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
+
+import de.weltraumschaf.ebnf.ast.*;
 
 /**
  * Rule node.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Rule extends AbstractComposite {
+public final class Rule extends AbstractComposite {
 
     /**
      * Name literal of rule.
      *
      * @var
      */
-    public String name = "";
+    @Attribute public String name;
 
-    public Rule(Node parent) {
+    private Rule(Node parent, String name) {
         super(parent);
+        this.name = name;
+    }
+
+    public static Rule newInstance() {
+        return newInstance(Null.newInstance());
+    }
+
+    public static Rule newInstance(Node parent) {
+        return newInstance(parent, "");
+    }
+
+    public static Rule newInstance(Node parent, String name) {
+        return new Rule(parent, name);
     }
 
     /**

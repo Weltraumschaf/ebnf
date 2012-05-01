@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
+import de.weltraumschaf.ebnf.ast.nodes.*;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -51,52 +52,52 @@ public class AbstractCompositeTest {
     @Test public void probeEquivalenceInternal() {
         AbstractComposite comp = new AbstractCompositeImpl();
         Notification n = new Notification();
-        comp.probeEquivalence(new Terminal(mock(Node.class)), n);
+        comp.probeEquivalence(Terminal.newInstance(), n);
         assertFalse(n.isOk());
         assertEquals(
-            "Probed node is not a composite node: 'class de.weltraumschaf.ebnf.ast.Terminal'!",
+            "Probed node is not a composite node: 'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
             n.report()
         );
 
         n = new Notification();
-        comp.probeEquivalence(new Rule(mock(Node.class)), n);
+        comp.probeEquivalence(Rule.newInstance(), n);
         assertFalse(n.isOk());
         assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.AbstractCompositeTest$AbstractCompositeImpl' != 'class de.weltraumschaf.ebnf.ast.Rule'!",
+            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.AbstractCompositeTest$AbstractCompositeImpl' != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!",
             n.report()
         );
     }
 
     @Test public void depth() {
-        Syntax syntax = new Syntax();
+        Syntax syntax = Syntax.newInstance();
         assertEquals(1, syntax.depth());
 
-        Rule rule = new Rule(mock(Node.class));
+        Rule rule = Rule.newInstance();
         assertEquals(1, rule.depth());
         syntax.addChild(rule);
         assertEquals(2, syntax.depth());
 
-        Sequence seq = new Sequence(mock(Node.class));
+        Sequence seq = Sequence.newInstance();
         assertEquals(1, seq.depth());
         rule.addChild(seq);
         assertEquals(2, rule.depth());
         assertEquals(3, syntax.depth());
 
-        Identifier ident = new Identifier(mock(Node.class));
+        Identifier ident = Identifier.newInstance();
         assertEquals(1, ident.depth());
         seq.addChild(ident);
         assertEquals(2, seq.depth());
         assertEquals(3, rule.depth());
         assertEquals(4, syntax.depth());
 
-        Loop loop = new Loop(mock(Node.class));
+        Loop loop = Loop.newInstance();
         assertEquals(1, loop.depth());
         seq.addChild(loop);
         assertEquals(2, seq.depth());
         assertEquals(3, rule.depth());
         assertEquals(4, syntax.depth());
 
-        Terminal term = new Terminal(mock(Node.class));
+        Terminal term = Terminal.newInstance();
         assertEquals(1, term.depth());
         loop.addChild(term);
         assertEquals(2, loop.depth());

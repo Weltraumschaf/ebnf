@@ -1,6 +1,7 @@
 package de.weltraumschaf.ebnf.ast.builder;
 
-import de.weltraumschaf.ebnf.ast.*;
+import de.weltraumschaf.ebnf.ast.AbstractComposite;
+import de.weltraumschaf.ebnf.ast.nodes.*;
 
 /**
  * Generic builder provides interface to construct sub nodes for rule nodes.
@@ -49,9 +50,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<P> identifier(String value) {
-        Identifier ident = new Identifier(parentNode);
-        ident.value = value;
-        parentNode.addChild(ident);
+        parentNode.addChild(Identifier.newInstance(parentNode, value));
         return this;
     }
 
@@ -62,9 +61,18 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<P> terminal(String value) {
-        Terminal term = new Terminal(parentNode);
-        term.value = value;
-        parentNode.addChild(term);
+        parentNode.addChild(Terminal.newInstance(parentNode, value));
+        return this;
+    }
+
+    /**
+     * Creates a {@link Comment} node and returns the same builder.
+     *
+     * @param value
+     * @return
+     */
+    public GenericBuilder<P> comment(String value) {
+        parentNode.addChild(Comment.newInstance(parentNode, value));
         return this;
     }
 
@@ -74,7 +82,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> choice() {
-        Choice choice = new Choice(parentNode);
+        Choice choice = Choice.newInstance(parentNode);
         parentNode.addChild(choice);
         return new GenericBuilder<GenericBuilder<P>>(this, choice);
     }
@@ -85,7 +93,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> loop() {
-        Loop loop = new Loop(parentNode);
+        Loop loop = Loop.newInstance(parentNode);
         parentNode.addChild(loop);
         return new GenericBuilder<GenericBuilder<P>>(this, loop);
     }
@@ -96,7 +104,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> option() {
-        Option option = new Option(parentNode);
+        Option option = Option.newInstance(parentNode);
         parentNode.addChild(option);
         return new GenericBuilder<GenericBuilder<P>>(this, option);
     }
@@ -107,7 +115,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> sequence() {
-        Sequence seq = new Sequence(parentNode);
+        Sequence seq = Sequence.newInstance(parentNode);
         parentNode.addChild(seq);
         return new GenericBuilder<GenericBuilder<P>>(this, seq);
     }

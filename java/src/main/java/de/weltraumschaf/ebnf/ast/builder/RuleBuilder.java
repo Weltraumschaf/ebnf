@@ -1,7 +1,7 @@
 package de.weltraumschaf.ebnf.ast.builder;
 
-import de.weltraumschaf.ebnf.ast.Rule;
-import de.weltraumschaf.ebnf.ast.Syntax;
+import de.weltraumschaf.ebnf.ast.nodes.Rule;
+import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 
 /**
  * Sub builder providing methods to create rules and final build the syntax.
@@ -33,8 +33,7 @@ public class RuleBuilder {
      * @return
      */
     public GenericBuilder<RuleBuilder> rule(String name) {
-        Rule rule = new Rule(syntax);
-        rule.name = name;
+        Rule rule = Rule.newInstance(syntax, name);
         syntax.addChild(rule);
         return new GenericBuilder<RuleBuilder>(this, rule);
     }

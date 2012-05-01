@@ -1,5 +1,6 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.*;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**
@@ -7,20 +8,34 @@ import de.weltraumschaf.ebnf.visitor.Visitor;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Comment extends AbstractNode {
+public final class Comment extends AbstractNode {
 
     /**
      * The comment string value.
      */
-    public String value = "";
+    @Attribute public String value;
 
     /**
      * Initializes object with empty value and parent node.
      *
-     * @param parent The parent node.
+     * @param parent
+     * @param value
      */
-    public Comment(Node parent) {
+    private Comment(Node parent, String value) {
         super(parent);
+        this.value = value;
+    }
+
+    public static Comment newInstance() {
+        return newInstance(Null.newInstance());
+    }
+
+    public static Comment newInstance(Node parent) {
+        return newInstance(parent, "");
+    }
+
+    public static Comment newInstance(Node parent, String value) {
+        return new Comment(parent, value);
     }
 
     /**

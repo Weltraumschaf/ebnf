@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
+import de.weltraumschaf.ebnf.ast.nodes.*;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
@@ -13,41 +14,32 @@ import static org.mockito.Mockito.mock;
  */
 public class IntegrationTest {
 
-    @Test public void testThatNodeIsNotComposite() {
-        Terminal term = new Terminal(mock(Node.class));
-        assertFalse(term instanceof Composite);
-        Identifier ident = new Identifier(mock(Node.class));
-        assertFalse(ident instanceof Composite);
-    }
-
     @Test public void testThatNodeIsComposite() {
-        Choice choice = new Choice(mock(Node.class));
+        Choice choice = Choice.newInstance();
         assertTrue(choice instanceof Composite);
 
-        Loop loop = new Loop(mock(Node.class));
+        Loop loop = Loop.newInstance();
         assertTrue(loop instanceof Composite);
 
-        Option option = new Option(mock(Node.class));
+        Option option = Option.newInstance();
         assertTrue(option instanceof Composite);
 
-        Rule rule = new Rule(mock(Node.class));
+        Rule rule = Rule.newInstance();
         assertTrue(rule instanceof Composite);
 
-        Sequence seq = new Sequence(mock(Node.class));
+        Sequence seq = Sequence.newInstance();
         assertTrue(seq instanceof Composite);
 
-        Syntax syntax = new Syntax();
+        Syntax syntax = Syntax.newInstance();
         assertTrue(syntax instanceof Composite);
     }
 
     @Test public void testIntegration() {
-        Syntax syntax = new Syntax();
-        syntax.meta = "foo";
-        syntax.title = "bar";
+        Syntax syntax = Syntax.newInstance("foo", "bar");
         List<Node> children = syntax.getChildren();
         assertEquals(0, children.size());
 
-        Rule rule1 = new Rule(syntax);
+        Rule rule1 = Rule.newInstance(syntax);
         assertSame(syntax, rule1.getParent());
         rule1.name = "first";
         syntax.addChild(rule1);
@@ -56,7 +48,7 @@ public class IntegrationTest {
         assertEquals(1, children.size());
         assertSame(rule1, children.get(0));
 
-        Rule rule2 = new Rule(syntax);
+        Rule rule2 = Rule.newInstance(syntax);
         rule2.name = "second";
         assertSame(syntax, rule1.getParent());
         syntax.addChild(rule2);
@@ -68,15 +60,15 @@ public class IntegrationTest {
     }
 
     @Test public void testProbeEquivalenceSyntax() {
-        Syntax syntax1 = new Syntax();
-        syntax1.title = "foo";
-        syntax1.meta  = "bar";
-        Syntax syntax2 = new Syntax();
-        syntax2.title = "foo";
-        syntax2.meta  = "bar";
-        Syntax syntax3 = new Syntax();
-        syntax3.title = "bla";
-        syntax3.meta  = "blub";
+        Syntax syntax1 = Syntax.newInstance("foo", "bar");
+        syntax1.title  = "foo";
+        syntax1.meta   = "bar";
+        Syntax syntax2 = Syntax.newInstance("foo", "bar");
+        syntax2.title  = "foo";
+        syntax2.meta   = "bar";
+        Syntax syntax3 = Syntax.newInstance("bla", "blub");
+        syntax3.title  = "bla";
+        syntax3.meta   = "blub";
 
         Notification n = new Notification();
         syntax1.probeEquivalence(syntax1, n);
@@ -126,9 +118,9 @@ public class IntegrationTest {
         assertEquals(errors.toString(), n.report());
 
         errors = new StringBuilder();
-        errors.append("Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.Syntax' != 'class de.weltraumschaf.ebnf.ast.Rule'!");
-        Syntax stub = new Syntax();
-        Node mock = new Rule(stub);
+        errors.append("Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Syntax' != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!");
+        Syntax stub = Syntax.newInstance();
+        Node mock = Rule.newInstance(stub);
         assertFalse(mock instanceof Syntax);
         n = new Notification();
         stub.probeEquivalence(mock, n);
@@ -138,16 +130,10 @@ public class IntegrationTest {
 
     @Ignore
     @Test public void testProbeEquivalenceSyntaxWithRules() {
-        Syntax syntax1 = new Syntax();
-        syntax1.title = "foo";
-        syntax1.meta  = "bar";
-        Syntax syntax2 = new Syntax();
-        syntax2.title = "foo";
-        syntax2.meta  = "bar";
-        Syntax syntax3 = new Syntax();
-        syntax3.title = "foo";
-        syntax3.meta  = "bar";
-        Rule rule1 = new Rule(mock(Node.class));
+        Syntax syntax1 = Syntax.newInstance("foo", "bar");
+        Syntax syntax2 = Syntax.newInstance("foo", "bar");
+        Syntax syntax3 = Syntax.newInstance("foo", "bar");
+        Rule rule1 = Rule.newInstance();
         rule1.name = "rule1";
         syntax1.addChild(rule1);
         syntax2.addChild(rule1);
@@ -162,7 +148,7 @@ public class IntegrationTest {
         assertTrue(n.report(), n.isOk());
         assertEquals("", n.report());
 
-        Rule rule2 = new Rule(mock(Node.class));
+        Rule rule2 = Rule.newInstance();
         rule2.name = "rule2";
         syntax1.addChild(rule2);
         StringBuilder error = new StringBuilder();
@@ -191,7 +177,7 @@ public class IntegrationTest {
         assertTrue(n.report(), n.isOk());
         assertEquals("", n.report());
 
-        Rule rule3 = new Rule(mock(Node.class));
+        Rule rule3 = Rule.newInstance();
         rule3.name = "rule3";
         syntax3.addChild(rule1);
         syntax3.addChild(rule3);

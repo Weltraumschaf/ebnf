@@ -21,7 +21,7 @@ public abstract class AbstractNode implements Node {
      *
      * @param Node Ancestor node.
      */
-    public AbstractNode(Node parent) {
+    protected AbstractNode(Node parent) {
         this.parent = parent;
     }
 

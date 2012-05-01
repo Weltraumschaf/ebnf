@@ -1,14 +1,26 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
+
+import de.weltraumschaf.ebnf.ast.AbstractComposite;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 
 /**
  * Sequence node.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Sequence extends AbstractComposite {
+public final class Sequence extends AbstractComposite {
 
-    public Sequence(Node parent) {
+    private Sequence(Node parent) {
         super(parent);
+    }
+
+    public static Sequence newInstance() {
+        return newInstance(Null.newInstance());
+    }
+
+    public static Sequence newInstance(Node parent) {
+        return new Sequence(parent);
     }
 
     /**

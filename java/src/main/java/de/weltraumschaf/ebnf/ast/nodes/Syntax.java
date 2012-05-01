@@ -1,5 +1,11 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.Attribute;
+import de.weltraumschaf.ebnf.ast.Composite;
+import de.weltraumschaf.ebnf.ast.DepthCalculator;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
+import de.weltraumschaf.ebnf.ast.Notification;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +17,7 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Syntax implements Node, Composite {
+public final class Syntax implements Node, Composite {
 
     public static final String DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
@@ -20,13 +26,13 @@ public class Syntax implements Node, Composite {
      *
      * @var string
      */
-    public String title = "";
+    @Attribute public String title;
     /**
      * Meta literal of string.
      *
      * @var string
      */
-    public String meta = DEFAULT_META;
+    @Attribute public String meta;
 
     /**
      * Holds the child nodes.
@@ -34,6 +40,24 @@ public class Syntax implements Node, Composite {
      * @var array
      */
     private final List<Node> nodes = new ArrayList<Node>();
+
+    public static Syntax newInstance() {
+        return newInstance("");
+    }
+
+    public static Syntax newInstance(String title) {
+        return newInstance(title, DEFAULT_META);
+    }
+
+    public static Syntax newInstance(String title, String meta) {
+        return new Syntax(title, meta);
+    }
+
+    private Syntax(String title, String meta) {
+        super();
+        this.title = title;
+        this.meta  = meta;
+    }
 
     /**
      * Returns the name of a node.

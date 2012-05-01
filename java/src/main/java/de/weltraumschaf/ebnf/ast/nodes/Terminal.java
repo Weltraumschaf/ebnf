@@ -1,30 +1,43 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.*;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**
- * Identifier node.
+ * Terminal node.
  *
  * Has no sub nodes.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Identifier extends AbstractNode {
+public final class Terminal extends AbstractNode {
 
     /**
-     * The literal string.
-     *
-     * @var
+     * The literal string value.
      */
-    public String value = "";
+    @Attribute public String value;
 
     /**
      * Initializes object with empty value and parent node.
      *
-     * @param Node The parent node.
+     * @param parent The parent node.
+     * @param value  The terminal value.
      */
-    public Identifier(Node parent) {
+    private Terminal(Node parent, String value) {
         super(parent);
+        this.value = value;
+    }
+
+    public static Terminal newInstance() {
+        return newInstance(Null.newInstance());
+    }
+
+    public static Terminal newInstance(Node parent) {
+        return newInstance(parent, "");
+    }
+
+    public static Terminal newInstance(Node parent, String value) {
+        return new Terminal(parent, value);
     }
 
     /**
@@ -34,11 +47,11 @@ public class Identifier extends AbstractNode {
      */
     @Override
     public String getNodeName() {
-        return NodeType.IDENTIFIER.toString();
+        return NodeType.TERMINAL.toString();
     }
 
     /**
-     * Defines method to accept {@link Visitors}.
+     * Defines method to accept {@link Visitor}.
      *
      * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
      *
@@ -65,13 +78,17 @@ public class Identifier extends AbstractNode {
     @Override
     public void probeEquivalence(Node other, Notification result) {
         try {
-            Identifier ident = (Identifier) other;
+            Terminal terminal = (Terminal) other;
 
-            if (!value.equals(ident.value)) {
-                result.error("Identifier value mismatch: '%s' != '%s'!", value, ident.value);
+            if (!value.equals(terminal.value)) {
+                result.error("Terminal value mismatch: '%s' != '%s'!", value, terminal.value);
             }
         } catch (ClassCastException ex) {
-            result.error("Probed node types mismatch: '%s' != '%s'!", getClass(), other.getClass());
+            result.error(
+                "Probed node types mismatch: '%s' != '%s'!",
+                getClass(),
+                other.getClass()
+            );
         }
     }
 
@@ -87,6 +104,6 @@ public class Identifier extends AbstractNode {
 
     @Override
     public String toString() {
-        return String.format("<IDENTIFIER value=%s>", value);
+        return String.format("<TERMINAL value=%s>", value);
     }
 }

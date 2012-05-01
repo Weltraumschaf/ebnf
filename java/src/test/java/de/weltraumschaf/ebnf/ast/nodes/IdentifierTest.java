@@ -1,5 +1,7 @@
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.Notification;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -14,22 +16,22 @@ public class IdentifierTest {
     @Test public void testProbeEquivalence() {
         Notification n;
 
-        Identifier ident1 = new Identifier(mock(Node.class));
+        Identifier ident1 = Identifier.newInstance();
         ident1.value = "a";
         n = new Notification();
         ident1.probeEquivalence(ident1, n);
         assertTrue(n.isOk());
 
-        Identifier ident2 = new Identifier(mock(Node.class));
+        Identifier ident2 = Identifier.newInstance();
         ident2.value = "b";
         n = new Notification();
         ident2.probeEquivalence(ident2, n);
         assertTrue(n.isOk());
 
-        ident1.probeEquivalence(new Terminal(mock(Node.class)), n);
+        ident1.probeEquivalence(Terminal.newInstance(), n);
         assertFalse(n.isOk());
         assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.Identifier' != 'class de.weltraumschaf.ebnf.ast.Terminal'!",
+            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Identifier' != 'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
             n.report()
         );
 
@@ -45,7 +47,7 @@ public class IdentifierTest {
     }
 
     @Test public void testDepth() {
-        Identifier ident = new Identifier(mock(Node.class));
+        Identifier ident = Identifier.newInstance();
         assertEquals(1, ident.depth());
     }
 
