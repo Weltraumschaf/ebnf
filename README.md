@@ -144,6 +144,25 @@ Or you run all targets with:
 
     $ phing
 
+## Ideas for an IDE
+
+The IDE has two panes:
+
+1. Text editor for the EBNF syntax with highlighting. Highlighted tokens are identifier and terminals. Matched highlighting on same identifiers or corresponding braces. The editor has line numbers and signals syntax errors.
+2. Graphic preview which renders the EBNF as railroad diagram.
+
+The view mode may be switched between horizontal split, vertical split and tabbed view. In the tabbed view source and preview are tabs. The IDE provides export to XML, PNG, JPG, GIF, and PDF. 
+
+The IDE also provides a project view. It holds references to a project configuration file for each project and expands a tree view to files and directories added to the project. 
+
+Project file format (JSON):
+./ebnf.project:
+{
+    "name":  "The Project Name",
+    "files": ["/foo/bar/baz.ebnf", "..."],
+    "directories": ["/foo/snafu", "..."]
+}
+
 [WP-EBNF]:       http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
 [PEAR]:          http://pear.weltraumschaf.de/
 [GD]:            http://php.net/manual/de/book.image.php
