@@ -5,29 +5,14 @@ import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 /**
  * Entry point to build an AST.
  *
- * Example:
+ * This builder only provides two static methods to start the generation
+ * of an syntax AST.
+ *
+ * You may import the methods statically for convenience:
  * <code>
  * import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
- *
  * ...
- *
  * Syntax syntax = syntax("EBNF defined in itself.")
- *     .rule("syntax")
- *         .sequence()
- *             .option()
- *                 .identifier("title")
- *             .end()
- *             .terminal("{")
- *             .loop()
- *                 .identifier("rule")
- *             .end()
- *             .terminal("}")
- *             .option()
- *                 .identifier("comment")
- *             .end()
- *         .end()
- *     .end()
- * .build();
  * ...
  * </code>
  *
