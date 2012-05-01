@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 
 /**
  * Unit test for Xml.
@@ -51,9 +52,6 @@ public class XmlTest {
         assertEquals(new HashMap<String, String>(), Xml.extractAttributes(loop));
     }
 
-    /**
-     * @todo use AST builder
-     */
     @Test public void testGenerateXml() throws URISyntaxException, IOException {
         Xml visitor = new Xml();
         assertEquals(
@@ -61,7 +59,8 @@ public class XmlTest {
             visitor.getXmlString()
         );
 
-        Syntax syntax = Syntax.newInstance("xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3", "EBNF defined in itself.");
+        Syntax syntax = Syntax.newInstance("xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3",
+                                           "EBNF defined in itself.");
         visitor = new Xml();
         syntax.accept(visitor);
         assertEquals(
@@ -70,98 +69,58 @@ public class XmlTest {
             visitor.getXmlString()
         );
 
-        syntax = Syntax.newInstance("EBNF defined in itself.", "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3");
-
-        Rule syntaxRule = Rule.newInstance();
-        syntaxRule.name = "syntax";
-        Sequence seq   = Sequence.newInstance();
-        Option opt   = Option.newInstance();
-        Identifier ident = Identifier.newInstance();
-        ident.value = "title";
-        opt.addChild(ident);
-        seq.addChild(opt);
-        Terminal terminal = Terminal.newInstance();
-        terminal.value = "{";
-        seq.addChild(terminal);
-        Loop loop = Loop.newInstance();
-        ident = Identifier.newInstance();
-        ident.value = "rule";
-        loop.addChild(ident);
-        seq.addChild(loop);
-        terminal = Terminal.newInstance();
-        terminal.value = "}";
-        seq.addChild(terminal);
-        opt   = Option.newInstance();
-        ident = Identifier.newInstance();
-        ident.value = "comment";
-        opt.addChild(ident);
-        seq.addChild(opt);
-        syntaxRule.addChild(seq);
-        syntax.addChild(syntaxRule);
-
-        Rule ruleRule = Rule.newInstance();
-        ruleRule.name = "rule";
-        seq   = Sequence.newInstance();
-        ident = Identifier.newInstance();
-        ident.value = "identifier";
-        seq.addChild(ident);
-        Choice choice = Choice.newInstance();
-
-        for (String literal : Arrays.asList("=", ":", ":==" )) {
-            terminal = Terminal.newInstance();
-            terminal.value = literal;
-            choice.addChild(terminal);
-        }
-
-        seq.addChild(choice);
-        ident = Identifier.newInstance();
-        ident.value = "expression";
-        seq.addChild(ident);
-        choice = Choice.newInstance();
-
-        for (String literal : Arrays.asList(".", ";")) {
-            terminal = Terminal.newInstance();
-            terminal.value = literal;
-            choice.addChild(terminal);
-        }
-
-        seq.addChild(choice);
-        ruleRule.addChild(seq);
-        syntax.addChild(ruleRule);
-
-        Rule literalRule = Rule.newInstance();
-        literalRule.name = "literal";
-        choice   = Choice.newInstance();
-        seq      = Sequence.newInstance();
-        terminal = Terminal.newInstance();
-        terminal.value = "'";
-        seq.addChild(terminal);
-        ident = Identifier.newInstance();
-        ident.value = "character";
-        seq.addChild(ident);
-        loop  = Loop.newInstance();
-        ident = Identifier.newInstance();
-        ident.value = "character";
-        loop.addChild(ident);
-        seq.addChild(loop);
-        seq.addChild(terminal);
-        choice.addChild(seq);
-        seq      = Sequence.newInstance();
-        terminal = Terminal.newInstance();
-        terminal.value = "\"";
-        seq.addChild(terminal);
-        ident = Identifier.newInstance();
-        ident.value = "character";
-        seq.addChild(ident);
-        loop  = Loop.newInstance();
-        ident = Identifier.newInstance();
-        ident.value = "character";
-        loop.addChild(ident);
-        seq.addChild(loop);
-        seq.addChild(terminal);
-        choice.addChild(seq);
-        literalRule.addChild(choice);
-        syntax.addChild(literalRule);
+        syntax = syntax("EBNF defined in itself.", "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3")
+            .rule("syntax")
+                .sequence()
+                    .option()
+                        .identifier("title")
+                    .end()
+                    .terminal("{")
+                    .loop()
+                        .identifier("rule")
+                    .end()
+                    .terminal("}")
+                    .option()
+                        .identifier("comment")
+                    .end()
+                .end()
+            .end()
+            .rule("rule")
+                .sequence()
+                    .identifier("identifier")
+                    .choice()
+                        .terminal("=")
+                        .terminal(":")
+                        .terminal(":==" )
+                    .end()
+                    .identifier("expression")
+                    .choice()
+                        .terminal(".")
+                        .terminal(";")
+                    .end()
+                .end()
+            .end()
+            .rule("literal")
+                .choice()
+                    .sequence()
+                        .terminal("'")
+                        .identifier("character")
+                        .loop()
+                            .identifier("character")
+                        .end()
+                        .terminal("'")
+                    .end()
+                    .sequence()
+                        .terminal("\"")
+                        .identifier("character")
+                        .loop()
+                            .identifier("character")
+                        .end()
+                        .terminal("\"")
+                    .end()
+                .end()
+            .end()
+        .build();
 
         visitor = new Xml();
         syntax.accept(visitor);
