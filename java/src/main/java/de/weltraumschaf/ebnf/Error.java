@@ -6,6 +6,8 @@ package de.weltraumschaf.ebnf;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public class Error extends Exception {
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      * The error code.

@@ -10,6 +10,7 @@ package de.weltraumschaf.ebnf;
 public class SyntaxError extends Error {
 
     public static final int DEFAULT_CODE = 0;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Where in the source the exception occurred.
@@ -61,7 +62,7 @@ public class SyntaxError extends Error {
 
     /**
      * Human readable representation.
-     * 
+     *
      * @return
      */
     @Override

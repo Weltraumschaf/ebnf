@@ -172,7 +172,7 @@ public class Token {
     }
 
     public static String unquoteString(String str) {
-        // @todo move ibnto own class.
+        // @todo move into own class.
         int start = 0;
         int length = str.length();
 

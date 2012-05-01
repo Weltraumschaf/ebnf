@@ -1,13 +1,9 @@
 package de.weltraumschaf.ebnf.ast;
 
-import java.lang.reflect.Modifier;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 /**
  * Unit test for DepthCalculator.

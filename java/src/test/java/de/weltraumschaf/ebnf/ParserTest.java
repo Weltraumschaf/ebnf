@@ -68,7 +68,7 @@ public class ParserTest {
 
     @Ignore("TODO: Implement range parsing.")
     @Test public void testParseRanges() throws FileNotFoundException, URISyntaxException {
-        Parser p = new Parser(new Scanner(loadFixture("rules_with_ranges.ebnf")));
+//        Parser p = new Parser(new Scanner(loadFixture("rules_with_ranges.ebnf")));
 //        assertXmlStringEqualsXmlFile(
 //            EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . "rules_with_ranges.xml",
 //            p.parse().saveXML(),

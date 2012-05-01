@@ -1,10 +1,8 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.Node;
 import de.weltraumschaf.ebnf.ast.Notification;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 /**
  * Unit test for Terminal.

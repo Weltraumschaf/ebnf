@@ -1,18 +1,18 @@
 package de.weltraumschaf.ebnf.visitor;
 
 import com.google.common.collect.Maps;
-import de.weltraumschaf.ebnf.ast.nodes.*;
+import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
+import de.weltraumschaf.ebnf.ast.nodes.Loop;
+import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 
 /**
  * Unit test for Xml.

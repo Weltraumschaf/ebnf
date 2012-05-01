@@ -328,7 +328,7 @@ public class Scanner {
 
                 currentToken++;
                 return;
-            } else if (ScannerHelper.isWhiteSpace(currentCharacter())) {
+            } else if (ScannerHelper.isWhiteSpace(currentCharacter())) { // NOPMD
                 // Ignore white spaces.
             } else {
                 raiseError(String.format("Invalid character '%s' as %s", currentCharacter(), createPosition()));

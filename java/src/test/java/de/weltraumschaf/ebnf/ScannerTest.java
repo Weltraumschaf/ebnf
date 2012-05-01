@@ -51,7 +51,7 @@ public class ScannerTest {
             return value;
         }
     }
-    
+
     private static final String FIXTURE_DIR = "/de/weltraumschaf/ebnf";
 
     private BufferedReader createSourceFromFixture(String fixtureFile) throws FileNotFoundException,
@@ -95,7 +95,7 @@ public class ScannerTest {
                 try {
                     scanner.backtrackToken(backtrack);
                     fail("Expected excpetion not thrown!");
-                } catch (IllegalArgumentException ex) {
+                } catch (IllegalArgumentException ex) { // NOPMD
                     // Exception is expected here.
                 }
             } else {
@@ -382,9 +382,9 @@ public class ScannerTest {
         scanner.close();
     }
 
-    @Ignore
+    @Ignore("Throw excpetion on invalid characters")
     @Test public void testRaiseErrorOnInvalidCharacter() {
-        // TODO: Throw excpetion on invalid characters.
+
     }
 
     @Test public void testRaiseError() {
