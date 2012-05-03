@@ -76,7 +76,6 @@ public class ParserTest {
 //        );
     }
 
-    @Ignore
     @Test public void testParse() throws SyntaxError, FileNotFoundException, IOException, URISyntaxException {
         Syntax ast;
 
@@ -121,16 +120,22 @@ public class ParserTest {
 
         p = new Parser(new Scanner(loadFixture("rules_with_comments.ebnf")));
         ast = syntax("Rules with comments.")
+            .comment("(* here are rules *)")
             .rule("title")
                 .identifier("literal")
-                .comment("Comment * at the end of line")
             .end()
+            .comment("(* Comment * at the end of line *)")
             .rule("comment")
                 .identifier("literal")
-                .comment("This is a multi\n        line comment.")
             .end()
+            .comment("(* This is a multi\n       line comment. *)")
             .rule("comment")
-                .identifier("literal")
+                .comment("(* foo *)")
+                .sequence()
+                    .comment("(* bar *)")
+                    .identifier("literal")
+                    .comment("(* baz *)")
+                .end()
             .end()
         .build();
         assertEquivalentSyntax(ast, p.parse());

@@ -35,7 +35,7 @@ public class Parser {
     }
 
     /**
-     * Parses the EBNF tokens and returns a syntax tree as DOMDocument object on success.
+     * Parses the EBNF tokens and returns a syntax AST.
      *
      * On semantic syntax errors a SyntaxError will be thrown.
      *
@@ -55,10 +55,18 @@ public class Parser {
 
         scanner.nextToken();
 
-        while (scanner.hasNextToken() && scanner.currentToken().isType(TokenType.IDENTIFIER)) {
-            Node rules = parseRule();
-            ast.addChild(rules);
-            scanner.nextToken();
+        while (scanner.hasNextToken()) {
+            if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
+                Node rules = parseRule();
+                ast.addChild(rules);
+                scanner.nextToken();
+            } else if (scanner.currentToken().isType(TokenType.COMMENT)) {
+                Comment comment = Comment.newInstance(ast, scanner.currentToken().getValue());
+                ast.addChild(comment);
+                scanner.nextToken();
+            } else {
+                break;
+            }
         }
 
         if (!assertToken(scanner.currentToken(), TokenType.R_BRACE, "}")) {
@@ -92,6 +100,12 @@ public class Parser {
         Rule rule = Rule.newInstance(ast, scanner.currentToken().getValue());
         scanner.nextToken();
 
+        if (scanner.currentToken().isType(TokenType.COMMENT)) {
+            Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
+            rule.addChild(comment);
+            scanner.nextToken();
+        }
+
         if (!assertTokens(scanner.currentToken(), TokenType.ASIGN, Arrays.asList("=", ":", ":=="))) {
             raiseError("Identifier must be followed by '='");
         }
@@ -99,6 +113,12 @@ public class Parser {
         scanner.nextToken();
         Node expressions = parseExpression(rule);
         rule.addChild(expressions);
+
+        if (scanner.currentToken().isType(TokenType.COMMENT)) {
+            Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
+            rule.addChild(comment);
+            scanner.nextToken();
+        }
 
         if (!assertTokens(scanner.currentToken(), TokenType.END_OF_RULE, Arrays.asList(".", ";"))) {
             raiseError("Rule must end with '.' or ';'", scanner.backtrackToken(2).getPosition(true));

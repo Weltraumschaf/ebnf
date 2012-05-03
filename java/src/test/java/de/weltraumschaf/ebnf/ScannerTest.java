@@ -156,27 +156,32 @@ public class ScannerTest {
             new Expectation("\"Rules with comments.\"", TokenType.LITERAL,    1, 1),
             new Expectation("{",       TokenType.L_BRACE,   1, 24),
 
-            new Expectation("title",   TokenType.IDENTIFIER, 2, 5),
-            new Expectation("=",       TokenType.ASIGN,   2, 16),
-            new Expectation("literal", TokenType.IDENTIFIER, 2, 18),
-            new Expectation(".",       TokenType.END_OF_RULE,   2, 26),
+            new Expectation("(* here are rules *)", TokenType.COMMENT, 2, 5),
+
+            new Expectation("title",   TokenType.IDENTIFIER,  3, 5),
+            new Expectation("=",       TokenType.ASIGN,       3, 16),
+            new Expectation("literal", TokenType.IDENTIFIER,  3, 18),
+            new Expectation(".",       TokenType.END_OF_RULE, 3, 26),
             new Expectation("(* Comment * at the end of line *)",
-                                        TokenType.COMMENT,    2, 28),
+                                        TokenType.COMMENT,    3, 28),
 
-            new Expectation("comment", TokenType.IDENTIFIER, 3, 5),
-            new Expectation("=",       TokenType.ASIGN,   3, 16),
-            new Expectation("literal", TokenType.IDENTIFIER, 3, 18),
-            new Expectation(".",       TokenType.END_OF_RULE,   3, 26),
+            new Expectation("comment", TokenType.IDENTIFIER,  4, 5),
+            new Expectation("=",       TokenType.ASIGN,       4, 16),
+            new Expectation("literal", TokenType.IDENTIFIER,  4, 18),
+            new Expectation(".",       TokenType.END_OF_RULE, 4, 26),
 
-            new Expectation("(*  This is a multi\n        line comment. *)", TokenType.COMMENT,    4, 5),
+            new Expectation("(* This is a multi\n       line comment. *)", TokenType.COMMENT, 5, 5),
 
-            new Expectation("comment", TokenType.IDENTIFIER, 6, 5),
-            new Expectation("=",       TokenType.ASIGN,   6, 16),
-            new Expectation("literal", TokenType.IDENTIFIER, 6, 18),
-            new Expectation(".",       TokenType.END_OF_RULE,   6, 26),
+            new Expectation("comment",   TokenType.IDENTIFIER,  7, 5),
+            new Expectation("(* foo *)", TokenType.COMMENT,     7, 13),
+            new Expectation("=",         TokenType.ASIGN,       7, 23),
+            new Expectation("(* bar *)", TokenType.COMMENT,     7, 25),
+            new Expectation("literal",   TokenType.IDENTIFIER,  7, 35),
+            new Expectation("(* baz *)", TokenType.COMMENT,     7, 43),
+            new Expectation(".",         TokenType.END_OF_RULE, 7, 53),
 
-            new Expectation("}",       TokenType.R_BRACE,   7, 1),
-            new Expectation(null,        TokenType.EOF,        7, 1)
+            new Expectation("}",       TokenType.R_BRACE, 8, 1),
+            new Expectation(null,      TokenType.EOF,     8, 1)
         ), "Rule with comment.");
 
         assertTokens(createSourceFromFixture("rules_with_different_assignment_ops.ebnf"), Arrays.asList(

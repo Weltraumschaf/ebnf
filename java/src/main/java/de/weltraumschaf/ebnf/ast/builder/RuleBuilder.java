@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast.builder;
 
+import de.weltraumschaf.ebnf.ast.nodes.Comment;
 import de.weltraumschaf.ebnf.ast.nodes.Rule;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 
@@ -36,6 +37,12 @@ public class RuleBuilder {
         Rule rule = Rule.newInstance(syntax, name);
         syntax.addChild(rule);
         return new GenericBuilder<RuleBuilder>(this, rule);
+    }
+
+    public RuleBuilder comment(String value) {
+        Comment comment = Comment.newInstance(syntax, value);
+        syntax.addChild(comment);
+        return this;
     }
 
     /**

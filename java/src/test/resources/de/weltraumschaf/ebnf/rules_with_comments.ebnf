@@ -1,7 +1,8 @@
 "Rules with comments." {
+    (* here are rules *)
     title      = literal . (* Comment * at the end of line *)
     comment    = literal .
-    (*  This is a multi
-        line comment. *)
-    comment    = literal .
+    (* This is a multi
+       line comment. *)
+    comment (* foo *) = (* bar *) literal (* baz *) .
 }
