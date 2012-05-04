@@ -25,6 +25,10 @@ public final class Rule extends AbstractComposite {
         return newInstance(Null.newInstance());
     }
 
+    public static Rule newInstance(String name) {
+        return newInstance(Null.newInstance(), name);
+    }
+
     public static Rule newInstance(Node parent) {
         return newInstance(parent, "");
     }

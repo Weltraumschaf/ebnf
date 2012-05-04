@@ -32,6 +32,10 @@ public final class Identifier extends AbstractNode {
         return newInstance(Null.newInstance());
     }
 
+    public static Identifier newInstance(String value) {
+        return newInstance(Null.newInstance(), value);
+    }
+
     public static Identifier newInstance(Node parent) {
         return newInstance(parent, "");
     }

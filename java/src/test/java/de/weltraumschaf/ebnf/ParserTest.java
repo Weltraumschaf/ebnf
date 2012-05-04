@@ -13,6 +13,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
+import static de.weltraumschaf.ebnf.TestHelper.helper;
 
 /**
  * Unit test for Parser.
@@ -20,11 +21,6 @@ import org.junit.Test;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public class ParserTest {
-
-    private BufferedReader loadFixture(String fixtureFile) throws FileNotFoundException, URISyntaxException {
-        URL resource = getClass().getResource("/de/weltraumschaf/ebnf/" + fixtureFile);
-        return ReaderHelper.createFrom(resource.toURI());
-    }
 
     private void assertEquivalentSyntax(Syntax expected, Syntax actual) {
         Notification n = new Notification();
@@ -79,7 +75,7 @@ public class ParserTest {
     @Test public void testParse() throws SyntaxError, FileNotFoundException, IOException, URISyntaxException {
         Syntax ast;
 
-        Parser p = new Parser(new Scanner(loadFixture("rules_with_different_assignment_ops.ebnf")));
+        Parser p = helper().createParserFromFixture("rules_with_different_assignment_ops.ebnf");
         ast = syntax("Rules with different assignment operators.")
             .rule("comment1")
                 .identifier("literal1")
@@ -93,7 +89,7 @@ public class ParserTest {
         .build();
         assertEquivalentSyntax(ast, p.parse());
 
-        p = new Parser(new Scanner(loadFixture("rules_with_literals.ebnf")));
+        p = helper().createParserFromFixture("rules_with_literals.ebnf");
         ast = syntax("Rules with literal.")
             .rule("literal")
                 .choice()
@@ -118,7 +114,7 @@ public class ParserTest {
         .build();
         assertEquivalentSyntax(ast, p.parse());
 
-        p = new Parser(new Scanner(loadFixture("rules_with_comments.ebnf")));
+        p = helper().createParserFromFixture("rules_with_comments.ebnf");
         ast = syntax("Rules with comments.")
             .comment("(* here are rules *)")
             .rule("title")
@@ -140,7 +136,7 @@ public class ParserTest {
         .build();
         assertEquivalentSyntax(ast, p.parse());
 
-        p = new Parser(new Scanner(loadFixture("testgrammar_1.old.ebnf")));
+        p = helper().createParserFromFixture("testgrammar_1.old.ebnf");
         ast = syntax("EBNF defined in itself.")
             .rule("syntax")
                 .sequence()

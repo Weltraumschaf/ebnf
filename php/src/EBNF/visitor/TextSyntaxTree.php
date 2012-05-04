@@ -37,7 +37,7 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  *
  * Example:
  *
- * The file <kbf>tests/fixtures/rules_with_literals.ebnf</kbd> will produce
+ * The file <kbd>tests/fixtures/rules_with_literals.ebnf</kbd> will produce
  *
  * <pre>
  * [syntax]
@@ -57,8 +57,8 @@ use de\weltraumschaf\ebnf\ast\Terminal;
  *              +--[terminal='"']
  * </pre>
  *
- * For generating the tree lines a two dimenasional array is used as
- * "render" matrix. The text is lazy computed by comning the array filed
+ * For generating the tree lines a two dimensional array is used as
+ * "render" matrix. The text is lazy computed by computing the array field
  * column by column and row by row.
  *
  * @package visitor

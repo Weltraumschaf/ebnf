@@ -2,10 +2,7 @@ package de.weltraumschaf.ebnf;
 
 import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -13,6 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
+import static de.weltraumschaf.ebnf.TestHelper.helper;
 
 /**
  * Unit test for Scanner.
@@ -50,14 +48,6 @@ public class ScannerTest {
         public String getValue() {
             return value;
         }
-    }
-
-    private static final String FIXTURE_DIR = "/de/weltraumschaf/ebnf";
-
-    private BufferedReader createSourceFromFixture(String fixtureFile) throws FileNotFoundException,
-                                                                              URISyntaxException {
-        URL resource = getClass().getResource(FIXTURE_DIR + '/' + fixtureFile);
-        return ReaderHelper.createFrom(resource.toURI());
     }
 
     private void assertTokens(BufferedReader grammar, List<Expectation> expectations, String msg)
@@ -118,7 +108,7 @@ public class ScannerTest {
         assertNull(scanner.currentToken());
         assertNull(scanner.currentToken());
 
-        assertTokens(createSourceFromFixture("rules_with_ranges.ebnf"), Arrays.asList(
+        assertTokens(helper().createSourceFromFixture("rules_with_ranges.ebnf"), Arrays.asList(
                 new Expectation("\"Rules with ranges.\"", TokenType.LITERAL, 1, 1),
                 new Expectation("{", TokenType.L_BRACE, 1, 22),
                 new Expectation("lower", TokenType.IDENTIFIER, 2, 5),
@@ -152,7 +142,7 @@ public class ScannerTest {
                 new Expectation("}", TokenType.R_BRACE, 6, 1),
                 new Expectation(null, TokenType.EOF, 6, 1)), "Rules with range.");
 
-        assertTokens(createSourceFromFixture("rules_with_comments.ebnf"), Arrays.asList(
+        assertTokens(helper().createSourceFromFixture("rules_with_comments.ebnf"), Arrays.asList(
             new Expectation("\"Rules with comments.\"", TokenType.LITERAL,    1, 1),
             new Expectation("{",       TokenType.L_BRACE,   1, 24),
 
@@ -184,7 +174,7 @@ public class ScannerTest {
             new Expectation(null,      TokenType.EOF,     8, 1)
         ), "Rule with comment.");
 
-        assertTokens(createSourceFromFixture("rules_with_different_assignment_ops.ebnf"), Arrays.asList(
+        assertTokens(helper().createSourceFromFixture("rules_with_different_assignment_ops.ebnf"), Arrays.asList(
             new Expectation("\"Rules with different assignment operators.\"",
                                         TokenType.LITERAL,    1, 1),
             new Expectation("{",       TokenType.L_BRACE,   1, 46),
@@ -208,7 +198,7 @@ public class ScannerTest {
             new Expectation(null,        TokenType.EOF,        5, 1)
         ), "Assignemnt operators.");
 
-        assertTokens(createSourceFromFixture("rules_with_literals.ebnf"), Arrays.asList(
+        assertTokens(helper().createSourceFromFixture("rules_with_literals.ebnf"), Arrays.asList(
             new Expectation("\"Rules with literal.\"", TokenType.LITERAL,    1, 1),
             new Expectation("{",                     TokenType.L_BRACE,   1, 23),
 
@@ -234,7 +224,7 @@ public class ScannerTest {
             new Expectation(null,        TokenType.EOF,        4, 1)
         ), "Rules with literal.");
 
-        assertTokens(createSourceFromFixture("testgrammar_1.ebnf"), Arrays.asList(
+        assertTokens(helper().createSourceFromFixture("testgrammar_1.ebnf"), Arrays.asList(
             new Expectation("\"EBNF defined in itself.\"",   TokenType.LITERAL, 1, 1),
             new Expectation("{",          TokenType.L_BRACE,   1,  27),
 

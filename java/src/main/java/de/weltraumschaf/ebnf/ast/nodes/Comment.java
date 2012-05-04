@@ -30,6 +30,10 @@ public final class Comment extends AbstractNode {
         return newInstance(Null.newInstance());
     }
 
+    public static Comment newInstance(String value) {
+        return newInstance(Null.newInstance(), value);
+    }
+
     public static Comment newInstance(Node parent) {
         return newInstance(parent, "");
     }
@@ -45,7 +49,7 @@ public final class Comment extends AbstractNode {
      */
     @Override
     public String getNodeName() {
-        return NodeType.TERMINAL.toString();
+        return NodeType.COMMENT.toString();
     }
 
     /**

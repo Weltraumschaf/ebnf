@@ -32,6 +32,10 @@ public final class Terminal extends AbstractNode {
         return newInstance(Null.newInstance());
     }
 
+    public static Terminal newInstance(String value) {
+        return newInstance(Null.newInstance(), value);
+    }
+
     public static Terminal newInstance(Node parent) {
         return newInstance(parent, "");
     }
