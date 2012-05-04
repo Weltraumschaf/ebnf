@@ -218,7 +218,7 @@ class Command {
         }
 
         if (!is_readable($this->infile)) {
-            echo "Can't read EBNF file '{$infile}'!\n";
+            echo "Can't read EBNF file '{$this->infile}'!\n";
             return self::EBNF_READ_ERROR;
         }
 
