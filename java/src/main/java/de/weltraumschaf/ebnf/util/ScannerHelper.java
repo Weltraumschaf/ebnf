@@ -8,6 +8,22 @@ package de.weltraumschaf.ebnf.util;
 public class ScannerHelper {
 
     /**
+     * Checks whether a character is inside a given character range (included).
+     *
+     * @param c     Character to check.
+     * @param start Including range.
+     * @param end   Including range.
+     * @return
+     */
+    public static boolean isCharInRange(char c, char start, char end) {
+        if (end < start) {
+            throw new IllegalArgumentException("End must be greater or equal than start!");
+        }
+
+        return start <= c && c <= end;
+    }
+
+    /**
      * Checks whether a character is a alpha [a-zA-Z].
      *
      * @param c A single character.
@@ -15,7 +31,7 @@ public class ScannerHelper {
      * @return
      */
     public static boolean isAlpha(char c) {
-        return c > 64 && c < 91 || c > 96 && c < 123;
+        return isCharInRange(c, 'a', 'z') || isCharInRange(c, 'A', 'Z');
     }
 
     /**
@@ -26,7 +42,7 @@ public class ScannerHelper {
      * @return
      */
     public static boolean isNum(char c) {
-        return c > 47 && c < 58;
+        return isCharInRange(c, '0', '9');
     }
 
     /**

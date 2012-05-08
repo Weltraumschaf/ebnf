@@ -158,4 +158,11 @@ public class ScannerHelperTest {
         assertTrue(ScannerHelper.isEquals('_', chars));
         assertFalse(ScannerHelper.isEquals('a', chars));
     }
+
+    @Test public void isCharInRange() {
+        assertTrue(ScannerHelper.isCharInRange('c', 'a', 'f'));
+        assertTrue(ScannerHelper.isCharInRange('3', '1', '5'));
+        assertFalse(ScannerHelper.isCharInRange('b', 'f', 'z'));
+        assertFalse(ScannerHelper.isCharInRange('3', '7', '9'));
+    }
 }
