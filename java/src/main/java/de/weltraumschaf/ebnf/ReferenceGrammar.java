@@ -11,6 +11,12 @@
 
 package de.weltraumschaf.ebnf;
 
+import de.weltraumschaf.ebnf.ast.nodes.Syntax;
+import de.weltraumschaf.ebnf.util.ReaderHelper;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Defines a immutable reference grammar.
  *
@@ -67,4 +73,24 @@ public final class ReferenceGrammar {
                 "}";
     }
 
+    private static Syntax syntax = null;
+
+    /**
+     * Returns the reference syntax as abstract syntax tree.
+     * 
+     * @return
+     * @throws SyntaxError
+     */
+    public Syntax getSyntax() throws SyntaxError {
+        if (null == syntax) {
+            Parser p = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
+            try {
+                syntax = p.parse();
+            } catch (IOException ex) {
+                Logger.getLogger(ReferenceGrammar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return syntax;
+    }
 }
