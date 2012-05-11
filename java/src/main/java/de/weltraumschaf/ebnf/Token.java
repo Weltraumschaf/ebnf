@@ -11,17 +11,17 @@ public class Token {
     /**
      * One of the class constants.
      */
-    private TokenType type;
+    private final TokenType type;
 
     /**
      * The literal string.
      */
-    private String value;
+    private final String value;
 
     /**
      * Start position in source.
      */
-    private Position position;
+    private final Position position;
 
     /**
      * Initializes the immutable object.
@@ -30,7 +30,7 @@ public class Token {
      * @param value    The scanned token string.
      * @param position The start position of scanned token.
      */
-    public Token(TokenType type, String value, Position position) {
+    public Token(final TokenType type, final String value, final Position position) {
         this.type     = type;
         this.value    = value;
         this.position = position;
@@ -60,7 +60,7 @@ public class Token {
      * @param unquote Whether to unquote a literal value.
      * @return
      */
-    public String getValue(boolean unquote) {
+    public String getValue(final boolean unquote) {
         if (unquote) {
             return unquoteString(value);
         }
@@ -83,7 +83,7 @@ public class Token {
      * @param end If true the tokens end position is returned instead of the start.
      * @return
      */
-    public Position getPosition(boolean end) {
+    public Position getPosition(final boolean end) {
         if (end) {
             return new Position(
                 position.getLine(),
@@ -104,7 +104,7 @@ public class Token {
      */
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder("<");
+        final StringBuilder str = new StringBuilder("<");
 
         if (null != value && value.length() > 0) {
             str.append('\'');
@@ -128,7 +128,7 @@ public class Token {
      * @return
      */
     public boolean isOperator() {
-        switch (type) {
+        switch (type) { // NOPMD
             case ASIGN:
             case CHOICE:
             case END_OF_RULE:
@@ -145,15 +145,15 @@ public class Token {
         }
     }
 
-    public boolean isType(TokenType t) {
-        return type.equals(t);
+    public boolean isType(final TokenType token) {
+        return type.equals(token);
     }
 
-    public boolean isNotEquals(String[] others) {
+    public boolean isNotEquals(final String[] others) {
         return !isEquals(others);
     }
 
-    public boolean isEquals(String[] others) {
+    public boolean isEquals(final String[] others) {
         for (int i = 0; i < others.length; ++i) {
             if (value.equals(others[i])) {
                 return true;
@@ -163,15 +163,15 @@ public class Token {
         return false;
     }
 
-    public boolean isNotEqual(String other) {
+    public boolean isNotEqual(final String other) {
         return !isEqual(other);
     }
 
-    public boolean isEqual(String other) {
+    public boolean isEqual(final String other) {
         return value.equals(other);
     }
 
-    public static String unquoteString(String str) {
+    public static String unquoteString(final String str) {
         // @todo move into own class.
         int start = 0;
         int length = str.length();

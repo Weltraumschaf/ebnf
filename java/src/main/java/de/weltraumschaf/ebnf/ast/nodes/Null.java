@@ -15,20 +15,20 @@ public final class Null implements Node {
     public static Null newInstance() {
         return new Null();
     }
-    
+
     @Override
     public String getNodeName() {
         return "null";
     }
 
     @Override
-    public void accept(Visitor visitor) {
-
+    public void accept(final Visitor visitor) {
+        // Do nothing here.
     }
 
     @Override
-    public void probeEquivalence(Node other, Notification result) {
-        if (other instanceof Null == false) {
+    public void probeEquivalence(final Node other, final Notification result) {
+        if (!(other instanceof Null)) {
             result.error("Other node is not of type Null!");
         }
     }

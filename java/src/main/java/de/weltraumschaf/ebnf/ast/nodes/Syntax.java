@@ -45,15 +45,15 @@ public final class Syntax implements Node, Composite {
         return newInstance("");
     }
 
-    public static Syntax newInstance(String title) {
+    public static Syntax newInstance(final String title) {
         return newInstance(title, DEFAULT_META);
     }
 
-    public static Syntax newInstance(String title, String meta) {
+    public static Syntax newInstance(final String title, final String meta) {
         return new Syntax(title, meta);
     }
 
-    private Syntax(String title, String meta) {
+    private Syntax(final String title, final String meta) {
         super();
         this.title = title;
         this.meta  = meta;
@@ -97,7 +97,7 @@ public final class Syntax implements Node, Composite {
      * @return
      */
     @Override
-    public void addChild(Node child) {
+    public void addChild(final Node child) {
         nodes.add(child);
     }
 
@@ -121,9 +121,9 @@ public final class Syntax implements Node, Composite {
      * @return void
      */
     @Override
-    public void probeEquivalence(Node other, Notification result) {
+    public void probeEquivalence(final Node other, final Notification result) {
         try {
-            Syntax syntax = (Syntax) other;
+            final Syntax syntax = (Syntax) other;
 
             if (!title.equals(syntax.title)) {
                 result.error("Titles of syntx differs: '%s' != '%s'!", title, syntax.title);
@@ -142,9 +142,10 @@ public final class Syntax implements Node, Composite {
                 );
             }
 
-            List<Node> subnodes      = getChildren();
-            List<Node> otherSubnodes = syntax.getChildren();
-            int i = 0;
+            final List<Node> subnodes      = getChildren();
+            final List<Node> otherSubnodes = syntax.getChildren();
+            int i = 0; // NOPMD
+
             for (Node subnode : subnodes) {
                 try {
                     subnode.probeEquivalence(otherSubnodes.get(i), result);
@@ -173,7 +174,7 @@ public final class Syntax implements Node, Composite {
      * @return
      */
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(final Visitor visitor) {
         visitor.beforeVisit(this);
         visitor.visit(this);
 
@@ -198,15 +199,15 @@ public final class Syntax implements Node, Composite {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("<SYNTAX title=%s, meta=%s>", title, meta));
+        final StringBuilder str = new StringBuilder();
+        str.append(String.format("<SYNTAX title=%s, meta=%s>", title, meta));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
-                sb.append('\n').append(child.toString());
+                str.append('\n').append(child.toString());
             }
         }
 
-        return sb.toString();
+        return str.toString();
     }
 }

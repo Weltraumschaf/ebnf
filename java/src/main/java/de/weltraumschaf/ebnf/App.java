@@ -23,7 +23,7 @@ public class App {
 
         private final int code;
 
-        private ExitCode(int code) {
+        private ExitCode(final int code) {
             this.code    = code;
         }
 
@@ -35,13 +35,13 @@ public class App {
 
     private final String[] args;
 
-    public App(String[] args) {
-        this.args = args;
+    public App(final String[] args) {
+        this.args = args.clone();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         try {
-            App app = new App(args);
+            final App app = new App(args);
             exit(app.run());
         } catch (Error e) {
             System.out.println(e.getMessage());
@@ -53,16 +53,16 @@ public class App {
         }
     }
 
-    private static void exit(ExitCode code) {
+    private static void exit(final ExitCode code) {
         exit(code.getCode());
     }
 
-    private static void exit(int code) {
+    private static void exit(final int code) {
         System.exit(code);
     }
 
     private ExitCode run()  throws Error {
-        CliOptions options = parseOptions();
+        final CliOptions options = parseOptions();
 
         if (options.isHelp()) {
             options.format(new HelpFormatter());
@@ -101,7 +101,7 @@ public class App {
         }
 
         if (options.isTextTree()) {
-            TextSyntaxTree visitor = new TextSyntaxTree();
+            final TextSyntaxTree visitor = new TextSyntaxTree();
             ast.accept(visitor);
             System.out.println(visitor.getText());
         }
@@ -110,7 +110,7 @@ public class App {
     }
 
     private CliOptions parseOptions() throws Error {
-        CliOptions options = new CliOptions();
+        final CliOptions options = new CliOptions();
 
         try {
             options.parse(args);

@@ -36,7 +36,7 @@ public class Xml implements Visitor {
         this(DEFAULT_ENCODING);
     }
 
-    public Xml(String encoding) {
+    public Xml(final String encoding) {
         this(encoding, DEFAULT_VERSION);
     }
 
@@ -46,15 +46,15 @@ public class Xml implements Visitor {
      * @param version  Optional XML version. Default is {@link DEFAULT_VERSION}.
      * @param encoding Optional XML encoding. Default is {@link DEFAULT_ENCODING}.
      */
-    public Xml(String encoding, String version) {
+    public Xml(final String encoding, final String version) {
         append(String.format("<?xml version=\"%s\" encoding=\"%s\"?>", version, encoding));
     }
 
-    public static String createOpenTag(String name) {
+    public static String createOpenTag(final String name) {
         return createOpenTag(name, null);
     }
 
-    public static String createOpenTag(String name, Map<String, String> attr) {
+    public static String createOpenTag(final String name, final Map<String, String> attr) {
         return createOpenTag(name, attr, true);
     }
     /**
@@ -66,8 +66,8 @@ public class Xml implements Visitor {
      *
      * @return
      */
-    public static String createOpenTag(String name, Map<String, String> attributes, boolean block) {
-        StringBuilder tag = new StringBuilder();
+    public static String createOpenTag(final String name, final Map<String, String> attributes, final boolean block) {
+        final StringBuilder tag = new StringBuilder();
         tag.append('<').append(name);
 
         if (null != attributes && !attributes.isEmpty()) {
@@ -93,7 +93,7 @@ public class Xml implements Visitor {
      *
      * @return
      */
-    public static String createCloseTag(String name) {
+    public static String createCloseTag(final String name) {
         return String.format("</%s>", name);
     }
 
@@ -105,12 +105,12 @@ public class Xml implements Visitor {
      *
      * @return
      */
-    public static Map<String, String> extractAttributes(Node node) {
-        Map<String, String> attributes = new HashMap<String, String>();
-        Field[] properties = node.getClass().getFields();
+    public static Map<String, String> extractAttributes(final Node node) {
+        final Map<String, String> attributes = new HashMap<String, String>();
+        final Field[] properties = node.getClass().getFields();
 
         for (int i = 0; i < properties.length; ++i) {
-            Field property = properties[i];
+            final Field property = properties[i];
 
             if (property.isAnnotationPresent(Attribute.class)) {
                 try {
@@ -142,7 +142,7 @@ public class Xml implements Visitor {
      *
      * @return
      */
-    private void append(String string) {
+    private void append(final String string) {
         xmlString.append(string);
     }
 
@@ -156,7 +156,7 @@ public class Xml implements Visitor {
      * @return
      */
     @Override
-    public void visit(Node visitable) {
+    public void visit(final Node visitable) {
         boolean block = false;
 
         if (visitable instanceof Composite && ((Composite)visitable).hasChildren()) {
@@ -181,8 +181,8 @@ public class Xml implements Visitor {
      * @return
      */
     @Override
-    public void beforeVisit(Node visitable) {
-
+    public void beforeVisit(final Node visitable) {
+        // Nothing to do here.
     }
 
     /**
@@ -193,7 +193,7 @@ public class Xml implements Visitor {
      * @return
      */
     @Override
-    public void afterVisit(Node visitable) {
+    public void afterVisit(final Node visitable) {
         if (visitable instanceof Composite && ((Composite)visitable).hasChildren()) {
             indentationLevel--;
             append("\n");

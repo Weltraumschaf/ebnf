@@ -16,7 +16,7 @@ public final class Rule extends AbstractComposite {
      */
     @Attribute public String name;
 
-    private Rule(Node parent, String name) {
+    private Rule(final Node parent, final String name) {
         super(parent);
         this.name = name;
     }
@@ -25,15 +25,15 @@ public final class Rule extends AbstractComposite {
         return newInstance(Null.newInstance());
     }
 
-    public static Rule newInstance(String name) {
+    public static Rule newInstance(final String name) {
         return newInstance(Null.newInstance(), name);
     }
 
-    public static Rule newInstance(Node parent) {
+    public static Rule newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
-    public static Rule newInstance(Node parent, String name) {
+    public static Rule newInstance(final Node parent, final String name) {
         return new Rule(parent, name);
     }
 
@@ -57,10 +57,10 @@ public final class Rule extends AbstractComposite {
      * @return
      */
     @Override
-    public void probeEquivalence(Node other, Notification result) {
+    public void probeEquivalence(final Node other, final Notification result) {
         super.probeEquivalence(other, result);
 
-        Rule rule = (Rule) other;
+        final Rule rule = (Rule) other;
 
         if (!name.equals(rule.name)) {
             result.error("Names of rule differs: '%s' != '%s'!", name, rule.name);
@@ -69,15 +69,15 @@ public final class Rule extends AbstractComposite {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("<RULE name=%s>", name));
+        final StringBuilder str = new StringBuilder();
+        str.append(String.format("<RULE name=%s>", name));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
-                sb.append('\n').append(child.toString());
+                str.append('\n').append(child.toString());
             }
         }
 
-        return sb.toString();
+        return str.toString();
     }
 }

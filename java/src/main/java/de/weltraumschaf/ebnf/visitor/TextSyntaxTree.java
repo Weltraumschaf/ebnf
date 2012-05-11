@@ -102,21 +102,21 @@ public class TextSyntaxTree implements Visitor {
      * {@link Rule}, {@link Terminal} and {@link Identifier} nodes will be
      * rendered with their attributes name or value.
      *
-     * @param n Formatted node.
+     * @param node Formatted node.
      */
-    public static String formatNode(Node n) {
-        StringBuilder text = new StringBuilder();
-        text.append('[').append(n.getNodeName());
+    public static String formatNode(final Node node) {
+        final StringBuilder text = new StringBuilder();
+        text.append('[').append(node.getNodeName());
         String value = "";
 
-        if (n instanceof Rule) {
-            value = ((Rule)n).name;
-        } else if (n instanceof Terminal) {
-            value = ((Terminal)n).value;
-        } else if (n instanceof Identifier) {
-            value = ((Identifier)n).value;
-        } else if (n instanceof Comment) {
-            value = ((Comment)n).value;
+        if (node instanceof Rule) {
+            value = ((Rule)node).name;
+        } else if (node instanceof Terminal) {
+            value = ((Terminal)node).value;
+        } else if (node instanceof Identifier) {
+            value = ((Identifier)node).value;
+        } else if (node instanceof Comment) {
+            value = ((Comment)node).value;
 
             if (value.length() > 20) {
                 value = value.substring(0, 20) + "...";
@@ -136,13 +136,13 @@ public class TextSyntaxTree implements Visitor {
      *
      * @param colCount Count of columns with empty strings.
      */
-    public static List<String> createRow(int colCount) {
+    public static List<String> createRow(final int colCount) {
         if (colCount < 0) {
             throw new IllegalArgumentException(
                 String.format("Coll count msut be greater equal 0! Given value '%d'.", colCount));
         }
 
-        List<String> row = Lists.newArrayList();
+        final List<String> row = Lists.newArrayList();
 
         for (int i = 0; i < colCount; i++) {
             row.add("");
@@ -159,7 +159,7 @@ public class TextSyntaxTree implements Visitor {
      * @param visitable Visited node.
      */
     @Override
-    public void beforeVisit(Node visitable) {
+    public void beforeVisit(final Node visitable) {
         if (visitable instanceof Syntax) {
             depth  = visitable.depth();
             level  = 0;
@@ -178,8 +178,8 @@ public class TextSyntaxTree implements Visitor {
      * @param visitable Visited node.
      */
     @Override
-    public void visit(Node visitable) {
-        List<String> row = createRow(depth);
+    public void visit(final Node visitable) {
+        final List<String> row = createRow(depth);
 
         if (level > 0) {
             for (int i = 0 ; i < level - 1; ++i) {
@@ -203,14 +203,13 @@ public class TextSyntaxTree implements Visitor {
      * @param visitable visited node.
      */
     @Override
-    public void afterVisit(Node visitable) {
-        int rowCnt = matrix.size();
+    public void afterVisit(final Node visitable) {
+        final int rowCnt = matrix.size();
 
         for (int i = rowCnt - 1; i > -1; i--) {
-            if (matrix.get(i).get(level).equals(BRANCH) || matrix.get(i).get(level).equals(PIPE)) {
-                if (matrix.get(i - 1).get(level).equals(BLANK)) {
-                    matrix.get(i - 1).set(level, PIPE);
-                }
+            if ((matrix.get(i).get(level).equals(BRANCH) || matrix.get(i).get(level).equals(PIPE))
+                && (matrix.get(i - 1).get(level).equals(BLANK))) {
+                matrix.get(i - 1).set(level, PIPE);
             }
         }
 
@@ -231,7 +230,7 @@ public class TextSyntaxTree implements Visitor {
      */
     public String getText() {
         if (null == text) {
-            StringBuilder buffer = new StringBuilder();
+            final StringBuilder buffer = new StringBuilder();
 
             for (List<String> row : matrix) {
                 buffer.append(StringUtils.join(row, "")).append(System.getProperty("line.separator"));

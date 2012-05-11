@@ -19,14 +19,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.Charset;
 
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class TestHelper {
+public final class TestHelper {
 
     private static final TestHelper INSTANCE = new TestHelper();
 
@@ -40,24 +39,24 @@ public class TestHelper {
         return INSTANCE;
     }
 
-    public URI createResourceFromFixture(String fixtureFile) throws URISyntaxException {
+    public URI createResourceFromFixture(final String fixtureFile) throws URISyntaxException {
         return getClass().getResource(FIXTURE_DIR + '/' + fixtureFile).toURI();
     }
 
-    public String createStringFromFixture(String fixtureFile) throws URISyntaxException, IOException {
+    public String createStringFromFixture(final String fixtureFile) throws URISyntaxException, IOException {
         return Files.toString(new File(createResourceFromFixture(fixtureFile)), Charset.defaultCharset());
     }
 
-    public BufferedReader createSourceFromFixture(String fixtureFile) throws FileNotFoundException,
+    public BufferedReader createSourceFromFixture(final String fixtureFile) throws FileNotFoundException,
                                                                               URISyntaxException {
         return ReaderHelper.createFrom(createResourceFromFixture(fixtureFile));
     }
 
-    public Scanner createScannerFromFixture(String fixtureFile) throws FileNotFoundException, URISyntaxException {
+    public Scanner createScannerFromFixture(final String fixtureFile) throws FileNotFoundException, URISyntaxException {
         return new Scanner(createSourceFromFixture(fixtureFile));
     }
 
-    public Parser createParserFromFixture(String fixtureFile) throws FileNotFoundException, URISyntaxException {
+    public Parser createParserFromFixture(final String fixtureFile) throws FileNotFoundException, URISyntaxException {
         return new Parser(createScannerFromFixture(fixtureFile));
     }
 }

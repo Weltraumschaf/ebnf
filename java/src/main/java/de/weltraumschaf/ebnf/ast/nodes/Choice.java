@@ -15,11 +15,11 @@ public final class Choice extends AbstractComposite {
         return newInstance(Null.newInstance());
     }
 
-    public static Choice newInstance(Node parent) {
+    public static Choice newInstance(final Node parent) {
         return new Choice(parent);
     }
 
-    private Choice(Node parent) {
+    private Choice(final Node parent) {
         super(parent);
     }
 
@@ -35,15 +35,15 @@ public final class Choice extends AbstractComposite {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<CHOICE>");
+        final StringBuilder str = new StringBuilder();
+        str.append("<CHOICE>");
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
-                sb.append('\n').append(child.toString());
+                str.append('\n').append(child.toString());
             }
         }
 
-        return sb.toString();
+        return str.toString();
     }
 }

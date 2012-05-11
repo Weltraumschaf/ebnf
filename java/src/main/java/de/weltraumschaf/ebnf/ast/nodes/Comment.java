@@ -21,7 +21,7 @@ public final class Comment extends AbstractNode {
      * @param parent
      * @param value
      */
-    private Comment(Node parent, String value) {
+    private Comment(final Node parent, final String value) {
         super(parent);
         this.value = value;
     }
@@ -30,15 +30,15 @@ public final class Comment extends AbstractNode {
         return newInstance(Null.newInstance());
     }
 
-    public static Comment newInstance(String value) {
+    public static Comment newInstance(final String value) {
         return newInstance(Null.newInstance(), value);
     }
 
-    public static Comment newInstance(Node parent) {
+    public static Comment newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
-    public static Comment newInstance(Node parent, String value) {
+    public static Comment newInstance(final Node parent, final String value) {
         return new Comment(parent, value);
     }
 
@@ -62,7 +62,7 @@ public final class Comment extends AbstractNode {
      * @return void
      */
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(final Visitor visitor) {
         visitor.beforeVisit(this);
         visitor.visit(this);
         visitor.afterVisit(this);
@@ -78,9 +78,9 @@ public final class Comment extends AbstractNode {
      * @return void
      */
     @Override
-    public void probeEquivalence(Node other, Notification result) {
+    public void probeEquivalence(final Node other, final Notification result) {
         try {
-            Comment terminal = (Comment) other;
+            final Comment terminal = (Comment) other;
 
             if (!value.equals(terminal.value)) {
                 result.error("Comment value mismatch: '%s' != '%s'!", value, terminal.value);

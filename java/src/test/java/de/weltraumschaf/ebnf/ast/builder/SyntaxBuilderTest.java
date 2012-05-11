@@ -21,7 +21,7 @@ import org.junit.Test;
 public class SyntaxBuilderTest {
 
     @Test public void testBuilder() throws IOException, URISyntaxException {
-        Syntax syntax = syntax("EBNF defined in itself.")
+        final Syntax syntax = syntax("EBNF defined in itself.")
             .rule("syntax")
                 .sequence()
                     .option()
@@ -56,7 +56,7 @@ public class SyntaxBuilderTest {
                 .choice()
                     .sequence()
                         .terminal("'")
-                        .identifier("character")
+                        .identifier("character") // NOPMD
                         .loop()
                             .identifier("character")
                         .end()
@@ -74,9 +74,9 @@ public class SyntaxBuilderTest {
             .end()
         .build();
 
-        URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
-        String xml   = FileUtils.readFileToString(new File(resource.toURI()));
-        Xml visitor  = new Xml();
+        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
+        final String xml   = FileUtils.readFileToString(new File(resource.toURI()));
+        final Xml visitor  = new Xml();
         syntax.accept(visitor);
         assertEquals(xml, visitor.getXmlString());
     }

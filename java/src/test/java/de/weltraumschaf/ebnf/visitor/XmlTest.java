@@ -22,14 +22,14 @@ import org.junit.Test;
 public class XmlTest {
 
     @Test public void testCreateOpenTag() {
-        Map<String, String> fix1 = Maps.newHashMap();
-        fix1.put("bar", "1");
+        final Map<String, String> fix1 = Maps.newHashMap();
+        fix1.put("bar", "1"); // NOPMD
         fix1.put("baz", "<\">&");
-        Map<String, String> fix2 = Maps.newHashMap();
+        final Map<String, String> fix2 = Maps.newHashMap();
         fix2.put("bar", "1");
         fix2.put("baz", "2");
 
-        assertEquals("<foo>", Xml.createOpenTag("foo"));
+        assertEquals("<foo>", Xml.createOpenTag("foo")); // NOPMD
         assertEquals("<foo baz=\"&lt;&quot;&gt;&amp;\" bar=\"1\">", Xml.createOpenTag("foo", fix1));
         assertEquals("<foo baz=\"2\" bar=\"1\">", Xml.createOpenTag("foo", fix2));
         assertEquals("<foo baz=\"2\" bar=\"1\"/>", Xml.createOpenTag("foo", fix2, false));
@@ -41,14 +41,14 @@ public class XmlTest {
     }
 
     @Test public void testExtractAttributes() {
-        Map<String, String> fix = Maps.newHashMap();
+        final Map<String, String> fix = Maps.newHashMap();
         fix.put("meta", "foo");
         fix.put("title", "bar");
 
-        Syntax syntax = Syntax.newInstance("bar", "foo");
+        final Syntax syntax = Syntax.newInstance("bar", "foo");
         assertEquals(fix, Xml.extractAttributes(syntax));
 
-        Loop loop = Loop.newInstance();
+        final Loop loop = Loop.newInstance();
         assertEquals(new HashMap<String, String>(), Xml.extractAttributes(loop));
     }
 
@@ -104,7 +104,7 @@ public class XmlTest {
                 .choice()
                     .sequence()
                         .terminal("'")
-                        .identifier("character")
+                        .identifier("character") // NOPMD
                         .loop()
                             .identifier("character")
                         .end()
@@ -125,8 +125,8 @@ public class XmlTest {
         visitor = new Xml();
         syntax.accept(visitor);
 
-        URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
-        String xml = FileUtils.readFileToString(new File(resource.toURI()));
+        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
+        final String xml = FileUtils.readFileToString(new File(resource.toURI()));
         assertEquals(xml, visitor.getXmlString());
     }
 

@@ -26,11 +26,11 @@ public class ScannerTest {
         private final int line;
         private final int col;
 
-        public Expectation(String value, TokenType type, int line, int col) {
+        public Expectation(final String value, final TokenType type, final int line, final int col) {
             this.value = value;
-            this.type = type;
-            this.line = line;
-            this.col = col;
+            this.type  = type;
+            this.line  = line;
+            this.col   = col;
         }
 
         public int getCol() {
@@ -50,22 +50,22 @@ public class ScannerTest {
         }
     }
 
-    private void assertTokens(BufferedReader grammar, List<Expectation> expectations, String msg)
+    private void assertTokens(final BufferedReader grammar, final List<Expectation> expectations, final String msg)
             throws SyntaxError, IOException {
-        Scanner scanner = new Scanner(grammar);
+        final Scanner scanner = new Scanner(grammar);
         int count = 0;
 
         while (scanner.hasNextToken()) {
             scanner.nextToken();
-            Token token = scanner.currentToken();
+            final Token token = scanner.currentToken();
             assertNotNull(token);
-            Expectation expectation = expectations.get(count);
+            final Expectation expectation = expectations.get(count);
             assertEquals(String.format("%s %d type: %s", msg, count, token.getValue()), expectation.
                     getType(), token.getType());
             assertEquals(String.format("%s %d value: %s", msg, count, token.getValue()),
                          expectation.getValue(), token.getValue());
 
-            Position position = token.getPosition();
+            final Position position = token.getPosition();
             assertNull(position.getFile());
             assertEquals(String.format("%s %d line: %s", msg, count, token.getValue()), expectation.
                     getLine(), position.getLine());
@@ -76,10 +76,10 @@ public class ScannerTest {
 
         assertEquals("Not enough tokens!", expectations.size(), count);
 
-        int[] backtracks = {1, 3, 20, 200000};
+        final int[] backtracks = {1, 3, 20, 200000};
         for (int i = 0; i < backtracks.length; ++i) {
-            int backtrack = backtracks[i];
-            int index = count - (backtrack + 1);
+            final int backtrack = backtracks[i];
+            final int index = count - (backtrack + 1);
 
             if (index < 0) {
                 try {
@@ -89,11 +89,11 @@ public class ScannerTest {
                     // Exception is expected here.
                 }
             } else {
-                Token token = scanner.backtrackToken(backtrack);
-                Expectation expectation = expectations.get(index);
+                final Token token = scanner.backtrackToken(backtrack);
+                final Expectation expectation = expectations.get(index);
                 assertEquals(expectation.getType(), token.getType());
                 assertEquals(expectation.getValue(), token.getValue());
-                Position position = token.getPosition();
+                final Position position = token.getPosition();
                 assertNull(position.getFile());
                 assertEquals(expectation.getLine(), position.getLine());
                 assertEquals(expectation.getCol(), position.getColumn());
@@ -150,12 +150,12 @@ public class ScannerTest {
 
             new Expectation("title",   TokenType.IDENTIFIER,  3, 5),
             new Expectation("=",       TokenType.ASIGN,       3, 16),
-            new Expectation("literal", TokenType.IDENTIFIER,  3, 18),
+            new Expectation("literal", TokenType.IDENTIFIER,  3, 18), // NOPMD
             new Expectation(".",       TokenType.END_OF_RULE, 3, 26),
             new Expectation("(* Comment * at the end of line *)",
                                         TokenType.COMMENT,    3, 28),
 
-            new Expectation("comment", TokenType.IDENTIFIER,  4, 5),
+            new Expectation("comment", TokenType.IDENTIFIER,  4, 5), // NOPMD
             new Expectation("=",       TokenType.ASIGN,       4, 16),
             new Expectation("literal", TokenType.IDENTIFIER,  4, 18),
             new Expectation(".",       TokenType.END_OF_RULE, 4, 26),
@@ -204,15 +204,15 @@ public class ScannerTest {
 
             new Expectation("literal",   TokenType.IDENTIFIER, 2, 5),
             new Expectation("=",         TokenType.ASIGN,   2, 13),
-            new Expectation("\"\'\"",      TokenType.LITERAL,    2, 15),
-            new Expectation("character", TokenType.IDENTIFIER, 2, 19),
+            new Expectation("\"\'\"",      TokenType.LITERAL,    2, 15), // NOPMD
+            new Expectation("character", TokenType.IDENTIFIER, 2, 19), // NOPMD
             new Expectation("{",         TokenType.L_BRACE,   2, 29),
             new Expectation("character", TokenType.IDENTIFIER, 2, 31),
             new Expectation("}",         TokenType.R_BRACE,   2, 41),
             new Expectation("\"\'\"",      TokenType.LITERAL,    2, 43),
 
             new Expectation("|",         TokenType.CHOICE,   3, 13),
-            new Expectation("'\"'",      TokenType.LITERAL,    3, 15),
+            new Expectation("'\"'",      TokenType.LITERAL,    3, 15), // NOPMD
             new Expectation("character", TokenType.IDENTIFIER, 3, 19),
             new Expectation("{",         TokenType.L_BRACE,   3, 29),
             new Expectation("character", TokenType.IDENTIFIER, 3, 31),
@@ -253,7 +253,7 @@ public class ScannerTest {
             new Expectation("|",          TokenType.CHOICE,   3,  39),
             new Expectation("\":==\"",      TokenType.LITERAL,    3,  41),
             new Expectation(")",          TokenType.R_PAREN,   3,  47),
-            new Expectation("expression", TokenType.IDENTIFIER, 3,  49),
+            new Expectation("expression", TokenType.IDENTIFIER, 3,  49), // NOPMD
             new Expectation("(",          TokenType.L_PAREN,   3,  60),
             new Expectation("\".\"",        TokenType.LITERAL,    3,  62),
             new Expectation("|",          TokenType.CHOICE,   3,  66),
@@ -369,7 +369,7 @@ public class ScannerTest {
             fail("Expected exception not thrown!");
         } catch (SyntaxError ex) {
             assertEquals("Expecting '=' but seen ' '", ex.getMessage());
-            Position pos = ex.getPosition();
+            final Position pos = ex.getPosition();
             assertEquals(2, pos.getLine());
             assertEquals(11, pos.getColumn());
         }
@@ -383,10 +383,10 @@ public class ScannerTest {
     }
 
     @Test public void testRaiseError() {
-        Position position = new Position(5, 3);
-        Scanner scanner = mock(Scanner.class, Mockito.CALLS_REAL_METHODS);
+        final Position position = new Position(5, 3);
+        final Scanner scanner = mock(Scanner.class, Mockito.CALLS_REAL_METHODS);
         when(scanner.createPosition()).thenReturn(position);
-        String msg = "an error";
+        final String msg = "an error";
 
         try {
             scanner.raiseError(msg);
@@ -400,25 +400,25 @@ public class ScannerTest {
     }
 
     @Test public void testPeekToken() throws SyntaxError, IOException {
-        BufferedReader grammar = ReaderHelper.createFrom("comment :== literal .");
-        Scanner scanner = new Scanner(grammar);
+        final BufferedReader grammar = ReaderHelper.createFrom("comment :== literal .");
+        final Scanner scanner = new Scanner(grammar);
         scanner.nextToken();
-        Token t;
-        t = scanner.currentToken();
-        assertEquals("comment", t.getValue());
+        Token token;
+        token = scanner.currentToken();
+        assertEquals("comment", token.getValue());
         assertEquals(":==", scanner.peekToken().getValue());
         scanner.nextToken();
-        t = scanner.currentToken();
-        assertEquals(":==", t.getValue());
+        token = scanner.currentToken();
+        assertEquals(":==", token.getValue());
         assertEquals("literal", scanner.peekToken().getValue());
         scanner.nextToken();
-        t = scanner.currentToken();
-        assertEquals("literal", t.getValue());
+        token = scanner.currentToken();
+        assertEquals("literal", token.getValue());
         scanner.nextToken();
-        t = scanner.currentToken();
-        assertEquals(".", t.getValue());
+        token = scanner.currentToken();
+        assertEquals(".", token.getValue());
         scanner.nextToken();
-        t = scanner.currentToken();
-        assertEquals(TokenType.EOF, t.getType());
+        token = scanner.currentToken();
+        assertEquals(TokenType.EOF, token.getType());
     }
 }

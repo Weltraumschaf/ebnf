@@ -16,22 +16,22 @@ public class Parser {
     /**
      * Used to receive the tokens.
      */
-    private Scanner scanner;
+    private final Scanner scanner;
     /**
      * The abstract syntax tree.
      *
      * @var Syntax
      */
-    private Syntax ast;
+    private final Syntax ast;
 
     /**
      * Initialized with a scanner which produced the token stream.
      *
      * @param scanner Provides the token stream.
      */
-    public Parser(Scanner scanner) {
+    public Parser(final Scanner scanner) {
         this.scanner = scanner;
-        ast     = Syntax.newInstance();
+        ast = Syntax.newInstance();
     }
 
     /**
@@ -57,11 +57,11 @@ public class Parser {
 
         while (scanner.hasNextToken()) {
             if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
-                Node rules = parseRule();
+                final Node rules = parseRule();
                 ast.addChild(rules);
                 scanner.nextToken();
             } else if (scanner.currentToken().isType(TokenType.COMMENT)) {
-                Comment comment = Comment.newInstance(ast, scanner.currentToken().getValue());
+                final Comment comment = Comment.newInstance(ast, scanner.currentToken().getValue());
                 ast.addChild(comment);
                 scanner.nextToken();
             } else {
@@ -97,11 +97,11 @@ public class Parser {
             raiseError("Production must start with an identifier");
         }
 
-        Rule rule = Rule.newInstance(ast, scanner.currentToken().getValue());
+        final Rule rule = Rule.newInstance(ast, scanner.currentToken().getValue());
         scanner.nextToken();
 
         if (scanner.currentToken().isType(TokenType.COMMENT)) {
-            Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
+            final Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
             rule.addChild(comment);
             scanner.nextToken();
         }
@@ -111,11 +111,11 @@ public class Parser {
         }
 
         scanner.nextToken();
-        Node expressions = parseExpression(rule);
+        final Node expressions = parseExpression(rule);
         rule.addChild(expressions);
 
         if (scanner.currentToken().isType(TokenType.COMMENT)) {
-            Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
+            final Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
             rule.addChild(comment);
             scanner.nextToken();
         }
@@ -135,9 +135,9 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseExpression(Node parent) throws SyntaxError, IOException {
-        Choice choiceNode = Choice.newInstance(parent);
-        Node term       = parseTerm(choiceNode);
+    private Node parseExpression(final Node parent) throws SyntaxError, IOException {
+        final Choice choiceNode = Choice.newInstance(parent);
+        Node term = parseTerm(choiceNode);
         choiceNode.addChild(term);
         boolean multipleTerms = false;
 
@@ -159,13 +159,13 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseTerm(Node parent) throws SyntaxError, IOException {
-        Sequence sequenceNode = Sequence.newInstance(parent);
-        Node factor           = parseFactor(sequenceNode);
+    private Node parseTerm(final Node parent) throws SyntaxError, IOException {
+        final Sequence sequenceNode = Sequence.newInstance(parent);
+        Node factor = parseFactor(sequenceNode);
         sequenceNode.addChild(factor);
         scanner.nextToken();
         boolean multipleFactors = false;
-        String[] allowed = {".", "=", "|", ")", "]", "}"};
+        final String[] allowed = {".", "=", "|", ")", "]", "}"};
 
         while (scanner.currentToken().isNotEquals(allowed)) {
             factor = parseFactor(sequenceNode);
@@ -190,10 +190,9 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseFactor(Node parent) throws SyntaxError, IOException {
+    private Node parseFactor(final Node parent) throws SyntaxError, IOException {
         if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
-            Identifier identifier = Identifier.newInstance(parent, scanner.currentToken().getValue());
-            return identifier;
+            return Identifier.newInstance(parent, scanner.currentToken().getValue());
         }
 
         if (scanner.currentToken().isType(TokenType.LITERAL)) {
@@ -207,8 +206,7 @@ public class Parser {
                 return range;
             }*/
 
-            Terminal literal = Terminal.newInstance(parent, scanner.currentToken().getValue(true));
-            return literal;
+            return Terminal.newInstance(parent, scanner.currentToken().getValue(true));
         }
 
         if (scanner.currentToken().isType(TokenType.COMMENT)) {
@@ -217,7 +215,7 @@ public class Parser {
 
         if (assertToken(scanner.currentToken(), TokenType.L_PAREN, "(")) {
             scanner.nextToken();
-            Node expression = parseExpression(parent);
+            final Node expression = parseExpression(parent);
 
             if (!assertToken(scanner.currentToken(), TokenType.R_PAREN, ")")) {
                 raiseError("Group must end with ')'");
@@ -228,8 +226,8 @@ public class Parser {
 
         if (assertToken(scanner.currentToken(), TokenType.L_BRACK, "[")) {
             scanner.nextToken();
-            Node expression = parseExpression(parent);
-            Option option   = Option.newInstance(parent);
+            final Node expression = parseExpression(parent);
+            final Option option = Option.newInstance(parent);
             option.addChild(expression);
 
             if (!assertToken(scanner.currentToken(), TokenType.R_BRACK, "]")) {
@@ -241,8 +239,8 @@ public class Parser {
 
         if (assertToken(scanner.currentToken(), TokenType.L_BRACE, "{")) {
             scanner.nextToken();
-            Node expression = parseExpression(parent);
-            Loop loop       = Loop.newInstance(parent);
+            final Node expression = parseExpression(parent);
+            final Loop loop       = Loop.newInstance(parent);
             loop.addChild(expression);
 
             if (!assertToken(scanner.currentToken(), TokenType.R_BRACE, "}")) {
@@ -265,7 +263,7 @@ public class Parser {
      *
      * @return
      */
-    protected boolean assertToken(Token token, TokenType type, String value) {
+    protected boolean assertToken(final Token token, final TokenType type, final String value) {
         return token.getType() == type && token.getValue().equals(value);
     }
 
@@ -278,7 +276,7 @@ public class Parser {
      *
      * @return
      */
-    protected  boolean assertTokens(Token token, TokenType type, List<String>values) {
+    protected  boolean assertTokens(final Token token, final TokenType type, final List<String>values) {
         for (String value : values) {
             if (assertToken(token, type, value)) {
                 return true;
@@ -288,7 +286,7 @@ public class Parser {
         return false;
     }
 
-    protected void raiseError(String msg) throws SyntaxError {
+    protected void raiseError(final String msg) throws SyntaxError {
         raiseError(msg, null);
     }
 
@@ -303,7 +301,7 @@ public class Parser {
      * @throws SyntaxError Throws always an exception.
      * @return void
      */
-    protected void raiseError(String msg, Position pos) throws SyntaxError {
+    protected void raiseError(final String msg, Position pos) throws SyntaxError {
         if (null == pos) {
             pos = scanner.currentToken().getPosition();
         }

@@ -29,7 +29,7 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
      *
      * @param Node parent The parent node.
      */
-    public AbstractComposite(Node parent) {
+    public AbstractComposite(final Node parent) {
         super(parent);
     }
 
@@ -71,7 +71,7 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
      * @return
      */
     @Override
-    public void addChild(Node child) {
+    public void addChild(final Node child) {
         nodes.add(child);
     }
 
@@ -85,7 +85,7 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
      * @return void
      */
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(final Visitor visitor) {
         visitor.beforeVisit(this);
         visitor.visit(this);
 
@@ -108,9 +108,9 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
      * @return
      */
     @Override
-    public void probeEquivalence(Node other, Notification result) {
+    public void probeEquivalence(final Node other, final Notification result) {
         try {
-            Composite comp = (Composite) other;
+            final Composite comp = (Composite) other;
 
             if (!getClass().equals(other.getClass())) {
                 result.error(
@@ -130,10 +130,10 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
                 );
             }
 
-            List<Node> subnodes      = getChildren();
-            List<Node> otherSubnodes = comp.getChildren();
+            final List<Node> subnodes      = getChildren();
+            final List<Node> otherSubnodes = comp.getChildren();
 
-            int i = 0;
+            int i = 0; // NOPMD
             for (Node subnode : subnodes) {
                 try {
                     subnode.probeEquivalence(otherSubnodes.get(i), result);

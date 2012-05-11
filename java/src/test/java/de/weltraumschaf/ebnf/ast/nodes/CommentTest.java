@@ -12,40 +12,40 @@ import org.junit.Test;
 public class CommentTest {
 
     @Test public void testProbeEquivalence() {
-        Notification n;
-        Comment comment1 = Comment.newInstance();
+        Notification notification;
+        final Comment comment1 = Comment.newInstance();
         comment1.value = "a";
-        n = new Notification();
-        comment1.probeEquivalence(comment1, n);
-        assertTrue(n.isOk());
+        notification = new Notification();
+        comment1.probeEquivalence(comment1, notification);
+        assertTrue(notification.isOk());
 
-        Comment comment2 = Comment.newInstance();
+        final Comment comment2 = Comment.newInstance();
         comment2.value = "b";
-        n = new Notification();
-        comment2.probeEquivalence(comment2, n);
-        assertTrue(n.isOk());
+        notification = new Notification();
+        comment2.probeEquivalence(comment2, notification);
+        assertTrue(notification.isOk());
 
-        n = new Notification();
-        comment1.probeEquivalence(Identifier.newInstance(), n);
-        assertFalse(n.isOk());
+        notification = new Notification();
+        comment1.probeEquivalence(Identifier.newInstance(), notification);
+        assertFalse(notification.isOk());
         assertEquals(
             "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Comment' != 'class de.weltraumschaf.ebnf.ast.nodes.Identifier'!",
-            n.report()
+            notification.report()
         );
 
-        n = new Notification();
-        comment1.probeEquivalence(comment2, n);
-        assertFalse(n.isOk());
-        assertEquals("Comment value mismatch: 'a' != 'b'!", n.report());
+        notification = new Notification();
+        comment1.probeEquivalence(comment2, notification);
+        assertFalse(notification.isOk());
+        assertEquals("Comment value mismatch: 'a' != 'b'!", notification.report());
 
-        n = new Notification();
-        comment2.probeEquivalence(comment1, n);
-        assertFalse(n.isOk());
-        assertEquals("Comment value mismatch: 'b' != 'a'!", n.report());
+        notification = new Notification();
+        comment2.probeEquivalence(comment1, notification);
+        assertFalse(notification.isOk());
+        assertEquals("Comment value mismatch: 'b' != 'a'!", notification.report());
     }
 
     @Test public void testDepth() {
-        Comment comment1 = Comment.newInstance();
+        final Comment comment1 = Comment.newInstance();
         assertEquals(1, comment1.depth());
     }
 }

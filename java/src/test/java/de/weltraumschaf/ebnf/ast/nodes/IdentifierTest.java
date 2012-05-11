@@ -12,40 +12,40 @@ import org.junit.Test;
 public class IdentifierTest {
 
     @Test public void testProbeEquivalence() {
-        Notification n;
+        Notification notifiaction;
 
-        Identifier ident1 = Identifier.newInstance();
+        final Identifier ident1 = Identifier.newInstance();
         ident1.value = "a";
-        n = new Notification();
-        ident1.probeEquivalence(ident1, n);
-        assertTrue(n.isOk());
+        notifiaction = new Notification();
+        ident1.probeEquivalence(ident1, notifiaction);
+        assertTrue(notifiaction.isOk());
 
-        Identifier ident2 = Identifier.newInstance();
+        final Identifier ident2 = Identifier.newInstance();
         ident2.value = "b";
-        n = new Notification();
-        ident2.probeEquivalence(ident2, n);
-        assertTrue(n.isOk());
+        notifiaction = new Notification();
+        ident2.probeEquivalence(ident2, notifiaction);
+        assertTrue(notifiaction.isOk());
 
-        ident1.probeEquivalence(Terminal.newInstance(), n);
-        assertFalse(n.isOk());
+        ident1.probeEquivalence(Terminal.newInstance(), notifiaction);
+        assertFalse(notifiaction.isOk());
         assertEquals(
             "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Identifier' != 'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
-            n.report()
+            notifiaction.report()
         );
 
-        n = new Notification();
-        ident1.probeEquivalence(ident2, n);
-        assertFalse(n.isOk());
-        assertEquals("Identifier value mismatch: 'a' != 'b'!", n.report());
+        notifiaction = new Notification();
+        ident1.probeEquivalence(ident2, notifiaction);
+        assertFalse(notifiaction.isOk());
+        assertEquals("Identifier value mismatch: 'a' != 'b'!", notifiaction.report());
 
-        n = new Notification();
-        ident2.probeEquivalence(ident1, n);
-        assertFalse(n.isOk());
-        assertEquals("Identifier value mismatch: 'b' != 'a'!",n.report());
+        notifiaction = new Notification();
+        ident2.probeEquivalence(ident1, notifiaction);
+        assertFalse(notifiaction.isOk());
+        assertEquals("Identifier value mismatch: 'b' != 'a'!",notifiaction.report());
     }
 
     @Test public void testDepth() {
-        Identifier ident = Identifier.newInstance();
+        final Identifier ident = Identifier.newInstance();
         assertEquals(1, ident.depth());
     }
 

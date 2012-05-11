@@ -27,7 +27,7 @@ public class Notification {
      *
      * @return void
      */
-    public void error(String format, Object... args) {
+    public void error(final String format, final Object... args) {
         errors.add(String.format(format, args));
     }
 
@@ -50,7 +50,7 @@ public class Notification {
             return "";
         }
 
-        StringBuilder report = new StringBuilder();
+        final StringBuilder report = new StringBuilder();
 
         for (int i = 0; i < errors.size(); ++i) {
             if (i > 0) {

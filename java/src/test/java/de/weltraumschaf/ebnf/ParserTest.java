@@ -1,19 +1,17 @@
 package de.weltraumschaf.ebnf;
 
+import static de.weltraumschaf.ebnf.TestHelper.helper;
 import de.weltraumschaf.ebnf.ast.Notification;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
-import static de.weltraumschaf.ebnf.TestHelper.helper;
 
 /**
  * Unit test for Parser.
@@ -22,44 +20,44 @@ import static de.weltraumschaf.ebnf.TestHelper.helper;
  */
 public class ParserTest {
 
-    private void assertEquivalentSyntax(Syntax expected, Syntax actual) {
-        Notification n = new Notification();
-        expected.probeEquivalence(actual, n);
-        assertNotificationOk(n);
-        n = new Notification();
-        actual.probeEquivalence(expected, n);
-        assertNotificationOk(n);
+    private void assertEquivalentSyntax(final Syntax expected, final Syntax actual) {
+        Notification notification = new Notification();
+        expected.probeEquivalence(actual, notification);
+        assertNotificationOk(notification);
+        notification = new Notification();
+        actual.probeEquivalence(expected, notification);
+        assertNotificationOk(notification);
     }
 
-    private void assertNotificationOk(Notification n) {
-        assertTrue(n.report(), n.isOk());
+    private void assertNotificationOk(final Notification notification) {
+        assertTrue(notification.report(), notification.isOk());
     }
 
     @Test public void testAssertToken() {
-        Parser p  = new Parser(new Scanner(ReaderHelper.createFrom("")));
-        Token t1 = new Token(TokenType.ASIGN, ":", new Position(0, 0));
-        Token t2 = new Token(TokenType.IDENTIFIER, "foobar", new Position(0, 0));
+        final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom("")));
+        final Token token1  = new Token(TokenType.ASIGN, ":", new Position(0, 0));
+        final Token token2  = new Token(TokenType.IDENTIFIER, "foobar", new Position(0, 0));
 
-        assertTrue(p.assertToken(t1, TokenType.ASIGN, ":"));
-        assertFalse(p.assertToken(t1, TokenType.IDENTIFIER, ":"));
-        assertFalse(p.assertToken(t1, TokenType.ASIGN, ","));
-        assertFalse(p.assertToken(t1, TokenType.IDENTIFIER, ","));
+        assertTrue(parser.assertToken(token1, TokenType.ASIGN, ":"));
+        assertFalse(parser.assertToken(token1, TokenType.IDENTIFIER, ":"));
+        assertFalse(parser.assertToken(token1, TokenType.ASIGN, ","));
+        assertFalse(parser.assertToken(token1, TokenType.IDENTIFIER, ","));
 
-        assertTrue(p.assertToken(t2, TokenType.IDENTIFIER, "foobar"));
-        assertFalse(p.assertToken(t2, TokenType.ASIGN, "foobar"));
-        assertFalse(p.assertToken(t2, TokenType.IDENTIFIER, "snafu"));
-        assertFalse(p.assertToken(t2, TokenType.ASIGN, "snafu"));
+        assertTrue(parser.assertToken(token2, TokenType.IDENTIFIER, "foobar"));
+        assertFalse(parser.assertToken(token2, TokenType.ASIGN, "foobar"));
+        assertFalse(parser.assertToken(token2, TokenType.IDENTIFIER, "snafu"));
+        assertFalse(parser.assertToken(token2, TokenType.ASIGN, "snafu"));
     }
 
     @Test public void testAssertTokens() {
-        Parser p = new Parser(new Scanner(ReaderHelper.createFrom("")));
-        Token t1 = new Token(TokenType.ASIGN, ":", new Position(0, 0));
-        Token t2 = new Token(TokenType.ASIGN, "=", new Position(0, 0));
+        final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom("")));
+        final Token token1  = new Token(TokenType.ASIGN, ":", new Position(0, 0));
+        final Token token2  = new Token(TokenType.ASIGN, "=", new Position(0, 0));
 
-        assertTrue(p.assertTokens(t1, TokenType.ASIGN, Arrays.asList("=", ":", ":==")));
-        assertFalse(p.assertTokens(t1, TokenType.ASIGN, Arrays.asList("+", "-", "*")));
-        assertTrue(p.assertTokens(t2, TokenType.ASIGN, Arrays.asList("=", ":", ":==")));
-        assertFalse(p.assertTokens(t2, TokenType.ASIGN, Arrays.asList("+", "-", "*")));
+        assertTrue(parser.assertTokens(token1, TokenType.ASIGN, Arrays.asList("=", ":", ":==")));
+        assertFalse(parser.assertTokens(token1, TokenType.ASIGN, Arrays.asList("+", "-", "*")));
+        assertTrue(parser.assertTokens(token2, TokenType.ASIGN, Arrays.asList("=", ":", ":==")));
+        assertFalse(parser.assertTokens(token2, TokenType.ASIGN, Arrays.asList("+", "-", "*")));
     }
 
     @Ignore("TODO: Implement range parsing.")
@@ -75,7 +73,7 @@ public class ParserTest {
     @Test public void testParse() throws SyntaxError, FileNotFoundException, IOException, URISyntaxException {
         Syntax ast;
 
-        Parser p = helper().createParserFromFixture("rules_with_different_assignment_ops.ebnf");
+        Parser parser = helper().createParserFromFixture("rules_with_different_assignment_ops.ebnf");
         ast = syntax("Rules with different assignment operators.")
             .rule("comment1")
                 .identifier("literal1")
@@ -87,15 +85,15 @@ public class ParserTest {
                 .identifier("literal3")
             .end()
         .build();
-        assertEquivalentSyntax(ast, p.parse());
+        assertEquivalentSyntax(ast, parser.parse());
 
-        p = helper().createParserFromFixture("rules_with_literals.ebnf");
+        parser = helper().createParserFromFixture("rules_with_literals.ebnf");
         ast = syntax("Rules with literal.")
-            .rule("literal")
+            .rule("literal") // NOPMD
                 .choice()
                     .sequence()
                         .terminal("'")
-                        .identifier("character")
+                        .identifier("character") // NOPMD
                         .loop()
                             .identifier("character")
                         .end()
@@ -112,16 +110,16 @@ public class ParserTest {
                 .end()
             .end()
         .build();
-        assertEquivalentSyntax(ast, p.parse());
+        assertEquivalentSyntax(ast, parser.parse());
 
-        p = helper().createParserFromFixture("rules_with_comments.ebnf");
+        parser = helper().createParserFromFixture("rules_with_comments.ebnf");
         ast = syntax("Rules with comments.")
             .comment("(* here are rules *)")
             .rule("title")
                 .identifier("literal")
             .end()
             .comment("(* Comment * at the end of line *)")
-            .rule("comment")
+            .rule("comment") // NOPMD
                 .identifier("literal")
             .end()
             .comment("(* This is a multi\n       line comment. *)")
@@ -134,9 +132,9 @@ public class ParserTest {
                 .end()
             .end()
         .build();
-        assertEquivalentSyntax(ast, p.parse());
+        assertEquivalentSyntax(ast, parser.parse());
 
-        p = helper().createParserFromFixture("testgrammar_1.old.ebnf");
+        parser = helper().createParserFromFixture("testgrammar_1.old.ebnf");
         ast = syntax("EBNF defined in itself.")
             .rule("syntax")
                 .sequence()
@@ -161,7 +159,7 @@ public class ParserTest {
                         .terminal(":")
                         .terminal(":==")
                     .end()
-                    .identifier("expression")
+                    .identifier("expression") // NOPMD
                     .choice()
                         .terminal(".")
                         .terminal(";")
@@ -307,11 +305,11 @@ public class ParserTest {
                 .end()
             .end()
         .build();
-        assertEquivalentSyntax(ast, p.parse());
+        assertEquivalentSyntax(ast, parser.parse());
     }
 
     @Ignore("TODO: Implement test with errornous syntax fixtures.")
     @Test public void testParseErrors() {
-
+       
     }
 }

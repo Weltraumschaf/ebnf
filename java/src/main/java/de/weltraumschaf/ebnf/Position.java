@@ -29,7 +29,7 @@ public class Position {
      * @param line Line of occurrence.
      * @param column Column of occurrence.
      */
-    public Position(int line, int column) {
+    public Position(final int line, final int column) {
         this(line, column, null);
     }
 
@@ -42,10 +42,10 @@ public class Position {
      * @param column Column of occurrence.
      * @param file Optional file name.
      */
-    public Position(int line, int column, String file) {
-        this.line = line;
+    public Position(final int line, final int column, final String file) {
+        this.line   = line;
         this.column = column;
-        this.file = file;
+        this.file   = file;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Position {
      */
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
+        final StringBuilder str = new StringBuilder();
 
         if (getFile() != null) {
             str.append(getFile()).append(' ');

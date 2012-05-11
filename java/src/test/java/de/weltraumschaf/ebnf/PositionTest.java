@@ -11,12 +11,12 @@ import org.junit.Test;
 public class PositionTest {
 
     @Test public void testToString() {
-        Position p;
-        p = new Position(5, 10);
-        assertEquals("(5, 10)", p.toString());
+        Position position;
+        position = new Position(5, 10);
+        assertEquals("(5, 10)", position.toString());
 
-        p = new Position(7, 8, "/foo/bar/baz.ebnf");
-        assertEquals("/foo/bar/baz.ebnf (7, 8)", p.toString());
+        position = new Position(7, 8, "/foo/bar/baz.ebnf");
+        assertEquals("/foo/bar/baz.ebnf (7, 8)", position.toString());
     }
 
 }

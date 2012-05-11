@@ -153,7 +153,7 @@ public class ScannerHelperTest {
     }
 
     @Test public void isEquals() {
-        char[] chars = {'-', '_'};
+        final char[] chars = {'-', '_'};
         assertTrue(ScannerHelper.isEquals('-', chars));
         assertTrue(ScannerHelper.isEquals('_', chars));
         assertFalse(ScannerHelper.isEquals('a', chars));

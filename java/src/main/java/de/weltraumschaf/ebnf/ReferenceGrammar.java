@@ -77,15 +77,15 @@ public final class ReferenceGrammar {
 
     /**
      * Returns the reference syntax as abstract syntax tree.
-     * 
+     *
      * @return
      * @throws SyntaxError
      */
     public Syntax getSyntax() throws SyntaxError {
         if (null == syntax) {
-            Parser p = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
+            Parser parser = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
             try {
-                syntax = p.parse();
+                syntax = parser.parse();
             } catch (IOException ex) {
                 Logger.getLogger(ReferenceGrammar.class.getName()).log(Level.SEVERE, null, ex);
             }

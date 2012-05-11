@@ -8,7 +8,9 @@ import java.net.URI;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class ReaderHelper {
+public final class ReaderHelper {
+
+    private ReaderHelper() {}
 
     /**
      * Creates a source file from the file specified by an {@link URI} object.
@@ -17,7 +19,7 @@ public class ReaderHelper {
      * @return
      * @throws FileNotFoundException
      */
-    public static BufferedReader createFrom(URI uri) throws FileNotFoundException {
+    public static BufferedReader createFrom(final URI uri) throws FileNotFoundException {
         return createFrom(new File(uri));
     }
 
@@ -28,7 +30,7 @@ public class ReaderHelper {
      * @return
      * @throws FileNotFoundException
      */
-    public static BufferedReader createFrom(File file) throws FileNotFoundException {
+    public static BufferedReader createFrom(final File file) throws FileNotFoundException {
         return createFrom(new FileReader(file));
     }
 
@@ -38,18 +40,18 @@ public class ReaderHelper {
      * @param src The source as string literal.
      * @return
      */
-    public static BufferedReader createFrom(String src) {
+    public static BufferedReader createFrom(final String src) {
         return createFrom(new StringReader(src));
     }
 
     /**
      * Creates buffered reader from a given reader.
      *
-     * @param r The reader.
+     * @param reader The reader.
      * @return
      */
-    public static BufferedReader createFrom(Reader r) {
-        return new BufferedReader(r);
+    public static BufferedReader createFrom(final Reader reader) {
+        return new BufferedReader(reader);
     }
 
 }

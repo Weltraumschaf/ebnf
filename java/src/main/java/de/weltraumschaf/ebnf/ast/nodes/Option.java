@@ -11,7 +11,7 @@ import de.weltraumschaf.ebnf.ast.NodeType;
  */
 public final class Option extends AbstractComposite {
 
-    private Option(Node parent) {
+    private Option(final Node parent) {
         super(parent);
     }
 
@@ -19,7 +19,7 @@ public final class Option extends AbstractComposite {
         return newInstance(Null.newInstance());
     }
 
-    public static Option newInstance(Node parent) {
+    public static Option newInstance(final Node parent) {
         return new Option(parent);
     }
 
@@ -35,15 +35,15 @@ public final class Option extends AbstractComposite {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<OPTION>");
+        final StringBuilder str = new StringBuilder();
+        str.append("<OPTION>");
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
-                sb.append('\n').append(child.toString());
+                str.append('\n').append(child.toString());
             }
         }
 
-        return sb.toString();
+        return str.toString();
     }
 }

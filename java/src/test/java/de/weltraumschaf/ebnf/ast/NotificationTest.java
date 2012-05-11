@@ -11,18 +11,18 @@ import org.junit.Test;
 public class NotificationTest {
 
     @Test public void errorCollectingAndReporting() {
-        Notification n = new Notification();
-        assertTrue(n.isOk());
-        assertEquals("", n.report());
-        n.error("An error!");
-        assertFalse(n.isOk());
-        n.error("Some %s occured at %s!", "FOO", "BAR");
-        assertFalse(n.isOk());
-        n.error("Error: %s at line %d occued because %s!", "SNAFU", 5, "FOOBAR");
+        final Notification notification = new Notification();
+        assertTrue(notification.isOk());
+        assertEquals("", notification.report());
+        notification.error("An error!");
+        assertFalse(notification.isOk());
+        notification.error("Some %s occured at %s!", "FOO", "BAR");
+        assertFalse(notification.isOk());
+        notification.error("Error: %s at line %d occued because %s!", "SNAFU", 5, "FOOBAR");
         assertEquals(
             "An error!\n" +
             "Some FOO occured at BAR!\n" +
-            "Error: SNAFU at line 5 occued because FOOBAR!", n.report());
+            "Error: SNAFU at line 5 occued because FOOBAR!", notification.report());
     }
 
 }

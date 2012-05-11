@@ -9,16 +9,16 @@ import org.apache.commons.cli.*;
  */
 public class CliOptions {
 
-    private final String OPT_SYNTAX    = "s";
-    private final String OPT_OUTPUT    = "o";
-    private final String OPT_FORMAT    = "f";
-    private final String OPT_TEXT_TREE = "t";
-    private final String OPT_DEBUG     = "d";
-    private final String OPT_HELP      = "h";
+    private static final String OPT_SYNTAX    = "s";
+    private static final String OPT_OUTPUT    = "o";
+    private static final String OPT_FORMAT    = "f";
+    private static final String OPT_TEXT_TREE = "t";
+    private static final String OPT_DEBUG     = "d";
+    private static final String OPT_HELP      = "h";
 
     private final Options options;
 
-    private OutputFormat format = OutputFormat.JPG;
+    private OutputFormat outputFormat = OutputFormat.JPG;
     private String syntaxFile   = "";
     private String outputFile   = "";
     private boolean textTree = false;
@@ -37,30 +37,30 @@ public class CliOptions {
         options.addOption(OPT_HELP,      false, "This help.");            // optional
     }
 
-    public void parse(String[] args) throws ParseException {
-        CommandLineParser parser = new PosixParser();
-        CommandLine cmd = parser.parse(options, args);
+    public void parse(final String[] args) throws ParseException {
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(options, args);
 
         if (cmd.hasOption(OPT_SYNTAX)) {
             syntaxFile = cmd.getOptionValue(OPT_SYNTAX);
         }
 
         if (cmd.hasOption(OPT_FORMAT)) {
-            String f = cmd.getOptionValue(OPT_FORMAT);
+            final String formatOption = cmd.getOptionValue(OPT_FORMAT);
 
-            if (f.equalsIgnoreCase("xml")) {
-                format = OutputFormat.XML;
-            } else if (f.equalsIgnoreCase("jpg")) {
-                format = OutputFormat.JPG;
-            } else if (f.equalsIgnoreCase("gif")) {
-                format = OutputFormat.GIF;
+            if (formatOption.equalsIgnoreCase("xml")) {
+                outputFormat = OutputFormat.XML;
+            } else if (formatOption.equalsIgnoreCase("jpg")) {
+                outputFormat = OutputFormat.JPG;
+            } else if (formatOption.equalsIgnoreCase("gif")) {
+                outputFormat = OutputFormat.GIF;
             }
         }
 
         if (cmd.hasOption(OPT_OUTPUT)) {
             outputFile = cmd.getOptionValue(OPT_OUTPUT);
         } else {
-            outputFile = syntaxFile.replace(".ebnf", "." + format.name().toLowerCase());
+            outputFile = syntaxFile.replace(".ebnf", "." + outputFormat.name().toLowerCase());
         }
 
         if (cmd.hasOption(OPT_TEXT_TREE)) {
@@ -77,11 +77,11 @@ public class CliOptions {
     }
 
     public boolean hasFormat() {
-        return null != format;
+        return null != outputFormat;
     }
 
     public OutputFormat getFormat() {
-        return format;
+        return outputFormat;
     }
 
     public boolean hasOutputFile() {
@@ -112,7 +112,7 @@ public class CliOptions {
         return textTree;
     }
 
-    public void format(HelpFormatter formatter) {
+    public void format(final HelpFormatter formatter) {
         formatter.printHelp("ebnf", options);
     }
 }

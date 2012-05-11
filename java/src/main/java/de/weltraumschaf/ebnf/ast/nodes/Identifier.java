@@ -23,7 +23,7 @@ public final class Identifier extends AbstractNode {
      * @param parent
      * @param value
      */
-    private Identifier(Node parent, String value) {
+    private Identifier(final Node parent, final String value) {
         super(parent);
         this.value = value;
     }
@@ -32,15 +32,15 @@ public final class Identifier extends AbstractNode {
         return newInstance(Null.newInstance());
     }
 
-    public static Identifier newInstance(String value) {
+    public static Identifier newInstance(final String value) {
         return newInstance(Null.newInstance(), value);
     }
 
-    public static Identifier newInstance(Node parent) {
+    public static Identifier newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
-    public static Identifier newInstance(Node parent, String value) {
+    public static Identifier newInstance(final Node parent, final String value) {
         return new Identifier(parent, value);
     }
 
@@ -64,7 +64,7 @@ public final class Identifier extends AbstractNode {
      * @return
      */
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(final Visitor visitor) {
         visitor.beforeVisit(this);
         visitor.visit(this);
         visitor.afterVisit(this);
@@ -80,9 +80,9 @@ public final class Identifier extends AbstractNode {
      * @return
      */
     @Override
-    public void probeEquivalence(Node other, Notification result) {
+    public void probeEquivalence(final Node other, final Notification result) {
         try {
-            Identifier ident = (Identifier) other;
+            final Identifier ident = (Identifier) other;
 
             if (!value.equals(ident.value)) {
                 result.error("Identifier value mismatch: '%s' != '%s'!", value, ident.value);

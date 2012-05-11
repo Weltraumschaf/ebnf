@@ -24,14 +24,14 @@ public class AbstractCompositeTest {
     }
 
     @Test public void testAddHasAndGetChildren() {
-        AbstractComposite composite = new AbstractCompositeImpl();
+        final AbstractComposite composite = new AbstractCompositeImpl();
 
         assertFalse(composite.hasChildren());
         assertEquals(0, composite.countChildren());
         List<Node> childs = composite.getChildren();
         assertEquals(0, childs.size());
 
-        Node nodeOne = mock(Node.class);
+        final Node nodeOne = mock(Node.class);
         composite.addChild(nodeOne);
         assertTrue(composite.hasChildren());
         assertEquals(1, composite.countChildren());
@@ -39,7 +39,7 @@ public class AbstractCompositeTest {
         assertEquals(1, childs.size());
         assertSame(nodeOne, childs.get(0));
 
-        Node nodeTwo = mock(Node.class);
+        final Node nodeTwo = mock(Node.class);
         composite.addChild(nodeTwo);
         assertTrue(composite.hasChildren());
         assertEquals(2, composite.countChildren());
@@ -50,54 +50,54 @@ public class AbstractCompositeTest {
     }
 
     @Test public void probeEquivalenceInternal() {
-        AbstractComposite comp = new AbstractCompositeImpl();
-        Notification n = new Notification();
-        comp.probeEquivalence(Terminal.newInstance(), n);
-        assertFalse(n.isOk());
+        final AbstractComposite comp = new AbstractCompositeImpl();
+        Notification notification = new Notification();
+        comp.probeEquivalence(Terminal.newInstance(), notification);
+        assertFalse(notification.isOk());
         assertEquals(
             "Probed node is not a composite node: 'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
-            n.report()
+            notification.report()
         );
 
-        n = new Notification();
-        comp.probeEquivalence(Rule.newInstance(), n);
-        assertFalse(n.isOk());
+        notification = new Notification();
+        comp.probeEquivalence(Rule.newInstance(), notification);
+        assertFalse(notification.isOk());
         assertEquals(
             "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.AbstractCompositeTest$AbstractCompositeImpl' != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!",
-            n.report()
+            notification.report()
         );
     }
 
     @Test public void depth() {
-        Syntax syntax = Syntax.newInstance();
+        final Syntax syntax = Syntax.newInstance();
         assertEquals(1, syntax.depth());
 
-        Rule rule = Rule.newInstance();
+        final Rule rule = Rule.newInstance();
         assertEquals(1, rule.depth());
         syntax.addChild(rule);
         assertEquals(2, syntax.depth());
 
-        Sequence seq = Sequence.newInstance();
+        final Sequence seq = Sequence.newInstance();
         assertEquals(1, seq.depth());
         rule.addChild(seq);
         assertEquals(2, rule.depth());
         assertEquals(3, syntax.depth());
 
-        Identifier ident = Identifier.newInstance();
+        final Identifier ident = Identifier.newInstance();
         assertEquals(1, ident.depth());
         seq.addChild(ident);
         assertEquals(2, seq.depth());
         assertEquals(3, rule.depth());
         assertEquals(4, syntax.depth());
 
-        Loop loop = Loop.newInstance();
+        final Loop loop = Loop.newInstance();
         assertEquals(1, loop.depth());
         seq.addChild(loop);
         assertEquals(2, seq.depth());
         assertEquals(3, rule.depth());
         assertEquals(4, syntax.depth());
 
-        Terminal term = Terminal.newInstance();
+        final Terminal term = Terminal.newInstance();
         assertEquals(1, term.depth());
         loop.addChild(term);
         assertEquals(2, loop.depth());

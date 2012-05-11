@@ -57,29 +57,29 @@ public class TextSyntaxTreeTest {
         .build();
 
         assertEquals(2, ast.depth());
-        TextSyntaxTree visitor = new TextSyntaxTree();
+        final TextSyntaxTree visitor = new TextSyntaxTree();
         assertEquals(new ArrayList<ArrayList<String>>(), visitor.getMatrix());
         assertEquals(0, visitor.getDepth());
         ast.accept(visitor);
 
         assertEquals(2, visitor.getDepth());
-        List<List<String>> matrix = visitor.getMatrix();
+        final List<List<String>> matrix = visitor.getMatrix();
         assertEquals(4, matrix.size());
         assertEquals("[syntax]",  matrix.get(0).get(0));
         assertEquals("",          matrix.get(0).get(1));
-        assertEquals(" +--",       matrix.get(1).get(0));
+        assertEquals(" +--",       matrix.get(1).get(0)); // NOPMD
         assertEquals("[rule='one']", matrix.get(1).get(1));
         assertEquals(" +--",       matrix.get(2).get(0));
         assertEquals("[rule='two']", matrix.get(2).get(1));
         assertEquals(" +--",       matrix.get(3).get(0));
         assertEquals("[rule='three']", matrix.get(3).get(1));
 
-        ast = syntax("foo")
+        ast = syntax("foo") // NOPMD
             .rule("literal")
                 .choice()
                     .sequence()
                         .terminal("'")
-                        .identifier("character")
+                        .identifier("character") // NOPMD
                         .loop()
                             .identifier("character")
                         .end()
@@ -100,13 +100,13 @@ public class TextSyntaxTreeTest {
         ast.accept(visitor);
         assertEquals(6, visitor.getDepth());
         @SuppressWarnings("unchecked")
-        List<List<String>> expected = Arrays.asList(
+        final List<List<String>> expected = Arrays.asList(
             Arrays.asList("[syntax]", "", "", "", "", ""),
             Arrays.asList(" +--",     "[rule='literal']", "", "", "", ""),
-            Arrays.asList("    ",     " +--", "[choice]", "", "", ""),
+            Arrays.asList("    ",     " +--", "[choice]", "", "", ""), // NOPMD
             Arrays.asList("    ",     "    ", " +--", "[sequence]", "", ""),
-            Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
-            Arrays.asList("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""),
+            Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""), // NOPMD
+            Arrays.asList("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""), // NOPMD
             Arrays.asList("    ",     "    ", " |  ", " +--",       "[loop]", ""),
             Arrays.asList("    ",     "    ", " |  ", " |  ",       " +--", "[identifier='character']"),
             Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
@@ -124,7 +124,7 @@ public class TextSyntaxTreeTest {
         TextSyntaxTree visitor = new TextSyntaxTree();
         Syntax ast = syntax("foo").build();
         ast.accept(visitor);
-        assertEquals("[syntax]\n", visitor.getText());
+        assertEquals("[syntax]\n", visitor.getText()); // NOPMD
 
         ast = syntax("foo")
             .rule("rule-1")
@@ -183,7 +183,7 @@ public class TextSyntaxTreeTest {
             visitor.getText()
         );
 
-        ast = syntax("foobar")
+        ast = syntax("foobar") // NOPMD
             .rule("one")
                 .choice()
                 .end()
@@ -200,8 +200,8 @@ public class TextSyntaxTreeTest {
             visitor.getText()
         );
 
-        String expected = helper().createStringFromFixture("visitor/rules_with_literals_tree_output");
-        Parser parser = helper().createParserFromFixture("rules_with_literals.ebnf");
+        final String expected = helper().createStringFromFixture("visitor/rules_with_literals_tree_output");
+        final Parser parser = helper().createParserFromFixture("rules_with_literals.ebnf");
         ast     = parser.parse();
         visitor = new TextSyntaxTree();
         ast.accept(visitor);

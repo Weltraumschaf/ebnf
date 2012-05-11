@@ -5,66 +5,68 @@ package de.weltraumschaf.ebnf.util;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class ScannerHelper {
+public final class ScannerHelper {
+
+    private ScannerHelper() {}
 
     /**
      * Checks whether a character is inside a given character range (included).
      *
-     * @param c     Character to check.
-     * @param start Including range.
-     * @param end   Including range.
+     * @param character Character to check.
+     * @param start     Including range.
+     * @param end       Including range.
      * @return
      */
-    public static boolean isCharInRange(char c, char start, char end) {
+    public static boolean isCharInRange(final char character, final char start, final char end) {
         if (end < start) {
             throw new IllegalArgumentException("End must be greater or equal than start!");
         }
 
-        return start <= c && c <= end;
+        return start <= character && character <= end;
     }
 
     /**
      * Checks whether a character is a alpha [a-zA-Z].
      *
-     * @param c A single character.
+     * @param character A single character.
      *
      * @return
      */
-    public static boolean isAlpha(char c) {
-        return isCharInRange(c, 'a', 'z') || isCharInRange(c, 'A', 'Z');
+    public static boolean isAlpha(final char character) {
+        return isCharInRange(character, 'a', 'z') || isCharInRange(character, 'A', 'Z');
     }
 
     /**
      * Checks whether a character is a number [0-9].
      *
-     * @param c A single character.
+     * @param character A single character.
      *
      * @return
      */
-    public static boolean isNum(char c) {
-        return isCharInRange(c, '0', '9');
+    public static boolean isNum(final char character) {
+        return isCharInRange(character, '0', '9');
     }
 
     /**
      * Checks whether a character is a number or alpha [0-9a-zA-Z].
      *
-     * @param c A single character.
+     * @param character A single character.
      *
      * @return
      */
-    public static boolean isAlphaNum(char c) {
-        return isAlpha(c) || isNum(c);
+    public static boolean isAlphaNum(final char character) {
+        return isAlpha(character) || isNum(character);
     }
 
     /**
      * Checks whether a character is a operator.
      *
-     * @param c A single character.
+     * @param character A single character.
      *
      * @return
      */
-    public static boolean isOperator(char c) {
-        switch (c) {
+    public static boolean isOperator(final char character) {
+        switch (character) { // NOPMD
             case '{':
             case '}':
             case '(':
@@ -87,36 +89,36 @@ public class ScannerHelper {
     /**
      * Checks whether a character is a whitespace.
      *
-     * @param c A single character.
+     * @param character A single character.
      *
      * @return
      */
-    public static boolean isWhiteSpace(char c) {
-        return ' ' == c || '\t' == c || '\n' == c || '\r' == c;
+    public static boolean isWhiteSpace(final char character) {
+        return ' ' == character || '\t' == character || '\n' == character || '\r' == character;
     }
 
     /**
      * Checks whether a character is a quote ["|'].
      *
-     * @param c A single character.
+     * @param character A single character.
      *
      * @return
      */
-    public static boolean isQuote(char c) {
-        return '\'' == c || '"' == c;
+    public static boolean isQuote(final char character) {
+        return '\'' == character || '"' == character;
     }
 
     /**
      * Tests a given character if it is equal to ona of the passed test characters.
      *
-     * @param c     Character to test.
-     * @param chars Array of characters to test against.
+     * @param character     Character to test.
+     * @param characters Array of characters to test against.
      *
      * @return
      */
-    public static boolean isEquals(char c, char[] chars) {
-        for (int i = 0; i < chars.length; ++i) {
-            if (c == chars[i]) {
+    public static boolean isEquals(final char character, final char[] characters) {
+        for (int i = 0; i < characters.length; ++i) {
+            if (character == characters[i]) {
                 return true;
             }
         }

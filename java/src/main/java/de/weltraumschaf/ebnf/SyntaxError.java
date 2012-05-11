@@ -23,7 +23,7 @@ public class SyntaxError extends Error {
      * @param message The error message.
      * @param pos     Where the error occurred.
      */
-    public SyntaxError(String message, Position pos) {
+    public SyntaxError(final String message, final Position pos) {
         this(message, pos, DEFAULT_CODE);
     }
 
@@ -34,7 +34,7 @@ public class SyntaxError extends Error {
      * @param pos     Where the error occurred.
      * @param code    Optional error code.
      */
-    public SyntaxError(String message, Position pos, int code) {
+    public SyntaxError(final String message, final Position pos, final int code) {
         this(message, pos, code, null);
     }
 
@@ -46,7 +46,7 @@ public class SyntaxError extends Error {
      * @param code    Optional error code.
      * @param cause   Optional previous exception.
      */
-    public SyntaxError(String message, Position pos, int code, Throwable cause) {
+    public SyntaxError(final String message, final Position pos, final int code, final Throwable cause) {
         super(message, code, cause);
         position = pos;
     }
@@ -67,7 +67,7 @@ public class SyntaxError extends Error {
      */
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder("Syntax error: ");
+        final StringBuilder str = new StringBuilder("Syntax error: ");
         str.append(getMessage())
            .append(" at ")
            .append(position)

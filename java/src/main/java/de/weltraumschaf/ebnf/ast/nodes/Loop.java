@@ -9,9 +9,9 @@ import de.weltraumschaf.ebnf.ast.NodeType;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Loop extends AbstractComposite {
+public final class Loop extends AbstractComposite {
 
-    private Loop(Node parent) {
+    private Loop(final Node parent) {
         super(parent);
     }
 
@@ -19,7 +19,7 @@ public class Loop extends AbstractComposite {
         return newInstance(Null.newInstance());
     }
 
-    public static Loop newInstance(Node parent) {
+    public static Loop newInstance(final Node parent) {
         return new Loop(parent);
     }
 
@@ -35,15 +35,15 @@ public class Loop extends AbstractComposite {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<LOOP>");
+        final StringBuilder str = new StringBuilder();
+        str.append("<LOOP>");
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
-                sb.append('\n').append(child.toString());
+                str.append('\n').append(child.toString());
             }
         }
 
-        return sb.toString();
+        return str.toString();
     }
 }

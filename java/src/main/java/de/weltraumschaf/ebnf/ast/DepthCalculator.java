@@ -23,7 +23,7 @@ public class DepthCalculator {
      *
      * @param Composite Calculation subject.
      */
-    public DepthCalculator(Composite node) {
+    public DepthCalculator(final Composite node) {
         this.node = node;
     }
 
@@ -36,7 +36,7 @@ public class DepthCalculator {
      */
     public int depth() {
         if (node.hasChildren()) {
-            List<Integer> depths = new ArrayList<Integer>();
+            final List<Integer> depths = new ArrayList<Integer>();
 
             for (Node n : node.getChildren()) {
                 depths.add(n.depth());

@@ -86,7 +86,7 @@ public class Scanner {
      *
      * @param input
      */
-    public Scanner(BufferedReader input) {
+    public Scanner(final BufferedReader input) {
         this(input, null);
     }
 
@@ -96,7 +96,7 @@ public class Scanner {
      * @param input The input stream to scan.
      * @param file  The file name associated with the scanned source.
      */
-    public Scanner(BufferedReader input, String file) {
+    public Scanner(final BufferedReader input, final String file) {
         this.input = input;
         this.file  = file;
         currentCharacter = -1;
@@ -139,7 +139,7 @@ public class Scanner {
         }
 
         if (currentCharacter + 1 >= buffer.length()) {
-            int chr = input.read();
+            final int chr = input.read();
 
             if (-1 == chr) {
                 atEof = true;
@@ -185,15 +185,15 @@ public class Scanner {
      * @return
      */
     private char peekCharacter() throws IOException {
-        char c = EOF;
+        char character = EOF;
 
         if (hasNextCharacter()) {
             nextCharacter();
-            c = currentCharacter();
+            character = currentCharacter();
             backupCharacter();
         }
 
-        return c;
+        return character;
     }
 
     /**
@@ -203,7 +203,7 @@ public class Scanner {
      *
      * @throws SyntaxError
      */
-    public void raiseError(String msg) throws SyntaxError {
+    public void raiseError(final String msg) throws SyntaxError {
         throw new SyntaxError(msg, createPosition());
     }
 
@@ -247,13 +247,16 @@ public class Scanner {
      *
      * @return Token
      */
-    public Token backtrackToken(int count) {
-        int index = currentToken - count;
+    public Token backtrackToken(final int count) {
+        final int index = currentToken - count;
 
         try {
             return tokens.get(index);
         } catch (IndexOutOfBoundsException ex) {
-            throw new IllegalArgumentException(String.format("Can't backup token on positon -%d! There are only %d tokens.", count, tokens.size()));
+            throw new IllegalArgumentException(
+                String.format("Can't backup token on positon -%d! There are only %d tokens.",
+                              count, tokens.size()),
+                ex);
         }
     }
 
@@ -267,7 +270,7 @@ public class Scanner {
      * @return
      */
     public boolean hasNextToken() {
-        Token token = currentToken();
+        final Token token = currentToken();
 
         return null == token
                ? true
@@ -283,7 +286,7 @@ public class Scanner {
      */
     public Token peekToken() throws SyntaxError, IOException {
         nextToken();
-        Token token = currentToken();
+        final Token token = currentToken();
         currentToken--;
 
         // @todo May be this is not necessary.
@@ -355,14 +358,15 @@ public class Scanner {
     }
 
     private static final char[] IDENTIFIER_SPECIAL_CHARS =  {'-', '_'};
+
     /**
      * Scans an identifier [a-zA-Z\-_].
      *
      * @return
      */
     private Token scanIdentifier() throws IOException {
-        Position position = createPosition();
-        StringBuilder value = new StringBuilder();
+        final Position position = createPosition();
+        final StringBuilder value = new StringBuilder();
         value.append(currentCharacter());
 
         while (hasNextCharacter()) {
@@ -386,9 +390,9 @@ public class Scanner {
      * @return
      */
     private Token scanLiteral() throws IOException {
-        Position position = createPosition();
-        char start = currentCharacter();
-        StringBuilder value = new StringBuilder();
+        final Position position = createPosition();
+        final char start = currentCharacter();
+        final StringBuilder value = new StringBuilder();
         value.append(start);
 
         while (hasNextCharacter()) {
@@ -410,8 +414,8 @@ public class Scanner {
      * @return
      */
     private Token scanComment() throws IOException {
-        Position postition = createPosition();
-        StringBuilder value = new StringBuilder();
+        final Position postition = createPosition();
+        final StringBuilder value = new StringBuilder();
         value.append(currentCharacter());
 
         while (hasNextCharacter()) {
@@ -436,11 +440,11 @@ public class Scanner {
      * @return
      */
     private Token scanOperator() throws SyntaxError, IOException {
-        Position position   = createPosition();
-        StringBuilder value = new StringBuilder();
+        final Position position   = createPosition();
+        final StringBuilder value = new StringBuilder();
         value.append(currentCharacter());
 
-        char peek      = peekCharacter();
+        final char peek = peekCharacter();
         TokenType type = null;
 
         switch (currentCharacter()) {

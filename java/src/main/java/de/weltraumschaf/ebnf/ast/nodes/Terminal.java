@@ -23,7 +23,7 @@ public final class Terminal extends AbstractNode {
      * @param parent The parent node.
      * @param value  The terminal value.
      */
-    private Terminal(Node parent, String value) {
+    private Terminal(final Node parent, final String value) {
         super(parent);
         this.value = value;
     }
@@ -32,15 +32,15 @@ public final class Terminal extends AbstractNode {
         return newInstance(Null.newInstance());
     }
 
-    public static Terminal newInstance(String value) {
+    public static Terminal newInstance(final String value) {
         return newInstance(Null.newInstance(), value);
     }
 
-    public static Terminal newInstance(Node parent) {
+    public static Terminal newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
-    public static Terminal newInstance(Node parent, String value) {
+    public static Terminal newInstance(final Node parent, final String value) {
         return new Terminal(parent, value);
     }
 
@@ -64,7 +64,7 @@ public final class Terminal extends AbstractNode {
      * @return
      */
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(final Visitor visitor) {
         visitor.beforeVisit(this);
         visitor.visit(this);
         visitor.afterVisit(this);
@@ -80,9 +80,9 @@ public final class Terminal extends AbstractNode {
      * @return
      */
     @Override
-    public void probeEquivalence(Node other, Notification result) {
+    public void probeEquivalence(final Node other, final Notification result) {
         try {
-            Terminal terminal = (Terminal) other;
+            final Terminal terminal = (Terminal) other;
 
             if (!value.equals(terminal.value)) {
                 result.error("Terminal value mismatch: '%s' != '%s'!", value, terminal.value);

@@ -29,10 +29,10 @@ public class DepthCalculatorTest {
      * @param int depth
      * @return Node
      */
-    private Node createNode(int depth) {
-        Node n = mock(Node.class);
-        when(n.depth()).thenReturn(depth);
-        return n;
+    private Node createNode(final int depth) {
+        final Node node = mock(Node.class);
+        when(node.depth()).thenReturn(depth);
+        return node;
     }
 
     @Test public void testDepth() {

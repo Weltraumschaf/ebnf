@@ -29,7 +29,7 @@ public class GenericBuilder<P> {
      * @param parentBuilder Builder which created the builder.
      * @param node          To this node all by this builder created nodes will be add.
      */
-    GenericBuilder(P parentBuilder, AbstractComposite node) {
+    GenericBuilder(final P parentBuilder, final AbstractComposite node) {
         this.parentBuilder = parentBuilder;
         this.parentNode = node;
     }
@@ -49,7 +49,7 @@ public class GenericBuilder<P> {
      * @param value
      * @return
      */
-    public GenericBuilder<P> identifier(String value) {
+    public GenericBuilder<P> identifier(final String value) {
         parentNode.addChild(Identifier.newInstance(parentNode, value));
         return this;
     }
@@ -60,7 +60,7 @@ public class GenericBuilder<P> {
      * @param value
      * @return
      */
-    public GenericBuilder<P> terminal(String value) {
+    public GenericBuilder<P> terminal(final String value) {
         parentNode.addChild(Terminal.newInstance(parentNode, value));
         return this;
     }
@@ -71,7 +71,7 @@ public class GenericBuilder<P> {
      * @param value
      * @return
      */
-    public GenericBuilder<P> comment(String value) {
+    public GenericBuilder<P> comment(final String value) {
         parentNode.addChild(Comment.newInstance(parentNode, value));
         return this;
     }
@@ -82,7 +82,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> choice() {
-        Choice choice = Choice.newInstance(parentNode);
+        final Choice choice = Choice.newInstance(parentNode);
         parentNode.addChild(choice);
         return new GenericBuilder<GenericBuilder<P>>(this, choice);
     }
@@ -93,7 +93,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> loop() {
-        Loop loop = Loop.newInstance(parentNode);
+        final Loop loop = Loop.newInstance(parentNode);
         parentNode.addChild(loop);
         return new GenericBuilder<GenericBuilder<P>>(this, loop);
     }
@@ -104,7 +104,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> option() {
-        Option option = Option.newInstance(parentNode);
+        final Option option = Option.newInstance(parentNode);
         parentNode.addChild(option);
         return new GenericBuilder<GenericBuilder<P>>(this, option);
     }
@@ -115,7 +115,7 @@ public class GenericBuilder<P> {
      * @return
      */
     public GenericBuilder<GenericBuilder<P>> sequence() {
-        Sequence seq = Sequence.newInstance(parentNode);
+        final Sequence seq = Sequence.newInstance(parentNode);
         parentNode.addChild(seq);
         return new GenericBuilder<GenericBuilder<P>>(this, seq);
     }

@@ -18,7 +18,7 @@ import de.weltraumschaf.ebnf.ast.nodes.Syntax;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class SyntaxBuilder {
+public final class SyntaxBuilder {
 
     /**
      * It is not intended to create an object from outside.
@@ -34,7 +34,7 @@ public class SyntaxBuilder {
      * @param title Title of the syntax.
      * @return
      */
-    public static RuleBuilder syntax(String title) {
+    public static RuleBuilder syntax(final String title) {
         return syntax(title, Syntax.DEFAULT_META);
     }
 
@@ -45,7 +45,7 @@ public class SyntaxBuilder {
      * @param meta  Meta information of the syntax.
      * @return
      */
-    public static RuleBuilder syntax(String title, String meta) {
+    public static RuleBuilder syntax(final String title, final String meta) {
         return new RuleBuilder(Syntax.newInstance(title, meta));
     }
 

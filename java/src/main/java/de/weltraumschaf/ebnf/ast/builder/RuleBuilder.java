@@ -23,7 +23,7 @@ public class RuleBuilder {
      *
      * @param syntax
      */
-    RuleBuilder(Syntax syntax) {
+    RuleBuilder(final Syntax syntax) {
         this.syntax = syntax;
     }
 
@@ -33,14 +33,14 @@ public class RuleBuilder {
      * @param name The rule name.
      * @return
      */
-    public GenericBuilder<RuleBuilder> rule(String name) {
-        Rule rule = Rule.newInstance(syntax, name);
+    public GenericBuilder<RuleBuilder> rule(final String name) {
+        final Rule rule = Rule.newInstance(syntax, name);
         syntax.addChild(rule);
         return new GenericBuilder<RuleBuilder>(this, rule);
     }
 
-    public RuleBuilder comment(String value) {
-        Comment comment = Comment.newInstance(syntax, value);
+    public RuleBuilder comment(final String value) {
+        final Comment comment = Comment.newInstance(syntax, value);
         syntax.addChild(comment);
         return this;
     }
