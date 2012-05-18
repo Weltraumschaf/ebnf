@@ -51,7 +51,7 @@ public class ScannerTest {
     }
 
     private void assertTokens(final BufferedReader grammar, final List<Expectation> expectations, final String msg)
-            throws SyntaxError, IOException {
+            throws SyntaxException, IOException {
         final Scanner scanner = new Scanner(grammar);
         int count = 0;
 
@@ -367,7 +367,7 @@ public class ScannerTest {
             }
 
             fail("Expected exception not thrown!");
-        } catch (SyntaxError ex) {
+        } catch (SyntaxException ex) {
             assertEquals("Expecting '=' but seen ' '", ex.getMessage());
             final Position pos = ex.getPosition();
             assertEquals(2, pos.getLine());
@@ -391,7 +391,7 @@ public class ScannerTest {
         try {
             scanner.raiseError(msg);
             fail("Expected exception not thrown!");
-        } catch (SyntaxError e) {
+        } catch (SyntaxException e) {
             verify(scanner, times(1)).createPosition();
             assertSame(e.getPosition(), position);
             assertEquals(String.format("Syntax error: %s at %s (code: 0)!", msg, position), e.
@@ -399,7 +399,7 @@ public class ScannerTest {
         }
     }
 
-    @Test public void testPeekToken() throws SyntaxError, IOException {
+    @Test public void testPeekToken() throws SyntaxException, IOException {
         final BufferedReader grammar = ReaderHelper.createFrom("comment :== literal .");
         final Scanner scanner = new Scanner(grammar);
         scanner.nextToken();

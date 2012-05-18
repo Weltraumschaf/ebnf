@@ -41,7 +41,7 @@ public class Parser {
      *
      * @throws SyntaxError
      */
-    public Syntax parse() throws SyntaxError, IOException {
+    public Syntax parse() throws SyntaxException, IOException {
         scanner.nextToken();
 
         if (scanner.currentToken().isType(TokenType.LITERAL)) {
@@ -92,7 +92,7 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseRule() throws SyntaxError, IOException {
+    private Node parseRule() throws SyntaxException, IOException {
         if (!scanner.currentToken().isType(TokenType.IDENTIFIER)) {
             raiseError("Production must start with an identifier");
         }
@@ -135,7 +135,7 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseExpression(final Node parent) throws SyntaxError, IOException {
+    private Node parseExpression(final Node parent) throws SyntaxException, IOException {
         final Choice choiceNode = Choice.newInstance(parent);
         Node term = parseTerm(choiceNode);
         choiceNode.addChild(term);
@@ -159,7 +159,7 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseTerm(final Node parent) throws SyntaxError, IOException {
+    private Node parseTerm(final Node parent) throws SyntaxException, IOException {
         final Sequence sequenceNode = Sequence.newInstance(parent);
         Node factor = parseFactor(sequenceNode);
         sequenceNode.addChild(factor);
@@ -190,7 +190,7 @@ public class Parser {
      * @throws SyntaxError
      * @return
      */
-    private Node parseFactor(final Node parent) throws SyntaxError, IOException {
+    private Node parseFactor(final Node parent) throws SyntaxException, IOException {
         if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
             return Identifier.newInstance(parent, scanner.currentToken().getValue());
         }
@@ -286,7 +286,7 @@ public class Parser {
         return false;
     }
 
-    protected void raiseError(final String msg) throws SyntaxError {
+    protected void raiseError(final String msg) throws SyntaxException {
         raiseError(msg, null);
     }
 
@@ -301,11 +301,11 @@ public class Parser {
      * @throws SyntaxError Throws always an exception.
      * @return void
      */
-    protected void raiseError(final String msg, Position pos) throws SyntaxError {
+    protected void raiseError(final String msg, Position pos) throws SyntaxException {
         if (null == pos) {
             pos = scanner.currentToken().getPosition();
         }
 
-        throw new SyntaxError(msg, pos);
+        throw new SyntaxException(msg, pos);
     }
 }

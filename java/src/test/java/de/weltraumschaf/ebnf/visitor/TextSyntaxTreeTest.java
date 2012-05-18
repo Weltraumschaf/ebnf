@@ -12,7 +12,7 @@
 package de.weltraumschaf.ebnf.visitor;
 
 import de.weltraumschaf.ebnf.Parser;
-import de.weltraumschaf.ebnf.SyntaxError;
+import de.weltraumschaf.ebnf.SyntaxException;
 import static de.weltraumschaf.ebnf.TestHelper.helper;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.*;
@@ -22,8 +22,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -120,7 +119,7 @@ public class TextSyntaxTreeTest {
         assertEquals(expected, visitor.getMatrix());
     }
 
-    @Test public void testGenerateText() throws FileNotFoundException, URISyntaxException, IOException, SyntaxError {
+    @Test public void testGenerateText() throws FileNotFoundException, URISyntaxException, IOException, SyntaxException {
         TextSyntaxTree visitor = new TextSyntaxTree();
         Syntax ast = syntax("foo").build();
         ast.accept(visitor);

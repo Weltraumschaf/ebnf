@@ -203,8 +203,8 @@ public class Scanner {
      *
      * @throws SyntaxError
      */
-    public void raiseError(final String msg) throws SyntaxError {
-        throw new SyntaxError(msg, createPosition());
+    public void raiseError(final String msg) throws SyntaxException {
+        throw new SyntaxException(msg, createPosition());
     }
 
     /**
@@ -284,7 +284,7 @@ public class Scanner {
      *
      * @return
      */
-    public Token peekToken() throws SyntaxError, IOException {
+    public Token peekToken() throws SyntaxException, IOException {
         nextToken();
         final Token token = currentToken();
         currentToken--;
@@ -304,7 +304,7 @@ public class Scanner {
      *
      * @return
      */
-    public void nextToken() throws SyntaxError, IOException {
+    public void nextToken() throws SyntaxException, IOException {
         if (currentToken > -1 && currentToken < (tokens.size() - 1)) {
             // recover backtracked tokens.
             currentToken++;
@@ -439,7 +439,7 @@ public class Scanner {
      *
      * @return
      */
-    private Token scanOperator() throws SyntaxError, IOException {
+    private Token scanOperator() throws SyntaxException, IOException {
         final Position position   = createPosition();
         final StringBuilder value = new StringBuilder();
         value.append(currentCharacter());

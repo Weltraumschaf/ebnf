@@ -8,15 +8,15 @@ import org.junit.Test;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class SyntaxErrorTest {
+public class SyntaxExceptionTest {
 
     @Test public void testToString() {
-        SyntaxError error;
-        error = new SyntaxError("foo bar", new Position(3, 4));
+        SyntaxException error;
+        error = new SyntaxException("foo bar", new Position(3, 4));
         assertEquals("Syntax error: foo bar at (3, 4) (code: 0)!", error.toString());
-        error = new SyntaxError("foo bar", new Position(3, 4), 4);
+        error = new SyntaxException("foo bar", new Position(3, 4), 4);
         assertEquals("Syntax error: foo bar at (3, 4) (code: 4)!", error.toString());
-        error = new SyntaxError("foo bar", new Position(3, 4, "foo.ebnf"));
+        error = new SyntaxException("foo bar", new Position(3, 4, "foo.ebnf"));
         assertEquals("Syntax error: foo bar at foo.ebnf (3, 4) (code: 0)!", error.toString());
     }
 }

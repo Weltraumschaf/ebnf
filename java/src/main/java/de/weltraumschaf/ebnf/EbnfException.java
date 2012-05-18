@@ -7,7 +7,7 @@ import de.weltraumschaf.ebnf.App.ExitCode;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Error extends Exception {
+public class EbnfException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,11 +25,11 @@ public class Error extends Exception {
      *
      * @param message Error message.
      */
-    public Error(final String message) {
+    public EbnfException(final String message) {
         this(message, ExitCode.FATAL_ERROR);
     }
 
-    public Error(final String message, final ExitCode code) {
+    public EbnfException(final String message, final ExitCode code) {
         this(message, code.getCode());
     }
 
@@ -39,11 +39,11 @@ public class Error extends Exception {
      * @param message Error message.
      * @param code    Error code.
      */
-    public Error(final String message, final int code) {
+    public EbnfException(final String message, final int code) {
         this(message, code, null);
     }
 
-    public Error(final String message, final ExitCode code, final Throwable cause) {
+    public EbnfException(final String message, final ExitCode code, final Throwable cause) {
         this(message, code.getCode(), cause);
     }
 
@@ -54,7 +54,7 @@ public class Error extends Exception {
      * @param code    Error code.
      * @param cause   Previous errors.
      */
-    public Error(final String message, final int code, final Throwable cause) {
+    public EbnfException(final String message, final int code, final Throwable cause) {
         super(message, cause);
         this.code = code;
     }

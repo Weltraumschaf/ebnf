@@ -34,7 +34,7 @@ import org.junit.runners.Suite;
     ParserTest.class,
     PositionTest.class,
     ScannerTest.class,
-    SyntaxErrorTest.class,
+    SyntaxExceptionTest.class,
     TokenTest.class,
     AbstractCompositeTest.class,
     DepthCalculatorTest.class,

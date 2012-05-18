@@ -7,7 +7,7 @@ package de.weltraumschaf.ebnf;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class SyntaxError extends Error {
+public class SyntaxException extends EbnfException {
 
     public static final int DEFAULT_CODE = 0;
     private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class SyntaxError extends Error {
      * @param message The error message.
      * @param pos     Where the error occurred.
      */
-    public SyntaxError(final String message, final Position pos) {
+    public SyntaxException(final String message, final Position pos) {
         this(message, pos, DEFAULT_CODE);
     }
 
@@ -34,7 +34,7 @@ public class SyntaxError extends Error {
      * @param pos     Where the error occurred.
      * @param code    Optional error code.
      */
-    public SyntaxError(final String message, final Position pos, final int code) {
+    public SyntaxException(final String message, final Position pos, final int code) {
         this(message, pos, code, null);
     }
 
@@ -46,7 +46,7 @@ public class SyntaxError extends Error {
      * @param code    Optional error code.
      * @param cause   Optional previous exception.
      */
-    public SyntaxError(final String message, final Position pos, final int code, final Throwable cause) {
+    public SyntaxException(final String message, final Position pos, final int code, final Throwable cause) {
         super(message, code, cause);
         position = pos;
     }

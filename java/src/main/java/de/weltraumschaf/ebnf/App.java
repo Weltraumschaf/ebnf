@@ -43,7 +43,7 @@ public class App {
         try {
             final App app = new App(args);
             exit(app.run());
-        } catch (Error e) {
+        } catch (EbnfException e) {
             System.out.println(e.getMessage());
             exit(e.getCode());
         } catch (Throwable t) {
@@ -61,7 +61,7 @@ public class App {
         System.exit(code);
     }
 
-    private ExitCode run()  throws Error {
+    private ExitCode run()  throws EbnfException {
         final CliOptions options = parseOptions();
 
         if (options.isHelp()) {
@@ -109,13 +109,13 @@ public class App {
         return ExitCode.OK;
     }
 
-    private CliOptions parseOptions() throws Error {
+    private CliOptions parseOptions() throws EbnfException {
         final CliOptions options = new CliOptions();
 
         try {
             options.parse(args);
         } catch (ParseException ex) {
-            throw new Error(ex.getMessage(), 1, ex);
+            throw new EbnfException(ex.getMessage(), 1, ex);
         }
 
         return options;

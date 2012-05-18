@@ -70,7 +70,7 @@ public class ParserTest {
 //        );
     }
 
-    @Test public void testParse() throws SyntaxError, FileNotFoundException, IOException, URISyntaxException {
+    @Test public void testParse() throws SyntaxException, FileNotFoundException, IOException, URISyntaxException {
         Syntax ast;
 
         Parser parser = helper().createParserFromFixture("rules_with_different_assignment_ops.ebnf");
@@ -310,6 +310,6 @@ public class ParserTest {
 
     @Ignore("TODO: Implement test with errornous syntax fixtures.")
     @Test public void testParseErrors() {
-       
+
     }
 }
