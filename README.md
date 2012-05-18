@@ -1,8 +1,10 @@
-# PHP EBNF Image Generator
+# EBNF Parser and Image Generator for PHP/Java
 
 This package contains classes for scanning and parsing [EBNF][WP-EBNF]
 grammar files and generate images with railroad diagrams for
 that grammar.
+
+This repo contains a PHP implementation and a work in progess implementation in Java.
 
 The original code I discovered [here][KARMIN]. But that project seems
 to be disconinued. So I decided to refactor and port the code
