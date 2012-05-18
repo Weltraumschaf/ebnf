@@ -48,4 +48,10 @@ public class TerminalTest {
         assertEquals(1, term1.depth());
     }
 
+    @Test public void testToString() {
+        final Terminal term = Terminal.newInstance();
+        assertEquals("<TERMINAL value=>", term.toString());
+        term.value = "foo";
+        assertEquals("<TERMINAL value=foo>", term.toString());
+    }
 }

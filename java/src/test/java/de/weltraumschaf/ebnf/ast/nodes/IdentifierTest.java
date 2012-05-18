@@ -49,4 +49,10 @@ public class IdentifierTest {
         assertEquals(1, ident.depth());
     }
 
+    @Test public void testToString() {
+        final Identifier ident = Identifier.newInstance();
+        assertEquals("<IDENTIFIER value=>", ident.toString());
+        ident.value = "foo";
+        assertEquals("<IDENTIFIER value=foo>", ident.toString());
+    }
 }
