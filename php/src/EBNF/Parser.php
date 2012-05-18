@@ -405,12 +405,12 @@ class Parser {
      * If no position is passed the one of the current token is used.
      *
      * @param string  $msg The error message.
-     * @param Postion $pos The ptional position of the error.
+     * @param Position $pos The ptional position of the error.
      *
      * @throws SyntaxtException Throws always an exception.
      * @return void
      */
-    protected function raiseError($msg, Postion $pos = null) {
+    protected function raiseError($msg, Position $pos = null) {
         if (null === $pos) {
             $pos = $this->scanner->currentToken()->getPosition();
         }
