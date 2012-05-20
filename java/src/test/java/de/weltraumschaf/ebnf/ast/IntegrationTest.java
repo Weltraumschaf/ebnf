@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
+import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.*;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -127,7 +128,6 @@ public class IntegrationTest {
         assertEquals(errors.toString(), notification.report());
     }
 
-    @Ignore
     @Test public void testProbeEquivalenceSyntaxWithRules() {
         final Syntax syntax1 = Syntax.newInstance("foo", "bar");
         final Syntax syntax2 = Syntax.newInstance("foo", "bar");
@@ -151,7 +151,7 @@ public class IntegrationTest {
         rule2.name = "rule2";
         syntax1.addChild(rule2);
         StringBuilder error = new StringBuilder();
-        error.append("Node syntax has different child size than other: 2 != 1!\n");
+        error.append("Node syntax has different child count than other: 2 != 1!\n");
         error.append("Other node has not the expected subnode!");
         notification = new Notification();
         syntax1.probeEquivalence(syntax2, notification);
@@ -159,11 +159,11 @@ public class IntegrationTest {
         assertEquals(error.toString(), notification.report());
 
         error = new StringBuilder();
-        error.append("Node syntax has different child size than other: 1 != 2!");
+        error.append("Node syntax has different child count than other: 1 != 2!");
         notification = new Notification();
         syntax2.probeEquivalence(syntax1, notification);
         assertFalse(notification.isOk());
-        assertEquals(error, notification.report());
+        assertEquals(error.toString(), notification.report());
 
         syntax2.addChild(rule2);
         notification = new Notification();
@@ -186,108 +186,110 @@ public class IntegrationTest {
         assertEquals("Names of rule differs: 'rule2' != 'rule3'!", notification.report());
     }
 
-    @Test public void testProbeEquivalenceSyntaxWithRulesAndSubnodes() {
-//        builder = new SyntaxBuilder();
-//        builder.syntax("foo", "bar")
-//                .rule("syntax")
-//                    .sequence()
-//                        .option()
-//                            .identifier("title")
-//                        .end()
-//                        .terminal("{")
-//                        .loop()
-//                            .identifier("rule")
-//                        .end()
-//                        .terminal("}")
-//                        .option()
-//                            .identifier("comment")
-//                        .end()
-//                    .end();
-//        syntax1 = builder.getAst();
-//        builder.clear()
-//                .syntax("foo", "bar")
-//                .rule("syntax")
-//                    .sequence()
-//                        .option()
-//                            .identifier("title")
-//                        .end()
-//                        .terminal("{")
-//                        .loop()
-//                            .identifier("rule")
-//                        .end()
-//                        .terminal("}")
-//                        .option()
-//                            .identifier("comment")
-//                        .end()
-//                    .end();
-//        syntax2 = builder.getAst();
-//
-//        n = new Notification();
-//        syntax1.probeEquivalence(syntax2, n);
-//        assertTrue(n.isOk(), n.report());
-//        assertEquals("", n.report());
-//
-//        n = new Notification();
-//        syntax2.probeEquivalence(syntax1, n);
-//        assertTrue(n.isOk(), n.report());
-//        assertEquals("", n.report());
-//
-//        builder.clear()
-//                .syntax("foo", "bar")
-//                .rule("syntax")
-//                    .sequence()
-//                        .option()
-//                            .identifier("title")
-//                        .end()
-//                        .terminal("{")
-//                        .loop()
-//                            .identifier("rule")
-//                        .end()
-//                        .terminal("}")
-//                        .option()
-//                            .identifier("comment")
-//                        .end()
-//                    .end();
-//        syntax1 = builder.getAst();
-//        builder.clear()
-//                .syntax("snafu", "bar")
-//                .rule("syntax")
-//                    .sequence()
-//                        .option()
-//                            .identifier("bla")
-//                        .end()
-//                        .terminal("{")
-//                        .loop()
-//                            .identifier("snafu")
-//                        .end()
-//                        .terminal("}")
-//                        .option()
-//                            .identifier("blub")
-//                        .end()
-//                    .end();
-//        syntax2 = builder.getAst();
-//
-//        n = new Notification();
-//        syntax1.probeEquivalence(syntax2, n);
-//        assertFalse(n.isOk(), n.report());
-//        assertEquals(
-//            "Titles of syntx differs: 'foo' != 'snafu'!\n" .
-//            "Identifier value mismatch: 'title' != 'bla'!\n" .
-//            "Identifier value mismatch: 'rule' != 'snafu'!\n" .
-//            "Identifier value mismatch: 'comment' != 'blub'!",
-//            n.report()
-//        );
-//
-//        n = new Notification();
-//        syntax2.probeEquivalence(syntax1, n);
-//        assertFalse(n.isOk(), n.report());
-//        assertEquals(
-//            "Titles of syntx differs: 'snafu' != 'foo'!\n" .
-//            "Identifier value mismatch: 'bla' != 'title'!\n" .
-//            "Identifier value mismatch: 'snafu' != 'rule'!\n" .
-//            "Identifier value mismatch: 'blub' != 'comment'!",
-//            n.report()
-//        );
+    @Test public void testProbeEquivalenceSyntaxWithRulesAndSubnodes() { //NOPMD
+        Syntax syntax1, syntax2;
+        syntax1 = syntax("foo", "bar")
+            .rule("syntax") // NOPMD
+                .sequence()
+                    .option()
+                        .identifier("title")
+                    .end()
+                    .terminal("{")
+                    .loop()
+                        .identifier("rule")
+                    .end()
+                    .terminal("}")
+                    .option()
+                        .identifier("comment")
+                    .end()
+                .end()
+            .end()
+        .build();
+        syntax2 = syntax("foo", "bar")
+            .rule("syntax")
+                .sequence()
+                    .option()
+                        .identifier("title")
+                    .end()
+                    .terminal("{")
+                    .loop()
+                        .identifier("rule")
+                    .end()
+                    .terminal("}")
+                    .option()
+                        .identifier("comment")
+                    .end()
+                .end()
+            .end()
+        .build();
+
+        Notification notification = new Notification();
+        syntax1.probeEquivalence(syntax2, notification);
+        assertTrue(notification.report(), notification.isOk());
+        assertEquals("", notification.report());
+
+        notification = new Notification();
+        syntax2.probeEquivalence(syntax1, notification);
+        assertTrue(notification.report(), notification.isOk());
+        assertEquals("", notification.report());
+
+        syntax1 =syntax("foo", "bar")
+            .rule("syntax")
+                .sequence()
+                    .option()
+                        .identifier("title")
+                    .end()
+                    .terminal("{")
+                    .loop()
+                        .identifier("rule")
+                    .end()
+                    .terminal("}")
+                    .option()
+                        .identifier("comment")
+                    .end()
+                .end()
+            .end()
+        .build();
+
+        syntax2 = syntax("snafu", "bar")
+            .rule("syntax")
+                .sequence()
+                    .option()
+                        .identifier("bla")
+                    .end()
+                    .terminal("{")
+                    .loop()
+                        .identifier("snafu")
+                    .end()
+                    .terminal("}")
+                    .option()
+                        .identifier("blub")
+                    .end()
+                .end()
+            .end()
+        .build();
+
+        notification = new Notification();
+        syntax1.probeEquivalence(syntax2, notification);
+        assertFalse(notification.isOk());
+        assertEquals(
+            "Titles of syntx differs: 'foo' != 'snafu'!\n" +
+            "Identifier value mismatch: 'title' != 'bla'!\n" +
+            "Identifier value mismatch: 'rule' != 'snafu'!\n" +
+            "Identifier value mismatch: 'comment' != 'blub'!",
+            notification.report()
+        );
+
+        notification = new Notification();
+        syntax2.probeEquivalence(syntax1, notification);
+        assertFalse(notification.isOk());
+        assertEquals(
+            "Titles of syntx differs: 'snafu' != 'foo'!\n" +
+            "Identifier value mismatch: 'bla' != 'title'!\n" +
+            "Identifier value mismatch: 'snafu' != 'rule'!\n" +
+            "Identifier value mismatch: 'blub' != 'comment'!",
+            notification.report()
+        );
 
     }
 
