@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf;
 
+import static de.weltraumschaf.ebnf.TestHelper.helper;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +11,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
-import static de.weltraumschaf.ebnf.TestHelper.helper;
 
 /**
  * Unit test for Scanner.
@@ -57,7 +57,7 @@ public class ScannerTest {
 
         while (scanner.hasNextToken()) {
             scanner.nextToken();
-            final Token token = scanner.currentToken();
+            final Token token = scanner.getCurrentToken();
             assertNotNull(token);
             final Expectation expectation = expectations.get(count);
             assertEquals(String.format("%s %d type: %s", msg, count, token.getValue()), expectation.
@@ -103,10 +103,10 @@ public class ScannerTest {
         scanner.close();
     }
 
-    @Test public void testNext() throws Exception {
+    @Test public void testNext() throws Exception { //NOPMD
         Scanner scanner = new Scanner(ReaderHelper.createFrom(""));
-        assertNull(scanner.currentToken());
-        assertNull(scanner.currentToken());
+        assertNull(scanner.getCurrentToken());
+        assertNull(scanner.getCurrentToken());
 
         assertTokens(helper().createSourceFromFixture("rules_with_ranges.ebnf"), Arrays.asList(
                 new Expectation("\"Rules with ranges.\"", TokenType.LITERAL, 1, 1),
@@ -378,7 +378,7 @@ public class ScannerTest {
     }
 
     @Ignore("Throw excpetion on invalid characters")
-    @Test public void testRaiseErrorOnInvalidCharacter() {
+    @Test public void testRaiseErrorOnInvalidCharacter() { //NOPMD
 
     }
 
@@ -404,21 +404,21 @@ public class ScannerTest {
         final Scanner scanner = new Scanner(grammar);
         scanner.nextToken();
         Token token;
-        token = scanner.currentToken();
+        token = scanner.getCurrentToken();
         assertEquals("comment", token.getValue());
         assertEquals(":==", scanner.peekToken().getValue());
         scanner.nextToken();
-        token = scanner.currentToken();
+        token = scanner.getCurrentToken();
         assertEquals(":==", token.getValue());
         assertEquals("literal", scanner.peekToken().getValue());
         scanner.nextToken();
-        token = scanner.currentToken();
+        token = scanner.getCurrentToken();
         assertEquals("literal", token.getValue());
         scanner.nextToken();
-        token = scanner.currentToken();
+        token = scanner.getCurrentToken();
         assertEquals(".", token.getValue());
         scanner.nextToken();
-        token = scanner.currentToken();
+        token = scanner.getCurrentToken();
         assertEquals(TokenType.EOF, token.getType());
     }
 }

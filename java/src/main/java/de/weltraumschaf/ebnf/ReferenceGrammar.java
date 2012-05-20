@@ -83,7 +83,8 @@ public final class ReferenceGrammar {
      */
     public Syntax getSyntax() throws SyntaxException {
         if (null == syntax) {
-            Parser parser = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
+            final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
+            
             try {
                 syntax = parser.parse();
             } catch (IOException ex) {

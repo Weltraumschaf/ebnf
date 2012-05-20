@@ -20,7 +20,7 @@ public class Xml implements Visitor {
 
     public static final String  DEFAULT_VERSION  = "1.0";
     public static final String  DEFAULT_ENCODING = "utf-8";
-    public static final int DEFAULT_INDENTATION  = 4;
+    public static final int DEFAULT_INDENTATION  = 4; //NOPMD
 
     /**
      * Buffers the constructed XML string.

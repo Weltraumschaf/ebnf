@@ -134,7 +134,7 @@ public class Scanner {
      * @return
      */
     private void nextCharacter() throws IOException {
-        if (currentCharacter > -1 && EOF == currentCharacter()) {
+        if (currentCharacter > -1 && EOF == getCurrentCharacter()) {
             return;
         }
 
@@ -157,14 +157,14 @@ public class Scanner {
      *
      * @return
      */
-    private char currentCharacter() {
+    private char getCurrentCharacter() {
         try {
             return buffer.charAt(currentCharacter);
         } catch (StringIndexOutOfBoundsException ex) {
             if (atEof) {
                 return EOF;
             } else {
-                throw new RuntimeException("Invoke Scanner#nextCharacter() first!", ex);
+                throw new IllegalStateException("Invoke Scanner#nextCharacter() first!", ex);
             }
         }
     }
@@ -189,7 +189,7 @@ public class Scanner {
 
         if (hasNextCharacter()) {
             nextCharacter();
-            character = currentCharacter();
+            character = getCurrentCharacter();
             backupCharacter();
         }
 
@@ -223,7 +223,7 @@ public class Scanner {
      *
      * @return
      */
-    public Token currentToken() {
+    public Token getCurrentToken() {
         try {
             return tokens.get(currentToken);
         } catch (IndexOutOfBoundsException ex) {
@@ -270,7 +270,7 @@ public class Scanner {
      * @return
      */
     public boolean hasNextToken() {
-        final Token token = currentToken();
+        final Token token = getCurrentToken();
 
         return null == token
                ? true
@@ -286,7 +286,7 @@ public class Scanner {
      */
     public Token peekToken() throws SyntaxException, IOException {
         nextToken();
-        final Token token = currentToken();
+        final Token token = getCurrentToken();
         currentToken--;
 
         // @todo May be this is not necessary.
@@ -314,16 +314,16 @@ public class Scanner {
         while (hasNextCharacter()) {
             nextCharacter();
 
-            if (ScannerHelper.isAlpha(currentCharacter())) {
+            if (ScannerHelper.isAlpha(getCurrentCharacter())) {
                 tokens.add(scanIdentifier());
                 currentToken++;
                 return;
-            } else if(ScannerHelper.isQuote(currentCharacter())) {
+            } else if(ScannerHelper.isQuote(getCurrentCharacter())) {
                 tokens.add(scanLiteral());
                 currentToken++;
                 return;
-            } else if (ScannerHelper.isOperator(currentCharacter())) {
-                if ('(' == currentCharacter() && '*' == peekCharacter()) {
+            } else if (ScannerHelper.isOperator(getCurrentCharacter())) {
+                if ('(' == getCurrentCharacter() && '*' == peekCharacter()) {
                     tokens.add(scanComment());
                 } else {
                     tokens.add(scanOperator());
@@ -331,10 +331,10 @@ public class Scanner {
 
                 currentToken++;
                 return;
-            } else if (ScannerHelper.isWhiteSpace(currentCharacter())) { // NOPMD
+            } else if (ScannerHelper.isWhiteSpace(getCurrentCharacter())) { // NOPMD
                 // Ignore white spaces.
             } else {
-                raiseError(String.format("Invalid character '%s' as %s", currentCharacter(), createPosition()));
+                raiseError(String.format("Invalid character '%s' as %s", getCurrentCharacter(), createPosition()));
             }
 
             checkNewline();
@@ -351,13 +351,13 @@ public class Scanner {
      * @return
      */
     private void checkNewline() {
-        if ('\n' == currentCharacter() || '\r' == currentCharacter()) {
+        if ('\n' == getCurrentCharacter() || '\r' == getCurrentCharacter()) {
             line++;
             column = 0;
         }
     }
 
-    private static final char[] IDENTIFIER_SPECIAL_CHARS =  {'-', '_'};
+    private static final char[] SPECIAL_CHARS =  {'-', '_'};
 
     /**
      * Scans an identifier [a-zA-Z\-_].
@@ -367,14 +367,14 @@ public class Scanner {
     private Token scanIdentifier() throws IOException {
         final Position position = createPosition();
         final StringBuilder value = new StringBuilder();
-        value.append(currentCharacter());
+        value.append(getCurrentCharacter());
 
         while (hasNextCharacter()) {
             nextCharacter();
 
-            if (ScannerHelper.isAlphaNum(currentCharacter()) ||
-                ScannerHelper.isEquals(currentCharacter(), IDENTIFIER_SPECIAL_CHARS)) {
-                value.append(currentCharacter());
+            if (ScannerHelper.isAlphaNum(getCurrentCharacter()) ||
+                ScannerHelper.isEquals(getCurrentCharacter(), SPECIAL_CHARS)) {
+                value.append(getCurrentCharacter());
             } else {
                 backupCharacter();
                 break;
@@ -391,16 +391,16 @@ public class Scanner {
      */
     private Token scanLiteral() throws IOException {
         final Position position = createPosition();
-        final char start = currentCharacter();
+        final char start = getCurrentCharacter();
         final StringBuilder value = new StringBuilder();
         value.append(start);
 
         while (hasNextCharacter()) {
             nextCharacter();
-            value.append(currentCharacter());
+            value.append(getCurrentCharacter());
 
             // Ensure that a lieral opened with " is not temrinated by ' and vice versa.
-            if (ScannerHelper.isQuote(currentCharacter()) && currentCharacter() == start) {
+            if (ScannerHelper.isQuote(getCurrentCharacter()) && getCurrentCharacter() == start) {
                 break;
             }
         }
@@ -416,15 +416,15 @@ public class Scanner {
     private Token scanComment() throws IOException {
         final Position postition = createPosition();
         final StringBuilder value = new StringBuilder();
-        value.append(currentCharacter());
+        value.append(getCurrentCharacter());
 
         while (hasNextCharacter()) {
             nextCharacter();
-            value.append(currentCharacter());
+            value.append(getCurrentCharacter());
 
-            if ('*' == currentCharacter() && ')' == peekCharacter()) {
+            if ('*' == getCurrentCharacter() && ')' == peekCharacter()) {
                 nextCharacter();
-                value.append(currentCharacter());
+                value.append(getCurrentCharacter());
                 break;
             }
 
@@ -442,23 +442,23 @@ public class Scanner {
     private Token scanOperator() throws SyntaxException, IOException {
         final Position position   = createPosition();
         final StringBuilder value = new StringBuilder();
-        value.append(currentCharacter());
+        value.append(getCurrentCharacter());
 
         final char peek = peekCharacter();
         TokenType type = null;
 
-        switch (currentCharacter()) {
+        switch (getCurrentCharacter()) {
             case ':': {
                 if ('=' == peek) {
                     nextCharacter();
-                    value.append(currentCharacter());
+                    value.append(getCurrentCharacter());
                     nextCharacter();
 
-                    if (currentCharacter() != '=') {
-                        raiseError(String.format("Expecting '=' but seen '%s'", currentCharacter()));
+                    if (getCurrentCharacter() != '=') {
+                        raiseError(String.format("Expecting '=' but seen '%s'", getCurrentCharacter()));
                     }
 
-                    value.append(currentCharacter());
+                    value.append(getCurrentCharacter());
                     type = TokenType.ASIGN;
                 } else {
                     type = TokenType.ASIGN;
@@ -470,7 +470,7 @@ public class Scanner {
             case '.': { // range or end of rule
                 if ('.' == peek) {
                     nextCharacter();
-                    value.append(currentCharacter());
+                    value.append(getCurrentCharacter());
                     type = TokenType.RANGE;
                 } else {
                     type = TokenType.END_OF_RULE;
@@ -487,7 +487,7 @@ public class Scanner {
             case '}': type = TokenType.R_BRACE; break;
             case '|': type = TokenType.CHOICE; break;
             default: {
-                raiseError(String.format("Unexpected operator character '%s'", currentCharacter()));
+                raiseError(String.format("Unexpected operator character '%s'", getCurrentCharacter()));
             }
         }
 

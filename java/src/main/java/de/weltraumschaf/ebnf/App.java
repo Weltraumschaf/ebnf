@@ -46,9 +46,9 @@ public class App {
         } catch (EbnfException e) {
             System.out.println(e.getMessage());
             exit(e.getCode());
-        } catch (Throwable t) {
+        } catch (Exception ex) { //NOPMD
             System.out.println("Fatal error!");
-            t.printStackTrace(System.out);
+            ex.printStackTrace(System.out);
             exit(ExitCode.FATAL_ERROR);
         }
     }

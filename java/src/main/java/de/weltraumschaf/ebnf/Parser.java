@@ -44,24 +44,24 @@ public class Parser {
     public Syntax parse() throws SyntaxException, IOException {
         scanner.nextToken();
 
-        if (scanner.currentToken().isType(TokenType.LITERAL)) {
-            ast.title = scanner.currentToken().getValue(true);
+        if (scanner.getCurrentToken().isType(TokenType.LITERAL)) {
+            ast.title = scanner.getCurrentToken().getValue(true);
             scanner.nextToken();
         }
 
-        if (!assertToken(scanner.currentToken(), TokenType.L_BRACE, "{")) {
+        if (!assertToken(scanner.getCurrentToken(), TokenType.L_BRACE, "{")) {
             raiseError("Syntax must start with '{'");
         }
 
         scanner.nextToken();
 
         while (scanner.hasNextToken()) {
-            if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
+            if (scanner.getCurrentToken().isType(TokenType.IDENTIFIER)) {
                 final Node rules = parseRule();
                 ast.addChild(rules);
                 scanner.nextToken();
-            } else if (scanner.currentToken().isType(TokenType.COMMENT)) {
-                final Comment comment = Comment.newInstance(ast, scanner.currentToken().getValue());
+            } else if (scanner.getCurrentToken().isType(TokenType.COMMENT)) {
+                final Comment comment = Comment.newInstance(ast, scanner.getCurrentToken().getValue());
                 ast.addChild(comment);
                 scanner.nextToken();
             } else {
@@ -69,15 +69,15 @@ public class Parser {
             }
         }
 
-        if (!assertToken(scanner.currentToken(), TokenType.R_BRACE, "}")) {
-            raiseError(String.format("Syntax must end with '}' but saw '%s'", scanner.currentToken()));
+        if (!assertToken(scanner.getCurrentToken(), TokenType.R_BRACE, "}")) {
+            raiseError(String.format("Syntax must end with '}' but saw '%s'", scanner.getCurrentToken()));
         }
 
         scanner.nextToken();
 
         if (scanner.hasNextToken()) {
-            if (scanner.currentToken().isType(TokenType.LITERAL)) {
-                ast.meta = scanner.currentToken().getValue(true);
+            if (scanner.getCurrentToken().isType(TokenType.LITERAL)) {
+                ast.meta = scanner.getCurrentToken().getValue(true);
             } else {
                 raiseError("Literal expected as syntax comment");
             }
@@ -93,20 +93,20 @@ public class Parser {
      * @return
      */
     private Node parseRule() throws SyntaxException, IOException {
-        if (!scanner.currentToken().isType(TokenType.IDENTIFIER)) {
+        if (!scanner.getCurrentToken().isType(TokenType.IDENTIFIER)) {
             raiseError("Production must start with an identifier");
         }
 
-        final Rule rule = Rule.newInstance(ast, scanner.currentToken().getValue());
+        final Rule rule = Rule.newInstance(ast, scanner.getCurrentToken().getValue());
         scanner.nextToken();
 
-        if (scanner.currentToken().isType(TokenType.COMMENT)) {
-            final Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
+        if (scanner.getCurrentToken().isType(TokenType.COMMENT)) {
+            final Comment comment = Comment.newInstance(rule, scanner.getCurrentToken().getValue());
             rule.addChild(comment);
             scanner.nextToken();
         }
 
-        if (!assertTokens(scanner.currentToken(), TokenType.ASIGN, Arrays.asList("=", ":", ":=="))) {
+        if (!assertTokens(scanner.getCurrentToken(), TokenType.ASIGN, Arrays.asList("=", ":", ":=="))) {
             raiseError("Identifier must be followed by '='");
         }
 
@@ -114,13 +114,13 @@ public class Parser {
         final Node expressions = parseExpression(rule);
         rule.addChild(expressions);
 
-        if (scanner.currentToken().isType(TokenType.COMMENT)) {
-            final Comment comment = Comment.newInstance(rule, scanner.currentToken().getValue());
+        if (scanner.getCurrentToken().isType(TokenType.COMMENT)) {
+            final Comment comment = Comment.newInstance(rule, scanner.getCurrentToken().getValue());
             rule.addChild(comment);
             scanner.nextToken();
         }
 
-        if (!assertTokens(scanner.currentToken(), TokenType.END_OF_RULE, Arrays.asList(".", ";"))) {
+        if (!assertTokens(scanner.getCurrentToken(), TokenType.END_OF_RULE, Arrays.asList(".", ";"))) {
             raiseError("Rule must end with '.' or ';'", scanner.backtrackToken(2).getPosition(true));
         }
 
@@ -141,7 +141,7 @@ public class Parser {
         choiceNode.addChild(term);
         boolean multipleTerms = false;
 
-        while (assertToken(scanner.currentToken(), TokenType.CHOICE, "|")) {
+        while (assertToken(scanner.getCurrentToken(), TokenType.CHOICE, "|")) {
             scanner.nextToken();
             term = parseTerm(choiceNode);
             choiceNode.addChild(term);
@@ -167,7 +167,7 @@ public class Parser {
         boolean multipleFactors = false;
         final String[] allowed = {".", "=", "|", ")", "]", "}"};
 
-        while (scanner.currentToken().isNotEquals(allowed)) {
+        while (scanner.getCurrentToken().isNotEquals(allowed)) {
             factor = parseFactor(sequenceNode);
             sequenceNode.addChild(factor);
             scanner.nextToken();
@@ -191,11 +191,11 @@ public class Parser {
      * @return
      */
     private Node parseFactor(final Node parent) throws SyntaxException, IOException {
-        if (scanner.currentToken().isType(TokenType.IDENTIFIER)) {
-            return Identifier.newInstance(parent, scanner.currentToken().getValue());
+        if (scanner.getCurrentToken().isType(TokenType.IDENTIFIER)) {
+            return Identifier.newInstance(parent, scanner.getCurrentToken().getValue());
         }
 
-        if (scanner.currentToken().isType(TokenType.LITERAL)) {
+        if (scanner.getCurrentToken().isType(TokenType.LITERAL)) {
             /*if (assertToken(scanner.peekToken(), TokenType.OPERATOR, ".")) {
                 echo "range";
                 range = dom.createElement(Type.RANGE);
@@ -206,44 +206,44 @@ public class Parser {
                 return range;
             }*/
 
-            return Terminal.newInstance(parent, scanner.currentToken().getValue(true));
+            return Terminal.newInstance(parent, scanner.getCurrentToken().getValue(true));
         }
 
-        if (scanner.currentToken().isType(TokenType.COMMENT)) {
-            return Comment.newInstance(parent, scanner.currentToken().getValue());
+        if (scanner.getCurrentToken().isType(TokenType.COMMENT)) {
+            return Comment.newInstance(parent, scanner.getCurrentToken().getValue());
         }
 
-        if (assertToken(scanner.currentToken(), TokenType.L_PAREN, "(")) {
+        if (assertToken(scanner.getCurrentToken(), TokenType.L_PAREN, "(")) {
             scanner.nextToken();
             final Node expression = parseExpression(parent);
 
-            if (!assertToken(scanner.currentToken(), TokenType.R_PAREN, ")")) {
+            if (!assertToken(scanner.getCurrentToken(), TokenType.R_PAREN, ")")) {
                 raiseError("Group must end with ')'");
             }
 
             return expression;
         }
 
-        if (assertToken(scanner.currentToken(), TokenType.L_BRACK, "[")) {
+        if (assertToken(scanner.getCurrentToken(), TokenType.L_BRACK, "[")) {
             scanner.nextToken();
             final Node expression = parseExpression(parent);
             final Option option = Option.newInstance(parent);
             option.addChild(expression);
 
-            if (!assertToken(scanner.currentToken(), TokenType.R_BRACK, "]")) {
+            if (!assertToken(scanner.getCurrentToken(), TokenType.R_BRACK, "]")) {
                 raiseError("Option must end with ']'");
             }
 
             return option;
         }
 
-        if (assertToken(scanner.currentToken(), TokenType.L_BRACE, "{")) {
+        if (assertToken(scanner.getCurrentToken(), TokenType.L_BRACE, "{")) {
             scanner.nextToken();
             final Node expression = parseExpression(parent);
             final Loop loop       = Loop.newInstance(parent);
             loop.addChild(expression);
 
-            if (!assertToken(scanner.currentToken(), TokenType.R_BRACE, "}")) {
+            if (!assertToken(scanner.getCurrentToken(), TokenType.R_BRACE, "}")) {
                 raiseError("Loop must end with '}'");
             }
 
@@ -301,11 +301,11 @@ public class Parser {
      * @throws SyntaxError Throws always an exception.
      * @return void
      */
-    protected void raiseError(final String msg, Position pos) throws SyntaxException {
+    protected void raiseError(final String msg, final Position pos) throws SyntaxException {
         if (null == pos) {
-            pos = scanner.currentToken().getPosition();
+            throw new SyntaxException(msg, scanner.getCurrentToken().getPosition());
+        } else {
+            throw new SyntaxException(msg, pos);
         }
-
-        throw new SyntaxException(msg, pos);
     }
 }
