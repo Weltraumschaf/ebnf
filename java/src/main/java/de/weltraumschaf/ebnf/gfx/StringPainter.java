@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
 /**
  * http://stackoverflow.com/questions/5378052/positioning-string-in-graphic-java
@@ -25,12 +24,11 @@ import java.awt.image.BufferedImage;
  */
 public class StringPainter {
 
-    public static final Font MONOSPACED = new Font("Monospaced", Font.PLAIN, 16);
-    public static final Font SANSERIFIT = new Font("Sanserif", Font.ITALIC, 16);
-    public static final Font SANSERIF   = new Font("Sanserif", Font.PLAIN, 16);
+    public static final Font MONOSPACED = Fonts.MONOSPACED.create();
+    public static final Font SANSERIF   = Fonts.SANSERIF.create();
+    public static final Font SANSERIFIT = Fonts.SANSERIFIT.create();
 
-    private static final Graphics2D DEFAULT_GRAPHIC =
-        new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).createGraphics();
+    private static final Graphics2D DEFAULT_GRAPHIC = Helper.newGraphics();
 
     private final Graphics2D graphic;
     private final Font font;
@@ -70,9 +68,17 @@ public class StringPainter {
         final Font backup = graphic.getFont();
         graphic.setFont(font);
         final FontMetrics metrics = graphic.getFontMetrics();
-        final int xPosition = (width - metrics.stringWidth(str)) / 2 + offsetX;
-        final int yPosition = (metrics.getAscent() + (height - (metrics.getAscent() + metrics.getDescent())) / 2) + offsetY;
+        final int xPosition = calcXPosition(metrics.stringWidth(str), offsetX, width);
+        final int yPosition = calcYPosition(offsetY, height, metrics.getAscent(), metrics.getDescent());
         graphic.drawString(str, xPosition, yPosition);
         graphic.setFont(backup);
+    }
+
+    public int calcXPosition(final int stringWidth, final int offsetX, final int width) {
+        return (width - stringWidth) / 2 + offsetX;
+    }
+
+    public int calcYPosition(final int offsetY, final int height, final int ascent, final int descent) {
+        return (ascent + (height - (ascent + descent)) / 2) + offsetY;
     }
 }

@@ -49,7 +49,7 @@ public class RailroadDiagramImage {
     }
 
     public RailroadDiagramImage(final int width, final int height, final File file, final Type type) {
-        this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        this.image = Helper.newBufferedImage(width, height);
         this.file  = file;
         this.type  = type;
     }
