@@ -47,8 +47,16 @@ abstract public class AbstractTextShape extends Empty implements Adjustable {
         return text;
     }
 
-    protected int calculateWidth(final int boxSize) {
-        final int minWidth = (boxSize + 2 * H_PADDING);
+    Font getFont() {
+        return font;
+    }
+
+    protected static int calculateWidth(final int boxWidth) {
+        if (boxWidth < 0) {
+            throw new IllegalArgumentException("box width need to be greater or equal zero!");
+        }
+        
+        final int minWidth = (boxWidth + 2 * H_PADDING);
         final int emtpyShapeCount = (int)Math.ceil(minWidth / DEFAULT_WIDTH) + 1;
         return DEFAULT_WIDTH * emtpyShapeCount;
     }

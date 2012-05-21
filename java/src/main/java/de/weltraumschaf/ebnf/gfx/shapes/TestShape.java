@@ -21,7 +21,7 @@ import java.awt.Graphics2D;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Test extends Empty {
+public class TestShape extends Empty {
 
     @Override
     public void paint(final Graphics2D graphic) {
@@ -37,7 +37,7 @@ public class Test extends Empty {
                 final int xPosition = pos.x + i;
                 final int yPosition = pos.y + j;
 
-                if (i % 2 == 1 && yPosition % 2 == 1 || i % 2 == 0 && yPosition % 2 == 0) {
+                if (shouldPaint(i, j)) {
                     graphic.drawLine(xPosition, yPosition, xPosition, yPosition);
                 }
             }
@@ -46,4 +46,15 @@ public class Test extends Empty {
         resotreColorAndStroke(graphic);
     }
 
+    protected boolean shouldPaint(final int horizIteration, final int verticalIteration) {
+        if (horizIteration % 2 == 1 && verticalIteration % 2 == 1) {
+            return true;
+        }
+
+        if (horizIteration % 2 == 0 && verticalIteration % 2 == 0) {
+            return true;
+        }
+
+        return false;
+    }
 }
