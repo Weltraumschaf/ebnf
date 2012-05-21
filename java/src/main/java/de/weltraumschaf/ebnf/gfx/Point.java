@@ -63,9 +63,52 @@ public class Point {
         return new Point(x, y);
     }
 
+    /**
+     * String representation of hte point.
+     *
+     * @return
+     */
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("x", x).add("y", y).toString();
+        return Objects.toStringHelper(this)
+                      .add("x", x)
+                      .add("y", y)
+                      .toString();
+    }
+
+    /**
+     * Checks for equality.
+     *
+     * @param obj Object to check against.
+     * @return
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Point other = (Point) obj;
+
+        if (Objects.equal(x, other.x) && Objects.equal(y, other.y)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Calculates the hash code.
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(x, y);
     }
 
 }

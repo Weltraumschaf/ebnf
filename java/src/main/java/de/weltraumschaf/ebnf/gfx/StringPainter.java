@@ -14,7 +14,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -81,16 +80,6 @@ public class StringPainter {
      */
     public Rectangle2D getStringBounds(final String str) {
         return font.getStringBounds(str, graphic.getFontRenderContext());
-    }
-
-    @Deprecated
-    public void drawCenteredString(final String str, final int width, final int height) {
-        drawCenteredString(str, new Dimension(width, height));
-    }
-
-    @Deprecated
-    public void drawCenteredString(final String str, final int offsetX, final int offsetY, final int width, final int height) {
-        drawCenteredString(str, new Point(offsetX, offsetY), new Dimension(width, height));
     }
 
     /**

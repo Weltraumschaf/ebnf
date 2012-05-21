@@ -71,23 +71,37 @@ public class GridLayoutTest {
     @Test public void testSetShape() {
         final GridLayout grid = FACTORY.grid();
         assertEquals(0, grid.countCols());
+        assertEquals(0, grid.counRows());
+
         grid.set(0, 0, FACTORY.empty());
         assertEquals(1, grid.countCols());
+        assertEquals(1, grid.counRows());
+
         grid.set(0, 1, FACTORY.empty());
         assertEquals(1, grid.countCols());
+        assertEquals(2, grid.counRows());
+
         grid.set(1, 0, FACTORY.empty());
         assertEquals(2, grid.countCols());
+        assertEquals(2, grid.counRows());
+
         grid.set(1, 1, FACTORY.empty());
         assertEquals(2, grid.countCols());
+        assertEquals(2, grid.counRows());
     }
 
-    @Test public void testAppendrowLayout() {
+    @Test public void testAppendColumnLayout() {
         final GridLayout grid = FACTORY.grid();
         assertEquals(0, grid.countCols());
-        grid.append(FACTORY.column());
+        assertEquals(0, grid.counRows());
+
+        grid.append(FACTORY.column(FACTORY.empty()));
         assertEquals(1, grid.countCols());
-        grid.append(FACTORY.column(), FACTORY.column());
+        assertEquals(1, grid.counRows());
+
+        grid.append(FACTORY.column(FACTORY.empty()), FACTORY.column(FACTORY.empty()));
         assertEquals(3, grid.countCols());
+        assertEquals(1, grid.counRows());
     }
 
 }

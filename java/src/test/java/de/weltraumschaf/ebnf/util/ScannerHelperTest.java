@@ -1,7 +1,6 @@
 package de.weltraumschaf.ebnf.util;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -164,5 +163,12 @@ public class ScannerHelperTest {
         assertTrue(ScannerHelper.isCharInRange('3', '1', '5'));
         assertFalse(ScannerHelper.isCharInRange('b', 'f', 'z'));
         assertFalse(ScannerHelper.isCharInRange('3', '7', '9'));
+
+        try {
+            ScannerHelper.isCharInRange('c', 'f', 'a');
+            fail("Expected exception not thrown!");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("End must be greater or equal than start!", ex.getMessage());
+        }
     }
 }

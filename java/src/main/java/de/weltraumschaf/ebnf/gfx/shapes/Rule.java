@@ -50,7 +50,7 @@ public class Rule extends AbstractTextShape implements Shape {
         backupColorAndStroke(graphic);
         graphic.setColor(Color.BLACK);
         final StringPainter textPainter = createStringPainter(graphic);
-        textPainter.drawCenteredString(getText(), textPosition.x, textPosition.y, textSize.width, textSize.height);
+        textPainter.drawCenteredString(getText(), textPosition, textSize);
         resotreColorAndStroke(graphic);
     }
 }

@@ -1,11 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.Attribute;
-import de.weltraumschaf.ebnf.ast.Composite;
-import de.weltraumschaf.ebnf.ast.DepthCalculator;
-import de.weltraumschaf.ebnf.ast.Node;
-import de.weltraumschaf.ebnf.ast.NodeType;
-import de.weltraumschaf.ebnf.ast.Notification;
+import de.weltraumschaf.ebnf.ast.*;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;

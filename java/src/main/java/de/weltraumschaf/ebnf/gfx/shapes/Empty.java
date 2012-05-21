@@ -24,30 +24,22 @@ public class Empty extends AbstractShape {
 
     private boolean transparent = false;
 
-    public static Empty newEmpty() {
-        return new Empty();
-    }
-
-    public static Empty[] newEmpty(final int count) {
-        final Empty[] empties = new Empty[count];
-        for (int i = 0; i < count; ++i) {
-            empties[i] = newEmpty();
-        }
-        return empties;
-    }
-
     protected void setTransparent(final boolean transparent) {
         this.transparent = transparent;
+    }
+
+    protected boolean isTransparent() {
+        return transparent;
     }
 
     @Override
     public void paint(final Graphics2D graphic) {
         backupColorAndStroke(graphic);
-        graphic.setColor(Color.WHITE);
         final Point pos = getPosition();
         final Dimension size = getSize();
 
         if (!transparent) {
+            graphic.setColor(Color.WHITE);
             graphic.fillRect(pos.x, pos.y, size.width, size.height);
         }
 

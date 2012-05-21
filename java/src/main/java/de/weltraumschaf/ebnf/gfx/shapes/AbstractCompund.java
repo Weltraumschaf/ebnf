@@ -12,7 +12,6 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
@@ -22,7 +21,6 @@ import java.awt.Graphics2D;
  */
 public class AbstractCompund extends AbstractShape implements Adjustable {
 
-    protected static final ShapeFactory FACOTRY = ShapeFactory.getInstance();
     protected final GridLayout grid;
 
     public AbstractCompund(final GridLayout grid) {

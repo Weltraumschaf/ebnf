@@ -54,7 +54,6 @@ public class SequenceTest {
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
     }
 
-    @Ignore
     @Test public void testSetShape() {
         final Shape empty0 = FACTORY.empty(), empty1 = FACTORY.empty(), empty2 = FACTORY.empty(),
                     empty3 = FACTORY.empty(), empty7 = FACTORY.empty();
@@ -85,9 +84,10 @@ public class SequenceTest {
         assertEquals(3, sequence.countShapes());
     }
 
-    @Test public void testPaintRow() {
+    @Test public void testPaint() {
         final Sequence sequence = FACTORY.sequence();
         final Graphics2D graphics = mock(Graphics2D.class);
+        sequence.paint(graphics);
         final Shape shape1 = mock(Shape.class);
         when(shape1.getSize()).thenReturn(new Dimension());
         sequence.append(shape1);

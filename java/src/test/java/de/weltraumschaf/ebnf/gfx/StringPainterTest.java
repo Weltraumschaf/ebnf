@@ -11,6 +11,7 @@
 
 package de.weltraumschaf.ebnf.gfx;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -74,7 +75,7 @@ public class StringPainterTest {
         when(graphics.getFontMetrics()).thenReturn(metrics);
 
         final StringPainter painter = new StringPainter(graphics, font);
-        painter.drawCenteredString(str, width, 100);
+        painter.drawCenteredString(str, new Dimension(width, 100));
         verify(graphics).getFont();
         verify(graphics).setFont(font);
         verify(metrics).stringWidth(str);

@@ -33,7 +33,7 @@ public class Sequence extends AbstractLayout implements Adjustable {
         final int count = countShapes();
 
         if (index >= count) {
-            append(Empty.newEmpty(count));
+            append(FACOTRY.empty(count - 1));
             append(shape);
         } else {
             row.set(index, shape);

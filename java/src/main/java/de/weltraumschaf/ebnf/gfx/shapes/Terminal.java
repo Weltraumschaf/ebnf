@@ -65,7 +65,7 @@ public class Terminal extends AbstractTextShape implements Shape {
         graphic.drawLine(inLineStart.x, inLineStart.y, inLineEnd.x, inLineEnd.y);
         graphic.drawLine(outLineStart.x, outLineStart.y, outLineEnd.x, outLineEnd.y);
         final StringPainter textPainter = createStringPainter(graphic);
-        textPainter.drawCenteredString(getText(), rectanglePosition.x, rectanglePosition.y, boxSize.width, boxSize.height);
+        textPainter.drawCenteredString(getText(), rectanglePosition, boxSize);
         resotreColorAndStroke(graphic);
     }
 

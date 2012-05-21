@@ -12,31 +12,31 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
-import de.weltraumschaf.ebnf.gfx.Strokes;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
 
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class CurveSE extends Empty {
+public class CurveSE extends AbstractCurve {
 
     @Override
-    public void paint(final Graphics2D graphic) {
-        super.paint(graphic);
-        backupColorAndStroke(graphic);
-        graphic.setStroke(Strokes.createForRail());
-        graphic.setColor(Color.BLACK);
-        final Point pos = getPosition();
-        final Dimension size = getSize();
-        graphic.draw(new Arc2D.Float(pos.x + size.width / 2,
-                                     pos.y + size.height / 2,
-                                     size.width + 1,
-                                     size.height + 1,
-                                     90, 90, Arc2D.OPEN));
-        resotreColorAndStroke(graphic);
+    protected Arc2D createArc() {
+        return createArc(90, 90);
     }
+
+    @Override
+    protected Point calcArcPosition() {
+        final Point pos      = getPosition();
+        final Dimension size = getSize();
+        return new Point(pos.x + size.width / 2, pos.y + size.height / 2);
+    }
+
+    @Override
+    protected Dimension calcArcDimenson() {
+        final Dimension size = getSize();
+        return new Dimension(size.width + 1, size.height + 1);
+    }
+    
 }

@@ -13,6 +13,7 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 
 import com.google.common.collect.Lists;
 import de.weltraumschaf.ebnf.gfx.Point;
+import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -47,7 +48,7 @@ public class ColumnLayout extends AbstractLayout implements Adjustable {
         final int count = countShapes();
 
         if (index >= count) {
-            append(Empty.newEmpty(index - count));
+            append(FACOTRY.empty(index - count));
             append(shape);
         } else {
             col.set(index, shape);

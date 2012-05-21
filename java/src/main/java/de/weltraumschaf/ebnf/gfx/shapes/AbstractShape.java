@@ -12,6 +12,7 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
+import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import de.weltraumschaf.ebnf.gfx.Strokes;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,7 +26,7 @@ import java.util.Stack;
  */
 abstract public class AbstractShape implements Shape {
 
-    private static class GraphicsSetting {
+    protected static class GraphicsSetting {
         private final Color color;
         private final Stroke stroke;
 
@@ -43,10 +44,10 @@ abstract public class AbstractShape implements Shape {
         }
     }
 
+    protected static final ShapeFactory FACOTRY = ShapeFactory.getInstance();
+    
     private final Stack<GraphicsSetting> backup = new Stack<GraphicsSetting>();
-
     private Point position;
-
     private Dimension size;
     private boolean debug;
 
@@ -82,6 +83,14 @@ abstract public class AbstractShape implements Shape {
 
     protected boolean isDebug() {
         return debug;
+    }
+
+    protected int countBackup() {
+        return backup.size();
+    }
+
+    protected Stack<GraphicsSetting> getBackup() {
+        return backup;
     }
 
     protected void backupColorAndStroke(final Graphics2D graphic) {

@@ -25,15 +25,23 @@ public final class ShapeFactory {
 
     public static ShapeFactory getInstance() { return INSTANCE; }
 
-    public Shape empty() {
+    public Empty empty() {
         return new Empty();
     }
 
-    public Shape start() {
+    public Empty[] empty(final int count) {
+        final Empty[] empties = new Empty[count];
+        for (int i = 0; i < count; ++i) {
+            empties[i] = empty();
+        }
+        return empties;
+    }
+
+    public Start start() {
         return new Start();
     }
 
-    public Shape end() {
+    public End end() {
         return new End();
     }
 
@@ -51,6 +59,12 @@ public final class ShapeFactory {
 
     public ColumnLayout column() {
         return new ColumnLayout();
+    }
+
+    public ColumnLayout column(final Shape... shapes) {
+        final ColumnLayout column = column();
+        column.append(shapes);
+        return column;
     }
 
     public Sequence sequence() {
