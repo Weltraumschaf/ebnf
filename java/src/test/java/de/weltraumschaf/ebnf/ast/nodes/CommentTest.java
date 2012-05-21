@@ -1,8 +1,10 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.Notification;
+import de.weltraumschaf.ebnf.visitor.Visitor;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit test for Comment.
@@ -45,7 +47,21 @@ public class CommentTest {
     }
 
     @Test public void testDepth() {
-        final Comment comment1 = Comment.newInstance();
-        assertEquals(1, comment1.depth());
+        final Comment comment = Comment.newInstance();
+        assertEquals(1, comment.depth());
+    }
+
+    @Test public void accept() {
+        final Visitor visitor = mock(Visitor.class);
+        final Comment comment = Comment.newInstance();
+        comment.accept(visitor);
+        verify(visitor, times(1)).beforeVisit(comment);
+        verify(visitor, times(1)).visit(comment);
+        verify(visitor, times(1)).afterVisit(comment);
+    }
+
+    @Test public void testToString() {
+        final Comment comment = Comment.newInstance("foo");
+        assertEquals("<COMMENT value=foo>", comment.toString());
     }
 }

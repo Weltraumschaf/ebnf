@@ -13,7 +13,6 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 
 import com.google.common.collect.Lists;
 import de.weltraumschaf.ebnf.gfx.Point;
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -25,16 +24,6 @@ import java.util.List;
 public class ColumnLayout extends AbstractLayout implements Adjustable {
 
     private final List<Shape> col = Lists.newArrayList();
-
-    public static ColumnLayout newColumnLayout(final int emptyShapes) {
-        final ColumnLayout col = newColumnLayout();
-
-        for (int i = 0; i < emptyShapes; ++i) {
-            col.append(new Empty()); // NOPMD
-        }
-
-        return col;
-    }
 
     public static ColumnLayout newColumnLayout() {
         return new ColumnLayout();

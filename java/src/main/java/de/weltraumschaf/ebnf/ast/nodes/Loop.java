@@ -16,7 +16,7 @@ public final class Loop extends AbstractComposite {
     }
 
     public static Loop newInstance() {
-        return newInstance(Null.newInstance());
+        return newInstance(Null.getInstance());
     }
 
     public static Loop newInstance(final Node parent) {

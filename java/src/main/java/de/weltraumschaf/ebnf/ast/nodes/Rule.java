@@ -22,11 +22,11 @@ public final class Rule extends AbstractComposite {
     }
 
     public static Rule newInstance() {
-        return newInstance(Null.newInstance());
+        return newInstance(Null.getInstance());
     }
 
     public static Rule newInstance(final String name) {
-        return newInstance(Null.newInstance(), name);
+        return newInstance(Null.getInstance(), name);
     }
 
     public static Rule newInstance(final Node parent) {

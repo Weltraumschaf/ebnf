@@ -16,7 +16,7 @@ public final class Sequence extends AbstractComposite {
     }
 
     public static Sequence newInstance() {
-        return newInstance(Null.newInstance());
+        return newInstance(Null.getInstance());
     }
 
     public static Sequence newInstance(final Node parent) {

@@ -15,7 +15,6 @@ import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
@@ -32,21 +31,25 @@ public class SequenceTest {
         Dimension size = sequence.getSize();
         assertEquals(0, size.width);
         assertEquals(0, size.height);
+
         sequence.append(FACTORY.empty());
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = sequence.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
+
         sequence.append(FACTORY.empty());
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = sequence.getSize();
         assertEquals(2 * Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_WIDTH, size.height);
+
         sequence.append(FACTORY.empty());
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = sequence.getSize();
         assertEquals(3 * Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
+
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         sequence.set(0, FACTORY.empty());
         size = sequence.getSize();
@@ -59,8 +62,10 @@ public class SequenceTest {
                     empty3 = FACTORY.empty(), empty7 = FACTORY.empty();
         final Sequence sequence = FACTORY.sequence();
         assertEquals(0, sequence.countShapes());
+
         sequence.append(empty0, empty1, empty2, empty3);
         assertEquals(4, sequence.countShapes());
+
         sequence.set(7, empty7);
         assertEquals(8, sequence.countShapes());
         assertSame(empty0, sequence.get(0));
@@ -88,6 +93,7 @@ public class SequenceTest {
         final Sequence sequence = FACTORY.sequence();
         final Graphics2D graphics = mock(Graphics2D.class);
         sequence.paint(graphics);
+
         final Shape shape1 = mock(Shape.class);
         when(shape1.getSize()).thenReturn(new Dimension());
         sequence.append(shape1);

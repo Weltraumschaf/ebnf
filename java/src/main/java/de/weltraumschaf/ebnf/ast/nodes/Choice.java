@@ -12,7 +12,7 @@ import de.weltraumschaf.ebnf.ast.NodeType;
 public final class Choice extends AbstractComposite {
 
     public static Choice newInstance() {
-        return newInstance(Null.newInstance());
+        return newInstance(Null.getInstance());
     }
 
     public static Choice newInstance(final Node parent) {

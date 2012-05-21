@@ -16,7 +16,7 @@ public final class Option extends AbstractComposite {
     }
 
     public static Option newInstance() {
-        return newInstance(Null.newInstance());
+        return newInstance(Null.getInstance());
     }
 
     public static Option newInstance(final Node parent) {

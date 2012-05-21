@@ -10,10 +10,11 @@ import de.weltraumschaf.ebnf.visitor.Visitor;
  */
 public final class Null implements Node {
 
+    private static final Null INSTANCE = new Null();
     private Null() {}
 
-    public static Null newInstance() {
-        return new Null();
+    public static Null getInstance() {
+        return INSTANCE;
     }
 
     @Override

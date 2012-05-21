@@ -27,11 +27,11 @@ public final class Comment extends AbstractNode {
     }
 
     public static Comment newInstance() {
-        return newInstance(Null.newInstance());
+        return newInstance(Null.getInstance());
     }
 
     public static Comment newInstance(final String value) {
-        return newInstance(Null.newInstance(), value);
+        return newInstance(Null.getInstance(), value);
     }
 
     public static Comment newInstance(final Node parent) {
