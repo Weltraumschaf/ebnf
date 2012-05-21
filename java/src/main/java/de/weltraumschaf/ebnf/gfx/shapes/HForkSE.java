@@ -18,20 +18,10 @@ import java.awt.Graphics2D;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class HForkSE extends Empty {
+public class HForkSE extends AbstractFork {
 
-    @Override
-    public void paint(final Graphics2D graphic) {
-        super.paint(graphic);
-        final Point pos = getPosition();
-        final StraightWE stright = new StraightWE();
-        stright.setPosition(pos);
-        stright.setTransparent(true);
-        stright.paint(graphic);
-        final CurveSE curve = new CurveSE();
-        curve.setPosition(pos);
-        curve.setTransparent(true);
-        curve.paint(graphic);
+    public HForkSE() {
+        super(new StraightWE(), new CurveSE());
     }
 
 }

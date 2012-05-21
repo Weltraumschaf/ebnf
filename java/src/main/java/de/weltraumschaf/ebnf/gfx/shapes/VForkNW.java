@@ -11,27 +11,14 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.Point;
-import java.awt.Graphics2D;
-
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class VForkNW extends Empty {
+public class VForkNW extends AbstractFork {
 
-    @Override
-    public void paint(final Graphics2D graphic) {
-        super.paint(graphic);
-        final Point pos = getPosition();
-        final StraightNS straight = new StraightNS();
-        straight.setPosition(pos);
-        straight.setTransparent(true);
-        straight.paint(graphic);
-        final CurveNW curve = new CurveNW();
-        curve.setPosition(pos);
-        curve.setTransparent(true);
-        curve.paint(graphic);
+    public VForkNW() {
+        super(new StraightNS(), new CurveNW());
     }
 
 }
