@@ -55,14 +55,10 @@ abstract public class AbstractTextShape extends Empty implements Adjustable {
         if (boxWidth < 0) {
             throw new IllegalArgumentException("box width need to be greater or equal zero!");
         }
-        
+
         final int minWidth = (boxWidth + 2 * H_PADDING);
         final int emtpyShapeCount = (int)Math.ceil(minWidth / DEFAULT_WIDTH) + 1;
         return DEFAULT_WIDTH * emtpyShapeCount;
-    }
-
-    protected int getCenterY() {
-        return getPosition().y + (int)Math.floor(getSize().height / 2);
     }
 
     protected StringPainter createStringPainter(final Graphics2D graphics) {
@@ -75,7 +71,7 @@ abstract public class AbstractTextShape extends Empty implements Adjustable {
 
     protected Dimension calculateTextSize(final Graphics2D graphic) {
         if (null == textSize) {
-            final Rectangle2D textBounds = createStringPainter(graphic).getStringBounds(getText());
+            final Rectangle2D textBounds = font.getStringBounds(getText(), graphic.getFontRenderContext());
             textSize = new Dimension((int)Math.ceil(textBounds.getWidth()), (int)Math.ceil(textBounds.getHeight()));
         }
         return textSize;

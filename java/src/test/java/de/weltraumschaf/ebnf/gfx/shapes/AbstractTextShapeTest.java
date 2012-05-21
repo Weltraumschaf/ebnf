@@ -12,10 +12,14 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.StringPainter;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import org.junit.Test;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -65,5 +69,30 @@ public class AbstractTextShapeTest {
         assertEquals(2 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(Shape.DEFAULT_WIDTH));
         assertEquals(3 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(3 * Shape.DEFAULT_WIDTH - 11));
         assertEquals(4 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(3 * Shape.DEFAULT_WIDTH));
+    }
+
+    @Test public void createStringPainter() {
+        final Graphics2D graphics1 = mock(Graphics2D.class);
+        final Graphics2D graphics2 = mock(Graphics2D.class);
+        final AbstractTextShape sut = new AbstractTextShapeStub("");
+        StringPainter painter = sut.createStringPainter(graphics1);
+        assertSame(painter, sut.createStringPainter(graphics1));
+        assertSame(painter, sut.createStringPainter(graphics1));
+        assertNotSame(painter, sut.createStringPainter(graphics2));
+        painter = sut.createStringPainter(graphics2);
+        assertSame(painter, sut.createStringPainter(graphics2));
+        assertNotSame(painter, sut.createStringPainter(graphics1));
+    }
+
+    @Test public void calculateTextSize() {
+        final Graphics2D graphics = mock(Graphics2D.class);
+        final FontRenderContext context = mock(FontRenderContext.class);
+        when(graphics.getFontRenderContext()).thenReturn(context);
+        final Font font = mock(Font.class);
+        final String str = "fobar";
+        final Rectangle2D rect = new Rectangle2D.Float(0, 0, 10, 20);
+        when(font.getStringBounds(str, context)).thenReturn(rect);
+        final AbstractTextShape sut = new AbstractTextShapeStub(str, font);
+        assertEquals(new Dimension(10, 20), sut.calculateTextSize(graphics));
     }
 }

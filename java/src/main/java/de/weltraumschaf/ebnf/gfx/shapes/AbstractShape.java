@@ -45,7 +45,7 @@ abstract public class AbstractShape implements Shape {
     }
 
     protected static final ShapeFactory FACOTRY = ShapeFactory.getInstance();
-    
+
     private final Stack<GraphicsSetting> backup = new Stack<GraphicsSetting>();
     private Point position;
     private Dimension size;
@@ -114,4 +114,13 @@ abstract public class AbstractShape implements Shape {
             resotreColorAndStroke(graphic);
         }
     }
+
+    protected int getCenterX() {
+        return getPosition().x + getSize().width / 2;
+    }
+
+    protected int getCenterY() {
+        return getPosition().y + getSize().height / 2;
+    }
+
 }

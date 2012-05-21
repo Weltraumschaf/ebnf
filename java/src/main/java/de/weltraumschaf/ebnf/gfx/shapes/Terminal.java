@@ -32,10 +32,14 @@ public class Terminal extends AbstractTextShape implements Shape {
 
     private Dimension boxSize = null;
 
+    protected Dimension calcBoxSize(final Graphics2D graphic) {
+        final Dimension textSize = calculateTextSize(graphic);
+        return new Dimension(textSize.width + H_PADDING * 4, textSize.height + 4);
+    }
+
     @Override
     public void adjust(final Graphics2D graphic) {
-        final Dimension textSize = calculateTextSize(graphic);
-        boxSize = new Dimension(textSize.width + H_PADDING * 4, textSize.height + 4);
+        boxSize = calcBoxSize(graphic);
         setSize(new Dimension(calculateWidth(boxSize.width), DEFAULT_HEIGHT));
     }
 

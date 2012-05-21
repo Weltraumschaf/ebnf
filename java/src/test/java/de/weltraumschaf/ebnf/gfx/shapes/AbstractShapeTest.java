@@ -73,7 +73,7 @@ public class AbstractShapeTest {
 
     @Test public void debugShape() {
         final Graphics2D notInvokedGfx = mock(Graphics2D.class);
-        final Paintable notInvokedPaintable = mock(Paintable.class);
+        final Paintable notInvokedPaintable = mock(Paintable.class); // NOPMD
         final AbstractShape noDebug = new AbstractShapeImpl();
         assertFalse(noDebug.isDebug());
         noDebug.debugShape(notInvokedGfx, notInvokedPaintable);
@@ -91,4 +91,24 @@ public class AbstractShapeTest {
         verify(invokedGfx, times(1)).setStroke(Strokes.createForDebug());
         verify(invokedPaintable, times(1)).paint(invokedGfx);
     }
+
+    @Test public void getCenterX() {
+        final AbstractShape sut = new AbstractShapeImpl();
+        assertEquals(15, sut.getCenterX());
+        sut.setSize(new Dimension(100, 100));
+        assertEquals(50, sut.getCenterX());
+        sut.setPosition(new Point(20, 20));
+        assertEquals(70, sut.getCenterX());
+    }
+
+    @Test public void getCenterY() {
+        final AbstractShape sut = new AbstractShapeImpl();
+        assertEquals(15, sut.getCenterY());
+        sut.setSize(new Dimension(100, 100));
+        assertEquals(50, sut.getCenterY());
+        sut.setPosition(new Point(20, 20));
+        assertEquals(70, sut.getCenterY());
+    }
+
+
 }

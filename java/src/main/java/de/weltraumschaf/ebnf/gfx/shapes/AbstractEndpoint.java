@@ -14,13 +14,14 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 import de.weltraumschaf.ebnf.gfx.Point;
 import de.weltraumschaf.ebnf.gfx.Strokes;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class End extends AbstractEndpoint {
+public abstract class AbstractEndpoint extends Empty {
 
     @Override
     public void paint(final Graphics2D graphic) {
@@ -28,14 +29,12 @@ public class End extends AbstractEndpoint {
         backupColorAndStroke(graphic);
 
         graphic.setColor(Color.BLACK);
-        graphic.setStroke(Strokes.createForRail());
+        graphic.setStroke(Strokes.createForRail(true));
         final Point pos = getPosition();
-        final int xStart = pos.x;
-        final int xEnd = xStart + getSize().width / 2;
-        final int yCenter = getCenterY();
-        graphic.drawLine(xStart, yCenter, xEnd, yCenter);
+        final Dimension size = getSize();
+        final int xCenter = getCenterX();
+        graphic.drawLine(xCenter, pos.y + 3, xCenter, pos.y + size.height - 4);
 
         resotreColorAndStroke(graphic);
     }
-
 }

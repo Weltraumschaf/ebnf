@@ -14,7 +14,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Paints a centered string into a rectangular area.
@@ -70,16 +69,6 @@ public class StringPainter {
     public StringPainter(final Graphics2D graphic, final Font font) {
         this.graphic  = graphic;
         this.font     = font;
-    }
-
-    /**
-     * Returns the bounding area of a string.
-     *
-     * @param str
-     * @return
-     */
-    public Rectangle2D getStringBounds(final String str) {
-        return font.getStringBounds(str, graphic.getFontRenderContext());
     }
 
     /**
