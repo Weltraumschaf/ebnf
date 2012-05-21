@@ -180,6 +180,19 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>de/weltraumschaf/ebnf/OutputFormat.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/ReferenceGrammar.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/ast/Attribute.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/ast/Composite.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/ast/Node.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/gfx/shapes/Adjustable.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/gfx/shapes/Paintable.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/gfx/shapes/Shape.class</exclude>
+                            <exclude>de/weltraumschaf/ebnf/visitor/Visitor.class</exclude>
+                        </excludes>
+                    </instrumentation>
                 </configuration>
                  <executions>
                     <execution>
