@@ -16,6 +16,7 @@ import de.weltraumschaf.ebnf.gfx.Point;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 
 /**
  *
@@ -37,7 +38,7 @@ public class ColumnLayout extends AbstractLayout implements Adjustable {
         final int count = countShapes();
 
         if (index >= count) {
-            append(FACOTRY.empty(index - count));
+            append(empty(index - count));
             append(shape);
         } else {
             col.set(index, shape);

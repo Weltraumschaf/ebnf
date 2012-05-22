@@ -11,6 +11,10 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.WEST_EAST;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
@@ -18,10 +22,12 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 public class Loop extends AbstractCompund {
 
     public Loop() {
-        super(FACOTRY.grid()
-                     .append(FACOTRY.column().append(new HForkSE(), new CurveNE()))
-                     .append(FACOTRY.column().append(FACOTRY.empty(), new StraightWE()))
-                     .append(FACOTRY.column().append(new HForkSW(), new CurveNW())));
+        super(grid().set(0, 0, column().append(fork(WEST_EAST, SOUTH_EAST)))
+                    .set(0, 1, column(curve(NORTH_EAST)))
+                    .set(1, 0, empty())
+                    .set(1, 1, straight(WEST_EAST))
+                    .set(2, 0, column().append(fork(WEST_EAST, SOUTH_WEST)))
+                    .set(2, 1, column().append(curve(NORTH_WEST))));
     }
 
     public void setLooped(final Shape shape) {

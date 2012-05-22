@@ -44,8 +44,6 @@ abstract public class AbstractShape implements Shape {
         }
     }
 
-    protected static final ShapeFactory FACOTRY = ShapeFactory.getInstance();
-
     private final Stack<GraphicsSetting> backup = new Stack<GraphicsSetting>();
     private Point position;
     private Dimension size;

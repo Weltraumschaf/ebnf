@@ -12,12 +12,13 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.empty;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.*;
  */
 public class EmptyTest {
     private final Graphics2D graphics = mock(Graphics2D.class);
-    private final Empty empty         = ShapeFactory.getInstance().empty();
+    private final Empty empty         = empty();
     private final Point pos      = empty.getPosition();
     private final Dimension size = empty.getSize();
 

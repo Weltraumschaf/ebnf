@@ -14,6 +14,7 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.NORT_SOUTH;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.WEST_EAST;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 import java.awt.Dimension;
 
 /**
@@ -23,15 +24,12 @@ import java.awt.Dimension;
 public class Option extends AbstractCompund {
 
     public Option() {
-        super(FACOTRY.grid()
-                     .set(0, 0, FACOTRY.column().append(
-                         FACOTRY.fork(WEST_EAST, SOUTH_WEST)))
-                     .set(0, 1, FACOTRY.curve(NORTH_EAST))
-                     .set(1, 0, FACOTRY.empty())
-                     .set(1, 1, FACOTRY.straight(WEST_EAST))
-                     .set(2, 0, FACOTRY.column().append(
-                         FACOTRY.fork(WEST_EAST, SOUTH_EAST)))
-                     .set(2, 1, FACOTRY.curve(NORTH_WEST)));
+        super(grid().set(0, 0, column().append(fork(WEST_EAST, SOUTH_WEST)))
+                    .set(0, 1, curve(NORTH_EAST))
+                    .set(1, 0, empty())
+                    .set(1, 1, straight(WEST_EAST))
+                    .set(2, 0, column().append(fork(WEST_EAST, SOUTH_EAST)))
+                    .set(2, 1, curve(NORTH_WEST)));
     }
 
     public void setOptional(final Shape shape) {
@@ -42,8 +40,8 @@ public class Option extends AbstractCompund {
             final int count = (int)Math.ceil(size.height / DEFAULT_HEIGHT) - 1;
 
             for (int i = 0; i < count; ++i) {
-                ((ColumnLayout)grid.get(0, 0)).append(FACOTRY.straight(NORT_SOUTH));
-                ((ColumnLayout)grid.get(2, 0)).append(FACOTRY.straight(NORT_SOUTH));
+                ((ColumnLayout)grid.get(0, 0)).append(straight(NORT_SOUTH));
+                ((ColumnLayout)grid.get(2, 0)).append(straight(NORT_SOUTH));
             }
         }
     }

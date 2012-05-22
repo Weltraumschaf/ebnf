@@ -11,13 +11,13 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import de.weltraumschaf.ebnf.gfx.StringPainter;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 
 /**
  *
@@ -45,7 +45,7 @@ public class TerminalTest {
     }
 
     @Test public void font() {
-        final AbstractTextShape term = ShapeFactory.getInstance().terminal("foobar");
+        final AbstractTextShape term = terminal("foobar");
         assertEquals("foobar", term.getText());
         assertEquals(StringPainter.MONOSPACED, term.getFont());
     }

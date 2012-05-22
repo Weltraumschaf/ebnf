@@ -11,13 +11,13 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.rule;
 import de.weltraumschaf.ebnf.gfx.StringPainter;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  *
@@ -45,7 +45,7 @@ public class RuleTest {
     }
 
     @Test public void font() {
-        final AbstractTextShape rule = ShapeFactory.getInstance().rule("foobar");
+        final AbstractTextShape rule = rule("foobar");
         assertEquals("foobar", rule.getText());
         assertEquals(StringPainter.SANSERIF, rule.getFont());
     }

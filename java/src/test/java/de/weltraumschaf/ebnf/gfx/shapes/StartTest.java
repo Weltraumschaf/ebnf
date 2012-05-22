@@ -12,7 +12,7 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.start;
 import de.weltraumschaf.ebnf.gfx.Strokes;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,7 +28,7 @@ public class StartTest {
 
     @Test public void paint() {
         final Graphics2D graphics = mock(Graphics2D.class);
-        final Start start = ShapeFactory.getInstance().start();
+        final Start start = start();
 
         start.setPosition(new Point(0, 0));
         start.setSize(new Dimension(31, 31));

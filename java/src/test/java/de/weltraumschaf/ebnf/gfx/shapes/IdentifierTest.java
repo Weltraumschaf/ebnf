@@ -11,7 +11,7 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.identifier;
 import de.weltraumschaf.ebnf.gfx.StringPainter;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -45,9 +45,9 @@ public class IdentifierTest {
     }
 
     @Test public void font() {
-        final AbstractTextShape term = ShapeFactory.getInstance().identifier("foobar");
-        assertEquals("foobar", term.getText());
-        assertEquals(StringPainter.SANSERIFIT, term.getFont());
+        final AbstractTextShape ident = identifier("foobar");
+        assertEquals("foobar", ident.getText());
+        assertEquals(StringPainter.SANSERIFIT, ident.getFont());
     }
 
     @Test public void calcBoxSize() {

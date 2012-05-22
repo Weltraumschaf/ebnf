@@ -11,6 +11,8 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.column;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.terminal;
 import java.awt.Dimension;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -19,7 +21,7 @@ import org.junit.Test;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class OptionTest extends AbstractShapeTestCase {
+public class OptionTest {
 
     @Test public void setOptional() {
         final Option option = new Option();
@@ -42,7 +44,7 @@ public class OptionTest extends AbstractShapeTestCase {
         assertEquals(1, join.countShapes());
         assertTrue(join.get(0) instanceof HForkSE);
 
-        final AbstractTextShape term = FACOTRY.terminal("foo");
+        final AbstractTextShape term = terminal("foo");
         option.setOptional(term);
         assertEquals(2, option.grid.counRows());
         assertEquals(3, option.grid.countCols());
@@ -54,7 +56,7 @@ public class OptionTest extends AbstractShapeTestCase {
         assertTrue(option.grid.get(2, 1) instanceof CurveNW);
 
         // taller optional
-        final ColumnLayout greatColumn = FACOTRY.column();
+        final ColumnLayout greatColumn = column();
         greatColumn.setSize(new Dimension(Shape.DEFAULT_WIDTH, Shape.DEFAULT_HEIGHT * 3));
         option.setOptional(greatColumn);
         assertEquals(2, option.grid.counRows());

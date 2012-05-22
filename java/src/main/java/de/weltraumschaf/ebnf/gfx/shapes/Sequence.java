@@ -16,6 +16,7 @@ import de.weltraumschaf.ebnf.gfx.Point;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 
 /**
  *
@@ -33,7 +34,7 @@ public class Sequence extends AbstractLayout implements Adjustable {
         final int count = countShapes();
 
         if (index >= count) {
-            append(FACOTRY.empty(count - 1));
+            append(empty(count - 1));
             append(shape);
         } else {
             row.set(index, shape);

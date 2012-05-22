@@ -11,7 +11,8 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.empty;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.sequence;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.*;
@@ -24,43 +25,41 @@ import static org.mockito.Mockito.*;
  */
 public class SequenceTest {
 
-    private static final ShapeFactory FACTORY = ShapeFactory.getInstance();
-
     @Test public void testGetSize() {
-        final Sequence sequence = FACTORY.sequence();
+        final Sequence sequence = sequence();
         Dimension size = sequence.getSize();
         assertEquals(0, size.width);
         assertEquals(0, size.height);
 
-        sequence.append(FACTORY.empty());
+        sequence.append(empty());
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = sequence.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
 
-        sequence.append(FACTORY.empty());
+        sequence.append(empty());
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = sequence.getSize();
         assertEquals(2 * Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_WIDTH, size.height);
 
-        sequence.append(FACTORY.empty());
+        sequence.append(empty());
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = sequence.getSize();
         assertEquals(3 * Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
 
         sequence.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
-        sequence.set(0, FACTORY.empty());
+        sequence.set(0, empty());
         size = sequence.getSize();
         assertEquals(3 * Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
     }
 
     @Test public void testSetShape() {
-        final Shape empty0 = FACTORY.empty(), empty1 = FACTORY.empty(), empty2 = FACTORY.empty(),
-                    empty3 = FACTORY.empty(), empty7 = FACTORY.empty();
-        final Sequence sequence = FACTORY.sequence();
+        final Shape empty0 = empty(), empty1 = empty(), empty2 = empty(),
+                    empty3 = empty(), empty7 = empty();
+        final Sequence sequence = sequence();
         assertEquals(0, sequence.countShapes());
 
         sequence.append(empty0, empty1, empty2, empty3);
@@ -79,18 +78,18 @@ public class SequenceTest {
     }
 
     @Test public void testAppendShape() {
-        final Sequence sequence = FACTORY.sequence();
+        final Sequence sequence = sequence();
         assertEquals(0, sequence.countShapes());
-        sequence.append(FACTORY.empty());
+        sequence.append(empty());
         assertEquals(1, sequence.countShapes());
-        sequence.append(FACTORY.empty());
+        sequence.append(empty());
         assertEquals(2, sequence.countShapes());
-        sequence.append(FACTORY.empty());
+        sequence.append(empty());
         assertEquals(3, sequence.countShapes());
     }
 
     @Test public void testPaint() {
-        final Sequence sequence = FACTORY.sequence();
+        final Sequence sequence = sequence();
         final Graphics2D graphics = mock(Graphics2D.class);
         sequence.paint(graphics);
 

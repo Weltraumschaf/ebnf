@@ -11,6 +11,8 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
@@ -18,10 +20,9 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 public class Choice extends AbstractCompund {
 
     public Choice() {
-        super(FACOTRY.grid()
-                     .append(FACOTRY.column())
-                     .append(FACOTRY.column())
-                     .append(FACOTRY.column()));
+        super(grid().append(column())
+                    .append(column())
+                    .append(column()));
     }
 
     public Choice addChoice(final Shape shape) {

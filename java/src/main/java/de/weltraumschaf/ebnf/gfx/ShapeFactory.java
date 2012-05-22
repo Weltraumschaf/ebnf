@@ -22,17 +22,13 @@ public final class ShapeFactory {
     public enum Curves { NORTH_WEST, NORTH_EAST,SOUTH_WEST, SOUTH_EAST; }
     public enum Straights { NORT_SOUTH, WEST_EAST }
 
-    private static final ShapeFactory INSTANCE = new ShapeFactory();
-
     private ShapeFactory() {}
 
-    public static ShapeFactory getInstance() { return INSTANCE; }
-
-    public Empty empty() {
+    public static Empty empty() {
         return new Empty();
     }
 
-    public Empty[] empty(final int count) {
+    public static Empty[] empty(final int count) {
         final Empty[] empties = new Empty[count];
         for (int i = 0; i < count; ++i) {
             empties[i] = empty();
@@ -40,15 +36,15 @@ public final class ShapeFactory {
         return empties;
     }
 
-    public Start start() {
+    public static Start start() {
         return new Start();
     }
 
-    public End end() {
+    public static End end() {
         return new End();
     }
 
-    public AbstractCurve curve(final Curves type) {
+    public static AbstractCurve curve(final Curves type) {
         switch (type) {
             case NORTH_EAST: return new CurveNE();
             case NORTH_WEST: return new CurveNW();
@@ -58,7 +54,7 @@ public final class ShapeFactory {
         }
     }
 
-    public Shape straight(final Straights type) {
+    public static Shape straight(final Straights type) {
         switch (type) {
             case NORT_SOUTH: return new StraightNS();
             case WEST_EAST: return new StraightWE();
@@ -66,7 +62,7 @@ public final class ShapeFactory {
         }
     }
 
-    public Shape fork(final Straights orientation, final Curves curve) {
+    public static Shape fork(final Straights orientation, final Curves curve) {
         switch (orientation) {
             case NORT_SOUTH: return verticalFork(curve);
             case WEST_EAST: return horizontalFork(curve);
@@ -74,7 +70,7 @@ public final class ShapeFactory {
         }
     }
 
-    private Shape verticalFork(final Curves curve) {
+    private static Shape verticalFork(final Curves curve) {
         switch (curve) {
             case NORTH_EAST: return new VForkNE();
             case NORTH_WEST: return new VForkNW();
@@ -84,7 +80,7 @@ public final class ShapeFactory {
         }
     }
 
-    private Shape horizontalFork(final Curves curve) {
+    private static Shape horizontalFork(final Curves curve) {
         switch (curve) {
             case NORTH_EAST: return new HForkNE();
             case NORTH_WEST: return new HForkNW();
@@ -94,47 +90,47 @@ public final class ShapeFactory {
         }
     }
 
-    public GridLayout grid() {
+    public static GridLayout grid() {
         return new GridLayout();
     }
 
-    public ColumnLayout column() {
+    public static ColumnLayout column() {
         return new ColumnLayout();
     }
 
-    public ColumnLayout column(final Shape... shapes) {
+    public static ColumnLayout column(final Shape... shapes) {
         final ColumnLayout column = column();
         column.append(shapes);
         return column;
     }
 
-    public Sequence sequence() {
+    public static Sequence sequence() {
         return new Sequence();
     }
 
-    public Sequence sequence(final Shape... shapes) {
+    public static Sequence sequence(final Shape... shapes) {
         final Sequence sequence = sequence();
         sequence.append(shapes);
         return sequence;
     }
 
-    public AbstractTextShape rule(final String name) {
+    public static AbstractTextShape rule(final String name) {
         return new Rule(name);
     }
 
-    public AbstractTextShape terminal(final String value) {
+    public static AbstractTextShape terminal(final String value) {
         return new Terminal(value);
     }
 
-    public AbstractTextShape identifier(final String value) {
+    public static AbstractTextShape identifier(final String value) {
         return new Identifier(value);
     }
 
-    public Choice choice() {
+    public static Choice choice() {
         return new Choice();
     }
 
-    public Choice choice(final Shape... shapes) {
+    public static Choice choice(final Shape... shapes) {
         final Choice choice = choice();
         for (Shape shape : shapes) {
             choice.addChoice(shape);
@@ -142,27 +138,27 @@ public final class ShapeFactory {
         return choice;
     }
 
-    public Option option() {
+    public static Option option() {
         return new Option();
     }
 
-    public Option option(final Shape optional) {
+    public static Option option(final Shape optional) {
         final Option option = option();
         option.setOptional(optional);
         return option;
     }
 
-    public Loop loop() {
+    public static Loop loop() {
         return new Loop();
     }
 
-    public Loop loop(final Shape looped) {
+    public static Loop loop(final Shape looped) {
         final Loop loop = loop();
         loop.setLooped(looped);
         return loop;
     }
 
-    public Loop loop(final Shape looped, final Shape additional) {
+    public static Loop loop(final Shape looped, final Shape additional) {
         final Loop loop = loop(looped);
         loop.setAdditional(additional);
         return loop;

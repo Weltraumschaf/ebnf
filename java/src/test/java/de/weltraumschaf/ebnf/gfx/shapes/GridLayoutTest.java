@@ -11,7 +11,7 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
@@ -24,29 +24,27 @@ import static org.mockito.Mockito.*;
  */
 public class GridLayoutTest {
 
-    private static final ShapeFactory FACTORY = ShapeFactory.getInstance();
-
     @Test public void testGetSize() {
         Dimension size;
-        final GridLayout grid = FACTORY.grid();
+        final GridLayout grid = grid();
 
         size = grid.getSize();
         assertEquals(0, size.width);
         assertEquals(0, size.height);
 
-        grid.append(FACTORY.column().append(FACTORY.empty(), FACTORY.empty(), FACTORY.empty()));
+        grid.append(column().append(empty(), empty(), empty()));
         grid.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = grid.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(3 * Shape.DEFAULT_HEIGHT, size.height);
 
-        grid.append(FACTORY.column().append(FACTORY.empty(), FACTORY.empty(), FACTORY.empty()));
+        grid.append(column().append(empty(), empty(), empty()));
         grid.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = grid.getSize();
         assertEquals(2 * Shape.DEFAULT_WIDTH, size.width);
         assertEquals(3 * Shape.DEFAULT_HEIGHT, size.height);
 
-        grid.append(FACTORY.column().append(FACTORY.empty(), FACTORY.empty(), FACTORY.empty(), FACTORY.empty()));
+        grid.append(column().append(empty(), empty(), empty(), empty()));
         grid.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = grid.getSize();
         assertEquals(3 * Shape.DEFAULT_WIDTH, size.width);
@@ -55,7 +53,7 @@ public class GridLayoutTest {
     }
 
     @Test public void testPaintGrid() {
-        final GridLayout grid = FACTORY.grid();
+        final GridLayout grid = grid();
         final Graphics2D graphic = mock(Graphics2D.class);
         final ColumnLayout row1 = mock(ColumnLayout.class);
         when(row1.getSize()).thenReturn(new Dimension());
@@ -69,37 +67,37 @@ public class GridLayoutTest {
     }
 
     @Test public void testSetShape() {
-        final GridLayout grid = FACTORY.grid();
+        final GridLayout grid = grid();
         assertEquals(0, grid.countCols());
         assertEquals(0, grid.counRows());
 
-        grid.set(0, 0, FACTORY.empty());
+        grid.set(0, 0, empty());
         assertEquals(1, grid.countCols());
         assertEquals(1, grid.counRows());
 
-        grid.set(0, 1, FACTORY.empty());
+        grid.set(0, 1, empty());
         assertEquals(1, grid.countCols());
         assertEquals(2, grid.counRows());
 
-        grid.set(1, 0, FACTORY.empty());
+        grid.set(1, 0, empty());
         assertEquals(2, grid.countCols());
         assertEquals(2, grid.counRows());
 
-        grid.set(1, 1, FACTORY.empty());
+        grid.set(1, 1, empty());
         assertEquals(2, grid.countCols());
         assertEquals(2, grid.counRows());
     }
 
     @Test public void testAppendColumnLayout() {
-        final GridLayout grid = FACTORY.grid();
+        final GridLayout grid = grid();
         assertEquals(0, grid.countCols());
         assertEquals(0, grid.counRows());
 
-        grid.append(FACTORY.column(FACTORY.empty()));
+        grid.append(column(empty()));
         assertEquals(1, grid.countCols());
         assertEquals(1, grid.counRows());
 
-        grid.append(FACTORY.column(FACTORY.empty()), FACTORY.column(FACTORY.empty()));
+        grid.append(column(empty()), column(empty()));
         assertEquals(3, grid.countCols());
         assertEquals(1, grid.counRows());
     }

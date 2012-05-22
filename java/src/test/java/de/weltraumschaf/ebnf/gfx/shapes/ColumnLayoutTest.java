@@ -11,12 +11,13 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.column;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.empty;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -24,43 +25,41 @@ import static org.junit.Assert.*;
  */
 public class ColumnLayoutTest {
 
-    private static final ShapeFactory FACTORY = ShapeFactory.getInstance();
-
     @Test public void testGetSize() {
-        final ColumnLayout column = FACTORY.column();
+        final ColumnLayout column = column();
         Dimension size = column.getSize();
         assertEquals(0, size.width);
         assertEquals(0, size.height);
 
-        column.append(FACTORY.empty());
+        column.append(empty());
         column.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = column.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(Shape.DEFAULT_HEIGHT, size.height);
 
-        column.append(FACTORY.empty());
+        column.append(empty());
         column.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = column.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(2 * Shape.DEFAULT_WIDTH, size.height);
 
-        column.append(FACTORY.empty());
+        column.append(empty());
         column.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
         size = column.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(3 * Shape.DEFAULT_HEIGHT, size.height);
 
         column.adjust(mock(Graphics2D.class, CALLS_REAL_METHODS));
-        column.set(0, FACTORY.empty());
+        column.set(0, empty());
         size = column.getSize();
         assertEquals(Shape.DEFAULT_WIDTH, size.width);
         assertEquals(3 * Shape.DEFAULT_HEIGHT, size.height);
     }
 
     @Test public void testSetShape() {
-        final Shape empty0 = FACTORY.empty(), empty1 = FACTORY.empty(), empty2 = FACTORY.empty(),
-                    empty3 = FACTORY.empty(), empty7 = FACTORY.empty();
-        final ColumnLayout column = FACTORY.column();
+        final Shape empty0 = empty(), empty1 = empty(), empty2 = empty(),
+                    empty3 = empty(), empty7 = empty();
+        final ColumnLayout column = column();
         assertEquals(0, column.countShapes());
 
         column.append(empty0, empty1, empty2, empty3);
@@ -79,18 +78,18 @@ public class ColumnLayoutTest {
     }
 
     @Test public void testAppendShape() {
-        final ColumnLayout column = FACTORY.column();
+        final ColumnLayout column = column();
         assertEquals(0, column.countShapes());
-        column.append(FACTORY.empty());
+        column.append(empty());
         assertEquals(1, column.countShapes());
-        column.append(FACTORY.empty());
+        column.append(empty());
         assertEquals(2, column.countShapes());
-        column.append(FACTORY.empty());
+        column.append(empty());
         assertEquals(3, column.countShapes());
     }
 
     @Test public void testPaint() {
-        final ColumnLayout column = FACTORY.column();
+        final ColumnLayout column = column();
         final Graphics2D graphics = mock(Graphics2D.class);
         column.paint(graphics);
 
