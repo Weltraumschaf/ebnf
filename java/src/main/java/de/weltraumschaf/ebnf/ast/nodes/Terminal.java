@@ -28,18 +28,42 @@ public final class Terminal extends AbstractNode {
         this.value = value;
     }
 
+    /**
+     * Creates an new terminal node with a {@link Null} parent node and empty value string.
+     *
+     * @return New instance.
+     */
     public static Terminal newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates an new terminal node with a {@link Null} parent node.
+     *
+     * @param value The terminal value.
+     * @return       New instance.
+     */
     public static Terminal newInstance(final String value) {
         return newInstance(Null.getInstance(), value);
     }
 
+    /**
+     * Creates an new terminal node with an empty value string.
+     *
+     * @param parent The parent node.
+     * @return        New instance.
+     */
     public static Terminal newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
+    /**
+     * Creates an new terminal node.
+     *
+     * @param parent
+     * @param value
+     * @return
+     */
     public static Terminal newInstance(final Node parent, final String value) {
         return new Terminal(parent, value);
     }
@@ -57,11 +81,9 @@ public final class Terminal extends AbstractNode {
     /**
      * Defines method to accept {@link Visitor}.
      *
-     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
      *
-     * @param Visitor Object which visits te node.
-     *
-     * @return
+     * @param visitor Object which visits the node.
      */
     @Override
     public void accept(final Visitor visitor) {
@@ -74,10 +96,8 @@ public final class Terminal extends AbstractNode {
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         Node to compare against.
-     * @param Notification Object which collects all equivalence violations.
-     *
-     * @return
+     * @param other  Node to compare against.
+     * @param result Object which collects all equivalence violations.
      */
     @Override
     public void probeEquivalence(final Node other, final Notification result) {

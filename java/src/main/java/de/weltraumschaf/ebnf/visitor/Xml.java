@@ -18,8 +18,17 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Xml implements Visitor {
 
+    /**
+     * Default XML version.
+     */
     public static final String  DEFAULT_VERSION  = "1.0";
+    /**
+     * Default XML encoding.
+     */
     public static final String  DEFAULT_ENCODING = "utf-8";
+    /**
+     * Default indentation spaces width.
+     */
     public static final int DEFAULT_INDENTATION  = 4; //NOPMD
 
     /**
@@ -32,10 +41,18 @@ public class Xml implements Visitor {
      */
     private int indentationLevel = 0;
 
+    /**
+     * Initialize object with {@link Xml#DEFAULT_ENCODING} and {@link Xml#DEFAULT_VERSION}.
+     */
     public Xml() {
         this(DEFAULT_ENCODING);
     }
 
+    /**
+     * Initialize object with {@link Xml#DEFAULT_VERSION}.
+     *
+     * @param encoding
+     */
     public Xml(final String encoding) {
         this(encoding, DEFAULT_VERSION);
     }
@@ -43,20 +60,34 @@ public class Xml implements Visitor {
     /**
      * Initializes the {@link Visitor} with XML version and encoding.
      *
-     * @param version  Optional XML version. Default is {@link DEFAULT_VERSION}.
-     * @param encoding Optional XML encoding. Default is {@link DEFAULT_ENCODING}.
+     * @param version  Optional XML version. Default is {@link Xml#DEFAULT_VERSION}.
+     * @param encoding Optional XML encoding. Default is {@link Xml#DEFAULT_ENCODING}.
      */
     public Xml(final String encoding, final String version) {
         append(String.format("<?xml version=\"%s\" encoding=\"%s\"?>", version, encoding));
     }
 
+    /**
+     * Creates opening tag.
+     * 
+     * @param name The tag name.
+     * @return      The tag string.
+     */
     public static String createOpenTag(final String name) {
         return createOpenTag(name, null);
     }
 
+    /**
+     * Creates opening tag with attributes.
+     *
+     * @param name The tag name.
+     * @param attr Map of attributes.
+     * @return      The tag string.
+     */
     public static String createOpenTag(final String name, final Map<String, String> attr) {
         return createOpenTag(name, attr, true);
     }
+
     /**
      * Creates a opening tag string by name.
      *
@@ -139,8 +170,6 @@ public class Xml implements Visitor {
      * Appends a string to the xml buffer string.
      *
      * @param string Generated XML string to append.
-     *
-     * @return
      */
     private void append(final String string) {
         xmlString.append(string);
@@ -152,8 +181,6 @@ public class Xml implements Visitor {
      * Generates opening tags from visited node.
      *
      * @param visitable Visited node.
-     *
-     * @return
      */
     @Override
     public void visit(final Node visitable) {
@@ -178,7 +205,6 @@ public class Xml implements Visitor {
      *
      * @param visitable Visited node.
      *
-     * @return
      */
     @Override
     public void beforeVisit(final Node visitable) {
@@ -190,7 +216,6 @@ public class Xml implements Visitor {
      *
      * @param visitable Visited node.
      *
-     * @return
      */
     @Override
     public void afterVisit(final Node visitable) {

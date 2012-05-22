@@ -3,6 +3,9 @@ package de.weltraumschaf.ebnf;
 import de.weltraumschaf.ebnf.util.ScannerHelper;
 
 /**
+ * Represents a scanned EBNF token with its type, value and position in the source file.
+ *
+ * A token is a immutable value object.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
@@ -39,7 +42,7 @@ public class Token {
     /**
      * Returns token type as string.
      *
-     * @return
+     * @return The token type.
      */
     public TokenType getType() {
         return type;
@@ -48,7 +51,7 @@ public class Token {
     /**
      * Returns the scanned token string.
      *
-     * @return
+     * @return The token value.
      */
     public String getValue() {
         return getValue(false);
@@ -58,7 +61,7 @@ public class Token {
      * Returns the scanned token string.
      *
      * @param unquote Whether to unquote a literal value.
-     * @return
+     * @return         The token value.
      */
     public String getValue(final boolean unquote) {
         if (unquote) {
@@ -71,7 +74,7 @@ public class Token {
     /**
      * Returns the start position of the token string in the source.
      *
-     * @return
+     * @return The token position.
      */
     public Position getPosition() {
         return getPosition(false);
@@ -81,7 +84,7 @@ public class Token {
      * Returns the start position of the token string in the source.
      *
      * @param end If true the tokens end position is returned instead of the start.
-     * @return
+     * @return     The token position.
      */
     public Position getPosition(final boolean end) {
         if (end) {
@@ -100,7 +103,7 @@ public class Token {
      *
      * Token values longer than 15 characters are shortened.
      *
-     * @return
+     * @return String representation.
      */
     @Override
     public String toString() {
@@ -125,7 +128,7 @@ public class Token {
     /**
      * Returns whether the token is of an operator type or not.
      *
-     * @return
+     * @return True or false.
      */
     public boolean isOperator() {
         switch (type) { // NOPMD
@@ -145,17 +148,35 @@ public class Token {
         }
     }
 
-    public boolean isType(final TokenType token) {
-        return type.equals(token);
+    /**
+     * Checks if the token is of a particular type.
+     *
+     * @param type The token type to check.
+     * @return      True or false.
+     */
+    public boolean isType(final TokenType type) {
+        return type.equals(type);
     }
 
+    /**
+     * Checks if token's value is not equals any of the passed in strings.
+     *
+     * @param others Array of strings to check against.
+     * @return        True or false.
+     */
     public boolean isNotEquals(final String[] others) {
         return !isEquals(others);
     }
 
+    /**
+     * Checks if token's value is equals any of the passed in strings.
+     *
+     * @param others Array of strings to check against.
+     * @return        True or false.
+     */
     public boolean isEquals(final String[] others) {
         for (int i = 0; i < others.length; ++i) {
-            if (value.equals(others[i])) {
+            if (isEqual(others[i])) {
                 return true;
             }
         }
@@ -163,14 +184,32 @@ public class Token {
         return false;
     }
 
+    /**
+     * Checks if token's value is not equals to passed in string.
+     *
+     * @param other String to check against.
+     * @return       True or false.
+     */
     public boolean isNotEqual(final String other) {
         return !isEqual(other);
     }
 
+    /**
+     * Checks if token's value is equals to passed in string.
+     *
+     * @param other String to check against.
+     * @return       True or false.
+     */
     public boolean isEqual(final String other) {
         return value.equals(other);
     }
 
+    /**
+     * Remove leading and trailing quotes from a string.
+     *
+     * @param str String to unquote.
+     * @return     Unquoted string.
+     */
     public static String unquoteString(final String str) {
         // @todo move into own class.
         int start = 0;

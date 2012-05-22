@@ -12,19 +12,22 @@
 /**
  * All available AST nodes.
  *
- * <p>This package is a part of the open-source
- * <a href="https://github.com/Weltraumschaf/ebnf">EBNF library</a></p>
+ * <p>
+ * This package is a part of the open-source<a href="https://github.com/Weltraumschaf/ebnf">EBNF library</a>
  *
- * <p>This package contains all available nodes an EBNF AST may have</p>.
+ * <p>
+ * This package contains all available nodes an EBNF AST may have.
  *
- * <p>The nodes are dived in three types:</p>
+ * <p>
+ * The nodes are dived in three types:
  *
  * <ol>
- * <li>Leafs: The nodes {@link Identifer}, {@link Terminal}, and {@link Null} are leafs. They can not
- * contain other nodes as children.</li>
- * <li>Composites: All other nodes are composite nodes and may have one or more child nodes.</li>
- * <li>Special: The leaf node {@link Null} is a special purpose node mostly used in the unit tests.
- * It is used as default parent node for all composite nodes.</li>
- * </ol>
+ *  <li>Leafs: The nodes {@link de.weltraumschaf.ebnf.ast.nodes.Identifier Identifier},
+ *      {@link de.weltraumschaf.ebnf.ast.nodes.Terminal Terminal}, and {@link de.weltraumschaf.ebnf.ast.nodes.Null Null}
+ *      are leafs. They can not contain other nodes as children.
+ *  <li>Composites: All other nodes are composite nodes and may have one or more child nodes.
+ *  <li>Special: The leaf node {@link de.weltraumschaf.ebnf.ast.nodes.Null Null} is a special purpose
+ *      node mostly used in the unit tests.
+ *      It is used as default parent node for all composite nodes.
  */
 package de.weltraumschaf.ebnf.ast.nodes;

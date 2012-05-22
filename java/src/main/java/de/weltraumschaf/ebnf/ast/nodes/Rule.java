@@ -11,8 +11,6 @@ public final class Rule extends AbstractComposite {
 
     /**
      * Name literal of rule.
-     *
-     * @var
      */
     @Attribute public String name;
 
@@ -21,18 +19,42 @@ public final class Rule extends AbstractComposite {
         this.name = name;
     }
 
+    /**
+     * Creates an new rule node with a {@link Null} parent node and empty name string.
+     *
+     * @return New instance.
+     */
     public static Rule newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates an new rule node with a {@link Null} parent node.
+     *
+     * @param name The rule name.
+     * @return      New instance.
+     */
     public static Rule newInstance(final String name) {
         return newInstance(Null.getInstance(), name);
     }
 
+    /**
+     * Creates an new rule node with an empty name string.
+     *
+     * @param parent The parent node.
+     * @return        New instance.
+     */
     public static Rule newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
+    /**
+     * Creates an new rule node.
+     *
+     * @param parent The parent node.
+     * @param name   The rule name.
+     * @return        New instance.
+     */
     public static Rule newInstance(final Node parent, final String name) {
         return new Rule(parent, name);
     }
@@ -51,10 +73,8 @@ public final class Rule extends AbstractComposite {
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         other  Node to compare against.
-     * @param Notification result Object which collects all equivalence violations.
-     *
-     * @return
+     * @param other  other  Node to compare against.
+     * @param result result Object which collects all equivalence violations.
      */
     @Override
     public void probeEquivalence(final Node other, final Notification result) {

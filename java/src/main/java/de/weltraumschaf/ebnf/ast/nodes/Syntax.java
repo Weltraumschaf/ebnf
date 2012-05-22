@@ -14,18 +14,17 @@ import java.util.List;
  */
 public final class Syntax implements Node, Composite {
 
+    /**
+     * Default meta string.
+     */
     public static final String DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
     /**
      * Title literal of string.
-     *
-     * @var string
      */
     @Attribute public String title;
     /**
      * Meta literal of string.
-     *
-     * @var string
      */
     @Attribute public String meta;
 
@@ -36,14 +35,32 @@ public final class Syntax implements Node, Composite {
      */
     private final List<Node> nodes = new ArrayList<Node>();
 
+    /**
+     * Creates a new syntax node with default meta and empty title.
+     *
+     * @return New instance.
+     */
     public static Syntax newInstance() {
         return newInstance("");
     }
 
+    /**
+     * Creates a new syntax node with default meta.
+     *
+     * @param title Title of the syntax.
+     * @return       New instance.
+     */
     public static Syntax newInstance(final String title) {
         return newInstance(title, DEFAULT_META);
     }
 
+    /**
+     * Creates a new syntax node.
+     *
+     * @param title Title of the syntax.
+     * @param meta  Meta of the syntax.
+     * @return       New instance.
+     */
     public static Syntax newInstance(final String title, final String meta) {
         return new Syntax(title, meta);
     }
@@ -87,9 +104,7 @@ public final class Syntax implements Node, Composite {
     /**
      * Append a child {@link Node} to the list of children.
      *
-     * @param Node Child node to add.
-     *
-     * @return
+     * @param child Child node to add.
      */
     @Override
     public void addChild(final Node child) {
@@ -110,10 +125,8 @@ public final class Syntax implements Node, Composite {
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         Node to compare against.
-     * @param Notification Object which collects all equivlanece violations.
-     *
-     * @return void
+     * @param other  Node to compare against.
+     * @param result Object which collects all equivalence violations.
      */
     @Override
     public void probeEquivalence(final Node other, final Notification result) {
@@ -160,13 +173,11 @@ public final class Syntax implements Node, Composite {
     }
 
     /**
-     * Defines method to accept {@link Visitors}.
+     * Defines method to accept {@link Visitor visitors}.
      *
-     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
      *
-     * @param Visitor visitor Object which visits te node.
-     *
-     * @return
+     * @param visitor Object which visits the node.
      */
     @Override
     public void accept(final Visitor visitor) {

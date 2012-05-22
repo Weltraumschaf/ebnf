@@ -15,10 +15,21 @@ public final class Loop extends AbstractComposite {
         super(parent);
     }
 
+    /**
+     * Creates new loop node with a {@link Null} as parent.
+     *
+     * @return New instance.
+     */
     public static Loop newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates new loop node.
+     * 
+     * @param parent The parent node.
+     * @return        New instance.
+     */
     public static Loop newInstance(final Node parent) {
         return new Loop(parent);
     }

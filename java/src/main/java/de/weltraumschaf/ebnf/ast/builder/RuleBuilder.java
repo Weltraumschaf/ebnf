@@ -39,6 +39,12 @@ public class RuleBuilder {
         return new GenericBuilder<RuleBuilder>(this, rule);
     }
 
+    /**
+     * Creates a comment.
+     *
+     * @param value The comment string.
+     * @return       The rule builder for method chaining.
+     */
     public RuleBuilder comment(final String value) {
         final Comment comment = Comment.newInstance(syntax, value);
         syntax.addChild(comment);

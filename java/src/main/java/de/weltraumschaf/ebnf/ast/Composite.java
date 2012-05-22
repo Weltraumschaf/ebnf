@@ -27,9 +27,7 @@ public interface Composite {
     /**
      * Append a child {@link Node} to the list of children.
      *
-     * @param Node Child node to add.
-     *
-     * @return
+     * @param child Child node to add.
      */
     public void addChild(Node child);
 

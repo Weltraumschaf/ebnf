@@ -11,10 +11,21 @@ import de.weltraumschaf.ebnf.ast.NodeType;
  */
 public final class Choice extends AbstractComposite {
 
+    /**
+     * Creates a new choice node instance with a {@link Null} parent node.
+     *
+     * @return
+     */
     public static Choice newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates a new choice node instance with custom parent node.
+     *
+     * @param parent The associated parent node.
+     * @return        The choice node.
+     */
     public static Choice newInstance(final Node parent) {
         return new Choice(parent);
     }

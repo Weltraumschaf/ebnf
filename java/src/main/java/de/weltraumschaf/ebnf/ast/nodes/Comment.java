@@ -26,18 +26,42 @@ public final class Comment extends AbstractNode {
         this.value = value;
     }
 
+    /**
+     * Creates new comment node with {@link Null} parent node and empty string value.
+     *
+     * @return New instance.
+     */
     public static Comment newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates new comment node with {@link Null} parent node
+     *
+     * @param value The comment string.
+     * @return       New instance.
+     */
     public static Comment newInstance(final String value) {
         return newInstance(Null.getInstance(), value);
     }
 
+    /**
+     * Creates new comment node with empty string value.
+     *
+     * @param parent The node's parent.
+     * @return        New instance.
+     */
     public static Comment newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
+    /**
+     * Creates new comment node.
+     *
+     * @param parent The node's parent.
+     * @param value  The comment string.
+     * @return        New instance.
+     */
     public static Comment newInstance(final Node parent, final String value) {
         return new Comment(parent, value);
     }
@@ -55,11 +79,9 @@ public final class Comment extends AbstractNode {
     /**
      * Defines method to accept {@link Visitor}.
      *
-     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
      *
-     * @param Visitor Object which visits te node.
-     *
-     * @return void
+     * @param visitor Object which visits the node.
      */
     @Override
     public void accept(final Visitor visitor) {
@@ -72,10 +94,8 @@ public final class Comment extends AbstractNode {
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         Node to compare against.
-     * @param Notification Object which collects all equivalence violations.
-     *
-     * @return void
+     * @param other  Node to compare against.
+     * @param result Object which collects all equivalence violations.
      */
     @Override
     public void probeEquivalence(final Node other, final Notification result) {
@@ -95,15 +115,20 @@ public final class Comment extends AbstractNode {
     }
 
     /**
-     * Always returns 1.
+     * This node has no sub nodes, thus always 1 is returned.
      *
-     * @return
+     * @return Returns always 1.
      */
     @Override
     public int depth() {
         return 1;
     }
 
+    /**
+     * Human readable string representation.
+     *
+     * @return String representation.
+     */
     @Override
     public String toString() {
         return String.format("<COMMENT value=%s>", value);

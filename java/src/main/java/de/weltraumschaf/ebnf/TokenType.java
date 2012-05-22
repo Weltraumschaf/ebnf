@@ -1,14 +1,26 @@
 package de.weltraumschaf.ebnf;
 
 /**
- *
+ * Defines all token types.
+ * 
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public enum TokenType {
-    // Special type:
+    /**
+     * Type for literal tokens.
+     */
     LITERAL,
+    /**
+     * Type for comment tokens.
+     */
     COMMENT,
+    /**
+     * Type for identifier tokens.
+     */
     IDENTIFIER,
+    /**
+     * Type for end of file token.
+     */
     EOF,
     // Operator types:
     /**

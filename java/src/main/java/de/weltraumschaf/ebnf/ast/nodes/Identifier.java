@@ -28,18 +28,42 @@ public final class Identifier extends AbstractNode {
         this.value = value;
     }
 
+    /**
+     * Creates an new identifier node with a {@link Null} parent node and empty value string.
+     *
+     * @return New instance.
+     */
     public static Identifier newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates an new identifier node with a {@link Null} parent node.
+     *
+     * @param value The identifier name.
+     * @return       New instance.
+     */
     public static Identifier newInstance(final String value) {
         return newInstance(Null.getInstance(), value);
     }
 
+    /**
+     * Creates an new identifier node with an empty value string.
+     *
+     * @param parent The parent node.
+     * @return        New instance.
+     */
     public static Identifier newInstance(final Node parent) {
         return newInstance(parent, "");
     }
 
+    /**
+     * Creates an new identifier node.
+     *
+     * @param parent The parent node.
+     * @param value  The identifier name.
+     * @return        New instance.
+     */
     public static Identifier newInstance(final Node parent, final String value) {
         return new Identifier(parent, value);
     }
@@ -55,13 +79,11 @@ public final class Identifier extends AbstractNode {
     }
 
     /**
-     * Defines method to accept {@link Visitors}.
+     * Defines method to accept {@link Visitor visitors}.
      *
-     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
      *
-     * @param Visitor Object which visits te node.
-     *
-     * @return
+     * @param visitor Object which visits the node.
      */
     @Override
     public void accept(final Visitor visitor) {
@@ -74,10 +96,8 @@ public final class Identifier extends AbstractNode {
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         Node to compare against.
-     * @param Notification Object which collects all equivalence violations.
-     *
-     * @return
+     * @param other  Node to compare against.
+     * @param result Object which collects all equivalence violations.
      */
     @Override
     public void probeEquivalence(final Node other, final Notification result) {
@@ -93,15 +113,20 @@ public final class Identifier extends AbstractNode {
     }
 
     /**
-     * Always returns 1.
+     * Has no sub nodes, thus always returns 1.
      *
-     * @return
+     * @return Always returns 1.
      */
     @Override
     public int depth() {
         return 1;
     }
 
+    /**
+     * Generates human readable string representation.
+     *
+     * @return String representation.
+     */
     @Override
     public String toString() {
         return String.format("<IDENTIFIER value=%s>", value);

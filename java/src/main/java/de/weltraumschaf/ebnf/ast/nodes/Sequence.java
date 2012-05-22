@@ -15,10 +15,21 @@ public final class Sequence extends AbstractComposite {
         super(parent);
     }
 
+    /**
+     * Creates an new sequence node with a {@link Null} parent node.
+     *
+     * @return New instance.
+     */
     public static Sequence newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates an new sequence node.
+     *
+     * @param parent The parent node.
+     * @return        New instance.
+     */
     public static Sequence newInstance(final Node parent) {
         return new Sequence(parent);
     }

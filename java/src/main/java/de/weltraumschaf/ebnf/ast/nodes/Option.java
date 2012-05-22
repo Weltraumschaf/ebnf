@@ -15,10 +15,21 @@ public final class Option extends AbstractComposite {
         super(parent);
     }
 
+    /**
+     * Creates an new option node with a {@link Null} parent node.
+     *
+     * @return New instance.
+     */
     public static Option newInstance() {
         return newInstance(Null.getInstance());
     }
 
+    /**
+     * Creates new option node.
+     *
+     * @param parent The parent node.
+     * @return        New instance.
+     */
     public static Option newInstance(final Node parent) {
         return new Option(parent);
     }

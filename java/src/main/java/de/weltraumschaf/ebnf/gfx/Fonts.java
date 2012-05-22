@@ -19,9 +19,18 @@ import java.awt.Font;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public enum Fonts {
-    MONOSPACED("Monospaced", Font.PLAIN), // used ofr terminals
-    SANSERIF("Sanserif", Font.PLAIN),     // used for rule names
-    SANSERIFIT("Sanserif", Font.ITALIC);  // used for identifiers
+    /**
+     * Used for terminals.
+     */
+    MONOSPACED("Monospaced", Font.PLAIN),
+    /**
+     * Used for rule names.
+     */
+    SANSERIF("Sanserif", Font.PLAIN),
+    /**
+     * Used for identifiers.
+     */
+    SANSERIFIT("Sanserif", Font.ITALIC);
 
     /**
      * Font name.
@@ -40,6 +49,9 @@ public enum Fonts {
      */
     private Font font = null;
 
+    /**
+     * Default font size.
+     */
     public static final int DEFAULT_SIZE = 6;
 
     /**
@@ -81,7 +93,7 @@ public enum Fonts {
 
     /**
      * Creates a font object with a new size.
-     * 
+     *
      * @param size New font size.
      * @return
      */

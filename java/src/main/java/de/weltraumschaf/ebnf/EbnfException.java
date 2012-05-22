@@ -62,7 +62,7 @@ public class EbnfException extends Exception {
     /**
      * Returns the error code.
      *
-     * @return
+     * @return The error code.
      */
     public int getCode() {
         return code;

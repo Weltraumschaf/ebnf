@@ -19,11 +19,9 @@ public interface Node {
     /**
      * Defines method to accept {@link Visitor}.
      *
-     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
      *
-     * @param Visitor Object which visits te node.
-     *
-     * @return
+     * @param visitor Object which visits the node.
      */
     public void accept(Visitor visitor);
 
@@ -31,10 +29,8 @@ public interface Node {
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         Node to compare against.
-     * @param Notification Object which collects all equivalence violations.
-     *
-     * @return
+     * @param other  Node to compare against.
+     * @param result Object which collects all equivalence violations.
      */
     public void probeEquivalence(Node other, Notification result);
 

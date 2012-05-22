@@ -13,15 +13,13 @@ public class DepthCalculator {
 
     /**
      * The subject to calculate for.
-     *
-     * @var
      */
     private final Composite node;
 
     /**
      * Initializes the immutable object.
      *
-     * @param Composite Calculation subject.
+     * @param node Calculation subject.
      */
     public DepthCalculator(final Composite node) {
         this.node = node;

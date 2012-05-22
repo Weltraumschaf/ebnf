@@ -8,6 +8,7 @@ import de.weltraumschaf.ebnf.ast.nodes.*;
  *
  * This class is parameterized with the type of the parent builder.
  *
+ * @param <P> Parent builder. Either {@link RuleBuilder} or {@link GenericBuilder}.
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public class GenericBuilder<P> {

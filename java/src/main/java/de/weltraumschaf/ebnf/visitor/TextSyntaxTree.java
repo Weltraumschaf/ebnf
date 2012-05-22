@@ -61,7 +61,9 @@ public class TextSyntaxTree implements Visitor {
      */
     private String text = null;
     /**
-     * Depth of the visited tree. Asked in before visit from {@link Syntax} node.
+     * Depth of the visited tree.
+     *
+     * Asked in {@link Syntax#beforeBisit} node.
      */
     private int depth = 0;
     /**
@@ -91,6 +93,8 @@ public class TextSyntaxTree implements Visitor {
 
     /**
      * Returns the depth.
+     *
+     * @return
      */
     public int getDepth() {
         return depth;
@@ -102,7 +106,8 @@ public class TextSyntaxTree implements Visitor {
      * {@link Rule}, {@link Terminal} and {@link Identifier} nodes will be
      * rendered with their attributes name or value.
      *
-     * @param node Formatted node.
+     * @param node Node t format.
+     * @return      Formatted node.
      */
     public static String formatNode(final Node node) {
         final StringBuilder text = new StringBuilder();
@@ -135,6 +140,7 @@ public class TextSyntaxTree implements Visitor {
      * Returns an array of colCount empty strings as elements.
      *
      * @param colCount Count of columns with empty strings.
+     * @return 
      */
     public static List<String> createRow(final int colCount) {
         if (colCount < 0) {

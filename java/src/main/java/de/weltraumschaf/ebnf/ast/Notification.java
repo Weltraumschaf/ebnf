@@ -25,7 +25,8 @@ public class Notification {
      * Example:
      * error(format, arg1, arg2 .. argN)
      *
-     * @return void
+     * @param format Format string.
+     * @param args   Variable number of objects referenced in the format string.
      */
     public void error(final String format, final Object... args) {
         errors.add(String.format(format, args));

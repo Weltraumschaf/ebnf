@@ -53,25 +53,25 @@ public class Position {
      *
      * May be null.
      *
-     * @return
+     * @return Filename as string.
      */
     public String getFile() {
         return file;
     }
 
     /**
-     * Returns line of occurence in source.
+     * Returns line of occurrence in source.
      *
-     * @return
+     * @return Line position.
      */
     public int getLine() {
         return line;
     }
 
     /**
-     * Returns column of occurence in source.
+     * Returns column of occurrence in source.
      *
-     * @return
+     * @return Column position.
      */
     public int getColumn() {
         return column;
@@ -80,7 +80,7 @@ public class Position {
     /**
      * Returns human readable string representation.
      *
-     * @return string
+     * @return String representation.
      */
     @Override
     public String toString() {

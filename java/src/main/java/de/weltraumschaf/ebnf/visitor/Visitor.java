@@ -5,7 +5,7 @@ import de.weltraumschaf.ebnf.ast.Node;
 /**
  * Defines interface for an AST tree visitor.
  *
- * Interface for {@linkt http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+ * Interface for <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
@@ -15,18 +15,14 @@ public interface Visitor {
      * Template method to hook in before specific node vsitor method
      * will be invoked.
      *
-     * @param Node visitable Visited {@link Node}.
-     *
-     * @return void
+     * @param visitable Visited {@link Node}.
      */
     public void beforeVisit(Node visitable);
 
     /**
      * Generic visitor method called by a visited {@link Node}.
      *
-     * @param Node visitable Visited {@link Node}.
-     *
-     * @return void
+     * @param visitable Visited {@link Node}.
      */
     public void visit(Node visitable);
 
@@ -34,9 +30,7 @@ public interface Visitor {
      * Template method to hook in after specific node visitor method
      * will be invoked.
      *
-     * @param Node visitable Visited {@link Node}.
-     *
-     * @return void
+     * @param visitable Visited {@link Node}.
      */
     public void afterVisit(Node visitable);
 

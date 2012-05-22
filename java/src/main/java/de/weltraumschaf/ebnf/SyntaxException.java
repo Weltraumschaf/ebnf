@@ -9,6 +9,9 @@ package de.weltraumschaf.ebnf;
  */
 public class SyntaxException extends EbnfException {
 
+    /**
+     * Default exception code.
+     */
     public static final int DEFAULT_CODE = 0;
     private static final long serialVersionUID = 1L;
 

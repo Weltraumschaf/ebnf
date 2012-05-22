@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *Abstract base class for nodes which are not leaves and have subnodes.
+ *Abstract base class for nodes which are not leaves and have sub nodes.
  *
  * Provides interface for iterate and add child nodes.
  *
@@ -20,6 +20,11 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
      */
     private final List<Node> nodes = new ArrayList<Node>();
 
+    /**
+     * Initializes the parent node with null.
+     *
+     * @todo consider using {@link Null} or remove this constructor.
+     */
     public AbstractComposite() {
         this(null);
     }
@@ -27,7 +32,7 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
     /**
      * Initializes object with empty child node array and parent node.
      *
-     * @param Node parent The parent node.
+     * @param parent The parent node.
      */
     public AbstractComposite(final Node parent) {
         super(parent);
@@ -66,9 +71,8 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
     /**
      * Append a child {@link Node} to the list of children.
      *
-     * @param Node Child node to add.
+     * @param child Child node to add.
      *
-     * @return
      */
     @Override
     public void addChild(final Node child) {
@@ -76,13 +80,11 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
     }
 
     /**
-     * Defines method to accept {@link Visitors}.
+     * Defines method to accept {@link Visitor visitors}.
      *
-     * Implements {@link http://en.wikipedia.org/wiki/Visitor_pattern Visitor Pattern}.
+     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
      *
-     * @param Visitor Object which visits te node.
-     *
-     * @return void
+     * @param visitor Object which visits the node.
      */
     @Override
     public void accept(final Visitor visitor) {
@@ -102,10 +104,8 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
-     * @param Node         Node to compare against.
-     * @param Notification Object which collects all equivalence violations.
-     *
-     * @return
+     * @param other  Node to compare against.
+     * @param result Object which collects all equivalence violations.
      */
     @Override
     public void probeEquivalence(final Node other, final Notification result) {

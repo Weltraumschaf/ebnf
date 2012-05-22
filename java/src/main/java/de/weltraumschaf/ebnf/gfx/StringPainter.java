@@ -115,8 +115,8 @@ public class StringPainter {
 
     /**
      * Calculates the string y position to draw.
-     *
-     * @param Y
+     * 
+     * @param offsetY
      * @param height
      * @param ascent
      * @param descent

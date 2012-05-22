@@ -14,9 +14,17 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 import java.awt.Graphics2D;
 
 /**
+ * Implementors can paint them selves on a {@link java.awt.Graphics2D graphics context}.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public interface Paintable {
+
+    /**
+     * PAints the implementor.
+     *
+     * @param graphic Context to paint on.
+     */
     public void paint(Graphics2D graphic);
+
 }

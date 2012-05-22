@@ -78,13 +78,13 @@ public final class ReferenceGrammar {
     /**
      * Returns the reference syntax as abstract syntax tree.
      *
-     * @return
-     * @throws SyntaxError
+     * @throws SyntaxException On Syntax errors.
+     * @return Returns the grammars {@link Syntax} object.
      */
     public Syntax getSyntax() throws SyntaxException {
         if (null == syntax) {
             final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
-            
+
             try {
                 syntax = parser.parse();
             } catch (IOException ex) {

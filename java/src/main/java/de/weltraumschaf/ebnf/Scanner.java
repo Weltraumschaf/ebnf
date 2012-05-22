@@ -199,9 +199,9 @@ public class Scanner {
     /**
      * Throws a {SyntaxException} with the current {Position} in the input stream.
      *
-     * @param string Error message string.
+     * @param msg Error message string.
      *
-     * @throws SyntaxError
+     * @throws SyntaxException On syntax errors.
      */
     public void raiseError(final String msg) throws SyntaxException {
         throw new SyntaxException(msg, createPosition());
@@ -219,7 +219,7 @@ public class Scanner {
     /**
      * Returns the current scanned token.
      *
-     * May be null if never {@link nextToken()} was called.
+     * May be null if never {@link Scanner#nextToken()} was called.
      *
      * @return
      */
@@ -243,9 +243,9 @@ public class Scanner {
     /**
      * Returns the nth token backwards from the actual token.
      *
-     * @param int How many tokens to backtrack.
+     * @param count How many tokens to backtrack.
      *
-     * @return Token
+     * @return The backtracked token.
      */
     public Token backtrackToken(final int count) {
         final int index = currentToken - count;
@@ -263,9 +263,9 @@ public class Scanner {
     /**
      * Returns if there are more tokens.
      *
-     * This is always true if never {@link nextToken()}
+     * This is always true if never {@link Scanner#nextToken()}
      * was called. No more tokens are indicated if the current token is
-     * of type {@link TokenType.EOF}.
+     * of type {@link TokenType#EOF}.
      *
      * @return
      */
@@ -280,9 +280,11 @@ public class Scanner {
     /**
      * Returns the next token without advancing the internal pointer (aka. lookahead).
      *
-     * A call to {nextToken()} will return this token ahead.
+     * A call to {@link Scanner#nextToken()} will return this token ahead.
      *
      * @return
+     * @throws SyntaxException On syntax errors.
+     * @throws IOException     On input stream IO errors.
      */
     public Token peekToken() throws SyntaxException, IOException {
         nextToken();
@@ -302,7 +304,8 @@ public class Scanner {
      *
      * This method should be called until {hasNextToken()} returns false.
      *
-     * @return
+     * @throws SyntaxException On syntax errors.
+     * @throws IOException     On input stream IO errors.
      */
     public void nextToken() throws SyntaxException, IOException {
         if (currentToken > -1 && currentToken < (tokens.size() - 1)) {

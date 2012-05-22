@@ -13,6 +13,11 @@ public final class Null implements Node {
     private static final Null INSTANCE = new Null();
     private Null() {}
 
+    /**
+     * Returns always the same null instance.
+     *
+     * @return Shared instance.
+     */
     public static Null getInstance() {
         return INSTANCE;
     }
