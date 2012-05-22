@@ -35,6 +35,28 @@ public class GridLayout extends AbstractLayout implements Adjustable {
                : grid.get(0).countShapes();
     }
 
+    public ColumnLayout get(final int columnIndex) {
+        final ColumnLayout col = grid.get(columnIndex);
+
+        if (null == col) {
+            // @todo test exception
+            throw new IllegalArgumentException(String.format("The column at columnIndex %d is null!", columnIndex));
+        }
+
+        return col;
+    }
+
+    public Shape get(final int columnIndex, final int rowIndex) {
+        final Shape shape = get(columnIndex).get(rowIndex);
+
+        if (null == shape) {
+            // @todo test exception
+            throw new IllegalArgumentException(String.format("The shape at columnIndex %d and rowIndex %d is null!", columnIndex, rowIndex));
+        }
+
+        return shape;
+    }
+
     public GridLayout set(final int columnIndex, final int rowIndex, final Shape shape) {
         final int colCount = countCols();
 

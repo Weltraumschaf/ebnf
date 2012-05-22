@@ -19,6 +19,9 @@ import de.weltraumschaf.ebnf.gfx.shapes.*;
  */
 public final class ShapeFactory {
 
+    public enum Curves { NORTH_WEST, NORTH_EAST,SOUTH_WEST, SOUTH_EAST; }
+    public enum Straights { NORT_SOUTH, WEST_EAST }
+
     private static final ShapeFactory INSTANCE = new ShapeFactory();
 
     private ShapeFactory() {}
@@ -45,12 +48,50 @@ public final class ShapeFactory {
         return new End();
     }
 
-    public Shape straightNorthSouth() {
-        return new StraightNS();
+    public AbstractCurve curve(final Curves type) {
+        switch (type) {
+            case NORTH_EAST: return new CurveNE();
+            case NORTH_WEST: return new CurveNW();
+            case SOUTH_EAST: return new CurveSE();
+            case SOUTH_WEST: return new CurveSW();
+            default: throw new IllegalArgumentException("Unsupported type: " + type + "!");
+        }
     }
 
-    public Shape straightWestEast() {
-        return new StraightWE();
+    public Shape straight(final Straights type) {
+        switch (type) {
+            case NORT_SOUTH: return new StraightNS();
+            case WEST_EAST: return new StraightWE();
+            default: throw new IllegalArgumentException("Unsupported type: " + type + "!");
+        }
+    }
+
+    public Shape fork(final Straights orientation, final Curves curve) {
+        switch (orientation) {
+            case NORT_SOUTH: return verticalFork(curve);
+            case WEST_EAST: return horizontalFork(curve);
+            default: throw new IllegalArgumentException("Unsupported orientation: " + orientation + "!");
+        }
+    }
+
+    private Shape verticalFork(final Curves curve) {
+        switch (curve) {
+            case NORTH_EAST: return new VForkNE();
+            case NORTH_WEST: return new VForkNW();
+            case SOUTH_EAST: return new VForkSE();
+            case SOUTH_WEST: return new VForkSW();
+            default: throw new IllegalArgumentException("Unsupported curve: " + curve + "!");
+        }
+    }
+
+    private Shape horizontalFork(final Curves curve) {
+        switch (curve) {
+            case NORTH_EAST: return new HForkNE();
+            case NORTH_WEST: return new HForkNW();
+            case SOUTH_EAST: return new HForkSE();
+            case SOUTH_WEST: return new HForkSW();
+            default: throw new IllegalArgumentException("Unsupported curve: " + curve + "!");
+        }
     }
 
     public GridLayout grid() {

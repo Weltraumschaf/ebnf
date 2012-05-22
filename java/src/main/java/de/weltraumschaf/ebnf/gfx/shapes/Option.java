@@ -11,6 +11,9 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.NORT_SOUTH;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.WEST_EAST;
 import java.awt.Dimension;
 
 /**
@@ -21,28 +24,28 @@ public class Option extends AbstractCompund {
 
     public Option() {
         super(FACOTRY.grid()
-                    .append(FACOTRY.column().append(new HForkSW()))
-                    .append(FACOTRY.column().append(FACOTRY.empty()))
-                    .append(FACOTRY.column().append(new HForkSE())));
+                     .set(0, 0, FACOTRY.column().append(
+                         FACOTRY.fork(WEST_EAST, SOUTH_WEST)))
+                     .set(0, 1, FACOTRY.curve(NORTH_EAST))
+                     .set(1, 0, FACOTRY.empty())
+                     .set(1, 1, FACOTRY.straight(WEST_EAST))
+                     .set(2, 0, FACOTRY.column().append(
+                         FACOTRY.fork(WEST_EAST, SOUTH_EAST)))
+                     .set(2, 1, FACOTRY.curve(NORTH_WEST)));
     }
 
     public void setOptional(final Shape shape) {
         grid.set(1, 0, shape);
         final Dimension size = shape.getSize();
-        int row = 1;
 
         if (DEFAULT_HEIGHT < size.height) {
-            final int count = size.height % DEFAULT_HEIGHT + 1;
+            final int count = (int)Math.ceil(size.height / DEFAULT_HEIGHT) - 1;
 
-            for (; row <= count; ++row) {
-                grid.set(0, row, FACOTRY.straightNorthSouth());
-                grid.set(2, row, FACOTRY.straightNorthSouth());
+            for (int i = 0; i < count; ++i) {
+                ((ColumnLayout)grid.get(0, 0)).append(FACOTRY.straight(NORT_SOUTH));
+                ((ColumnLayout)grid.get(2, 0)).append(FACOTRY.straight(NORT_SOUTH));
             }
         }
-
-        grid.set(0, row, new CurveNE());
-        grid.set(1, row - 1, FACOTRY.straightWestEast());
-        grid.set(2, row, new CurveNW());
     }
 
 }
