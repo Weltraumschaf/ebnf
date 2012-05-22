@@ -12,7 +12,6 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.NORT_SOUTH;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.WEST_EAST;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 import java.awt.Dimension;
@@ -35,15 +34,7 @@ public class Option extends AbstractCompund {
     public void setOptional(final Shape shape) {
         grid.set(1, 0, shape);
         final Dimension size = shape.getSize();
-
-        if (DEFAULT_HEIGHT < size.height) {
-            final int count = (int)Math.ceil(size.height / DEFAULT_HEIGHT) - 1;
-
-            for (int i = 0; i < count; ++i) {
-                ((ColumnLayout)grid.get(0, 0)).append(straight(NORT_SOUTH));
-                ((ColumnLayout)grid.get(2, 0)).append(straight(NORT_SOUTH));
-            }
-        }
+        extendColumnWithStraightNS(size.height, new int[]{0, 2}, 0);
     }
 
 }

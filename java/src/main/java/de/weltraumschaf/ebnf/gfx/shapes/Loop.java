@@ -14,6 +14,7 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.WEST_EAST;
 import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+import java.awt.Dimension;
 
 /**
  *
@@ -32,10 +33,14 @@ public class Loop extends AbstractCompund {
 
     public void setLooped(final Shape shape) {
         grid.set(1, 0, shape);
+        final Dimension size = shape.getSize();
+        extendColumnWithStraightNS(size.height, new int[]{0, 2}, 0);
     }
 
     public void setAdditional(final Shape shape) {
         grid.set(1, 1, shape);
+        final Dimension size = shape.getSize();
+        extendColumnWithEmpty(size.height, new int[]{0, 2}, 1);
     }
 
 }

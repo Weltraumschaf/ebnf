@@ -12,8 +12,12 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.NORT_SOUTH;
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.straight;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -68,4 +72,29 @@ public class AbstractCompund extends AbstractShape implements Adjustable {
         grid.adjust(graphic);
     }
 
+    protected void extendColumnWithEmpty(final int height, final int[] colIndexs, final int rowIndex) {
+        extendColumnWithShape(height, colIndexs, rowIndex, Empty.class);
+    }
+    protected void extendColumnWithStraightNS(final int height, final int[] colIndexs, final int rowIndex) {
+        extendColumnWithShape(height, colIndexs, rowIndex, StraightNS.class);
+    }
+
+    protected void extendColumnWithShape(final int height, final int[] colIndexs, final int rowIndex, final Class<? extends Shape> type) {
+        if (DEFAULT_HEIGHT < height) {
+            final int count = (int)Math.ceil(height / DEFAULT_HEIGHT) - 1;
+
+            for (int i = 0; i < count; ++i) {
+                for (int j = 0 ; j < colIndexs.length; ++j) {
+                    try {
+                        final Shape filler = type.newInstance();
+                        ((ColumnLayout)grid.get(colIndexs[j], rowIndex)).append(filler);
+                    } catch (InstantiationException ex) {
+                        throw new IllegalArgumentException("Can't instantiate shape of type: " + type.getName() + "!", ex);
+                    } catch (IllegalAccessException ex) {
+                        throw new IllegalArgumentException("Can't access shape of type: " + type.getName() + "!", ex);
+                    }
+                }
+            }
+        }
+    }
 }

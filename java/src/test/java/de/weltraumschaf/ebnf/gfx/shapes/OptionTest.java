@@ -25,8 +25,7 @@ public class OptionTest {
 
     @Test public void setOptional() {
         final Option option = new Option();
-        ColumnLayout split;
-        ColumnLayout join;
+        ColumnLayout split, join;
 
         assertEquals(2, option.grid.counRows());
         assertEquals(3, option.grid.countCols());
