@@ -4,7 +4,6 @@ import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.*;
 import java.util.List;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**

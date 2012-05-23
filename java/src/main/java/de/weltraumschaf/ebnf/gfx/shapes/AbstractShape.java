@@ -12,7 +12,6 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
-import de.weltraumschaf.ebnf.gfx.ShapeFactory;
 import de.weltraumschaf.ebnf.gfx.Strokes;
 import java.awt.Color;
 import java.awt.Dimension;

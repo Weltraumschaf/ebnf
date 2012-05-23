@@ -11,7 +11,6 @@
 
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.Node;
 import de.weltraumschaf.ebnf.ast.Notification;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 import static org.junit.Assert.*;

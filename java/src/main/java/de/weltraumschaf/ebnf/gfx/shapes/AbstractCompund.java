@@ -12,12 +12,8 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.Point;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.NORT_SOUTH;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.straight;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
