@@ -91,7 +91,7 @@ public class XmlTest {
                     .choice()
                         .terminal("=")
                         .terminal(":")
-                        .terminal(":==" )
+                        .terminal(":==")
                     .end()
                     .identifier("expression")
                     .choice()

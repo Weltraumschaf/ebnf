@@ -83,7 +83,8 @@ public class ColumnLayout extends AbstractLayout {
 
     @Override
     public void adjust(final Graphics2D graphics) {
-        int width = 0, height = 0;
+        int width = 0;
+        int height = 0;
 
         for (Shape shape : col) {
             adjustShape(shape, graphics);

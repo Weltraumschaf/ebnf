@@ -19,10 +19,10 @@ import de.weltraumschaf.ebnf.gfx.shapes.*;
  */
 public final class ShapeFactory {
 
-    public enum Curves { NORTH_WEST, NORTH_EAST,SOUTH_WEST, SOUTH_EAST; }
+    public enum Curves { NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST; }
     public enum Straights { NORT_SOUTH, WEST_EAST }
 
-    private ShapeFactory() {}
+    private ShapeFactory() { }
 
     public static Empty empty() {
         return new Empty();

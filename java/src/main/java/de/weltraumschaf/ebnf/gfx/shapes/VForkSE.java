@@ -20,5 +20,5 @@ public class VForkSE extends AbstractFork {
     public VForkSE() {
         super(new StraightNS(), new CurveSE());
     }
-    
+
 }

@@ -20,7 +20,7 @@ public class ScannerHelperTest {
          'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     private static final char[] NUMS = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
-    
+
     private static final char[] WHITE_SPACES = {' ', '\n', '\r', '\t'};
 
     @Test public void isAlpha() {

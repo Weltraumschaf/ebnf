@@ -108,10 +108,10 @@ public class StringPainter {
      * @return
      */
     public int calcXPosition(final int stringWidth, final int offsetX, final int width) {
-        final int _offsetX = offsetX < 0
+        final int checkedOffsetX = offsetX < 0
                            ? 0
                            : offsetX;
-        return (width - stringWidth) / 2 + _offsetX;
+        return (width - stringWidth) / 2 + checkedOffsetX;
     }
 
     /**

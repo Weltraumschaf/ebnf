@@ -148,7 +148,7 @@ public class Scanner {
             if (-1 == chr) {
                 atEof = true;
             } else {
-                buffer.append((char)chr);
+                buffer.append((char) chr);
             }
         }
 

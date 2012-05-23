@@ -32,8 +32,8 @@ public class RuleTest {
         final Node node2 = mock(Node.class);
         when(node2.toString()).thenReturn("<bar>");
         rule.addChild(node2);
-        assertEquals("<RULE name=foo>\n" +
-                     "<foo>\n" +
-                     "<bar>", rule.toString());
+        assertEquals("<RULE name=foo>\n"
+                   + "<foo>\n"
+                   + "<bar>", rule.toString());
     }
 }

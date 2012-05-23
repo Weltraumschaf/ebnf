@@ -7,7 +7,7 @@ package de.weltraumschaf.ebnf.util;
  */
 public final class ScannerHelper {
 
-    private ScannerHelper() {}
+    private ScannerHelper() { }
 
     /**
      * Checks whether a character is inside a given character range (included).

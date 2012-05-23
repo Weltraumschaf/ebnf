@@ -23,7 +23,7 @@ import java.util.Stack;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-abstract public class AbstractShape implements Shape {
+public abstract class AbstractShape implements Shape {
 
     protected static class GraphicsSetting {
         private final Color color;

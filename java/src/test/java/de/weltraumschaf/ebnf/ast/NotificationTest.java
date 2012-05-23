@@ -19,10 +19,9 @@ public class NotificationTest {
         notification.error("Some %s occured at %s!", "FOO", "BAR");
         assertFalse(notification.isOk());
         notification.error("Error: %s at line %d occued because %s!", "SNAFU", 5, "FOOBAR");
-        assertEquals(
-            "An error!\n" +
-            "Some FOO occured at BAR!\n" +
-            "Error: SNAFU at line 5 occued because FOOBAR!", notification.report());
+        assertEquals("An error!\n"
+                   + "Some FOO occured at BAR!\n"
+                   + "Error: SNAFU at line 5 occued because FOOBAR!", notification.report());
     }
 
 }

@@ -45,21 +45,21 @@ public class LoopTest {
     }
 
     private void assertSplitAndJoin(final Loop loop) {
-        final ColumnLayout split = (ColumnLayout)loop.grid.get(0, 0);
+        final ColumnLayout split = (ColumnLayout) loop.grid.get(0, 0);
         assertEquals(1, split.countShapes());
         assertTrue(split.get(0) instanceof HForkSE);
 
-        final ColumnLayout join  = (ColumnLayout)loop.grid.get(2, 0);
+        final ColumnLayout join  = (ColumnLayout) loop.grid.get(2, 0);
         assertEquals(1, join.countShapes());
         assertTrue(join.get(0) instanceof HForkSW);
     }
 
     private void assertCurves(final Loop loop) {
-        final ColumnLayout firstCurve = (ColumnLayout)loop.grid.get(0, 1);
+        final ColumnLayout firstCurve = (ColumnLayout) loop.grid.get(0, 1);
         assertEquals(1, firstCurve.countShapes());
         assertTrue(firstCurve.get(0) instanceof CurveNE);
 
-        final ColumnLayout lastCurve  = (ColumnLayout)loop.grid.get(2, 1);
+        final ColumnLayout lastCurve  = (ColumnLayout) loop.grid.get(2, 1);
         assertEquals(1, lastCurve.countShapes());
         assertTrue(lastCurve.get(0) instanceof CurveNW);
     }
@@ -79,12 +79,12 @@ public class LoopTest {
         assertTrue(loop.grid.get(1, 0) instanceof Terminal);
         assertTrue(loop.grid.get(1, 1) instanceof StraightWE);
 
-        final ColumnLayout split = (ColumnLayout)loop.grid.get(0, 0);
+        final ColumnLayout split = (ColumnLayout) loop.grid.get(0, 0);
         assertEquals(3, split.countShapes());
         assertTrue(split.get(0) instanceof HForkSE);
         assertTrue(split.get(1) instanceof StraightNS);
         assertTrue(split.get(2) instanceof StraightNS);
-        final ColumnLayout join  = (ColumnLayout)loop.grid.get(2, 0);
+        final ColumnLayout join  = (ColumnLayout) loop.grid.get(2, 0);
         assertEquals(3, join.countShapes());
         assertTrue(join.get(0) instanceof HForkSW);
         assertTrue(join.get(1) instanceof StraightNS);
@@ -106,13 +106,13 @@ public class LoopTest {
         loop.setAdditional(greatOne);
         assertTrue(loop.grid.get(1, 0) instanceof Empty);
         assertTrue(loop.grid.get(1, 1) instanceof Terminal);
-        final ColumnLayout firstCurve = (ColumnLayout)loop.grid.get(0, 1);
+        final ColumnLayout firstCurve = (ColumnLayout) loop.grid.get(0, 1);
         assertEquals(3, firstCurve.countShapes());
         assertTrue(firstCurve.get(0) instanceof CurveNE);
         assertTrue(firstCurve.get(1) instanceof Empty);
         assertTrue(firstCurve.get(2) instanceof Empty);
 
-        final ColumnLayout lastCurve  = (ColumnLayout)loop.grid.get(2, 1);
+        final ColumnLayout lastCurve  = (ColumnLayout) loop.grid.get(2, 1);
         assertEquals(3, lastCurve.countShapes());
         assertTrue(lastCurve.get(0) instanceof CurveNW);
         assertTrue(lastCurve.get(1) instanceof Empty);

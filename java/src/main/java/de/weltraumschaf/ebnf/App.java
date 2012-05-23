@@ -14,11 +14,11 @@ import org.apache.commons.cli.ParseException;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class App {
+public final class App {
 
     private final String[] args;
 
-    public App(final String[] args) {
+    private App(final String[] args) {
         this.args = args.clone();
     }
 
@@ -27,10 +27,10 @@ public class App {
             final App app = new App(args);
             exit(app.run());
         } catch (EbnfException e) {
-            System.out.println(e.getMessage());
+            println(e.getMessage());
             exit(e.getCode());
         } catch (Exception ex) { //NOPMD
-            System.out.println("Fatal error!");
+            println("Fatal error!");
             ex.printStackTrace(System.out);
             exit(ExitCode.FATAL_ERROR);
         }
@@ -53,7 +53,7 @@ public class App {
         }
 
         if (!options.hasSyntaxFile()) {
-            System.out.println("No syntax file given!");
+            println("No syntax file given!");
             return ExitCode.NO_SYNTAX;
         }
 
@@ -66,8 +66,7 @@ public class App {
             parser  = new Parser(scanner);
             ast     = parser.parse();
         } catch (FileNotFoundException ex) {
-            System.out.println(String.format("Can not read syntax file '%s'!",
-                                             options.getSyntaxFile()));
+            println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
 
             if (options.isDebug()) {
                 ex.printStackTrace(System.out);
@@ -75,8 +74,7 @@ public class App {
 
             return ExitCode.READ_ERROR;
         } catch (IOException ex) {
-            System.out.println(String.format("Can not read syntax file '%s'!",
-                                             options.getSyntaxFile()));
+            println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
 
             if (options.isDebug()) {
                 ex.printStackTrace(System.out);
@@ -88,7 +86,7 @@ public class App {
         if (options.isTextTree()) {
             final TextSyntaxTree visitor = new TextSyntaxTree();
             ast.accept(visitor);
-            System.out.println(visitor.getText());
+            println(visitor.getText());
         }
 
         return ExitCode.OK;
@@ -104,5 +102,11 @@ public class App {
         }
 
         return options;
+    }
+
+    private static void println(final String str) {
+        // CHECKSTYLE:OFF
+        System.out.println(str);
+        // CHECKSTYLE:ON
     }
 }

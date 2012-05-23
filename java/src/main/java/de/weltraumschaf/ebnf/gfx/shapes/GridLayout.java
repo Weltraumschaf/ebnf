@@ -102,7 +102,8 @@ public class GridLayout extends AbstractLayout {
 
     @Override
     public void adjust(final Graphics2D graphic) {
-        int width = 0, height = 0;
+        int width = 0;
+        int height = 0;
 
         for (ColumnLayout col : columns) {
             col.adjust(graphic);

@@ -42,7 +42,7 @@ public class IdentifierTest {
         notifiaction = new Notification();
         ident2.probeEquivalence(ident1, notifiaction);
         assertFalse(notifiaction.isOk());
-        assertEquals("Identifier value mismatch: 'b' != 'a'!",notifiaction.report());
+        assertEquals("Identifier value mismatch: 'b' != 'a'!", notifiaction.report());
     }
 
     @Test public void testDepth() {

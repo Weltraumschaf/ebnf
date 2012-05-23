@@ -18,7 +18,7 @@ public class SyntaxException extends EbnfException {
     /**
      * Where in the source the exception occurred.
      */
-    private Position position;
+    private final Position position;
 
     /**
      * Initializes error without cause and default error code.

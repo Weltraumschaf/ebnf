@@ -25,6 +25,6 @@ public interface Paintable {
      *
      * @param graphic Context to paint on.
      */
-    public void paint(Graphics2D graphic);
+    void paint(Graphics2D graphic);
 
 }

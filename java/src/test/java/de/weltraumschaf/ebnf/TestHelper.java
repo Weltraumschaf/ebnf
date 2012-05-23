@@ -27,9 +27,10 @@ import java.nio.charset.Charset;
  */
 public final class TestHelper {
 
+    public static final String FIXTURE_DIR = "/de/weltraumschaf/ebnf";
+
     private static final TestHelper INSTANCE = new TestHelper();
 
-    public static final String FIXTURE_DIR = "/de/weltraumschaf/ebnf";
 
     private TestHelper() {
 

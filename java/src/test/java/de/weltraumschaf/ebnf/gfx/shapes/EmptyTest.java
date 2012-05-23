@@ -54,7 +54,7 @@ public class EmptyTest {
         empty.setDebug(true);
         assertTrue(empty.isDebug());
         empty.paint(graphics);
-        verify(graphics, times(1)).drawLine(0,15, 30, 15);
+        verify(graphics, times(1)).drawLine(0, 15, 30, 15);
         verify(graphics, times(1)).drawLine(15, 0, 15, 30);
         verify(graphics, times(1)).drawRect(0, 0, 30, 30);
     }

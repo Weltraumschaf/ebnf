@@ -67,7 +67,7 @@ public class RailroadDiagramImage {
     }
 
     public void paint(final Graphics graphics) {
-        paint((Graphics2D)graphics);
+        paint((Graphics2D) graphics);
     }
 
     public void paint(final Graphics2D graphics) {

@@ -14,7 +14,7 @@ public interface Node {
      *
      * @return
      */
-    public String getNodeName();
+    String getNodeName();
 
     /**
      * Defines method to accept {@link Visitor}.
@@ -23,7 +23,7 @@ public interface Node {
      *
      * @param visitor Object which visits the node.
      */
-    public void accept(Visitor visitor);
+    void accept(Visitor visitor);
 
     /**
      * Probes equivalence of itself against an other node and collects all
@@ -32,7 +32,7 @@ public interface Node {
      * @param other  Node to compare against.
      * @param result Object which collects all equivalence violations.
      */
-    public void probeEquivalence(Node other, Notification result);
+    void probeEquivalence(Node other, Notification result);
 
     /**
      * Returns the depth of the node.
@@ -43,6 +43,6 @@ public interface Node {
      *
      * @return
      */
-    public int depth();
+    int depth();
 
 }

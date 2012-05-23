@@ -70,7 +70,7 @@ public class ParserTest {
 //        );
     }
 
-    @Test public void testParse() throws SyntaxException, FileNotFoundException, IOException, URISyntaxException { //NOPMD
+    @Test public void testParse() throws SyntaxException, IOException, URISyntaxException { //NOPMD
         Syntax ast;
 
         Parser parser = helper().createParserFromFixture("rules_with_different_assignment_ops.ebnf");

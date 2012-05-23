@@ -31,8 +31,8 @@ public class SyntaxTest {
         final Node node2 = mock(Node.class);
         when(node2.toString()).thenReturn("<bar>");
         syntax.addChild(node2);
-        assertEquals("<SYNTAX title=foo, meta=bar>\n" +
-                     "<foo>\n" +
-                     "<bar>", syntax.toString());
+        assertEquals("<SYNTAX title=foo, meta=bar>\n"
+                   + "<foo>\n"
+                   + "<bar>", syntax.toString());
     }
 }

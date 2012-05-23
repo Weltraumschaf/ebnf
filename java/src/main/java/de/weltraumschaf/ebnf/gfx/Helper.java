@@ -24,7 +24,7 @@ public final class Helper {
     /**
      * Pure factory.
      */
-    private Helper() {}
+    private Helper() { }
 
     /**
      * Creates a Buffered image of size 1 x 1.
@@ -48,7 +48,7 @@ public final class Helper {
 
     /**
      * Creates a graphics object from a default buffered image.
-     * 
+     *
      * @return
      */
     public static Graphics2D newGraphics() {

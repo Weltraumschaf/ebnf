@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 public class RailroadDiagramPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private final RailroadDiagram diagram ;
+    private final RailroadDiagram diagram;
 
     public RailroadDiagramPanel(final RailroadDiagram diagram) {
         this.diagram = diagram;
@@ -31,7 +31,7 @@ public class RailroadDiagramPanel extends JPanel {
     @Override
     public void paintComponent(final Graphics graphic) {
         super.paintComponent(graphic);
-        diagram.paint((Graphics2D)graphic);
+        diagram.paint((Graphics2D) graphic);
     }
-    
+
 }

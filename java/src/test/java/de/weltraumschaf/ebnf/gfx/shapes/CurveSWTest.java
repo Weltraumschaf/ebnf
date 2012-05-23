@@ -42,8 +42,8 @@ public class CurveSWTest {
     @Test public void createArc() {
         final CurveSW curve = new CurveSW();
         final Arc2D arc = curve.createArc();
-        assertEquals(0, (int)arc.getAngleStart());
-        assertEquals(90, (int)arc.getAngleExtent());
+        assertEquals(0, (int) arc.getAngleStart());
+        assertEquals(90, (int) arc.getAngleExtent());
     }
-    
+
 }

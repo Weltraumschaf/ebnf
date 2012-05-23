@@ -42,7 +42,7 @@ public class CurveSETest {
     @Test public void createArc() {
         final CurveSE curve = new CurveSE();
         final Arc2D arc = curve.createArc();
-        assertEquals(90, (int)arc.getAngleStart());
-        assertEquals(90, (int)arc.getAngleExtent());
+        assertEquals(90, (int) arc.getAngleStart());
+        assertEquals(90, (int) arc.getAngleExtent());
     }
 }

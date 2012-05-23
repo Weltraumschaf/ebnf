@@ -21,9 +21,13 @@ import com.google.common.base.Objects;
 public class Point {
 
     /**
-     * Immutable coordinates.
+     * Immutable x coordinate.
      */
-    public final int x, y; //NOPMD
+    public final int x;
+    /**
+     * Immutable x coordinate.
+     */
+    public final int y;
 
     /**
      * Initializes a point with coordinates (0, 0).

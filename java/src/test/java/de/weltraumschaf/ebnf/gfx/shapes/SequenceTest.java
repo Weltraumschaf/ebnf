@@ -57,8 +57,11 @@ public class SequenceTest {
     }
 
     @Test public void testSetShape() {
-        final Shape empty0 = empty(), empty1 = empty(), empty2 = empty(),
-                    empty3 = empty(), empty7 = empty();
+        final Shape empty0 = empty();
+        final Shape empty1 = empty();
+        final Shape empty2 = empty();
+        final Shape empty3 = empty();
+        final Shape empty7 = empty();
         final Sequence sequence = sequence();
         assertEquals(0, sequence.countShapes());
 

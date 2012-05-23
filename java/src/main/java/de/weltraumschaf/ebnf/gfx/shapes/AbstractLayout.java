@@ -27,7 +27,7 @@ public abstract class AbstractLayout extends AbstractShape implements Adjustable
 
     protected void adjustShape(final Shape shape, final Graphics2D graphics) {
         try {
-            ((Adjustable)shape).adjust(graphics);
+            ((Adjustable) shape).adjust(graphics);
         } catch (ClassCastException ex) { // NOPMD
             // Not adjustable
         }

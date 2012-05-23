@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-abstract public class AbstractTextShape extends Empty implements Adjustable {
+public abstract class AbstractTextShape extends Empty implements Adjustable {
 
     protected static final int H_PADDING = 5;
     private static final Font DEFUALT_FONT = StringPainter.SANSERIF;
@@ -57,7 +57,7 @@ abstract public class AbstractTextShape extends Empty implements Adjustable {
         }
 
         final int minWidth = (boxWidth + 2 * H_PADDING);
-        final int emtpyShapeCount = (int)Math.ceil(minWidth / DEFAULT_WIDTH) + 1;
+        final int emtpyShapeCount = (int) Math.ceil(minWidth / DEFAULT_WIDTH) + 1;
         return DEFAULT_WIDTH * emtpyShapeCount;
     }
 
@@ -73,8 +73,8 @@ abstract public class AbstractTextShape extends Empty implements Adjustable {
         if (null == textSize) {
             final Rectangle2D textBounds = font.getStringBounds(getText(),
                                                                 graphic.getFontRenderContext());
-            textSize = new Dimension((int)Math.ceil(textBounds.getWidth()),
-                                     (int)Math.ceil(textBounds.getHeight()));
+            textSize = new Dimension((int) Math.ceil(textBounds.getWidth()),
+                                     (int) Math.ceil(textBounds.getHeight()));
         }
         return textSize;
     }

@@ -33,7 +33,7 @@ public class TestShape extends Empty {
         graphic.setStroke(Strokes.createForDebug());
 
         for (int i = 0; i < size.width; ++i) {
-            for(int j = 0; j < size.height; j++) {
+            for (int j = 0; j < size.height; j++) {
                 final int xPosition = pos.x + i;
                 final int yPosition = pos.y + j;
 

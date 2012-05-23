@@ -28,6 +28,6 @@ public interface Adjustable {
      *
      * @param graphic Graphic context used for font measuring.
      */
-    public void adjust(final Graphics2D graphic);
+    void adjust(final Graphics2D graphic);
 
 }

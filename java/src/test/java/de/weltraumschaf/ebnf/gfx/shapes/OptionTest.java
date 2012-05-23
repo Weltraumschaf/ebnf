@@ -25,7 +25,8 @@ public class OptionTest {
 
     @Test public void setOptional() {
         final Option option = new Option();
-        ColumnLayout split, join;
+        ColumnLayout split;
+        ColumnLayout join;
 
         assertEquals(2, option.grid.counRows());
         assertEquals(3, option.grid.countCols());
@@ -36,10 +37,10 @@ public class OptionTest {
         assertTrue(option.grid.get(1, 1) instanceof StraightWE);
         assertTrue(option.grid.get(2, 1) instanceof CurveNW);
 
-        split = (ColumnLayout)option.grid.get(0, 0);
+        split = (ColumnLayout) option.grid.get(0, 0);
         assertEquals(1, split.countShapes());
         assertTrue(split.get(0) instanceof HForkSW);
-        join = (ColumnLayout)option.grid.get(2, 0);
+        join = (ColumnLayout) option.grid.get(2, 0);
         assertEquals(1, join.countShapes());
         assertTrue(join.get(0) instanceof HForkSE);
 
@@ -67,12 +68,12 @@ public class OptionTest {
         assertTrue(option.grid.get(1, 1) instanceof StraightWE);
         assertTrue(option.grid.get(2, 1) instanceof CurveNW);
 
-        split = (ColumnLayout)option.grid.get(0, 0);
+        split = (ColumnLayout) option.grid.get(0, 0);
         assertEquals(3, split.countShapes());
         assertTrue(split.get(0) instanceof HForkSW);
         assertTrue(split.get(1) instanceof StraightNS);
         assertTrue(split.get(2) instanceof StraightNS);
-        join = (ColumnLayout)option.grid.get(2, 0);
+        join = (ColumnLayout) option.grid.get(2, 0);
         assertEquals(3, join.countShapes());
         assertTrue(join.get(0) instanceof HForkSE);
         assertTrue(join.get(1) instanceof StraightNS);

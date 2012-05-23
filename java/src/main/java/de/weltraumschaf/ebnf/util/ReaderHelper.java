@@ -10,7 +10,7 @@ import java.net.URI;
  */
 public final class ReaderHelper {
 
-    private ReaderHelper() {}
+    private ReaderHelper() { }
 
     /**
      * Creates a source file from the file specified by an {@link URI} object.

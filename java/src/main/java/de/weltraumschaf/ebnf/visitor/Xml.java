@@ -69,7 +69,7 @@ public class Xml implements Visitor {
 
     /**
      * Creates opening tag.
-     * 
+     *
      * @param name The tag name.
      * @return      The tag string.
      */
@@ -186,7 +186,7 @@ public class Xml implements Visitor {
     public void visit(final Node visitable) {
         boolean block = false;
 
-        if (visitable instanceof Composite && ((Composite)visitable).hasChildren()) {
+        if (visitable instanceof Composite && ((Composite) visitable).hasChildren()) {
             block = true;
         }
 
@@ -195,7 +195,7 @@ public class Xml implements Visitor {
         append(createOpenTag(visitable.getNodeName(), extractAttributes(visitable), block));
 
 
-        if (visitable instanceof Composite && ((Composite)visitable).hasChildren()) {
+        if (visitable instanceof Composite && ((Composite) visitable).hasChildren()) {
             indentationLevel++;
         }
     }
@@ -219,7 +219,7 @@ public class Xml implements Visitor {
      */
     @Override
     public void afterVisit(final Node visitable) {
-        if (visitable instanceof Composite && ((Composite)visitable).hasChildren()) {
+        if (visitable instanceof Composite && ((Composite) visitable).hasChildren()) {
             indentationLevel--;
             append("\n");
             append(indent());

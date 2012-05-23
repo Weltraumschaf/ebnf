@@ -52,7 +52,7 @@ public class Empty extends AbstractShape {
             }
 
             private void drawHorizontalLines(final Graphics2D graphic) {
-                final int step = (int)Math.ceil(DEFAULT_HEIGHT / 2);
+                final int step = (int) Math.ceil(DEFAULT_HEIGHT / 2);
                 final int maxYPosition = pos.y + size.height - 1;
 
                 for (int yPosition = pos.y + step; yPosition < maxYPosition; yPosition += step) {
@@ -61,11 +61,11 @@ public class Empty extends AbstractShape {
             }
 
             private void drawVerticalLines(final Graphics2D graphic) {
-                final int step = (int)Math.ceil(DEFAULT_WIDTH / 2);
+                final int step = (int) Math.ceil(DEFAULT_WIDTH / 2);
                 final int maxXPosition = pos.x + size.width - 1;
 
                 for (int xPosition = pos.x + step; xPosition < maxXPosition; xPosition += step) {
-                    graphic.drawLine(xPosition, pos.y, xPosition, pos.y + size.height -1);
+                    graphic.drawLine(xPosition, pos.y, xPosition, pos.y + size.height - 1);
                 }
             }
         });

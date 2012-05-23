@@ -27,7 +27,8 @@ public class Choice extends AbstractCompund {
 
     public Choice addChoice(final Shape shape) {
         final int rowCount = grid.counRows();
-        Shape first, last;
+        Shape first;
+        Shape last;
 
         if (rowCount == 0) {
             first = new HForkSW();

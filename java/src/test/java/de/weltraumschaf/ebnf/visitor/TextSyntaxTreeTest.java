@@ -119,7 +119,7 @@ public class TextSyntaxTreeTest {
         assertEquals(expected, visitor.getMatrix());
     }
 
-    @Test public void testGenerateText() throws FileNotFoundException, URISyntaxException, IOException, SyntaxException {
+    @Test public void testGenerateText() throws URISyntaxException, IOException, SyntaxException {
         TextSyntaxTree visitor = new TextSyntaxTree();
         Syntax ast = syntax("foo").build();
         ast.accept(visitor);

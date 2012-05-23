@@ -26,7 +26,7 @@ public final class Loop extends AbstractComposite {
 
     /**
      * Creates new loop node.
-     * 
+     *
      * @param parent The parent node.
      * @return        New instance.
      */

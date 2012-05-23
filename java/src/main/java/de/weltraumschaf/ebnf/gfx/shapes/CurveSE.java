@@ -38,5 +38,5 @@ public class CurveSE extends AbstractCurve {
         final Dimension size = getSize();
         return new Dimension(size.width + 1, size.height + 1);
     }
-    
+
 }

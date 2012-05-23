@@ -12,6 +12,13 @@ import de.weltraumschaf.ebnf.util.ScannerHelper;
 public class Token {
 
     /**
+     * Maximum length of token value displayd in human readable string representation.
+     *
+     * @see #toString()
+     */
+    private static final int MAX_VALUE_LENGTH = 15;
+
+    /**
      * One of the class constants.
      */
     private final TokenType type;
@@ -107,7 +114,6 @@ public class Token {
      */
     @Override
     public final String toString() {
-        final int MAX_VALUE_LENGTH = 15;
         final StringBuilder str = new StringBuilder("<");
 
         if (null != value && value.length() > 0) {

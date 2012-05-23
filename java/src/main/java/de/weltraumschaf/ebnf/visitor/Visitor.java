@@ -17,14 +17,14 @@ public interface Visitor {
      *
      * @param visitable Visited {@link Node}.
      */
-    public void beforeVisit(Node visitable);
+    void beforeVisit(Node visitable);
 
     /**
      * Generic visitor method called by a visited {@link Node}.
      *
      * @param visitable Visited {@link Node}.
      */
-    public void visit(Node visitable);
+    void visit(Node visitable);
 
     /**
      * Template method to hook in after specific node visitor method
@@ -32,6 +32,6 @@ public interface Visitor {
      *
      * @param visitable Visited {@link Node}.
      */
-    public void afterVisit(Node visitable);
+    void afterVisit(Node visitable);
 
 }

@@ -21,9 +21,13 @@ import com.google.common.base.Objects;
 public class Line {
 
     /**
-     * Start and end point.
+     * Start point of line.
      */
-    public final Point start, end;
+    public final Point start;
+    /**
+     * End point of line.
+     */
+    public final Point end;
 
     /**
      * Initializes a line with both start and end with points to (0, 0).
@@ -45,7 +49,7 @@ public class Line {
 
     /**
      * String representation.
-     * 
+     *
      * @return
      */
     @Override

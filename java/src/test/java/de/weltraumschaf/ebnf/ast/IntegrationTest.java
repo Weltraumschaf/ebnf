@@ -187,7 +187,9 @@ public class IntegrationTest {
     }
 
     @Test public void testProbeEquivalenceSyntaxWithRulesAndSubnodes() { //NOPMD
-        Syntax syntax1, syntax2;
+        Syntax syntax1;
+        Syntax syntax2;
+
         syntax1 = syntax("foo", "bar")
             .rule("syntax") // NOPMD
                 .sequence()
@@ -233,7 +235,7 @@ public class IntegrationTest {
         assertTrue(notification.report(), notification.isOk());
         assertEquals("", notification.report());
 
-        syntax1 =syntax("foo", "bar")
+        syntax1 = syntax("foo", "bar")
             .rule("syntax")
                 .sequence()
                     .option()
@@ -272,22 +274,20 @@ public class IntegrationTest {
         notification = new Notification();
         syntax1.probeEquivalence(syntax2, notification);
         assertFalse(notification.isOk());
-        assertEquals(
-            "Titles of syntx differs: 'foo' != 'snafu'!\n" +
-            "Identifier value mismatch: 'title' != 'bla'!\n" +
-            "Identifier value mismatch: 'rule' != 'snafu'!\n" +
-            "Identifier value mismatch: 'comment' != 'blub'!",
+        assertEquals("Titles of syntx differs: 'foo' != 'snafu'!\n"
+                   + "Identifier value mismatch: 'title' != 'bla'!\n"
+                   + "Identifier value mismatch: 'rule' != 'snafu'!\n"
+                   + "Identifier value mismatch: 'comment' != 'blub'!",
             notification.report()
         );
 
         notification = new Notification();
         syntax2.probeEquivalence(syntax1, notification);
         assertFalse(notification.isOk());
-        assertEquals(
-            "Titles of syntx differs: 'snafu' != 'foo'!\n" +
-            "Identifier value mismatch: 'bla' != 'title'!\n" +
-            "Identifier value mismatch: 'snafu' != 'rule'!\n" +
-            "Identifier value mismatch: 'blub' != 'comment'!",
+        assertEquals("Titles of syntx differs: 'snafu' != 'foo'!\n"
+                   + "Identifier value mismatch: 'bla' != 'title'!\n"
+                   + "Identifier value mismatch: 'snafu' != 'rule'!\n"
+                   + "Identifier value mismatch: 'blub' != 'comment'!",
             notification.report()
         );
 

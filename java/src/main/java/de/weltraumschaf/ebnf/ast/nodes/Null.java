@@ -11,7 +11,8 @@ import de.weltraumschaf.ebnf.visitor.Visitor;
 public final class Null implements Node {
 
     private static final Null INSTANCE = new Null();
-    private Null() {}
+
+    private Null() { }
 
     /**
      * Returns always the same null instance.

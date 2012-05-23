@@ -78,13 +78,13 @@ public class AbstractCompund extends AbstractShape implements Adjustable {
 
     protected void extendColumnWithShape(final int height, final int[] colIndexs, final int rowIndex, final Class<? extends Shape> type) {
         if (DEFAULT_HEIGHT < height) {
-            final int count = (int)Math.ceil(height / DEFAULT_HEIGHT) - 1;
+            final int count = (int) Math.ceil(height / DEFAULT_HEIGHT) - 1;
 
             for (int i = 0; i < count; ++i) {
-                for (int j = 0 ; j < colIndexs.length; ++j) {
+                for (int j = 0; j < colIndexs.length; ++j) {
                     try {
                         final Shape filler = type.newInstance();
-                        ((ColumnLayout)grid.get(colIndexs[j], rowIndex)).append(filler);
+                        ((ColumnLayout) grid.get(colIndexs[j], rowIndex)).append(filler);
                     } catch (InstantiationException ex) {
                         throw new IllegalArgumentException("Can't instantiate shape of type: "
                                                            + type.getName() + "!", ex);

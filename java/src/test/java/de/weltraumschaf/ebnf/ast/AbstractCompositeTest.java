@@ -5,7 +5,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
-;
 
 /**
  * Unit test for AbstractComposite.

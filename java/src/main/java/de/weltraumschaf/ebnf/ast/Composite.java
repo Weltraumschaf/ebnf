@@ -15,27 +15,27 @@ public interface Composite {
      *
      * @return
      */
-    public int countChildren();
+    int countChildren();
 
     /**
      * Whether the node has direct child nodes or not.
      *
      * @return
      */
-    public boolean hasChildren();
+    boolean hasChildren();
 
     /**
      * Append a child {@link Node} to the list of children.
      *
      * @param child Child node to add.
      */
-    public void addChild(Node child);
+    void addChild(Node child);
 
     /**
      * Returns an iterator for the child nodes.
      *
      * @return
      */
-    public List<Node> getChildren();
+    List<Node> getChildren();
 
 }
