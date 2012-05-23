@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.parser;
 
 import java.util.Arrays;
 import java.util.List;

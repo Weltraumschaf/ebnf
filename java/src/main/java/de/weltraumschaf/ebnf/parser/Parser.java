@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.parser;
 
 import de.weltraumschaf.ebnf.ast.Node;
 import de.weltraumschaf.ebnf.ast.nodes.*;

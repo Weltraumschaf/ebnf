@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.parser;
 
 import de.weltraumschaf.ebnf.util.ScannerHelper;
 

@@ -12,6 +12,8 @@
 package de.weltraumschaf.ebnf;
 
 import com.google.common.io.Files;
+import de.weltraumschaf.ebnf.parser.Parser;
+import de.weltraumschaf.ebnf.parser.Scanner;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.parser;
 
 import static de.weltraumschaf.ebnf.TestHelper.helper;
 import de.weltraumschaf.ebnf.ast.Notification;

@@ -11,12 +11,11 @@
 
 package de.weltraumschaf.ebnf.visitor;
 
-import de.weltraumschaf.ebnf.Parser;
-import de.weltraumschaf.ebnf.SyntaxException;
 import static de.weltraumschaf.ebnf.TestHelper.helper;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.*;
-import java.io.FileNotFoundException;
+import de.weltraumschaf.ebnf.parser.Parser;
+import de.weltraumschaf.ebnf.parser.SyntaxException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
