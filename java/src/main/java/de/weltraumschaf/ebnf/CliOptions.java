@@ -39,11 +39,11 @@ public class CliOptions {
             if (cmd.hasOption(OPT_FORMAT)) {
                 final String formatOption = cmd.getOptionValue(OPT_FORMAT);
 
-                if (formatOption.equalsIgnoreCase("xml")) {
+                if ("xml".equalsIgnoreCase(formatOption)) {
                     outputFormat = OutputFormat.XML;
-                } else if (formatOption.equalsIgnoreCase("jpg")) {
+                } else if ("jpg".equalsIgnoreCase(formatOption)) {
                     outputFormat = OutputFormat.JPG;
-                } else if (formatOption.equalsIgnoreCase("gif")) {
+                } else if ("gif".equalsIgnoreCase(formatOption)) {
                     outputFormat = OutputFormat.GIF;
                 }
             }

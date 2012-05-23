@@ -23,10 +23,10 @@ import java.util.List;
  *     while (scanner->hasNextToken()) {
  *         scanner->nextToken();
  *         Token token = scanner->currentToken();
- *         System.out.println(token);
+ *         doSomething(token);
  *     }
  * } catch (SyntaxtError ex) {
- *      System.out.println(ex);
+ *      logError(ex);
  * }
  * </code>
  *
