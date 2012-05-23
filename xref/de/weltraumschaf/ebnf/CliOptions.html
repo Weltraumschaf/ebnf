@@ -49,11 +49,11 @@
 <a class="jxr_linenumber" name="39" href="#39">39</a>              <strong class="jxr_keyword">if</strong> (cmd.hasOption(OPT_FORMAT)) {
 <a class="jxr_linenumber" name="40" href="#40">40</a>                  <strong class="jxr_keyword">final</strong> String formatOption = cmd.getOptionValue(OPT_FORMAT);
 <a class="jxr_linenumber" name="41" href="#41">41</a>  
-<a class="jxr_linenumber" name="42" href="#42">42</a>                  <strong class="jxr_keyword">if</strong> (formatOption.equalsIgnoreCase(<span class="jxr_string">"xml"</span>)) {
+<a class="jxr_linenumber" name="42" href="#42">42</a>                  <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"xml"</span>.equalsIgnoreCase(formatOption)) {
 <a class="jxr_linenumber" name="43" href="#43">43</a>                      outputFormat = OutputFormat.XML;
-<a class="jxr_linenumber" name="44" href="#44">44</a>                  } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (formatOption.equalsIgnoreCase(<span class="jxr_string">"jpg"</span>)) {
+<a class="jxr_linenumber" name="44" href="#44">44</a>                  } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"jpg"</span>.equalsIgnoreCase(formatOption)) {
 <a class="jxr_linenumber" name="45" href="#45">45</a>                      outputFormat = OutputFormat.JPG;
-<a class="jxr_linenumber" name="46" href="#46">46</a>                  } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (formatOption.equalsIgnoreCase(<span class="jxr_string">"gif"</span>)) {
+<a class="jxr_linenumber" name="46" href="#46">46</a>                  } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"gif"</span>.equalsIgnoreCase(formatOption)) {
 <a class="jxr_linenumber" name="47" href="#47">47</a>                      outputFormat = OutputFormat.GIF;
 <a class="jxr_linenumber" name="48" href="#48">48</a>                  }
 <a class="jxr_linenumber" name="49" href="#49">49</a>              }
