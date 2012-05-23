@@ -47,7 +47,19 @@ public class TestShape extends Empty {
     }
 
     protected boolean shouldPaint(final int horizIteration, final int verticalIteration) {
-        if (horizIteration % 2 == 1 && verticalIteration % 2 == 1) {
+        if (horizIteration < 0) {
+            throw new IllegalArgumentException(String.format(
+                    "Passed horizIteration must be greater equal than 0! %d given.",
+                    horizIteration));
+        }
+
+        if (verticalIteration < 0) {
+            throw new IllegalArgumentException(String.format(
+                    "Passed verticalIteration must be greater equal than 0! %d given.",
+                    verticalIteration));
+        }
+
+        if (horizIteration % 2 == 1 && verticalIteration % 2 == 1) { // NOPMD Negative arguments throw excpetions.
             return true;
         }
 

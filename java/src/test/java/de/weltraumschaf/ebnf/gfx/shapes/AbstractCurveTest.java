@@ -17,8 +17,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
-import static org.mockito.Mockito.*;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -28,7 +28,8 @@ public class AbstractCurveTest {
 
     private static final Arc2D ARC = mock(Arc2D.class);
 
-    private class CurveStub extends AbstractCurve {
+    static class CurveStub extends AbstractCurve {
+
         @Override
         protected Arc2D createArc() {
             return ARC;
@@ -43,6 +44,7 @@ public class AbstractCurveTest {
         protected Dimension calcArcDimenson() {
             return new Dimension();
         }
+
     }
 
     @Test public void paint() {

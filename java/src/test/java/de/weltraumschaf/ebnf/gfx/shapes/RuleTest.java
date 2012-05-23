@@ -25,7 +25,7 @@ import org.junit.Test;
  */
 public class RuleTest {
 
-    class RuleStub extends Rule {
+    static class RuleStub extends Rule {
 
         Dimension calcTextSize = new Dimension();
 

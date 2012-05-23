@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
  */
 public class ScannerTest {
 
-    class Expectation {
+    static class Expectation {
 
         private final String value;
         private final TokenType type;

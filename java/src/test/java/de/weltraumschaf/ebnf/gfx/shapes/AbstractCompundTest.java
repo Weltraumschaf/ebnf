@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
  */
 public class AbstractCompundTest {
 
-    class AbstractCompundStub extends AbstractCompund {
+    static class AbstractCompundStub extends AbstractCompund {
         public AbstractCompundStub(final GridLayout grid) {
             super(grid);
         }

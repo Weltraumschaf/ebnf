@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
  */
 public class DepthCalculatorTest {
 
-    class AbstractCompositeImpl extends AbstractComposite {
+    static class AbstractCompositeImpl extends AbstractComposite {
 
         @Override
         public String getNodeName() {

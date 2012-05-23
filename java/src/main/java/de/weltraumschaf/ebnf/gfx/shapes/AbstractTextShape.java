@@ -57,7 +57,7 @@ public abstract class AbstractTextShape extends Empty implements Adjustable {
         }
 
         final int minWidth = (boxWidth + 2 * H_PADDING);
-        final int emtpyShapeCount = (int) Math.ceil(minWidth / DEFAULT_WIDTH) + 1;
+        final int emtpyShapeCount = minWidth / DEFAULT_WIDTH + 1;
         return DEFAULT_WIDTH * emtpyShapeCount;
     }
 

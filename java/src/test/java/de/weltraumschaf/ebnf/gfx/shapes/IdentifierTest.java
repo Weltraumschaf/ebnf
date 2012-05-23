@@ -25,7 +25,7 @@ import org.junit.Test;
  */
 public class IdentifierTest {
 
-    class IdentifierStub extends Identifier {
+    static class IdentifierStub extends Identifier {
 
         Dimension calcTextSize = new Dimension();
 

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
  */
 public class AbstractCompositeTest {
 
-    class AbstractCompositeImpl extends AbstractComposite {
+    static class AbstractCompositeImpl extends AbstractComposite {
 
         @Override
         public String getNodeName() {

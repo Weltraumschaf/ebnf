@@ -11,13 +11,13 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
+import static de.weltraumschaf.ebnf.gfx.ShapeFactory.terminal;
 import de.weltraumschaf.ebnf.gfx.StringPainter;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 
 /**
  *
@@ -25,7 +25,7 @@ import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
  */
 public class TerminalTest {
 
-    class TerminalStub extends Terminal {
+    static class TerminalStub extends Terminal {
 
         Dimension calcTextSize = new Dimension();
 

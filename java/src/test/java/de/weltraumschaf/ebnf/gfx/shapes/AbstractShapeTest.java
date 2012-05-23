@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
  */
 public class AbstractShapeTest {
 
-    class AbstractShapeImpl extends AbstractShape {
+    static class AbstractShapeImpl extends AbstractShape {
         @Override
         public void paint(final Graphics2D graphic) {
             // Only a stub.

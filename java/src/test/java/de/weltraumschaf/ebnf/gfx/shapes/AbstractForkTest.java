@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
  */
 public class AbstractForkTest {
 
-    class AbstractForkStub extends AbstractFork {
+    static class AbstractForkStub extends AbstractFork {
         public AbstractForkStub(final Empty straight, final Empty curve) {
             super(straight, curve);
         }

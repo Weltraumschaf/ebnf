@@ -13,26 +13,6 @@ import org.junit.Test;
  */
 public class IntegrationTest {
 
-    @Test public void testThatNodeIsComposite() {
-        final Choice choice = Choice.newInstance();
-        assertTrue(choice instanceof Composite);
-
-        final Loop loop = Loop.newInstance();
-        assertTrue(loop instanceof Composite);
-
-        final Option option = Option.newInstance();
-        assertTrue(option instanceof Composite);
-
-        final Rule rule = Rule.newInstance();
-        assertTrue(rule instanceof Composite);
-
-        final Sequence seq = Sequence.newInstance();
-        assertTrue(seq instanceof Composite);
-
-        final Syntax syntax = Syntax.newInstance();
-        assertTrue(syntax instanceof Composite);
-    }
-
     @Test public void testIntegration() {
         final Syntax syntax = Syntax.newInstance("foo", "bar"); // NOPMD
         List<Node> children = syntax.getChildren();
@@ -121,7 +101,6 @@ public class IntegrationTest {
                     + " != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!");
         final Syntax stub = Syntax.newInstance();
         final Node mock = Rule.newInstance(stub);
-        assertFalse(mock instanceof Syntax);
         notification = new Notification();
         stub.probeEquivalence(mock, notification);
         assertFalse(notification.isOk());

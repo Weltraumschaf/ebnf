@@ -19,7 +19,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.*;
  */
 public class AbstractTextShapeTest {
 
-    class AbstractTextShapeStub extends AbstractTextShape {
+    static class AbstractTextShapeStub extends AbstractTextShape {
 
         public AbstractTextShapeStub(final String text, final Font font) {
             super(text, font);

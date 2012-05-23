@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
  */
 public class AbstractEndpointTest {
 
-    class AbstractEndpointImpl extends AbstractEndpoint {
+    static class AbstractEndpointImpl extends AbstractEndpoint {
 
     }
 
