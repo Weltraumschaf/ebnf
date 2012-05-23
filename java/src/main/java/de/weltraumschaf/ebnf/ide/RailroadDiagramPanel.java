@@ -9,8 +9,9 @@
  *
  */
 
-package de.weltraumschaf.ebnf.gfx;
+package de.weltraumschaf.ebnf.ide;
 
+import de.weltraumschaf.ebnf.gfx.RailroadDiagram;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
