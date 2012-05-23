@@ -4,5 +4,6 @@ de.weltraumschaf.ebnf.ast.nodes
 de.weltraumschaf.ebnf
 de.weltraumschaf.ebnf.gfx
 de.weltraumschaf.ebnf.gfx.shapes
+de.weltraumschaf.ebnf.parser
 de.weltraumschaf.ebnf.util
 de.weltraumschaf.ebnf.visitor

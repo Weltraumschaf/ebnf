@@ -8,7 +8,7 @@
     <language>en-us</language>
     <copyright>&#169;2012 Weltraumschaf</copyright>
     <item>
-      <title>File: 147,
+      <title>File: 148,
              Errors: 35,
              Warnings: 0,
              Infos: 0
@@ -127,6 +127,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.Parser.java">de/weltraumschaf/ebnf/parser/Parser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.OptionTest.java">de/weltraumschaf/ebnf/gfx/shapes/OptionTest.java</a>
                 </td>
                 <td>
@@ -165,20 +179,6 @@
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ScannerTest.java">de/weltraumschaf/ebnf/ScannerTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
               </tr>
                           <tr>
@@ -295,6 +295,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.Scanner.java">de/weltraumschaf/ebnf/parser/Scanner.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCurveTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCurveTest.java</a>
                 </td>
                 <td>
@@ -351,6 +365,34 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.TokenType.java">de/weltraumschaf/ebnf/parser/TokenType.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.SyntaxExceptionTest.java">de/weltraumschaf/ebnf/parser/SyntaxExceptionTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.util.package-info.java">de/weltraumschaf/ebnf/util/package-info.java</a>
                 </td>
                 <td>
@@ -366,6 +408,20 @@
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Loop.java">de/weltraumschaf/ebnf/gfx/shapes/Loop.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.Position.java">de/weltraumschaf/ebnf/parser/Position.java</a>
                 </td>
                 <td>
                   0
@@ -463,20 +519,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.SyntaxExceptionTest.java">de/weltraumschaf/ebnf/SyntaxExceptionTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.SequenceTest.java">de/weltraumschaf/ebnf/ast/nodes/SequenceTest.java</a>
                 </td>
                 <td>
@@ -501,6 +543,20 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.ParserTest.java">de/weltraumschaf/ebnf/parser/ParserTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>
@@ -575,6 +631,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.TokenTest.java">de/weltraumschaf/ebnf/parser/TokenTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkSW.java">de/weltraumschaf/ebnf/gfx/shapes/HForkSW.java</a>
                 </td>
                 <td>
@@ -617,6 +687,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.DepthCalculatorTest.java">de/weltraumschaf/ebnf/ast/DepthCalculatorTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractTextShape.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractTextShape.java</a>
                 </td>
                 <td>
@@ -632,20 +716,6 @@
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkNE.java">de/weltraumschaf/ebnf/gfx/shapes/HForkNE.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.DepthCalculatorTest.java">de/weltraumschaf/ebnf/ast/DepthCalculatorTest.java</a>
                 </td>
                 <td>
                   0
@@ -730,6 +800,20 @@
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Sequence.java">de/weltraumschaf/ebnf/ast/nodes/Sequence.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.Token.java">de/weltraumschaf/ebnf/parser/Token.java</a>
                 </td>
                 <td>
                   0
@@ -855,7 +939,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.RailroadDiagramImage.java">de/weltraumschaf/ebnf/gfx/RailroadDiagramImage.java</a>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.SyntaxException.java">de/weltraumschaf/ebnf/parser/SyntaxException.java</a>
                 </td>
                 <td>
                   0
@@ -869,7 +953,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.Parser.java">de/weltraumschaf/ebnf/Parser.java</a>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.gfx.RailroadDiagramImage.java">de/weltraumschaf/ebnf/gfx/RailroadDiagramImage.java</a>
                 </td>
                 <td>
                   0
@@ -967,20 +1051,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.PositionTest.java">de/weltraumschaf/ebnf/PositionTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.IntegrationTest.java">de/weltraumschaf/ebnf/ast/IntegrationTest.java</a>
                 </td>
                 <td>
@@ -1047,6 +1117,20 @@
                 </td>
                 <td>
                   3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.PositionTest.java">de/weltraumschaf/ebnf/parser/PositionTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -1201,34 +1285,6 @@
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.Position.java">de/weltraumschaf/ebnf/Position.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.Scanner.java">de/weltraumschaf/ebnf/Scanner.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
               </tr>
                           <tr>
@@ -1527,63 +1583,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.Token.java">de/weltraumschaf/ebnf/Token.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.NullTest.java">de/weltraumschaf/ebnf/ast/nodes/NullTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.SyntaxException.java">de/weltraumschaf/ebnf/SyntaxException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ParserTest.java">de/weltraumschaf/ebnf/ParserTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.TokenType.java">de/weltraumschaf/ebnf/TokenType.java</a>
                 </td>
                 <td>
                   0
@@ -1667,20 +1667,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.TokenTest.java">de/weltraumschaf/ebnf/TokenTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.OutputFormat.java">de/weltraumschaf/ebnf/OutputFormat.java</a>
                 </td>
                 <td>
@@ -1747,6 +1733,20 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.ScannerTest.java">de/weltraumschaf/ebnf/parser/ScannerTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
               </tr>
                           <tr>
@@ -1906,6 +1906,20 @@
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.ast.builder.package-info.java">de/weltraumschaf/ebnf/ast/builder/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#de.weltraumschaf.ebnf.parser.package-info.java">de/weltraumschaf/ebnf/parser/package-info.java</a>
                 </td>
                 <td>
                   0
