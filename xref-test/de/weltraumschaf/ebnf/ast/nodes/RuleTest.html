@@ -42,9 +42,9 @@
 <a class="jxr_linenumber" name="32" href="#32">32</a>          <strong class="jxr_keyword">final</strong> Node node2 = mock(Node.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="33" href="#33">33</a>          when(node2.toString()).thenReturn(<span class="jxr_string">"&lt;bar&gt;"</span>);
 <a class="jxr_linenumber" name="34" href="#34">34</a>          rule.addChild(node2);
-<a class="jxr_linenumber" name="35" href="#35">35</a>          assertEquals(<span class="jxr_string">"&lt;RULE name=foo&gt;\n"</span> +
-<a class="jxr_linenumber" name="36" href="#36">36</a>                       <span class="jxr_string">"&lt;foo&gt;\n"</span> +
-<a class="jxr_linenumber" name="37" href="#37">37</a>                       <span class="jxr_string">"&lt;bar&gt;"</span>, rule.toString());
+<a class="jxr_linenumber" name="35" href="#35">35</a>          assertEquals(<span class="jxr_string">"&lt;RULE name=foo&gt;\n"</span>
+<a class="jxr_linenumber" name="36" href="#36">36</a>                     + <span class="jxr_string">"&lt;foo&gt;\n"</span>
+<a class="jxr_linenumber" name="37" href="#37">37</a>                     + <span class="jxr_string">"&lt;bar&gt;"</span>, rule.toString());
 <a class="jxr_linenumber" name="38" href="#38">38</a>      }
 <a class="jxr_linenumber" name="39" href="#39">39</a>  }
 </pre>

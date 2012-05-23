@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
-<duplication lines="31" tokens="218">
-<file line="34" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Identifier.java"/>
-<file line="37" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Terminal.java"/>
+<duplication lines="31" tokens="222">
+<file line="37" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Identifier.java"/>
+<file line="43" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Terminal.java"/>
 <codefragment>
 <![CDATA[
         return new Dimension(textSize.width + H_PADDING * 2, textSize.height);
@@ -25,11 +25,11 @@
         final int vCenter   = getCenterY();
         final int hPaddingp = (size.width - boxSize.width) / 2;
         final int vPadding  = (size.height - boxSize.height) / 2;
-        final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding),
-                    inLineStart       = new Point(pos.x, vCenter),
-                    inLineEnd         = new Point(pos.x + hPaddingp, vCenter),
-                    outLineStart      = new Point(pos.x + hPaddingp + boxSize.width, vCenter),
-                    outLineEnd        = new Point(pos.x + size.width, vCenter);
+        final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding);
+        final Point inLineStart       = new Point(pos.x, vCenter);
+        final Point inLineEnd         = new Point(pos.x + hPaddingp, vCenter);
+        final Point outLineStart      = new Point(pos.x + hPaddingp + boxSize.width, vCenter);
+        final Point outLineEnd        = new Point(pos.x + size.width, vCenter);
 
         super.paint(graphic);
         backupColorAndStroke(graphic);

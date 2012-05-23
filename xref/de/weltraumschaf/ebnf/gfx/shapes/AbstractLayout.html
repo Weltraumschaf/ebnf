@@ -37,7 +37,7 @@
 <a class="jxr_linenumber" name="27" href="#27">27</a>  
 <a class="jxr_linenumber" name="28" href="#28">28</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> adjustShape(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/weltraumschaf/ebnf/gfx/shapes/Shape.html">Shape</a> shape, <strong class="jxr_keyword">final</strong> Graphics2D graphics) {
 <a class="jxr_linenumber" name="29" href="#29">29</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="30" href="#30">30</a>              ((<a href="../../../../../de/weltraumschaf/ebnf/gfx/shapes/Adjustable.html">Adjustable</a>)shape).adjust(graphics);
+<a class="jxr_linenumber" name="30" href="#30">30</a>              ((<a href="../../../../../de/weltraumschaf/ebnf/gfx/shapes/Adjustable.html">Adjustable</a>) shape).adjust(graphics);
 <a class="jxr_linenumber" name="31" href="#31">31</a>          } <strong class="jxr_keyword">catch</strong> (ClassCastException ex) { <em class="jxr_comment">// NOPMD</em>
 <a class="jxr_linenumber" name="32" href="#32">32</a>              <em class="jxr_comment">// Not adjustable</em>
 <a class="jxr_linenumber" name="33" href="#33">33</a>          }

@@ -73,9 +73,9 @@
 <a class="jxr_linenumber" name="63" href="#63">63</a>                                             <span class="jxr_string">"EBNF defined in itself."</span>);
 <a class="jxr_linenumber" name="64" href="#64">64</a>          visitor = <strong class="jxr_keyword">new</strong> Xml();
 <a class="jxr_linenumber" name="65" href="#65">65</a>          syntax.accept(visitor);
-<a class="jxr_linenumber" name="66" href="#66">66</a>          assertEquals(
-<a class="jxr_linenumber" name="67" href="#67">67</a>              <span class="jxr_string">"&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;\n"</span> +
-<a class="jxr_linenumber" name="68" href="#68">68</a>              <span class="jxr_string">"&lt;syntax title=\&quot;xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3\&quot; meta=\&quot;EBNF defined in itself.\&quot;/&gt;"</span>,
+<a class="jxr_linenumber" name="66" href="#66">66</a>          assertEquals(<span class="jxr_string">"&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;\n"</span>
+<a class="jxr_linenumber" name="67" href="#67">67</a>                     + <span class="jxr_string">"&lt;syntax title=\&quot;xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ "</span>
+<a class="jxr_linenumber" name="68" href="#68">68</a>                     + <span class="jxr_string">"gpl3\&quot; meta=\&quot;EBNF defined in itself.\&quot;/&gt;"</span>,
 <a class="jxr_linenumber" name="69" href="#69">69</a>              visitor.getXmlString()
 <a class="jxr_linenumber" name="70" href="#70">70</a>          );
 <a class="jxr_linenumber" name="71" href="#71">71</a>  
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="91" href="#91">91</a>                      .choice()
 <a class="jxr_linenumber" name="92" href="#92">92</a>                          .terminal(<span class="jxr_string">"="</span>)
 <a class="jxr_linenumber" name="93" href="#93">93</a>                          .terminal(<span class="jxr_string">":"</span>)
-<a class="jxr_linenumber" name="94" href="#94">94</a>                          .terminal(<span class="jxr_string">":=="</span> )
+<a class="jxr_linenumber" name="94" href="#94">94</a>                          .terminal(<span class="jxr_string">":=="</span>)
 <a class="jxr_linenumber" name="95" href="#95">95</a>                      .end()
 <a class="jxr_linenumber" name="96" href="#96">96</a>                      .identifier(<span class="jxr_string">"expression"</span>)
 <a class="jxr_linenumber" name="97" href="#97">97</a>                      .choice()

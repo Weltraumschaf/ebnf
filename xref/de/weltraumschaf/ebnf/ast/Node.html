@@ -24,7 +24,7 @@
 <a class="jxr_linenumber" name="14" href="#14">14</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_javadoccomment">     * @return</em>
 <a class="jxr_linenumber" name="16" href="#16">16</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="17" href="#17">17</a>      <strong class="jxr_keyword">public</strong> String getNodeName();
+<a class="jxr_linenumber" name="17" href="#17">17</a>      String getNodeName();
 <a class="jxr_linenumber" name="18" href="#18">18</a>  
 <a class="jxr_linenumber" name="19" href="#19">19</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="20" href="#20">20</a>  <em class="jxr_javadoccomment">     * Defines method to accept {@link Visitor}.</em>
@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <em class="jxr_javadoccomment">     * @param visitor Object which visits the node.</em>
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="26" href="#26">26</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> accept(<a href="../../../../de/weltraumschaf/ebnf/visitor/Visitor.html">Visitor</a> visitor);
+<a class="jxr_linenumber" name="26" href="#26">26</a>      <strong class="jxr_keyword">void</strong> accept(<a href="../../../../de/weltraumschaf/ebnf/visitor/Visitor.html">Visitor</a> visitor);
 <a class="jxr_linenumber" name="27" href="#27">27</a>  
 <a class="jxr_linenumber" name="28" href="#28">28</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="29" href="#29">29</a>  <em class="jxr_javadoccomment">     * Probes equivalence of itself against an other node and collects all</em>
@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="32" href="#32">32</a>  <em class="jxr_javadoccomment">     * @param other  Node to compare against.</em>
 <a class="jxr_linenumber" name="33" href="#33">33</a>  <em class="jxr_javadoccomment">     * @param result Object which collects all equivalence violations.</em>
 <a class="jxr_linenumber" name="34" href="#34">34</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="35" href="#35">35</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> probeEquivalence(<a href="../../../../de/weltraumschaf/ebnf/ast/Node.html">Node</a> other, <a href="../../../../de/weltraumschaf/ebnf/ast/Notification.html">Notification</a> result);
+<a class="jxr_linenumber" name="35" href="#35">35</a>      <strong class="jxr_keyword">void</strong> probeEquivalence(<a href="../../../../de/weltraumschaf/ebnf/ast/Node.html">Node</a> other, <a href="../../../../de/weltraumschaf/ebnf/ast/Notification.html">Notification</a> result);
 <a class="jxr_linenumber" name="36" href="#36">36</a>  
 <a class="jxr_linenumber" name="37" href="#37">37</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="38" href="#38">38</a>  <em class="jxr_javadoccomment">     * Returns the depth of the node.</em>
@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="43" href="#43">43</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">     * @return</em>
 <a class="jxr_linenumber" name="45" href="#45">45</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="46" href="#46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> depth();
+<a class="jxr_linenumber" name="46" href="#46">46</a>      <strong class="jxr_keyword">int</strong> depth();
 <a class="jxr_linenumber" name="47" href="#47">47</a>  
 <a class="jxr_linenumber" name="48" href="#48">48</a>  }
 </pre>

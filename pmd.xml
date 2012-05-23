@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2012-05-23T12:41:00.671">
+<pmd version="4.3" timestamp="2012-05-23T16:37:49.837">
+<suppressedviolation filename="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/Scanner.java" suppressiontype="nopmd" msg="Avoid empty if statements" usermsg="
+"/>
 <suppressedviolation filename="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/AbstractLayout.java" suppressiontype="nopmd" msg="Avoid empty catch blocks" usermsg="
 "/>
 </pmd>

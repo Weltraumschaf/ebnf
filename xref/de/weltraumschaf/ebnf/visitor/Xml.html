@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="69" href="#69">69</a>  
 <a class="jxr_linenumber" name="70" href="#70">70</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="71" href="#71">71</a>  <em class="jxr_javadoccomment">     * Creates opening tag.</em>
-<a class="jxr_linenumber" name="72" href="#72">72</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="72" href="#72">72</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="73" href="#73">73</a>  <em class="jxr_javadoccomment">     * @param name The tag name.</em>
 <a class="jxr_linenumber" name="74" href="#74">74</a>  <em class="jxr_javadoccomment">     * @return      The tag string.</em>
 <a class="jxr_linenumber" name="75" href="#75">75</a>  <em class="jxr_javadoccomment">     */</em>
@@ -196,7 +196,7 @@
 <a class="jxr_linenumber" name="186" href="#186">186</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visit(<strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/ast/Node.html">Node</a> visitable) {
 <a class="jxr_linenumber" name="187" href="#187">187</a>         <strong class="jxr_keyword">boolean</strong> block = false;
 <a class="jxr_linenumber" name="188" href="#188">188</a> 
-<a class="jxr_linenumber" name="189" href="#189">189</a>         <strong class="jxr_keyword">if</strong> (visitable instanceof Composite &amp;&amp; ((Composite)visitable).hasChildren()) {
+<a class="jxr_linenumber" name="189" href="#189">189</a>         <strong class="jxr_keyword">if</strong> (visitable instanceof Composite &amp;&amp; ((Composite) visitable).hasChildren()) {
 <a class="jxr_linenumber" name="190" href="#190">190</a>             block = <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="191" href="#191">191</a>         }
 <a class="jxr_linenumber" name="192" href="#192">192</a> 
@@ -205,7 +205,7 @@
 <a class="jxr_linenumber" name="195" href="#195">195</a>         append(createOpenTag(visitable.getNodeName(), extractAttributes(visitable), block));
 <a class="jxr_linenumber" name="196" href="#196">196</a> 
 <a class="jxr_linenumber" name="197" href="#197">197</a> 
-<a class="jxr_linenumber" name="198" href="#198">198</a>         <strong class="jxr_keyword">if</strong> (visitable instanceof Composite &amp;&amp; ((Composite)visitable).hasChildren()) {
+<a class="jxr_linenumber" name="198" href="#198">198</a>         <strong class="jxr_keyword">if</strong> (visitable instanceof Composite &amp;&amp; ((Composite) visitable).hasChildren()) {
 <a class="jxr_linenumber" name="199" href="#199">199</a>             indentationLevel++;
 <a class="jxr_linenumber" name="200" href="#200">200</a>         }
 <a class="jxr_linenumber" name="201" href="#201">201</a>     }
@@ -229,7 +229,7 @@
 <a class="jxr_linenumber" name="219" href="#219">219</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="220" href="#220">220</a>     @Override
 <a class="jxr_linenumber" name="221" href="#221">221</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterVisit(<strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/ast/Node.html">Node</a> visitable) {
-<a class="jxr_linenumber" name="222" href="#222">222</a>         <strong class="jxr_keyword">if</strong> (visitable instanceof Composite &amp;&amp; ((Composite)visitable).hasChildren()) {
+<a class="jxr_linenumber" name="222" href="#222">222</a>         <strong class="jxr_keyword">if</strong> (visitable instanceof Composite &amp;&amp; ((Composite) visitable).hasChildren()) {
 <a class="jxr_linenumber" name="223" href="#223">223</a>             indentationLevel--;
 <a class="jxr_linenumber" name="224" href="#224">224</a>             append(<span class="jxr_string">"\n"</span>);
 <a class="jxr_linenumber" name="225" href="#225">225</a>             append(indent());
