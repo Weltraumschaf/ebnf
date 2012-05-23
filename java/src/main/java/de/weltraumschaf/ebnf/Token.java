@@ -44,7 +44,7 @@ public class Token {
      *
      * @return The token type.
      */
-    public TokenType getType() {
+    public final TokenType getType() {
         return type;
     }
 
@@ -53,7 +53,7 @@ public class Token {
      *
      * @return The token value.
      */
-    public String getValue() {
+    public final String getValue() {
         return getValue(false);
     }
 
@@ -63,7 +63,7 @@ public class Token {
      * @param unquote Whether to unquote a literal value.
      * @return         The token value.
      */
-    public String getValue(final boolean unquote) {
+    public final String getValue(final boolean unquote) {
         if (unquote) {
             return unquoteString(value);
         }
@@ -76,7 +76,7 @@ public class Token {
      *
      * @return The token position.
      */
-    public Position getPosition() {
+    public final Position getPosition() {
         return getPosition(false);
     }
 
@@ -86,7 +86,7 @@ public class Token {
      * @param end If true the tokens end position is returned instead of the start.
      * @return     The token position.
      */
-    public Position getPosition(final boolean end) {
+    public final Position getPosition(final boolean end) {
         if (end) {
             return new Position(
                 position.getLine(),
@@ -106,14 +106,15 @@ public class Token {
      * @return String representation.
      */
     @Override
-    public String toString() {
+    public final String toString() {
+        final int MAX_VALUE_LENGTH = 15;
         final StringBuilder str = new StringBuilder("<");
 
         if (null != value && value.length() > 0) {
             str.append('\'');
 
-            if (value.length() > 15) {
-                str.append(value.substring(0, 15)).append("...");
+            if (value.length() > MAX_VALUE_LENGTH) {
+                str.append(value.substring(0, MAX_VALUE_LENGTH)).append("...");
             } else {
                 str.append(value);
             }
@@ -130,7 +131,7 @@ public class Token {
      *
      * @return True or false.
      */
-    public boolean isOperator() {
+    public final boolean isOperator() {
         switch (type) { // NOPMD
             case ASIGN:
             case CHOICE:
@@ -154,7 +155,7 @@ public class Token {
      * @param t The token type to check.
      * @return   True or false.
      */
-    public boolean isType(final TokenType t) {
+    public final boolean isType(final TokenType t) {
         return type.equals(t);
     }
 
@@ -164,7 +165,7 @@ public class Token {
      * @param others Array of strings to check against.
      * @return        True or false.
      */
-    public boolean isNotEquals(final String[] others) {
+    public final boolean isNotEquals(final String[] others) {
         return !isEquals(others);
     }
 
@@ -174,7 +175,7 @@ public class Token {
      * @param others Array of strings to check against.
      * @return        True or false.
      */
-    public boolean isEquals(final String[] others) {
+    public final boolean isEquals(final String[] others) {
         for (int i = 0; i < others.length; ++i) {
             if (isEqual(others[i])) {
                 return true;
@@ -190,7 +191,7 @@ public class Token {
      * @param other String to check against.
      * @return       True or false.
      */
-    public boolean isNotEqual(final String other) {
+    public final boolean isNotEqual(final String other) {
         return !isEqual(other);
     }
 
@@ -200,7 +201,7 @@ public class Token {
      * @param other String to check against.
      * @return       True or false.
      */
-    public boolean isEqual(final String other) {
+    public final boolean isEqual(final String other) {
         return value.equals(other);
     }
 

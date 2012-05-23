@@ -71,6 +71,7 @@ public class AbstractCompund extends AbstractShape implements Adjustable {
     protected void extendColumnWithEmpty(final int height, final int[] colIndexs, final int rowIndex) {
         extendColumnWithShape(height, colIndexs, rowIndex, Empty.class);
     }
+
     protected void extendColumnWithStraightNS(final int height, final int[] colIndexs, final int rowIndex) {
         extendColumnWithShape(height, colIndexs, rowIndex, StraightNS.class);
     }
@@ -85,9 +86,11 @@ public class AbstractCompund extends AbstractShape implements Adjustable {
                         final Shape filler = type.newInstance();
                         ((ColumnLayout)grid.get(colIndexs[j], rowIndex)).append(filler);
                     } catch (InstantiationException ex) {
-                        throw new IllegalArgumentException("Can't instantiate shape of type: " + type.getName() + "!", ex);
+                        throw new IllegalArgumentException("Can't instantiate shape of type: "
+                                                           + type.getName() + "!", ex);
                     } catch (IllegalAccessException ex) {
-                        throw new IllegalArgumentException("Can't access shape of type: " + type.getName() + "!", ex);
+                        throw new IllegalArgumentException("Can't access shape of type: "
+                                                           + type.getName() + "!", ex);
                     }
                 }
             }

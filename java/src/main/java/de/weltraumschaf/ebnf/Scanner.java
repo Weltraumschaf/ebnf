@@ -1,6 +1,6 @@
 package de.weltraumschaf.ebnf;
 
-import de.weltraumschaf.ebnf.util.ScannerHelper;
+import static de.weltraumschaf.ebnf.util.ScannerHelper.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +38,10 @@ public class Scanner {
      * End of file character.
      */
     public static final char EOF = (char) 0;
+    /**
+     * Special characters allowed in identifiers.
+     */
+    private static final char[] SPECIAL_CHARS =  {'-', '_'};
 
     /**
      * The input stream to read from.
@@ -84,21 +88,21 @@ public class Scanner {
     /**
      * Use this constructor if your input buffer has no file name associated.
      *
-     * @param input
+     * @param inputStream The input stream to scan.
      */
-    public Scanner(final BufferedReader input) {
-        this(input, null);
+    public Scanner(final BufferedReader inputStream) {
+        this(inputStream, null);
     }
 
     /**
      * Dedicated constructor.
      *
-     * @param input The input stream to scan.
-     * @param file  The file name associated with the scanned source.
+     * @param inputStream The input stream to scan.
+     * @param fileName    The file name associated with the scanned source.
      */
-    public Scanner(final BufferedReader input, final String file) {
-        this.input = input;
-        this.file  = file;
+    public Scanner(final BufferedReader inputStream, final String fileName) {
+        this.input = inputStream;
+        this.file  = fileName;
         currentCharacter = -1;
         currentToken     = -1;
         column = 0;
@@ -113,16 +117,16 @@ public class Scanner {
      *
      * May be null.
      *
-     * @return
+     * @return The associated file name or null if not scanning from a file.
      */
-    public String getFile() {
+    public final String getFile() {
         return file;
     }
 
     /**
      * Returns if there is a next character in the input stream.
      *
-     * @return
+     * @return If there is one more character.
      */
     private boolean hasNextCharacter() {
         return !atEof;
@@ -131,7 +135,7 @@ public class Scanner {
     /**
      * Increments the character cursor.
      *
-     * @return
+     * @throws IOException On IO errors caused by the input reader.
      */
     private void nextCharacter() throws IOException {
         if (currentCharacter > -1 && EOF == getCurrentCharacter()) {
@@ -155,7 +159,7 @@ public class Scanner {
     /**
      * Returns the character at the current cursor from the input stream.
      *
-     * @return
+     * @return The current character.
      */
     private char getCurrentCharacter() {
         try {
@@ -317,15 +321,15 @@ public class Scanner {
         while (hasNextCharacter()) {
             nextCharacter();
 
-            if (ScannerHelper.isAlpha(getCurrentCharacter())) {
+            if (isAlpha(getCurrentCharacter())) {
                 tokens.add(scanIdentifier());
                 currentToken++;
                 return;
-            } else if(ScannerHelper.isQuote(getCurrentCharacter())) {
+            } else if (isQuote(getCurrentCharacter())) {
                 tokens.add(scanLiteral());
                 currentToken++;
                 return;
-            } else if (ScannerHelper.isOperator(getCurrentCharacter())) {
+            } else if (isOperator(getCurrentCharacter())) {
                 if ('(' == getCurrentCharacter() && '*' == peekCharacter()) {
                     tokens.add(scanComment());
                 } else {
@@ -334,10 +338,12 @@ public class Scanner {
 
                 currentToken++;
                 return;
-            } else if (ScannerHelper.isWhiteSpace(getCurrentCharacter())) { // NOPMD
+            } else if (isWhiteSpace(getCurrentCharacter())) { // NOPMD
                 // Ignore white spaces.
             } else {
-                raiseError(String.format("Invalid character '%s' as %s", getCurrentCharacter(), createPosition()));
+                raiseError(String.format("Invalid character '%s' as %s",
+                                         getCurrentCharacter(),
+                                         createPosition()));
             }
 
             checkNewline();
@@ -360,8 +366,6 @@ public class Scanner {
         }
     }
 
-    private static final char[] SPECIAL_CHARS =  {'-', '_'};
-
     /**
      * Scans an identifier [a-zA-Z\-_].
      *
@@ -375,8 +379,8 @@ public class Scanner {
         while (hasNextCharacter()) {
             nextCharacter();
 
-            if (ScannerHelper.isAlphaNum(getCurrentCharacter()) ||
-                ScannerHelper.isEquals(getCurrentCharacter(), SPECIAL_CHARS)) {
+            if (isAlphaNum(getCurrentCharacter())
+                    || isEquals(getCurrentCharacter(), SPECIAL_CHARS)) {
                 value.append(getCurrentCharacter());
             } else {
                 backupCharacter();
@@ -403,7 +407,7 @@ public class Scanner {
             value.append(getCurrentCharacter());
 
             // Ensure that a lieral opened with " is not temrinated by ' and vice versa.
-            if (ScannerHelper.isQuote(getCurrentCharacter()) && getCurrentCharacter() == start) {
+            if (isQuote(getCurrentCharacter()) && getCurrentCharacter() == start) {
                 break;
             }
         }
@@ -458,7 +462,8 @@ public class Scanner {
                     nextCharacter();
 
                     if (getCurrentCharacter() != '=') {
-                        raiseError(String.format("Expecting '=' but seen '%s'", getCurrentCharacter()));
+                        raiseError(String.format("Expecting '=' but seen '%s'",
+                                   getCurrentCharacter()));
                     }
 
                     value.append(getCurrentCharacter());
@@ -490,7 +495,8 @@ public class Scanner {
             case '}': type = TokenType.R_BRACE; break;
             case '|': type = TokenType.CHOICE; break;
             default: {
-                raiseError(String.format("Unexpected operator character '%s'", getCurrentCharacter()));
+                raiseError(String.format("Unexpected operator character '%s'",
+                                         getCurrentCharacter()));
             }
         }
 

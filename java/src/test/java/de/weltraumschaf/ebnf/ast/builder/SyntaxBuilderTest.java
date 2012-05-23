@@ -12,7 +12,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Tests for all syntax builder classes: {@link SyntaxBuilder}, {@link RuleBuilder} and {@link Builder}.
+ * Tests for all syntax builder classes:
+ * {@link SyntaxBuilder}, {@link RuleBuilder} and {@link Builder}.
  *
  * Tests generating AST by using the internal DSL interface of the builder.
  *

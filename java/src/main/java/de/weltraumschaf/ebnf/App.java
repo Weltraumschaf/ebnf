@@ -11,55 +11,10 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * Main application class.
+ *
+ * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public class App {
-
-    /**
-     * Enumerates the exit codes with an associated error code number.
-     */
-    public enum ExitCode {
-        /**
-         * Exit code for everything ok.
-         */
-        OK(0),
-        /**
-         * Exit code for read errors.
-         */
-        READ_ERROR(1),
-        /**
-         * Exit code for missing syntax file.
-         */
-        NO_SYNTAX(2),
-        /**
-         * Exit code for syntax errors.
-         */
-        SYNTAX_ERROR(3),
-        /**
-         * Exit code for all other fatal errors.
-         */
-        FATAL_ERROR(-1);
-
-        /**
-         * The exit codes error code number.
-         */
-        private final int code;
-
-        private ExitCode(final int code) {
-            this.code    = code;
-        }
-
-        /**
-         * Returns the associated error code.
-         *
-         * Will be != 0 on error.
-         *
-         * @return The error code.
-         */
-        public int getCode() {
-            return code;
-        }
-
-    }
 
     private final String[] args;
 
@@ -111,7 +66,8 @@ public class App {
             parser  = new Parser(scanner);
             ast     = parser.parse();
         } catch (FileNotFoundException ex) {
-            System.out.println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
+            System.out.println(String.format("Can not read syntax file '%s'!",
+                                             options.getSyntaxFile()));
 
             if (options.isDebug()) {
                 ex.printStackTrace(System.out);
@@ -119,7 +75,8 @@ public class App {
 
             return ExitCode.READ_ERROR;
         } catch (IOException ex) {
-            System.out.println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
+            System.out.println(String.format("Can not read syntax file '%s'!",
+                                             options.getSyntaxFile()));
 
             if (options.isDebug()) {
                 ex.printStackTrace(System.out);

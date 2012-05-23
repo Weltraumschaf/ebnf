@@ -174,55 +174,59 @@ public class ScannerTest {
             new Expectation(null,      TokenType.EOF,     8, 1)
         ), "Rule with comment.");
 
-        assertTokens(helper().createSourceFromFixture("rules_with_different_assignment_ops.ebnf"), Arrays.asList(
-            new Expectation("\"Rules with different assignment operators.\"",
-                                        TokenType.LITERAL,    1, 1),
-            new Expectation("{",       TokenType.L_BRACE,   1, 46),
+        assertTokens(helper().createSourceFromFixture("rules_with_different_assignment_ops.ebnf"),
+            Arrays.asList(
+                new Expectation("\"Rules with different assignment operators.\"",
+                                            TokenType.LITERAL,    1, 1),
+                new Expectation("{",        TokenType.L_BRACE,   1, 46),
 
-            new Expectation("comment1",TokenType.IDENTIFIER, 2, 5),
-            new Expectation("=",       TokenType.ASIGN,   2, 14),
-            new Expectation("literal1",TokenType.IDENTIFIER, 2, 18),
-            new Expectation(".",       TokenType.END_OF_RULE,   2, 27),
+                new Expectation("comment1", TokenType.IDENTIFIER, 2, 5),
+                new Expectation("=",        TokenType.ASIGN,   2, 14),
+                new Expectation("literal1", TokenType.IDENTIFIER, 2, 18),
+                new Expectation(".",        TokenType.END_OF_RULE,   2, 27),
 
-            new Expectation("comment2",TokenType.IDENTIFIER, 3, 5),
-            new Expectation(":",       TokenType.ASIGN,   3, 14),
-            new Expectation("literal2",TokenType.IDENTIFIER, 3, 18),
-            new Expectation(".",       TokenType.END_OF_RULE,   3, 27),
+                new Expectation("comment2", TokenType.IDENTIFIER, 3, 5),
+                new Expectation(":",        TokenType.ASIGN,   3, 14),
+                new Expectation("literal2", TokenType.IDENTIFIER, 3, 18),
+                new Expectation(".",        TokenType.END_OF_RULE,   3, 27),
 
-            new Expectation("comment3",TokenType.IDENTIFIER, 4, 5),
-            new Expectation(":==",     TokenType.ASIGN,   4, 14),
-            new Expectation("literal3",TokenType.IDENTIFIER, 4, 18),
-            new Expectation(".",       TokenType.END_OF_RULE,   4, 27),
+                new Expectation("comment3", TokenType.IDENTIFIER, 4, 5),
+                new Expectation(":==",      TokenType.ASIGN,   4, 14),
+                new Expectation("literal3", TokenType.IDENTIFIER, 4, 18),
+                new Expectation(".",        TokenType.END_OF_RULE,   4, 27),
 
-            new Expectation("}",       TokenType.R_BRACE,   5, 1),
-            new Expectation(null,        TokenType.EOF,        5, 1)
-        ), "Assignemnt operators.");
+                new Expectation("}",        TokenType.R_BRACE,   5, 1),
+                new Expectation(null,       TokenType.EOF,        5, 1)
+            ),
+        "Assignemnt operators.");
 
-        assertTokens(helper().createSourceFromFixture("rules_with_literals.ebnf"), Arrays.asList(
-            new Expectation("\"Rules with literal.\"", TokenType.LITERAL,    1, 1),
-            new Expectation("{",                     TokenType.L_BRACE,   1, 23),
+        assertTokens(helper().createSourceFromFixture("rules_with_literals.ebnf"),
+            Arrays.asList(
+                new Expectation("\"Rules with literal.\"", TokenType.LITERAL,    1, 1),
+                new Expectation("{",                     TokenType.L_BRACE,   1, 23),
 
-            new Expectation("literal",   TokenType.IDENTIFIER, 2, 5),
-            new Expectation("=",         TokenType.ASIGN,   2, 13),
-            new Expectation("\"\'\"",      TokenType.LITERAL,    2, 15), // NOPMD
-            new Expectation("character", TokenType.IDENTIFIER, 2, 19), // NOPMD
-            new Expectation("{",         TokenType.L_BRACE,   2, 29),
-            new Expectation("character", TokenType.IDENTIFIER, 2, 31),
-            new Expectation("}",         TokenType.R_BRACE,   2, 41),
-            new Expectation("\"\'\"",      TokenType.LITERAL,    2, 43),
+                new Expectation("literal",   TokenType.IDENTIFIER, 2, 5),
+                new Expectation("=",         TokenType.ASIGN,   2, 13),
+                new Expectation("\"\'\"",      TokenType.LITERAL,    2, 15), // NOPMD
+                new Expectation("character", TokenType.IDENTIFIER, 2, 19), // NOPMD
+                new Expectation("{",         TokenType.L_BRACE,   2, 29),
+                new Expectation("character", TokenType.IDENTIFIER, 2, 31),
+                new Expectation("}",         TokenType.R_BRACE,   2, 41),
+                new Expectation("\"\'\"",      TokenType.LITERAL,    2, 43),
 
-            new Expectation("|",         TokenType.CHOICE,   3, 13),
-            new Expectation("'\"'",      TokenType.LITERAL,    3, 15), // NOPMD
-            new Expectation("character", TokenType.IDENTIFIER, 3, 19),
-            new Expectation("{",         TokenType.L_BRACE,   3, 29),
-            new Expectation("character", TokenType.IDENTIFIER, 3, 31),
-            new Expectation("}",         TokenType.R_BRACE,   3, 41),
-            new Expectation("'\"'",      TokenType.LITERAL,    3, 43),
-            new Expectation(".",         TokenType.END_OF_RULE,   3, 47),
+                new Expectation("|",         TokenType.CHOICE,   3, 13),
+                new Expectation("'\"'",      TokenType.LITERAL,    3, 15), // NOPMD
+                new Expectation("character", TokenType.IDENTIFIER, 3, 19),
+                new Expectation("{",         TokenType.L_BRACE,   3, 29),
+                new Expectation("character", TokenType.IDENTIFIER, 3, 31),
+                new Expectation("}",         TokenType.R_BRACE,   3, 41),
+                new Expectation("'\"'",      TokenType.LITERAL,    3, 43),
+                new Expectation(".",         TokenType.END_OF_RULE,   3, 47),
 
-            new Expectation("}",       TokenType.R_BRACE,   4, 1),
-            new Expectation(null,        TokenType.EOF,        4, 1)
-        ), "Rules with literal.");
+                new Expectation("}",       TokenType.R_BRACE,   4, 1),
+                new Expectation(null,        TokenType.EOF,        4, 1)
+            ),
+        "Rules with literal.");
 
         assertTokens(helper().createSourceFromFixture("testgrammar_1.ebnf"), Arrays.asList(
             new Expectation("\"EBNF defined in itself.\"",   TokenType.LITERAL, 1, 1),

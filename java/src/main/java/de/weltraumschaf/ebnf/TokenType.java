@@ -2,65 +2,64 @@ package de.weltraumschaf.ebnf;
 
 /**
  * Defines all token types.
- * 
+ *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public enum TokenType {
     /**
-     * Type for literal tokens.
+     * Special type for literal tokens.
      */
     LITERAL,
     /**
-     * Type for comment tokens.
+     * Special type for comment tokens.
      */
     COMMENT,
     /**
-     * Type for identifier tokens.
+     * Special type for identifier tokens.
      */
     IDENTIFIER,
     /**
-     * Type for end of file token.
+     * Special type for end of file token.
      */
     EOF,
-    // Operator types:
     /**
-     * :== or : or =
+     * Operator types for: ':==' or ':' or '='.
      */
     ASIGN,
     /**
-     * . or ;
+     * Operator types for:  '.' or ';'.
      */
     END_OF_RULE,
     /**
-     * (
+     * Operator types for: '('.
      */
     L_PAREN,
     /**
-     * [
+     * Operator types for: '['.
      */
     L_BRACK,
     /**
-     * {
+     * Operator types for: '{'.
      */
     L_BRACE,
     /**
-     * )
+     * Operator types for: ')'.
      */
     R_PAREN,
     /**
-     * ]
+     * Operator types for: ']'.
      */
     R_BRACK,
     /**
-     * }
+     * Operator types for: '}'.
      */
     R_BRACE,
     /**
-     * ..
+     * Operator types for: '..'.
      */
     RANGE,
     /**
-     * |
+     * Operator types for: '|'.
      */
     CHOICE;
 }

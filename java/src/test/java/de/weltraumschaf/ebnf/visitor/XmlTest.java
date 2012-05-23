@@ -63,9 +63,9 @@ public class XmlTest {
                                            "EBNF defined in itself.");
         visitor = new Xml();
         syntax.accept(visitor);
-        assertEquals(
-            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-            "<syntax title=\"xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3\" meta=\"EBNF defined in itself.\"/>",
+        assertEquals("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                   + "<syntax title=\"xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ "
+                   + "gpl3\" meta=\"EBNF defined in itself.\"/>",
             visitor.getXmlString()
         );
 

@@ -59,7 +59,7 @@ public class SyntaxException extends EbnfException {
      *
      * @return
      */
-    public Position getPosition() {
+    public final Position getPosition() {
         return position;
     }
 
@@ -69,7 +69,7 @@ public class SyntaxException extends EbnfException {
      * @return
      */
     @Override
-    public String toString() {
+    public final String toString() {
         final StringBuilder str = new StringBuilder("Syntax error: ");
         str.append(getMessage())
            .append(" at ")

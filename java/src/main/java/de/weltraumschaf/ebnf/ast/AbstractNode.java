@@ -1,7 +1,8 @@
 package de.weltraumschaf.ebnf.ast;
 
 /**
- * Abstract representation of AST nodes which are not the {@link nodes.Syntax "root node"} but any other kind of {@link Node}.
+ * Abstract representation of AST nodes which are not the {@link nodes.Syntax "root node"}
+ * but any other kind of {@link Node}.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */

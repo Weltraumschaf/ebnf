@@ -54,16 +54,17 @@ public class AbstractCompositeTest {
         Notification notification = new Notification();
         comp.probeEquivalence(Terminal.newInstance(), notification);
         assertFalse(notification.isOk());
-        assertEquals(
-            "Probed node is not a composite node: 'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
+        assertEquals("Probed node is not a composite node: "
+                   + "'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
             notification.report()
         );
 
         notification = new Notification();
         comp.probeEquivalence(Rule.newInstance(), notification);
         assertFalse(notification.isOk());
-        assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.AbstractCompositeTest$AbstractCompositeImpl' != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!",
+        assertEquals("Probed node types mismatch: "
+            + "'class de.weltraumschaf.ebnf.ast.AbstractCompositeTest$AbstractCompositeImpl' "
+            + "!= 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!",
             notification.report()
         );
     }

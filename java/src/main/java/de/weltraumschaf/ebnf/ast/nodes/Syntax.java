@@ -35,6 +35,12 @@ public final class Syntax implements Node, Composite {
      */
     private final List<Node> nodes = new ArrayList<Node>();
 
+    private Syntax(final String title, final String meta) {
+        super();
+        this.title = title;
+        this.meta  = meta;
+    }
+
     /**
      * Creates a new syntax node with default meta and empty title.
      *
@@ -63,12 +69,6 @@ public final class Syntax implements Node, Composite {
      */
     public static Syntax newInstance(final String title, final String meta) {
         return new Syntax(title, meta);
-    }
-
-    private Syntax(final String title, final String meta) {
-        super();
-        this.title = title;
-        this.meta  = meta;
     }
 
     /**

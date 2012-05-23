@@ -78,7 +78,8 @@ public class GenericBuilder<P> {
     }
 
     /**
-     * Creates a {@link Choice} node and returns a sub builder for adding nodes to the {@link Choice} node.
+     * Creates a {@link Choice} node and returns a sub builder for adding nodes
+     * to the {@link Choice} node.
      *
      * @return
      */
@@ -89,7 +90,8 @@ public class GenericBuilder<P> {
     }
 
     /**
-     * Creates a {@link Loop} node and returns a sub builder for adding nodes to the {@link Loop} node.
+     * Creates a {@link Loop} node and returns a sub builder for adding nodes
+     * to the {@link Loop} node.
      *
      * @return
      */
@@ -100,7 +102,8 @@ public class GenericBuilder<P> {
     }
 
     /**
-     * Creates a {@link Option} node and returns a sub builder for adding nodes to the {@link Option} node.
+     * Creates a {@link Option} node and returns a sub builder for adding nodes
+     * to the {@link Option} node.
      *
      * @return
      */
@@ -111,7 +114,8 @@ public class GenericBuilder<P> {
     }
 
     /**
-     * Creates a {@link Sequence} node and returns a sub builder for adding nodes to the {@link Sequence} node.
+     * Creates a {@link Sequence} node and returns a sub builder for adding nodes
+     * to the {@link Sequence} node.
      *
      * @return
      */

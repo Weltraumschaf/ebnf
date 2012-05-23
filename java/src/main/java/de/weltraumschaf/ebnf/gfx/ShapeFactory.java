@@ -66,7 +66,8 @@ public final class ShapeFactory {
         switch (orientation) {
             case NORT_SOUTH: return verticalFork(curve);
             case WEST_EAST: return horizontalFork(curve);
-            default: throw new IllegalArgumentException("Unsupported orientation: " + orientation + "!");
+            default:
+                throw new IllegalArgumentException("Unsupported orientation: " + orientation + "!");
         }
     }
 

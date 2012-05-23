@@ -33,6 +33,11 @@ public enum Fonts {
     SANSERIFIT("Sanserif", Font.ITALIC);
 
     /**
+     * Default font size.
+     */
+    public static final int DEFAULT_SIZE = 6;
+
+    /**
      * Font name.
      */
     private final String name;
@@ -48,11 +53,6 @@ public enum Fonts {
      * Caches font object for particular font size.
      */
     private Font font = null;
-
-    /**
-     * Default font size.
-     */
-    public static final int DEFAULT_SIZE = 6;
 
     /**
      * Font with default size.

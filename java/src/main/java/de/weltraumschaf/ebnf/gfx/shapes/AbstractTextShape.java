@@ -71,8 +71,10 @@ abstract public class AbstractTextShape extends Empty implements Adjustable {
 
     protected Dimension calculateTextSize(final Graphics2D graphic) {
         if (null == textSize) {
-            final Rectangle2D textBounds = font.getStringBounds(getText(), graphic.getFontRenderContext());
-            textSize = new Dimension((int)Math.ceil(textBounds.getWidth()), (int)Math.ceil(textBounds.getHeight()));
+            final Rectangle2D textBounds = font.getStringBounds(getText(),
+                                                                graphic.getFontRenderContext());
+            textSize = new Dimension((int)Math.ceil(textBounds.getWidth()),
+                                     (int)Math.ceil(textBounds.getHeight()));
         }
         return textSize;
     }

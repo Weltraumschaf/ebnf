@@ -24,12 +24,20 @@ public final class Strokes {
     private static final int BOX_LINE   = 3;
     private static final int DEBUG_LINE = 1;
 
-    private static final Stroke DEBUG         = new BasicStroke(DEBUG_LINE, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    private static final Stroke RAIL          = new BasicStroke(RAIL_LINE, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    private static final Stroke RAIL_ROUNDED  = new BasicStroke(RAIL_LINE, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-    private static final Stroke BOX           = new BasicStroke(BOX_LINE, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+    private static final Stroke DEBUG         = new BasicStroke(DEBUG_LINE,
+                                                                BasicStroke.CAP_BUTT,
+                                                                BasicStroke.JOIN_MITER);
+    private static final Stroke RAIL          = new BasicStroke(RAIL_LINE,
+                                                                BasicStroke.CAP_BUTT,
+                                                                BasicStroke.JOIN_MITER);
+    private static final Stroke RAIL_ROUNDED  = new BasicStroke(RAIL_LINE,
+                                                                BasicStroke.CAP_ROUND,
+                                                                BasicStroke.JOIN_ROUND);
+    private static final Stroke BOX           = new BasicStroke(BOX_LINE,
+                                                                BasicStroke.CAP_BUTT,
+                                                                BasicStroke.JOIN_MITER);
 
-    private Strokes() {}
+    private Strokes() { }
 
     public static Stroke createForDebug() {
         return DEBUG;

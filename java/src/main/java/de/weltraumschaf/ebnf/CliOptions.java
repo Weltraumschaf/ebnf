@@ -89,12 +89,14 @@ public class CliOptions {
         options = new Options();
         // w/ argument
         options.addOption(Parser.OPT_SYNTAX, true, "EBNF syntax file to parse.");    // required
-        options.addOption(Parser.OPT_OUTPUT, true, "Output file name.");             // optional
-        options.addOption(Parser.OPT_FORMAT, true, "Output format: xml, jpg, gif."); // optional
+        options.addOption(Parser.OPT_OUTPUT, true, "Output file name.");
+        options.addOption(Parser.OPT_FORMAT, true, "Output format: xml, jpg, gif.");
         // w/o argument
-        options.addOption(Parser.OPT_TEXT_TREE, false, "Prints textual representation of the syntax tree to stdout."); // optional
-        options.addOption(Parser.OPT_DEBUG,     false, "Enables debug output."); // optional
-        options.addOption(Parser.OPT_HELP,      false, "This help.");            // optional
+        options.addOption(Parser.OPT_TEXT_TREE,
+                          false,
+                          "Prints textual representation of the syntax tree to stdout.");
+        options.addOption(Parser.OPT_DEBUG,     false, "Enables debug output.");
+        options.addOption(Parser.OPT_HELP,      false, "This help.");
     }
 
     public void parse(final String[] args) throws ParseException {

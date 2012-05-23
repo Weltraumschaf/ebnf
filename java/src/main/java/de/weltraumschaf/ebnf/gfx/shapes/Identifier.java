@@ -23,11 +23,14 @@ import java.awt.Graphics2D;
  */
 public class Identifier extends AbstractTextShape implements Shape {
 
+    /**
+     * Size of the padded box around the text.
+     */
+    private Dimension boxSize = null;
+
     public Identifier(final String text) {
         super(text, StringPainter.SANSERIFIT);
     }
-
-    private Dimension boxSize = null;
 
     protected Dimension calcBoxSize(final Graphics2D graphic) {
         final Dimension textSize = calculateTextSize(graphic);

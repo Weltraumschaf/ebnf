@@ -30,8 +30,8 @@ public class CommentTest {
         notification = new Notification();
         comment1.probeEquivalence(Identifier.newInstance(), notification);
         assertFalse(notification.isOk());
-        assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Comment' != 'class de.weltraumschaf.ebnf.ast.nodes.Identifier'!",
+        assertEquals("Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Comment' "
+                   + "!= 'class de.weltraumschaf.ebnf.ast.nodes.Identifier'!",
             notification.report()
         );
 

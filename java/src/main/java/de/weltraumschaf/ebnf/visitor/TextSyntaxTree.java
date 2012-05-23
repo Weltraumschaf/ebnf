@@ -115,20 +115,20 @@ public class TextSyntaxTree implements Visitor {
         String value = "";
 
         if (node instanceof Rule) {
-            value = ((Rule)node).name;
+            value = ((Rule) node).name;
         } else if (node instanceof Terminal) {
-            value = ((Terminal)node).value; //NOPMD
+            value = ((Terminal) node).value; //NOPMD
         } else if (node instanceof Identifier) {
-            value = ((Identifier)node).value; //NOPMD
+            value = ((Identifier) node).value; //NOPMD
         } else if (node instanceof Comment) {
-            value = ((Comment)node).value; //NOPMD
+            value = ((Comment) node).value; //NOPMD
 
             if (value.length() > 20) {
                 value = value.substring(0, 20) + "...";
             }
         }
 
-        if (! value.isEmpty()) {
+        if (!value.isEmpty()) {
             text.append("='").append(value).append('\'');
         }
 
@@ -140,7 +140,7 @@ public class TextSyntaxTree implements Visitor {
      * Returns an array of colCount empty strings as elements.
      *
      * @param colCount Count of columns with empty strings.
-     * @return 
+     * @return
      */
     public static List<String> createRow(final int colCount) {
         if (colCount < 0) {
@@ -239,7 +239,8 @@ public class TextSyntaxTree implements Visitor {
             final StringBuilder buffer = new StringBuilder();
 
             for (List<String> row : matrix) {
-                buffer.append(StringUtils.join(row, "")).append(System.getProperty("line.separator"));
+                buffer.append(StringUtils.join(row, ""))
+                      .append(System.getProperty("line.separator"));
             }
 
             text = buffer.toString();

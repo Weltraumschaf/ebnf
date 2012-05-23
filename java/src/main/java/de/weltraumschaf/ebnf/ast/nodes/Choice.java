@@ -11,6 +11,10 @@ import de.weltraumschaf.ebnf.ast.NodeType;
  */
 public final class Choice extends AbstractComposite {
 
+    private Choice(final Node parent) {
+        super(parent);
+    }
+
     /**
      * Creates a new choice node instance with a {@link Null} parent node.
      *
@@ -28,10 +32,6 @@ public final class Choice extends AbstractComposite {
      */
     public static Choice newInstance(final Node parent) {
         return new Choice(parent);
-    }
-
-    private Choice(final Node parent) {
-        super(parent);
     }
 
     /**

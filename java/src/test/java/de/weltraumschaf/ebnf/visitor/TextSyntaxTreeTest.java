@@ -102,10 +102,10 @@ public class TextSyntaxTreeTest {
         final List<List<String>> expected = Arrays.asList(
             Arrays.asList("[syntax]", "", "", "", "", ""),
             Arrays.asList(" +--",     "[rule='literal']", "", "", "", ""),
-            Arrays.asList("    ",     " +--", "[choice]", "", "", ""), // NOPMD
+            Arrays.asList("    ",     " +--", "[choice]", "", "", ""),
             Arrays.asList("    ",     "    ", " +--", "[sequence]", "", ""),
-            Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""), // NOPMD
-            Arrays.asList("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""), // NOPMD
+            Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
+            Arrays.asList("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""),
             Arrays.asList("    ",     "    ", " |  ", " +--",       "[loop]", ""),
             Arrays.asList("    ",     "    ", " |  ", " |  ",       " +--", "[identifier='character']"),
             Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
@@ -130,9 +130,8 @@ public class TextSyntaxTreeTest {
             .end()
         .build();
         ast.accept(visitor);
-        assertEquals(
-            "[syntax]\n" +
-            " +--[rule='rule-1']\n",
+        assertEquals("[syntax]\n"
+                   + " +--[rule='rule-1']\n",
             visitor.getText()
         );
 
@@ -143,10 +142,9 @@ public class TextSyntaxTreeTest {
             .end()
         .build();
         ast.accept(visitor);
-        assertEquals(
-            "[syntax]\n" +
-            " +--[rule='rule-1']\n"+
-            " +--[rule='rule-2']\n",
+        assertEquals("[syntax]\n"
+                   + " +--[rule='rule-1']\n"
+                   + " +--[rule='rule-2']\n",
             visitor.getText()
         );
 
@@ -157,10 +155,9 @@ public class TextSyntaxTreeTest {
             .end()
         .build();
         ast.accept(visitor);
-        assertEquals(
-            "[syntax]\n" +
-            " +--[rule='name']\n" +
-            "     +--[choice]\n",
+        assertEquals("[syntax]\n"
+                   + " +--[rule='name']\n"
+                   + "     +--[choice]\n",
             visitor.getText()
         );
 
@@ -173,12 +170,11 @@ public class TextSyntaxTreeTest {
             .end()
         .build();
         ast.accept(visitor);
-        assertEquals(
-            "[syntax]\n" +
-            " +--[rule='name']\n" +
-            "     +--[choice]\n" +
-            "         +--[identifier='ident']\n" +
-            "         +--[terminal='term']\n",
+        assertEquals("[syntax]\n"
+                   + " +--[rule='name']\n"
+                   + "     +--[choice]\n"
+                   + "         +--[identifier='ident']\n"
+                   + "         +--[terminal='term']\n",
             visitor.getText()
         );
 
@@ -191,11 +187,10 @@ public class TextSyntaxTreeTest {
             .end()
         .build();
         ast.accept(visitor);
-        assertEquals(
-            "[syntax]\n" +
-            " +--[rule='one']\n" +
-            " |   +--[choice]\n" +
-            " +--[rule='two']\n",
+        assertEquals("[syntax]\n"
+                   + " +--[rule='one']\n"
+                   + " |   +--[choice]\n"
+                   + " +--[rule='two']\n",
             visitor.getText()
         );
 
@@ -252,7 +247,8 @@ public class TextSyntaxTreeTest {
             TextSyntaxTree.formatNode(Comment.newInstance("foobar")));
         assertEquals(
             "[comment='foobar very very ver...']",
-            TextSyntaxTree.formatNode(Comment.newInstance("foobar very very very long comment string")));
+            TextSyntaxTree.formatNode(
+                Comment.newInstance("foobar very very very long comment string")));
     }
 
 }

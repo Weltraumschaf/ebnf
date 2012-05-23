@@ -93,7 +93,8 @@ public class StringPainter {
         graphic.setFont(font);
         final FontMetrics metrics = graphic.getFontMetrics();
         final int xPosition = calcXPosition(metrics.stringWidth(str), offset.x, size.width);
-        final int yPosition = calcYPosition(offset.y, size.height, metrics.getAscent(), metrics.getDescent());
+        final int yPosition = calcYPosition(offset.y, size.height,
+                                            metrics.getAscent(), metrics.getDescent());
         graphic.drawString(str, xPosition, yPosition);
         graphic.setFont(backup);
     }
@@ -115,7 +116,7 @@ public class StringPainter {
 
     /**
      * Calculates the string y position to draw.
-     * 
+     *
      * @param offsetY
      * @param height
      * @param ascent

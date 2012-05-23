@@ -28,8 +28,9 @@ public class IdentifierTest {
 
         ident1.probeEquivalence(Terminal.newInstance(), notifiaction);
         assertFalse(notifiaction.isOk());
-        assertEquals(
-            "Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Identifier' != 'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
+        assertEquals("Probed node types mismatch: "
+            + "'class de.weltraumschaf.ebnf.ast.nodes.Identifier' != "
+            + "'class de.weltraumschaf.ebnf.ast.nodes.Terminal'!",
             notifiaction.report()
         );
 

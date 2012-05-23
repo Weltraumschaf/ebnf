@@ -12,10 +12,10 @@
 package de.weltraumschaf.ebnf.gfx;
 
 import java.awt.Dimension;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -68,12 +68,14 @@ public class PointTest {
         final Point point1 = new Point(11, 22);
         final Point point2 = new Point(11, 22);
         final Point point3 = new Point(10, 20);
+        // CHECKSTYLE:OFF
         assertFalse(point1.equals(null));
         assertFalse(point2.equals(null));
         assertFalse(point3.equals(null));
         assertFalse(point1.equals(new Dimension()));
         assertFalse(point2.equals(new Dimension()));
         assertFalse(point3.equals(new Dimension()));
+        // CHECKSTYLE:ON
         assertThat(point1, equalTo(point2));
         assertThat(point1, not(equalTo(point3)));
         assertThat(point2, not(equalTo(point3)));

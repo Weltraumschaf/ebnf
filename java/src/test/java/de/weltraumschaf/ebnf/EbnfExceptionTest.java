@@ -24,12 +24,12 @@ public class EbnfExceptionTest {
     @Test public void creation() {
         EbnfException sut = new EbnfException("foo");
         assertEquals("foo", sut.getMessage());
-        assertEquals(App.ExitCode.FATAL_ERROR.getCode(), sut.getCode());
+        assertEquals(ExitCode.FATAL_ERROR.getCode(), sut.getCode());
         assertNull(sut.getCause());
 
-        sut = new EbnfException("bar", App.ExitCode.NO_SYNTAX);
+        sut = new EbnfException("bar", ExitCode.NO_SYNTAX);
         assertEquals("bar", sut.getMessage());
-        assertEquals(App.ExitCode.NO_SYNTAX.getCode(), sut.getCode());
+        assertEquals(ExitCode.NO_SYNTAX.getCode(), sut.getCode());
         assertNull(sut.getCause());
 
         sut = new EbnfException("baz", 5);
@@ -43,9 +43,9 @@ public class EbnfExceptionTest {
         assertEquals(5, sut.getCode());
         assertSame(cause, sut.getCause());
 
-        sut = new EbnfException("bla", App.ExitCode.NO_SYNTAX, cause);
+        sut = new EbnfException("bla", ExitCode.NO_SYNTAX, cause);
         assertEquals("bla", sut.getMessage());
-        assertEquals(App.ExitCode.NO_SYNTAX.getCode(), sut.getCode());
+        assertEquals(ExitCode.NO_SYNTAX.getCode(), sut.getCode());
         assertSame(cause, sut.getCause());
     }
 }

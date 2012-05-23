@@ -65,10 +65,14 @@ public class AbstractTextShapeTest {
         assertEquals(1 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(0));
         assertEquals(1 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(1));
         assertEquals(1 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(15));
-        assertEquals(1 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(Shape.DEFAULT_WIDTH - 11));
-        assertEquals(2 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(Shape.DEFAULT_WIDTH));
-        assertEquals(3 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(3 * Shape.DEFAULT_WIDTH - 11));
-        assertEquals(4 * Shape.DEFAULT_WIDTH, AbstractTextShape.calculateWidth(3 * Shape.DEFAULT_WIDTH));
+        assertEquals(1 * Shape.DEFAULT_WIDTH,
+                     AbstractTextShape.calculateWidth(Shape.DEFAULT_WIDTH - 11));
+        assertEquals(2 * Shape.DEFAULT_WIDTH,
+                     AbstractTextShape.calculateWidth(Shape.DEFAULT_WIDTH));
+        assertEquals(3 * Shape.DEFAULT_WIDTH,
+                     AbstractTextShape.calculateWidth(3 * Shape.DEFAULT_WIDTH - 11));
+        assertEquals(4 * Shape.DEFAULT_WIDTH,
+                     AbstractTextShape.calculateWidth(3 * Shape.DEFAULT_WIDTH));
     }
 
     @Test public void createStringPainter() {

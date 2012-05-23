@@ -40,7 +40,8 @@ public class GridLayout extends AbstractLayout {
 
         if (null == col) {
             // @todo test exception
-            throw new IllegalArgumentException(String.format("The column at columnIndex %d is null!", columnIndex));
+            throw new IllegalArgumentException(
+                    String.format("The column at columnIndex %d is null!", columnIndex));
         }
 
         return col;
@@ -51,7 +52,9 @@ public class GridLayout extends AbstractLayout {
 
         if (null == shape) {
             // @todo test exception
-            throw new IllegalArgumentException(String.format("The shape at columnIndex %d and rowIndex %d is null!", columnIndex, rowIndex));
+            throw new IllegalArgumentException(
+                    String.format("The shape at columnIndex %d and rowIndex %d is null!",
+                                  columnIndex, rowIndex));
         }
 
         return shape;

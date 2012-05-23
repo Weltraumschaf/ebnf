@@ -7,9 +7,11 @@
 <!-- http://checkstyle.sf.net (or in your downloaded distribution). -->
 
 <module name="Checker">
-    <module name="SuppressionFilter">
+<!--    <module name="SuppressionFilter">
         <property name="file" value="checkstyle-suppressions.xml" />
-    </module>
+    </module>-->
+
+    <module name="SuppressionCommentFilter"/>
 
     <property name="severity" value="error" />
 
@@ -21,8 +23,8 @@
     </module>
 
     <module name="TreeWalker">
+        <module name="FileContentsHolder"/>
         <property name="tabWidth" value="4" />
-
         <property name="cacheFile" value="build/checkstyleCache" />
 
         <!-- Checks for Naming Conventions.                  -->
@@ -48,6 +50,7 @@
         <module name="TypeName" />
 
         <module name="AvoidStarImport">
+            <property name="allowClassImports" value="true" />
             <property name="allowStaticMemberImports" value="true" />
         </module>
 
@@ -124,13 +127,11 @@
             <property name="option" value="text" />
         </module>
 
-        <module name="LeftCurly" option="eol"/>
+        <module name="LeftCurly">
+            <property name="option" value="eol" />
+        </module>
 
         <module name="NeedBraces" />
-
-        <module name="RightCurly">
-            <property name="option" value="alone" />
-        </module>
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
@@ -294,7 +295,7 @@
 
         <module name="AvoidStaticImport">
             <property name="excludes"
-                value="org.junit.Assert.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.*" />
+                value="org.junit.Assert.*,org.mockito.Mockito.*,org.hamcrest.core.IsEqual.*,org.hamcrest.core.IsNot.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.*,de.weltraumschaf.ebnf.util.ScannerHelper.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.*,de.weltraumschaf.ebnf.TestHelper.*,de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax" />
         </module>
 
         <module name="MissingDeprecated" />
@@ -327,5 +328,4 @@
     </module>
 
     <module name="FileTabCharacter" />
-
 </module>

@@ -121,7 +121,9 @@ public class TokenTest {
         assertEquals("a 'test' string", Token.unquoteString("'a 'test' string'"));
         assertEquals("a 'test' string", Token.unquoteString("'a \'test\' string'"));
 
-        final Token token = new Token(TokenType.COMMENT, "\"a \"test\" string\"", new Position(0, 0));
+        final Token token = new Token(TokenType.COMMENT,
+                                      "\"a \"test\" string\"",
+                                      new Position(0, 0));
         assertEquals("\"a \"test\" string\"", token.getValue());
         assertEquals("a \"test\" string", token.getValue(true));
     }
@@ -137,8 +139,9 @@ public class TokenTest {
         List<TokenType> types;
 
         types = Arrays.asList(
-            TokenType.ASIGN, TokenType.CHOICE, TokenType.END_OF_RULE, TokenType.L_BRACE, TokenType.L_BRACK,
-            TokenType.L_PAREN, TokenType.RANGE, TokenType.R_BRACE, TokenType.R_BRACK, TokenType.R_PAREN
+            TokenType.ASIGN, TokenType.CHOICE, TokenType.END_OF_RULE, TokenType.RANGE,
+            TokenType.L_BRACE, TokenType.L_BRACK, TokenType.L_PAREN,
+            TokenType.R_BRACE, TokenType.R_BRACK, TokenType.R_PAREN
         );
 
         final Position pos = new Position(0, 0);

@@ -117,7 +117,8 @@ public class IntegrationTest {
         assertEquals(errors.toString(), notification.report());
 
         errors = new StringBuilder();
-        errors.append("Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Syntax' != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!");
+        errors.append("Probed node types mismatch: 'class de.weltraumschaf.ebnf.ast.nodes.Syntax' "
+                    + " != 'class de.weltraumschaf.ebnf.ast.nodes.Rule'!");
         final Syntax stub = Syntax.newInstance();
         final Node mock = Rule.newInstance(stub);
         assertFalse(mock instanceof Syntax);

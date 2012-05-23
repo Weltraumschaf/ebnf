@@ -13,6 +13,10 @@ import java.util.List;
  */
 public class Parser {
 
+    private static final List<String> ASSIGN = Arrays.asList("=", ":", ":==");
+    private static final List<String> END_OF_RULE = Arrays.asList(".", ";");
+    private static final String[] ALLOWED = {".", "=", "|", ")", "]", "}"};
+
     /**
      * Used to receive the tokens.
      */
@@ -61,7 +65,8 @@ public class Parser {
                 ast.addChild(rules);
                 scanner.nextToken();
             } else if (scanner.getCurrentToken().isType(TokenType.COMMENT)) {
-                final Comment comment = Comment.newInstance(ast, scanner.getCurrentToken().getValue());
+                final Comment comment = Comment.newInstance(ast,
+                                                            scanner.getCurrentToken().getValue());
                 ast.addChild(comment);
                 scanner.nextToken();
             } else {
@@ -70,7 +75,8 @@ public class Parser {
         }
 
         if (!assertToken(scanner.getCurrentToken(), TokenType.R_BRACE, "}")) {
-            raiseError(String.format("Syntax must end with '}' but saw '%s'", scanner.getCurrentToken()));
+            raiseError(String.format("Syntax must end with '}' but saw '%s'",
+                                     scanner.getCurrentToken()));
         }
 
         scanner.nextToken();
@@ -106,7 +112,7 @@ public class Parser {
             scanner.nextToken();
         }
 
-        if (!assertTokens(scanner.getCurrentToken(), TokenType.ASIGN, Arrays.asList("=", ":", ":=="))) {
+        if (!assertTokens(scanner.getCurrentToken(), TokenType.ASIGN, ASSIGN)) {
             raiseError("Identifier must be followed by '='");
         }
 
@@ -120,8 +126,9 @@ public class Parser {
             scanner.nextToken();
         }
 
-        if (!assertTokens(scanner.getCurrentToken(), TokenType.END_OF_RULE, Arrays.asList(".", ";"))) {
-            raiseError("Rule must end with '.' or ';'", scanner.backtrackToken(2).getPosition(true));
+        if (!assertTokens(scanner.getCurrentToken(), TokenType.END_OF_RULE, END_OF_RULE)) {
+            raiseError("Rule must end with '.' or ';'",
+                       scanner.backtrackToken(2).getPosition(true));
         }
 
         return rule;
@@ -165,9 +172,8 @@ public class Parser {
         sequenceNode.addChild(factor);
         scanner.nextToken();
         boolean multipleFactors = false;
-        final String[] allowed = {".", "=", "|", ")", "]", "}"};
 
-        while (scanner.getCurrentToken().isNotEquals(allowed)) {
+        while (scanner.getCurrentToken().isNotEquals(ALLOWED)) {
             factor = parseFactor(sequenceNode);
             sequenceNode.addChild(factor);
             scanner.nextToken();
@@ -276,7 +282,7 @@ public class Parser {
      *
      * @return
      */
-    protected  boolean assertTokens(final Token token, final TokenType type, final List<String>values) {
+    protected  boolean assertTokens(final Token token, final TokenType type, final List<String> values) {
         for (String value : values) {
             if (assertToken(token, type, value)) {
                 return true;

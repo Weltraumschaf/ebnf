@@ -24,13 +24,19 @@ import java.awt.Graphics2D;
  */
 public class Terminal extends AbstractTextShape implements Shape {
 
+    /**
+     * Width of the rounded rectangle arcs.
+     */
     private static final int ARC_WIDTH = 25;
+
+    /**
+     * Padded box size of the text.
+     */
+    private Dimension boxSize = null;
 
     public Terminal(final String text) {
         super(text, StringPainter.MONOSPACED);
     }
-
-    private Dimension boxSize = null;
 
     protected Dimension calcBoxSize(final Graphics2D graphic) {
         final Dimension textSize = calculateTextSize(graphic);
@@ -54,17 +60,19 @@ public class Terminal extends AbstractTextShape implements Shape {
         final int vCenter   = getCenterY();
         final int hPaddingp = (size.width - boxSize.width) / 2;
         final int vPadding  = (size.height - boxSize.height) / 2;
-        final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding),
-                    inLineStart       = new Point(pos.x, vCenter),
-                    inLineEnd         = new Point(pos.x + hPaddingp, vCenter),
-                    outLineStart      = new Point(pos.x + hPaddingp + boxSize.width, vCenter),
-                    outLineEnd        = new Point(pos.x + size.width, vCenter);
+        final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding);
+        final Point inLineStart       = new Point(pos.x, vCenter);
+        final Point inLineEnd         = new Point(pos.x + hPaddingp, vCenter);
+        final Point outLineStart      = new Point(pos.x + hPaddingp + boxSize.width, vCenter);
+        final Point outLineEnd        = new Point(pos.x + size.width, vCenter);
 
         super.paint(graphic);
         backupColorAndStroke(graphic);
         graphic.setColor(Color.BLACK);
         graphic.setStroke(Strokes.createForBox());
-        graphic.drawRoundRect(rectanglePosition.x, rectanglePosition.y, boxSize.width, boxSize.height, ARC_WIDTH, ARC_WIDTH);
+        graphic.drawRoundRect(rectanglePosition.x, rectanglePosition.y,
+                              boxSize.width, boxSize.height,
+                              ARC_WIDTH, ARC_WIDTH);
         graphic.setStroke(Strokes.createForRail());
         graphic.drawLine(inLineStart.x, inLineStart.y, inLineEnd.x, inLineEnd.y);
         graphic.drawLine(outLineStart.x, outLineStart.y, outLineEnd.x, outLineEnd.y);

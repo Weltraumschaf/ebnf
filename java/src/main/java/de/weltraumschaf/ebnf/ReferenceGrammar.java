@@ -20,6 +20,9 @@ import java.util.logging.Logger;
 /**
  * Defines a immutable reference grammar.
  *
+ * thus the reference grammar does not change on runtime it is
+ * a shared object.
+ *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public final class ReferenceGrammar {
@@ -28,11 +31,16 @@ public final class ReferenceGrammar {
      * Shared instance.
      */
     private static final ReferenceGrammar INSTANCE = new ReferenceGrammar();
+    /**
+     * Holds the AST {@ink de.weltraumschaf.ebnf.ast.nodes.Syntax syntax}
+     * node for the reference grammar for reuse.
+     */
+    private static Syntax syntax = null;
 
     /**
      * Not instantiated from outside.
      */
-    private ReferenceGrammar() {}
+    private ReferenceGrammar() { }
 
     /**
      * Returns an immutable reference grammar instance.
@@ -50,30 +58,28 @@ public final class ReferenceGrammar {
      */
     @Override
     public String toString() {
-        return "\"EBNF defined in itself.\" {\n" +
-                "    syntax     = [ title ] \"{\" { rule } \"}\" [ comment ] .\n" +
-                "    rule       = identifier ( \"=\" | \":\" | \":==\" ) expression ( \".\" | \";\" ) .\n" +
-                "    expression = term { \"|\" term } .\n" +
-                "    term       = factor { factor } .\n" +
-                "    factor     = identifier\n" +
-                "               | literal\n" +
-                "               | range\n" +
-                "               | \"[\" expression \"]\"\n" +
-                "               | \"(\" expression \")\"\n" +
-                "               | \"{\" expression \"}\" .\n" +
-                "    identifier = character { character } .\n" +
-                "    range      = character \"..\" character .\n" +
-                "    title      = literal .\n" +
-                "    comment    = literal .\n" +
-                "    literal    = \"\'\" character { character } \"\'\"\n" +
-                "               | \'\"\' character { character } \'\"\' .\n" +
-                "    character  = \"a\" .. \"z\"\n" +
-                "               | \"A\" .. \"Z\"\n" +
-                "               | \"0\" .. \"9\" .\n" +
-                "}";
+        return "\"EBNF defined in itself.\" {\n"
+             + "    syntax     = [ title ] \"{\" { rule } \"}\" [ comment ] .\n"
+             + "    rule       = identifier ( \"=\" | \":\" | \":==\" ) expression ( \".\" | \";\" ) .\n"
+             + "    expression = term { \"|\" term } .\n"
+             + "    term       = factor { factor } .\n"
+             + "    factor     = identifier\n"
+             + "               | literal\n"
+             + "               | range\n"
+             + "               | \"[\" expression \"]\"\n"
+             + "               | \"(\" expression \")\"\n"
+             + "               | \"{\" expression \"}\" .\n"
+             + "    identifier = character { character } .\n"
+             + "    range      = character \"..\" character .\n"
+             + "    title      = literal .\n"
+             + "    comment    = literal .\n"
+             + "    literal    = \"\'\" character { character } \"\'\"\n"
+             + "               | \'\"\' character { character } \'\"\' .\n"
+             + "    character  = \"a\" .. \"z\"\n"
+             + "               | \"A\" .. \"Z\"\n"
+             + "               | \"0\" .. \"9\" .\n"
+             + "}";
     }
-
-    private static Syntax syntax = null;
 
     /**
      * Returns the reference syntax as abstract syntax tree.
