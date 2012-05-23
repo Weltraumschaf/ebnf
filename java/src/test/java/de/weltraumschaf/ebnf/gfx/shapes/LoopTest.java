@@ -15,7 +15,6 @@ import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 import java.awt.Dimension;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**

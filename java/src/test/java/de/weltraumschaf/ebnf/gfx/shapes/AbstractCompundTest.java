@@ -14,7 +14,6 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 import de.weltraumschaf.ebnf.gfx.Point;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.geom.Dimension2D;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 

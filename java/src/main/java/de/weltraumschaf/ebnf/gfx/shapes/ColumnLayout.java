@@ -22,7 +22,7 @@ import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class ColumnLayout extends AbstractLayout implements Adjustable {
+public class ColumnLayout extends AbstractLayout {
 
     private final List<Shape> col = Lists.newArrayList();
 

@@ -1,6 +1,6 @@
 .DS_Store
-php/nbproject/private/
-php/reports
-php/doc
-php/build/
+/php/nbproject/private/
+/php/reports
+/php/doc
+/php/build/
 /java/.settings/

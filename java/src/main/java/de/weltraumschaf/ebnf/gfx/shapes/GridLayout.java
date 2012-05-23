@@ -21,22 +21,22 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class GridLayout extends AbstractLayout implements Adjustable {
+public class GridLayout extends AbstractLayout {
 
-    private final List<ColumnLayout> grid = Lists.newArrayList();
+    private final List<ColumnLayout> columns = Lists.newArrayList();
 
     public int countCols() {
-        return grid.size();
+        return columns.size();
     }
 
     public int counRows() {
         return countCols() == 0
                ? 0
-               : grid.get(0).countShapes();
+               : columns.get(0).countShapes();
     }
 
     public ColumnLayout get(final int columnIndex) {
-        final ColumnLayout col = grid.get(columnIndex);
+        final ColumnLayout col = columns.get(columnIndex);
 
         if (null == col) {
             // @todo test exception
@@ -62,11 +62,11 @@ public class GridLayout extends AbstractLayout implements Adjustable {
 
         if (columnIndex >= colCount) {
             for (int i = colCount; i < columnIndex + 1; ++i) {
-                grid.add(ColumnLayout.newColumnLayout());
+                columns.add(ColumnLayout.newColumnLayout());
             }
         }
 
-        final ColumnLayout col = grid.get(columnIndex);
+        final ColumnLayout col = columns.get(columnIndex);
         col.set(rowIndex, shape);
         return this;
     }
@@ -80,7 +80,7 @@ public class GridLayout extends AbstractLayout implements Adjustable {
     }
 
     public GridLayout append(final ColumnLayout col) {
-        grid.add(col);
+        columns.add(col);
         return this;
     }
 
@@ -89,7 +89,7 @@ public class GridLayout extends AbstractLayout implements Adjustable {
         final Point pos = getPosition();
         int currentX = pos.x;
 
-        for (ColumnLayout col : grid) {
+        for (ColumnLayout col : columns) {
             col.setPosition(pos.setX(currentX));
             col.setDebug(isDebug());
             col.paint(graphic);
@@ -101,7 +101,7 @@ public class GridLayout extends AbstractLayout implements Adjustable {
     public void adjust(final Graphics2D graphic) {
         int width = 0, height = 0;
 
-        for (ColumnLayout col : grid) {
+        for (ColumnLayout col : columns) {
             col.adjust(graphic);
             final  Dimension colSize = col.getSize();
             width  += colSize.width;

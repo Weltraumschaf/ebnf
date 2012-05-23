@@ -27,7 +27,7 @@ public class StringPainterTest {
 
     @Test public void createWithFont() {
         // test flawless object creation
-        final StringPainter painter = new StringPainter(Fonts.MONOSPACED.create()); // NOPMD
+        new StringPainter(Fonts.MONOSPACED.create()); // NOPMD
     }
 
     @Test public void calcXPosition() {
