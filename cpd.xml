@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+<duplication lines="31" tokens="218">
+<file line="34" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Identifier.java"/>
+<file line="37" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Terminal.java"/>
+<codefragment>
+<![CDATA[
+        return new Dimension(textSize.width + H_PADDING * 2, textSize.height);
+    }
+
+    @Override
+    public void adjust(final Graphics2D graphic) {
+        boxSize = calcBoxSize(graphic);
+        setSize(new Dimension(calculateWidth(boxSize.width), DEFAULT_HEIGHT));
+    }
+
+    @Override
+    public void paint(final Graphics2D graphic) {
+        if (null == boxSize) {
+            adjust(graphic);
+        }
+
+        final Point pos     = getPosition();
+        final Dimension size = getSize();
+        final int vCenter   = getCenterY();
+        final int hPaddingp = (size.width - boxSize.width) / 2;
+        final int vPadding  = (size.height - boxSize.height) / 2;
+        final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding),
+                    inLineStart       = new Point(pos.x, vCenter),
+                    inLineEnd         = new Point(pos.x + hPaddingp, vCenter),
+                    outLineStart      = new Point(pos.x + hPaddingp + boxSize.width, vCenter),
+                    outLineEnd        = new Point(pos.x + size.width, vCenter);
+
+        super.paint(graphic);
+        backupColorAndStroke(graphic);
+        graphic.setColor(Color.BLACK);
+        graphic.setStroke(Strokes.createForBox());
+        graphic.drawRect(rectanglePosition.x, rectanglePosition.y, boxSize.width, boxSize.height);
+]]>
+</codefragment>
+</duplication>
+</pmd-cpd>
