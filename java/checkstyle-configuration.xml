@@ -337,11 +337,11 @@
 
     </module>
 
-    <module name="RegexpHeader">
+<!--    <module name="RegexpHeader">
         <property name="headerFile" value="java.header" />
         <property name="multiLines" value="19" />
         <property name="fileExtensions" value="java, scala" />
-    </module>
+    </module>-->
 
     <module name="FileTabCharacter" />
 
