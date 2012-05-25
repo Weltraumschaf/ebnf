@@ -14,6 +14,8 @@ import de.weltraumschaf.ebnf.ast.Notification;
  */
 public final class Terminal extends AbstractNode {
 
+    private static final String ATTR_VALUE = "value";
+
     /**
      * Initializes object with empty value and parent node.
      *
@@ -22,7 +24,7 @@ public final class Terminal extends AbstractNode {
      */
     private Terminal(final Node parent, final String value) {
         super(parent, NodeType.TERMINAL);
-        setAttribute("value", value);
+        setAttribute(ATTR_VALUE, value);
     }
 
     /**
@@ -77,9 +79,9 @@ public final class Terminal extends AbstractNode {
         try {
             final Terminal terminal = (Terminal) other;
 
-            if (!getAttribute("value").equals(terminal.getAttribute("value"))) {
-                result.error("Terminal value mismatch: '%s' != '%s'!", getAttribute("value"),
-                                                                       terminal.getAttribute("value"));
+            if (!getAttribute(ATTR_VALUE).equals(terminal.getAttribute(ATTR_VALUE))) {
+                result.error("Terminal value mismatch: '%s' != '%s'!", getAttribute(ATTR_VALUE),
+                                                                       terminal.getAttribute(ATTR_VALUE));
             }
         } catch (ClassCastException ex) {
             result.error(

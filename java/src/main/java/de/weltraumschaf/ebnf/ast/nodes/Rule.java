@@ -12,9 +12,11 @@ import de.weltraumschaf.ebnf.ast.Notification;
  */
 public final class Rule extends AbstractComposite {
 
+    private static final String ATTRIBUTE_NAME = "name";
+
     private Rule(final Node parent, final String name) {
         super(parent, NodeType.RULE);
-        setAttribute("name", name);
+        setAttribute(ATTRIBUTE_NAME, name);
     }
 
     /**
@@ -70,16 +72,16 @@ public final class Rule extends AbstractComposite {
 
         final Rule rule = (Rule) other;
 
-        if (!getAttribute("name").equals(rule.getAttribute("name"))) {
-            result.error("Names of rule differs: '%s' != '%s'!", getAttribute("name"),
-                                                                 rule.getAttribute("name"));
+        if (!getAttribute(ATTRIBUTE_NAME).equals(rule.getAttribute(ATTRIBUTE_NAME))) {
+            result.error("Names of rule differs: '%s' != '%s'!", getAttribute(ATTRIBUTE_NAME),
+                                                                 rule.getAttribute(ATTRIBUTE_NAME));
         }
     }
 
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder(super.toString());
-        
+
         if (hasChildren()) {
             for (Node child : getChildren()) {
                 str.append('\n').append(child.toString());

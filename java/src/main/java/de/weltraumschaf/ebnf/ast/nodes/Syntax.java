@@ -19,6 +19,8 @@ public final class Syntax extends AbstractNode implements Composite {
      */
     public static final String DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
+    private static final String ATTR_TITLE = "title";
+    private static final String ATTR_META = "meta";
     private static final NodeType TYPE = NodeType.SYNTAX;
 
     /**
@@ -30,8 +32,8 @@ public final class Syntax extends AbstractNode implements Composite {
 
     private Syntax(final String title, final String meta) {
         super(Null.getInstance(), NodeType.SYNTAX);
-        setAttribute("title", title);
-        setAttribute("meta", meta);
+        setAttribute(ATTR_TITLE, title);
+        setAttribute(ATTR_META, meta);
     }
 
     /**
@@ -116,14 +118,14 @@ public final class Syntax extends AbstractNode implements Composite {
         try {
             final Syntax syntax = (Syntax) other;
 
-            if (!getAttribute("title").equals(syntax.getAttribute("title"))) {
-                result.error("Titles of syntx differs: '%s' != '%s'!", getAttribute("title"),
-                                                                       syntax.getAttribute("title"));
+            if (!getAttribute(ATTR_TITLE).equals(syntax.getAttribute(ATTR_TITLE))) {
+                result.error("Titles of syntx differs: '%s' != '%s'!", getAttribute(ATTR_TITLE),
+                                                                       syntax.getAttribute(ATTR_TITLE));
             }
 
-            if (!getAttribute("meta").equals(syntax.getAttribute("meta"))) {
-                result.error("Meta of syntx differs: '%s' != '%s'!", getAttribute("meta"),
-                                                                     syntax.getAttribute("meta"));
+            if (!getAttribute(ATTR_META).equals(syntax.getAttribute(ATTR_META))) {
+                result.error("Meta of syntx differs: '%s' != '%s'!", getAttribute(ATTR_META),
+                                                                     syntax.getAttribute(ATTR_META));
             }
 
             if (countChildren() != syntax.countChildren()) {

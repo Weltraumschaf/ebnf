@@ -14,6 +14,8 @@ import de.weltraumschaf.ebnf.ast.Notification;
  */
 public final class Identifier extends AbstractNode {
 
+    private static final String ATTR_VALUE = "value";
+
     /**
      * Initializes object with value and parent node.
      *
@@ -22,7 +24,7 @@ public final class Identifier extends AbstractNode {
      */
     private Identifier(final Node parent, final String value) {
         super(parent, NodeType.IDENTIFIER);
-        this.setAttribute("value", value);
+        setAttribute(ATTR_VALUE, value);
     }
 
     /**
@@ -77,9 +79,9 @@ public final class Identifier extends AbstractNode {
         try {
             final Identifier ident = (Identifier) other;
 
-            if (!getAttribute("value").equals(ident.getAttribute("value"))) {
-                result.error("Identifier value mismatch: '%s' != '%s'!", getAttribute("value"),
-                                                                         ident.getAttribute("value"));
+            if (!getAttribute(ATTR_VALUE).equals(ident.getAttribute(ATTR_VALUE))) {
+                result.error("Identifier value mismatch: '%s' != '%s'!", getAttribute(ATTR_VALUE),
+                                                                         ident.getAttribute(ATTR_VALUE));
             }
         } catch (ClassCastException ex) {
             result.error("Probed node types mismatch: '%s' != '%s'!", getClass(), other.getClass());
