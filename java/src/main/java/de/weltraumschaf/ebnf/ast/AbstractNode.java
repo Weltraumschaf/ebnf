@@ -35,7 +35,7 @@ public abstract class AbstractNode implements Node {
 
     @Override
     public boolean hasParent() {
-        return parent != null || parent.getType() == NodeType.NULL;
+        return parent != null && parent.getType() != NodeType.NULL;
     }
 
     /**

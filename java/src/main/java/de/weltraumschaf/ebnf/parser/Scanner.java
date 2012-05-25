@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * Interface for scanner.
- * 
+ *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public interface Scanner {

@@ -1,6 +1,5 @@
 package de.weltraumschaf.ebnf.ast;
 
-import com.sun.jdi.Value;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**

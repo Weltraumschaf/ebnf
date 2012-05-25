@@ -57,10 +57,11 @@ public final class App {
     }
 
     private void run() {
-        CliOptions options = null;
+        boolean debug = false;
 
         try {
-            options = parseOptions();
+            final CliOptions options = parseOptions();
+            debug = options.isDebug();
 
             if (options.isHelp()) {
                 options.format(new HelpFormatter());
@@ -75,7 +76,7 @@ public final class App {
         } catch (EbnfException ex) {
             println(ex.getMessage());
 
-            if (null != options && options.isDebug()) {
+            if (debug) {
                 ex.printStackTrace(System.out);
             }
 
@@ -83,7 +84,7 @@ public final class App {
         } catch (Exception ex) { //NOPMD
             println("Fatal error!");
 
-            if (null != options && options.isDebug()) {
+            if (debug) {
                 ex.printStackTrace(System.out);
             }
 

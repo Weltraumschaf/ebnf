@@ -39,7 +39,8 @@ public final class TestHelper {
         return INSTANCE;
     }
 
-    private Reader createFileReaderFromFixture(final String fixtureFile) throws  FileNotFoundException, URISyntaxException {
+    private Reader createFileReaderFromFixture(final String fixtureFile) throws  FileNotFoundException,
+                                                                             URISyntaxException {
         return new FileReader(new File(createResourceFromFixture(fixtureFile)));
     }
 

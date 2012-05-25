@@ -23,11 +23,11 @@ public class Point {
     /**
      * Immutable x coordinate.
      */
-    public final int x;
+    public final int x; //NOPMD
     /**
      * Immutable x coordinate.
      */
-    public final int y;
+    public final int y; //NOPMD
 
     /**
      * Initializes a point with coordinates (0, 0).

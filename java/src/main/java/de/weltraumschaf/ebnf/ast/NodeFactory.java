@@ -40,7 +40,7 @@ public final class NodeFactory {
             case TERMINAL:
                 return Terminal.newInstance(parent);
             default:
-                throw new IllegalArgumentException(String.format("", type));
+                throw new IllegalArgumentException(String.format("Unsupported node type '%s'!", type));
         }
     }
 

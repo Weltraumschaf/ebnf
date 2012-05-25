@@ -76,7 +76,8 @@ public class AbstractCompund extends AbstractShape implements Adjustable {
         extendColumnWithShape(height, colIndexs, rowIndex, StraightNS.class);
     }
 
-    protected void extendColumnWithShape(final int height, final int[] colIndexs, final int rowIndex, final Class<? extends Shape> type) {
+    protected void extendColumnWithShape(final int height, final int[] colIndexs, final int rowIndex,
+                                        final Class<? extends Shape> type) {
         if (DEFAULT_HEIGHT < height) {
             final int count = height / DEFAULT_HEIGHT - 1;
 

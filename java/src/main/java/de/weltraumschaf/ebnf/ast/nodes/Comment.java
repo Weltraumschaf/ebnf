@@ -1,7 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.*;
-import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**
  * Comment node.

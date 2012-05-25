@@ -154,7 +154,7 @@ public class CliOptions {
     public boolean isIde() {
         return ide;
     }
-    
+
     public void format(final HelpFormatter formatter) {
         formatter.printHelp("ebnf", options);
     }

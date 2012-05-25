@@ -26,7 +26,6 @@ public final class StringHelper {
      * @return     Unquoted string.
      */
     public static String unquoteString(final String str) {
-        // @todo move into own class.
         int start = 0;
         int length = str.length();
 
