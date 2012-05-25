@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf.util;
+package de.weltraumschaf.ebnf.parser;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

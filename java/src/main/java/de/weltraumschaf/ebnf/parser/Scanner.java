@@ -1,6 +1,6 @@
 package de.weltraumschaf.ebnf.parser;
 
-import static de.weltraumschaf.ebnf.util.ScannerHelper.*;
+import static de.weltraumschaf.ebnf.parser.ScannerHelper.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;

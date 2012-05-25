@@ -295,7 +295,7 @@
 
         <module name="AvoidStaticImport">
             <property name="excludes"
-                value="org.junit.Assert.*,org.mockito.Mockito.*,org.hamcrest.core.IsEqual.*,org.hamcrest.core.IsNot.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.*,de.weltraumschaf.ebnf.util.ScannerHelper.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.*,de.weltraumschaf.ebnf.TestHelper.*,de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax" />
+                value="org.junit.Assert.*,org.mockito.Mockito.*,org.hamcrest.core.IsEqual.*,org.hamcrest.core.IsNot.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.*,de.weltraumschaf.ebnf.parser.ScannerHelper.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*,de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.*,de.weltraumschaf.ebnf.TestHelper.*,de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax" />
         </module>
 
         <module name="MissingDeprecated" />

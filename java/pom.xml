@@ -12,6 +12,7 @@
         A command line tool which parses EBNF grammars and generates railroad images
         for that grammar in various formats.
     </description>
+    <url>http://weltraumschaf.github.com/ebnf/</url>
 
     <organization>
         <name>Weltraumschaf</name>

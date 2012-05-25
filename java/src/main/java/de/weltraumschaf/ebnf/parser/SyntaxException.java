@@ -1,7 +1,5 @@
 package de.weltraumschaf.ebnf.parser;
 
-import de.weltraumschaf.ebnf.EbnfException;
-
 /**
  * Exception for signaling syntax errors.
  *
@@ -9,12 +7,8 @@ import de.weltraumschaf.ebnf.EbnfException;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class SyntaxException extends EbnfException {
+public class SyntaxException extends Exception {
 
-    /**
-     * Default exception code.
-     */
-    public static final int DEFAULT_CODE = 0;
     private static final long serialVersionUID = 1L;
 
     /**
@@ -23,24 +17,13 @@ public class SyntaxException extends EbnfException {
     private final Position position;
 
     /**
-     * Initializes error without cause and default error code.
+     * Initializes error without cause.
      *
      * @param message The error message.
      * @param pos     Where the error occurred.
      */
     public SyntaxException(final String message, final Position pos) {
-        this(message, pos, DEFAULT_CODE);
-    }
-
-    /**
-     * Initializes error without cause.
-     *
-     * @param message The error message.
-     * @param pos     Where the error occurred.
-     * @param code    Optional error code.
-     */
-    public SyntaxException(final String message, final Position pos, final int code) {
-        this(message, pos, code, null);
+        this(message, pos, null);
     }
 
     /**
@@ -48,11 +31,10 @@ public class SyntaxException extends EbnfException {
      *
      * @param message The error message.
      * @param pos     Where the error occurred.
-     * @param code    Optional error code.
      * @param cause   Optional previous exception.
      */
-    public SyntaxException(final String message, final Position pos, final int code, final Throwable cause) {
-        super(message, code, cause);
+    public SyntaxException(final String message, final Position pos, final Throwable cause) {
+        super(message, cause);
         position = pos;
     }
 
@@ -76,9 +58,7 @@ public class SyntaxException extends EbnfException {
         str.append(getMessage())
            .append(" at ")
            .append(position)
-           .append(" (code: ")
-           .append(getCode())
-           .append(")!");
+           .append("!");
         return str.toString();
     }
 

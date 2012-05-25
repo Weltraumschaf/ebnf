@@ -3,6 +3,7 @@ package de.weltraumschaf.ebnf;
 import de.weltraumschaf.ebnf.parser.Scanner;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
+import de.weltraumschaf.ebnf.parser.SyntaxException;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
 import de.weltraumschaf.ebnf.visitor.TextSyntaxTree;
 import java.io.File;
@@ -67,6 +68,14 @@ public final class App {
             scanner = new Scanner(ReaderHelper.createFrom(new File(options.getSyntaxFile())));
             parser  = new Parser(scanner);
             ast     = parser.parse();
+        } catch (SyntaxException ex) {
+            println("Syntax error: " + ex.getMessage());
+
+            if (options.isDebug()) {
+                ex.printStackTrace(System.out);
+            }
+
+            return ExitCode.SYNTAX_ERROR;
         } catch (FileNotFoundException ex) {
             println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
 

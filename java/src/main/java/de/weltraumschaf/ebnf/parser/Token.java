@@ -1,7 +1,5 @@
 package de.weltraumschaf.ebnf.parser;
 
-import de.weltraumschaf.ebnf.util.ScannerHelper;
-
 /**
  * Represents a scanned EBNF token with its type, value and position in the source file.
  *

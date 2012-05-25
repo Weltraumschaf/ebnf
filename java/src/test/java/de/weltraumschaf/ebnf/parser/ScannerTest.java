@@ -398,7 +398,7 @@ public class ScannerTest {
         } catch (SyntaxException e) {
             verify(scanner, times(1)).createPosition();
             assertSame(e.getPosition(), position);
-            assertEquals(String.format("Syntax error: %s at %s (code: 0)!", msg, position), e.
+            assertEquals(String.format("Syntax error: %s at %s!", msg, position), e.
                     toString());
         }
     }
