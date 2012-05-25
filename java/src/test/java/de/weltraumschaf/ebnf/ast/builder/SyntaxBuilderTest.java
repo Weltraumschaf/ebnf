@@ -2,7 +2,7 @@ package de.weltraumschaf.ebnf.ast.builder;
 
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
-import de.weltraumschaf.ebnf.visitor.Xml;
+import de.weltraumschaf.ebnf.ast.visitor.Xml;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;

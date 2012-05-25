@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf.visitor;
+package de.weltraumschaf.ebnf.ast.visitor;
 
 import com.google.common.collect.Maps;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;

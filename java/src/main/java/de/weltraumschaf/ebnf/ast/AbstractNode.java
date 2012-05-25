@@ -1,7 +1,7 @@
 package de.weltraumschaf.ebnf.ast;
 
 import com.google.common.collect.Maps;
-import de.weltraumschaf.ebnf.visitor.Visitor;
+import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import java.util.Map;
 
 /**

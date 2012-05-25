@@ -4,7 +4,7 @@ import de.weltraumschaf.ebnf.ast.AbstractNode;
 import de.weltraumschaf.ebnf.ast.Node;
 import de.weltraumschaf.ebnf.ast.NodeType;
 import de.weltraumschaf.ebnf.ast.Notification;
-import de.weltraumschaf.ebnf.visitor.Visitor;
+import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 
 /**
  *

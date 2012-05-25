@@ -1,4 +1,4 @@
-package de.weltraumschaf.ebnf.visitor;
+package de.weltraumschaf.ebnf.ast.visitor;
 
 import de.weltraumschaf.ebnf.ast.Attribute;
 import de.weltraumschaf.ebnf.ast.Composite;

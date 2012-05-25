@@ -1,7 +1,7 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.Notification;
-import de.weltraumschaf.ebnf.visitor.Visitor;
+import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.*;

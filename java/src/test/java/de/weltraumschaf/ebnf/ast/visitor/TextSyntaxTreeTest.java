@@ -9,7 +9,7 @@
  *
  */
 
-package de.weltraumschaf.ebnf.visitor;
+package de.weltraumschaf.ebnf.ast.visitor;
 
 import static de.weltraumschaf.ebnf.TestHelper.helper;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;

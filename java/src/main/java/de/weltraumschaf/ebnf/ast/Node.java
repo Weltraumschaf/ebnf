@@ -1,6 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
-import de.weltraumschaf.ebnf.visitor.Visitor;
+import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 
 /**
  * Interface of an AST node.

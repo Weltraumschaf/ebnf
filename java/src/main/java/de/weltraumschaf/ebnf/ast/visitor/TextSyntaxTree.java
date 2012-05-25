@@ -9,7 +9,7 @@
  *
  */
 
-package de.weltraumschaf.ebnf.visitor;
+package de.weltraumschaf.ebnf.ast.visitor;
 
 import com.google.common.collect.Lists;
 import de.weltraumschaf.ebnf.ast.Node;

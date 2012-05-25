@@ -5,7 +5,7 @@ import de.weltraumschaf.ebnf.ide.IdeApp;
 import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.SyntaxException;
-import de.weltraumschaf.ebnf.visitor.TextSyntaxTree;
+import de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

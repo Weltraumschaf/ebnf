@@ -21,4 +21,4 @@
  * <li>{@link de.weltraumschaf.ebnf.visitor.Xml}
  * </ul>
  */
-package de.weltraumschaf.ebnf.visitor;
+package de.weltraumschaf.ebnf.ast.visitor;

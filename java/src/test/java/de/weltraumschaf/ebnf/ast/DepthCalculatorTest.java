@@ -19,6 +19,7 @@ public class DepthCalculatorTest {
             super(Null.getInstance(), null);
         }
 
+
     }
 
     private Node createNode() {
