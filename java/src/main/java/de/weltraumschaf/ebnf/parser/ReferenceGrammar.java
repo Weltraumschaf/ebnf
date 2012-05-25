@@ -9,14 +9,12 @@
  *
  */
 
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.parser;
 
-import de.weltraumschaf.ebnf.parser.SyntaxException;
-import de.weltraumschaf.ebnf.parser.EbnfScanner;
-import de.weltraumschaf.ebnf.parser.EbnfParser;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;
+import de.weltraumschaf.ebnf.parser.SyntaxException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,6 +96,7 @@ public final class ReferenceGrammar {
             try {
                 syntax = parser.parse();
             } catch (IOException ex) {
+                // This should bever hapen because we read from the string above.
                 Logger.getLogger(ReferenceGrammar.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
