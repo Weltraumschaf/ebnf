@@ -16,6 +16,8 @@ public class CliOptions {
         private static final String OPT_TEXT_TREE = "t";
         private static final String OPT_DEBUG     = "d";
         private static final String OPT_HELP      = "h";
+        private static final String OPT_IDE       = "i";
+        private static final String OPT_IDE_LONG  = "ide";
 
         public void parse(final String[] args) throws ParseException {
             final CommandLineParser parser = new PosixParser();
@@ -27,6 +29,7 @@ public class CliOptions {
             optTextTree(cmd);
             optDebug(cmd);
             optHelp(cmd);
+            optIde(cmd);
         }
 
         private void optSyntax(final CommandLine cmd) {
@@ -74,6 +77,12 @@ public class CliOptions {
                 help = true;
             }
         }
+
+        private void optIde(final CommandLine cmd) {
+            if (cmd.hasOption(OPT_IDE) || cmd.hasOption(OPT_IDE_LONG)) {
+                ide = true;
+            }
+        }
     }
 
     private final Options options;
@@ -84,6 +93,7 @@ public class CliOptions {
     private boolean textTree = false;
     private boolean debug    = false;
     private boolean help     = false;
+    private boolean ide      = false;
 
     public CliOptions() {
         options = new Options();
@@ -97,6 +107,7 @@ public class CliOptions {
                           "Prints textual representation of the syntax tree to stdout.");
         options.addOption(Parser.OPT_DEBUG,     false, "Enables debug output.");
         options.addOption(Parser.OPT_HELP,      false, "This help.");
+        options.addOption(Parser.OPT_IDE, Parser.OPT_IDE_LONG, false, "Starts the GUI IDE.");
     }
 
     public void parse(final String[] args) throws ParseException {
@@ -140,6 +151,10 @@ public class CliOptions {
         return textTree;
     }
 
+    public boolean isIde() {
+        return ide;
+    }
+    
     public void format(final HelpFormatter formatter) {
         formatter.printHelp("ebnf", options);
     }
