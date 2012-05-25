@@ -113,14 +113,7 @@ public class TokenTest {
         }
     }
 
-   @Test  public void testUnquoteString() {
-        assertEquals("a test string", Token.unquoteString("\"a test string\""));
-        assertEquals("a \"test\" string", Token.unquoteString("\"a \"test\" string\"")); // NOPMD
-        assertEquals("a \"test\" string", Token.unquoteString("\"a \"test\" string\""));
-        assertEquals("a test string", Token.unquoteString("'a test string'"));
-        assertEquals("a 'test' string", Token.unquoteString("'a 'test' string'"));
-        assertEquals("a 'test' string", Token.unquoteString("'a \'test\' string'"));
-
+    @Test  public void testUnquoteString() {
         final Token token = new Token(TokenType.COMMENT,
                                       "\"a \"test\" string\"",
                                       new Position(0, 0));

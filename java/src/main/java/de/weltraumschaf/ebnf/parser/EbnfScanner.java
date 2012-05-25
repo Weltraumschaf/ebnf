@@ -1,6 +1,6 @@
 package de.weltraumschaf.ebnf.parser;
 
-import static de.weltraumschaf.ebnf.parser.ScannerHelper.*;
+import static de.weltraumschaf.ebnf.parser.CharacterHelper.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -204,21 +204,16 @@ public class EbnfScanner implements Scanner {
 
     /**
      * Throws a {SyntaxException} with the current {Position} in the input stream.
-     *
-     * TODO Consider private.
-     *
      * @param msg Error message string.
      *
      * @throws SyntaxException On syntax errors.
      */
-    public void raiseError(final String msg) throws SyntaxException {
+    protected void raiseError(final String msg) throws SyntaxException {
         throw new SyntaxException(msg, createPosition());
     }
 
     /**
      * Creates a {Position} from the current line and column in the input stream.
-     *
-     * TODO Consider private.
      *
      * @return
      */

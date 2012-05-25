@@ -5,9 +5,9 @@ package de.weltraumschaf.ebnf.parser;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public final class ScannerHelper {
+public final class CharacterHelper {
 
-    private ScannerHelper() { }
+    private CharacterHelper() { }
 
     /**
      * Checks whether a character is inside a given character range (included).

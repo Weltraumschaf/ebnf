@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit test for ScannerHelper.
+ * Unit test for CharacterHelper.
  */
-public class ScannerHelperTest {
+public class CharacterHelperTest {
 
     private static final char[] OPS =
         {'(', ')', '[', ']', '{', '}', '=', '.', ';', '|', ',', '-', ':'};
@@ -25,154 +25,154 @@ public class ScannerHelperTest {
 
     @Test public void isAlpha() {
         for (int i = 0; i < LOW_ALPHA.length; ++i) {
-            assertTrue(ScannerHelper.isAlpha(LOW_ALPHA[i]));
+            assertTrue(CharacterHelper.isAlpha(LOW_ALPHA[i]));
         }
 
         for (int i = 0; i < UP_ALPHA.length; ++i) {
-            assertTrue(ScannerHelper.isAlpha(UP_ALPHA[i]));
+            assertTrue(CharacterHelper.isAlpha(UP_ALPHA[i]));
         }
 
         for (int i = 0; i < NUMS.length; ++i) {
-            assertFalse(ScannerHelper.isAlpha(NUMS[i]));
+            assertFalse(CharacterHelper.isAlpha(NUMS[i]));
         }
 
         for (int i = 0; i < OPS.length; ++i) {
-            assertFalse(ScannerHelper.isAlpha(OPS[i]));
+            assertFalse(CharacterHelper.isAlpha(OPS[i]));
         }
 
         for (int i = 0; i < WHITE_SPACES.length; ++i) {
-            assertFalse(ScannerHelper.isAlpha(WHITE_SPACES[i]));
+            assertFalse(CharacterHelper.isAlpha(WHITE_SPACES[i]));
         }
     }
 
     @Test public void isNum() {
         for (int i = 0; i < NUMS.length; ++i) {
-            assertTrue(ScannerHelper.isNum(NUMS[i]));
+            assertTrue(CharacterHelper.isNum(NUMS[i]));
         }
 
         for (int i = 0; i < OPS.length; ++i) {
-            assertFalse(ScannerHelper.isNum(OPS[i]));
+            assertFalse(CharacterHelper.isNum(OPS[i]));
         }
 
         for (int i = 0; i < LOW_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isNum(LOW_ALPHA[i]));
+            assertFalse(CharacterHelper.isNum(LOW_ALPHA[i]));
         }
 
         for (int i = 0; i < UP_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isNum(UP_ALPHA[i]));
+            assertFalse(CharacterHelper.isNum(UP_ALPHA[i]));
         }
 
         for (int i = 0; i < WHITE_SPACES.length; ++i) {
-            assertFalse(ScannerHelper.isNum(WHITE_SPACES[i]));
+            assertFalse(CharacterHelper.isNum(WHITE_SPACES[i]));
         }
     }
 
     @Test public void isAlphaNum() {
         for (int i = 0; i < NUMS.length; ++i) {
-            assertTrue(ScannerHelper.isAlphaNum(NUMS[i]));
+            assertTrue(CharacterHelper.isAlphaNum(NUMS[i]));
         }
 
         for (int i = 0; i < LOW_ALPHA.length; ++i) {
-            assertTrue(ScannerHelper.isAlphaNum(LOW_ALPHA[i]));
+            assertTrue(CharacterHelper.isAlphaNum(LOW_ALPHA[i]));
         }
 
         for (int i = 0; i < UP_ALPHA.length; ++i) {
-            assertTrue(ScannerHelper.isAlphaNum(UP_ALPHA[i]));
+            assertTrue(CharacterHelper.isAlphaNum(UP_ALPHA[i]));
         }
 
         for (int i = 0; i < OPS.length; ++i) {
-            assertFalse(ScannerHelper.isAlphaNum(OPS[i]));
+            assertFalse(CharacterHelper.isAlphaNum(OPS[i]));
         }
 
         for (int i = 0; i < WHITE_SPACES.length; ++i) {
-            assertFalse(ScannerHelper.isAlphaNum(WHITE_SPACES[i]));
+            assertFalse(CharacterHelper.isAlphaNum(WHITE_SPACES[i]));
         }
     }
 
     @Test public void isOperator() {
         for (int i = 0; i < OPS.length; ++i) {
-            assertTrue(ScannerHelper.isOperator(OPS[i]));
+            assertTrue(CharacterHelper.isOperator(OPS[i]));
         }
 
         for (int i = 0; i < NUMS.length; ++i) {
-            assertFalse(ScannerHelper.isOperator(NUMS[i]));
+            assertFalse(CharacterHelper.isOperator(NUMS[i]));
         }
 
         for (int i = 0; i < LOW_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isOperator(LOW_ALPHA[i]));
+            assertFalse(CharacterHelper.isOperator(LOW_ALPHA[i]));
         }
 
         for (int i = 0; i < UP_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isOperator(UP_ALPHA[i]));
+            assertFalse(CharacterHelper.isOperator(UP_ALPHA[i]));
         }
 
         for (int i = 0; i < WHITE_SPACES.length; ++i) {
-            assertFalse(ScannerHelper.isOperator(WHITE_SPACES[i]));
+            assertFalse(CharacterHelper.isOperator(WHITE_SPACES[i]));
         }
     }
 
     @Test public void isWhiteSpace() {
         for (int i = 0; i < WHITE_SPACES.length; ++i) {
-            assertTrue(ScannerHelper.isWhiteSpace(WHITE_SPACES[i]));
+            assertTrue(CharacterHelper.isWhiteSpace(WHITE_SPACES[i]));
         }
 
         for (int i = 0; i < OPS.length; ++i) {
-            assertFalse(ScannerHelper.isWhiteSpace(OPS[i]));
+            assertFalse(CharacterHelper.isWhiteSpace(OPS[i]));
         }
 
         for (int i = 0; i < NUMS.length; ++i) {
-            assertFalse(ScannerHelper.isWhiteSpace(NUMS[i]));
+            assertFalse(CharacterHelper.isWhiteSpace(NUMS[i]));
         }
 
         for (int i = 0; i < LOW_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isWhiteSpace(LOW_ALPHA[i]));
+            assertFalse(CharacterHelper.isWhiteSpace(LOW_ALPHA[i]));
         }
 
         for (int i = 0; i < UP_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isWhiteSpace(UP_ALPHA[i]));
+            assertFalse(CharacterHelper.isWhiteSpace(UP_ALPHA[i]));
         }
     }
 
     @Test public void isQuote() {
-        assertTrue(ScannerHelper.isQuote('"'));
-        assertTrue(ScannerHelper.isQuote('\''));
+        assertTrue(CharacterHelper.isQuote('"'));
+        assertTrue(CharacterHelper.isQuote('\''));
 
         for (int i = 0; i < WHITE_SPACES.length; ++i) {
-            assertFalse(ScannerHelper.isQuote(WHITE_SPACES[i]));
+            assertFalse(CharacterHelper.isQuote(WHITE_SPACES[i]));
         }
 
         for (int i = 0; i < OPS.length; ++i) {
-            assertFalse(ScannerHelper.isQuote(OPS[i]));
+            assertFalse(CharacterHelper.isQuote(OPS[i]));
         }
 
         for (int i = 0; i < NUMS.length; ++i) {
-            assertFalse(ScannerHelper.isQuote(NUMS[i]));
+            assertFalse(CharacterHelper.isQuote(NUMS[i]));
         }
 
         for (int i = 0; i < LOW_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isQuote(LOW_ALPHA[i]));
+            assertFalse(CharacterHelper.isQuote(LOW_ALPHA[i]));
         }
 
         for (int i = 0; i < UP_ALPHA.length; ++i) {
-            assertFalse(ScannerHelper.isQuote(UP_ALPHA[i]));
+            assertFalse(CharacterHelper.isQuote(UP_ALPHA[i]));
         }
     }
 
     @Test public void isEquals() {
         final char[] chars = {'-', '_'};
-        assertTrue(ScannerHelper.isEquals('-', chars));
-        assertTrue(ScannerHelper.isEquals('_', chars));
-        assertFalse(ScannerHelper.isEquals('a', chars));
+        assertTrue(CharacterHelper.isEquals('-', chars));
+        assertTrue(CharacterHelper.isEquals('_', chars));
+        assertFalse(CharacterHelper.isEquals('a', chars));
     }
 
     @Test public void isCharInRange() {
-        assertTrue(ScannerHelper.isCharInRange('c', 'a', 'f'));
-        assertTrue(ScannerHelper.isCharInRange('3', '1', '5'));
-        assertFalse(ScannerHelper.isCharInRange('b', 'f', 'z'));
-        assertFalse(ScannerHelper.isCharInRange('3', '7', '9'));
+        assertTrue(CharacterHelper.isCharInRange('c', 'a', 'f'));
+        assertTrue(CharacterHelper.isCharInRange('3', '1', '5'));
+        assertFalse(CharacterHelper.isCharInRange('b', 'f', 'z'));
+        assertFalse(CharacterHelper.isCharInRange('3', '7', '9'));
 
         try {
-            ScannerHelper.isCharInRange('c', 'f', 'a');
+            CharacterHelper.isCharInRange('c', 'f', 'a');
             fail("Expected exception not thrown!");
         } catch (IllegalArgumentException ex) {
             assertEquals("End must be greater or equal than start!", ex.getMessage());

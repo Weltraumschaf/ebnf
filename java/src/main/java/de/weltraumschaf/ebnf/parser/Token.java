@@ -70,7 +70,7 @@ public class Token {
      */
     public final String getValue(final boolean unquote) {
         if (unquote) {
-            return unquoteString(value);
+            return StringHelper.unquoteString(value);
         }
 
         return value;
@@ -207,28 +207,6 @@ public class Token {
      */
     public final boolean isEqual(final String other) {
         return value.equals(other);
-    }
-
-    /**
-     * Remove leading and trailing quotes from a string.
-     *
-     * @param str String to unquote.
-     * @return     Unquoted string.
-     */
-    public static String unquoteString(final String str) {
-        // @todo move into own class.
-        int start = 0;
-        int length = str.length();
-
-        if (ScannerHelper.isQuote(str.charAt(start))) {
-            start++;
-        }
-
-        if (ScannerHelper.isQuote(str.charAt(length - 1))) {
-            length--;
-        }
-
-        return str.substring(start, length);
     }
 
 }
