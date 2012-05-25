@@ -156,11 +156,11 @@ public class Token {
     /**
      * Checks if the token is of a particular type.
      *
-     * @param t The token type to check.
-     * @return   True or false.
+     * @param checkedType The token type to check.
+     * @return             True or false.
      */
-    public final boolean isType(final TokenType t) {
-        return type.equals(t);
+    public final boolean isType(final TokenType checkedType) {
+        return type.equals(checkedType);
     }
 
     /**

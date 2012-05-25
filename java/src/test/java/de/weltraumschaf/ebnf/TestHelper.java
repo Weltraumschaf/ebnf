@@ -12,19 +12,13 @@
 package de.weltraumschaf.ebnf;
 
 import com.google.common.io.Files;
-import de.weltraumschaf.ebnf.parser.EbnfParser;
-import de.weltraumschaf.ebnf.parser.EbnfScanner;
+import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.Scanner;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import de.weltraumschaf.ebnf.parser.Factory;
-import java.io.*;
 
 /**
  *

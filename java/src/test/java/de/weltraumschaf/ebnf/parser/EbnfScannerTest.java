@@ -1,7 +1,6 @@
 package de.weltraumschaf.ebnf.parser;
 
 import static de.weltraumschaf.ebnf.TestHelper.helper;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;

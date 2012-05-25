@@ -1,7 +1,5 @@
 package de.weltraumschaf.ebnf;
 
-import de.weltraumschaf.ebnf.parser.EbnfScanner;
-import de.weltraumschaf.ebnf.parser.EbnfParser;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;

@@ -12,9 +12,6 @@
 package de.weltraumschaf.ebnf.parser;
 
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
-import de.weltraumschaf.ebnf.parser.Factory;
-import de.weltraumschaf.ebnf.parser.Parser;
-import de.weltraumschaf.ebnf.parser.SyntaxException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

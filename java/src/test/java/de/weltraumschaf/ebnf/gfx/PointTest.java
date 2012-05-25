@@ -11,7 +11,6 @@
 
 package de.weltraumschaf.ebnf.gfx;
 
-import java.awt.Dimension;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.*;
@@ -68,7 +67,7 @@ public class PointTest {
         final Point point1 = new Point(11, 22);
         final Point point2 = new Point(11, 22);
         final Point point3 = new Point(10, 20);
-        Point nullPoint = null;
+        final Point nullPoint = null;
         assertFalse(point1.equals(nullPoint));
         assertFalse(point2.equals(nullPoint));
         assertFalse(point3.equals(nullPoint));

@@ -22,15 +22,15 @@ public final class Factory {
 
     private Factory() { }
 
-    public static Scanner newScanner(Reader reader) {
+    public static Scanner newScanner(final Reader reader) {
         return newScanner(reader, null);
     }
 
-    public static Scanner newScanner(Reader reader, String fileName) {
+    public static Scanner newScanner(final Reader reader, final String fileName) {
         return new EbnfScanner(reader, fileName);
     }
 
-    public static Parser newParser(Scanner scanner) {
+    public static Parser newParser(final Scanner scanner) {
         return new EbnfParser(scanner);
     }
 
