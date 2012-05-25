@@ -34,7 +34,7 @@ public class EbnfParserTest {
     }
 
     @Test public void testAssertToken() {
-        final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom("")));
+        final EbnfParser parser = new EbnfParser(new EbnfScanner(ReaderHelper.createFrom("")));
         final Token token1  = new Token(TokenType.ASIGN, ":", new Position(0, 0));
         final Token token2  = new Token(TokenType.IDENTIFIER, "foobar", new Position(0, 0));
 
@@ -50,7 +50,7 @@ public class EbnfParserTest {
     }
 
     @Test public void testAssertTokens() {
-        final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom("")));
+        final EbnfParser parser = new EbnfParser(new EbnfScanner(ReaderHelper.createFrom("")));
         final Token token1  = new Token(TokenType.ASIGN, ":", new Position(0, 0));
         final Token token2  = new Token(TokenType.ASIGN, "=", new Position(0, 0));
 

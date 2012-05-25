@@ -12,6 +12,8 @@
 package de.weltraumschaf.ebnf;
 
 import com.google.common.io.Files;
+import de.weltraumschaf.ebnf.parser.EbnfParser;
+import de.weltraumschaf.ebnf.parser.EbnfScanner;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.Scanner;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
@@ -56,10 +58,10 @@ public final class TestHelper {
     }
 
     public Scanner createScannerFromFixture(final String fixtureFile) throws FileNotFoundException, URISyntaxException {
-        return new Scanner(createSourceFromFixture(fixtureFile));
+        return new EbnfScanner(createSourceFromFixture(fixtureFile));
     }
 
     public Parser createParserFromFixture(final String fixtureFile) throws FileNotFoundException, URISyntaxException {
-        return new Parser(createScannerFromFixture(fixtureFile));
+        return new EbnfParser(createScannerFromFixture(fixtureFile));
     }
 }

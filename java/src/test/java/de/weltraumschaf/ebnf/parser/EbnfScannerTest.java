@@ -52,7 +52,7 @@ public class EbnfScannerTest {
 
     private void assertTokens(final BufferedReader grammar, final List<Expectation> expectations, final String msg)
             throws SyntaxException, IOException {
-        final Scanner scanner = new Scanner(grammar);
+        final Scanner scanner = new EbnfScanner(grammar);
         int count = 0;
 
         while (scanner.hasNextToken()) {
@@ -104,7 +104,7 @@ public class EbnfScannerTest {
     }
 
     @Test public void testNext() throws Exception { //NOPMD
-        Scanner scanner = new Scanner(ReaderHelper.createFrom(""));
+        Scanner scanner = new EbnfScanner(ReaderHelper.createFrom(""));
         assertNull(scanner.getCurrentToken());
         assertNull(scanner.getCurrentToken());
 
@@ -363,7 +363,7 @@ public class EbnfScannerTest {
             new Expectation(null,           TokenType.EOF,        21, 1)
         ), "testgrammar_1.ebnf");
 
-        scanner = new Scanner(ReaderHelper.createFrom("\ncomment := literal .\n"));
+        scanner = new EbnfScanner(ReaderHelper.createFrom("\ncomment := literal .\n"));
 
         try {
             while (scanner.hasNextToken()) {
@@ -388,7 +388,7 @@ public class EbnfScannerTest {
 
     @Test public void testRaiseError() {
         final Position position = new Position(5, 3);
-        final Scanner scanner = mock(Scanner.class, Mockito.CALLS_REAL_METHODS);
+        final EbnfScanner scanner = mock(EbnfScanner.class, Mockito.CALLS_REAL_METHODS);
         when(scanner.createPosition()).thenReturn(position);
         final String msg = "an error";
 
@@ -405,7 +405,7 @@ public class EbnfScannerTest {
 
     @Test public void testPeekToken() throws SyntaxException, IOException {
         final BufferedReader grammar = ReaderHelper.createFrom("comment :== literal .");
-        final Scanner scanner = new Scanner(grammar);
+        final Scanner scanner = new EbnfScanner(grammar);
         scanner.nextToken();
         Token token;
         token = scanner.getCurrentToken();

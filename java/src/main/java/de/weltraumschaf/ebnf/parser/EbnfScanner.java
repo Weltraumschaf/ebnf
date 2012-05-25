@@ -32,12 +32,12 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class EbnfScanner {
+public class EbnfScanner implements Scanner {
 
     /**
      * End of file character.
      */
-    public static final char EOF = (char) 0;
+    private static final char EOF = (char) 0;
     /**
      * Special characters allowed in identifiers.
      */
@@ -203,6 +203,8 @@ public class EbnfScanner {
     /**
      * Throws a {SyntaxException} with the current {Position} in the input stream.
      *
+     * TODO Consider private.
+     *
      * @param msg Error message string.
      *
      * @throws SyntaxException On syntax errors.
@@ -213,6 +215,8 @@ public class EbnfScanner {
 
     /**
      * Creates a {Position} from the current line and column in the input stream.
+     *
+     * TODO Consider private.
      *
      * @return
      */
@@ -227,6 +231,7 @@ public class EbnfScanner {
      *
      * @return
      */
+    @Override
     public Token getCurrentToken() {
         try {
             return tokens.get(currentToken);
@@ -240,6 +245,7 @@ public class EbnfScanner {
      *
      * @return
      */
+    @Override
     public Token backtrackToken() {
         return backtrackToken(1);
     }
@@ -251,6 +257,7 @@ public class EbnfScanner {
      *
      * @return The backtracked token.
      */
+    @Override
     public Token backtrackToken(final int count) {
         final int index = currentToken - count;
 
@@ -273,6 +280,7 @@ public class EbnfScanner {
      *
      * @return
      */
+    @Override
     public boolean hasNextToken() {
         final Token token = getCurrentToken();
 
@@ -290,6 +298,7 @@ public class EbnfScanner {
      * @throws SyntaxException On syntax errors.
      * @throws IOException     On input stream IO errors.
      */
+    @Override
     public Token peekToken() throws SyntaxException, IOException {
         nextToken();
         final Token token = getCurrentToken();
@@ -311,6 +320,7 @@ public class EbnfScanner {
      * @throws SyntaxException On syntax errors.
      * @throws IOException     On input stream IO errors.
      */
+    @Override
     public void nextToken() throws SyntaxException, IOException {
         if (currentToken > -1 && currentToken < (tokens.size() - 1)) {
             // recover backtracked tokens.
@@ -508,6 +518,7 @@ public class EbnfScanner {
      *
      * @throws IOException
      */
+    @Override
     public void close() throws IOException {
         input.close();
     }

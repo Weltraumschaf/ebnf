@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class EbnfParser {
+public class EbnfParser implements Parser {
 
     private static final List<String> ASSIGN = Arrays.asList("=", ":", ":==");
     private static final List<String> END_OF_RULE = Arrays.asList(".", ";");
@@ -20,7 +20,7 @@ public class EbnfParser {
     /**
      * Used to receive the tokens.
      */
-    private final EbnfScanner scanner;
+    private final Scanner scanner;
     /**
      * The abstract syntax tree.
      *
@@ -33,7 +33,7 @@ public class EbnfParser {
      *
      * @param scanner Provides the token stream.
      */
-    public EbnfParser(final EbnfScanner scanner) {
+    public EbnfParser(final Scanner scanner) {
         this.scanner = scanner;
         ast = Syntax.newInstance();
     }
@@ -45,6 +45,7 @@ public class EbnfParser {
      *
      * @throws SyntaxError
      */
+    @Override
     public Syntax parse() throws SyntaxException, IOException {
         scanner.nextToken();
 
