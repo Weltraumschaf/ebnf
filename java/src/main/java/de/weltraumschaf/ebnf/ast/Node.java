@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
+import com.sun.jdi.Value;
 import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**
@@ -46,4 +47,11 @@ public interface Node {
     int depth();
 
     NodeType getType();
+
+    boolean hasParent();
+    Node getParent();
+    boolean hasAttributes();
+    boolean hasAttribute(String name);
+    String getAttribute(String name);
+    void setAttribute(String name, String value);
 }

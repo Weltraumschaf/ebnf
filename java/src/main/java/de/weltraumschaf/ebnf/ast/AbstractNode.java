@@ -1,6 +1,8 @@
 package de.weltraumschaf.ebnf.ast;
 
+import com.google.common.collect.Maps;
 import de.weltraumschaf.ebnf.visitor.Visitor;
+import java.util.Map;
 
 /**
  * Abstract representation of AST nodes which are not the {@link nodes.Syntax "root node"}
@@ -15,6 +17,7 @@ public abstract class AbstractNode implements Node {
      */
     private final Node parent;
     private final NodeType type;
+    private final Map<String, String> attributes;
 
     /**
      * Initializes the node with it's parent. This is immutable.
@@ -25,8 +28,14 @@ public abstract class AbstractNode implements Node {
      * @param Node Ancestor node.
      */
     protected AbstractNode(final Node parent, final NodeType type) {
-        this.parent = parent;
-        this.type   = type;
+        this.parent     = parent;
+        this.type       = type;
+        this.attributes = Maps.newHashMap();
+    }
+
+    @Override
+    public boolean hasParent() {
+        return parent != null || parent.getType() == NodeType.NULL;
     }
 
     /**
@@ -34,6 +43,7 @@ public abstract class AbstractNode implements Node {
      *
      * @return
      */
+    @Override
     public Node getParent() {
         return parent;
     }
@@ -60,6 +70,30 @@ public abstract class AbstractNode implements Node {
         visitor.beforeVisit(this);
         visitor.visit(this);
         visitor.afterVisit(this);
+    }
+
+    @Override
+    public boolean hasAttributes() {
+        return !attributes.isEmpty();
+    }
+
+    @Override
+    public boolean hasAttribute(final String name) {
+        return attributes.containsKey(name);
+    }
+
+    @Override
+    public String getAttribute(final String name) {
+        if (!hasAttribute(name)) {
+            throw new IllegalArgumentException(String.format("Does not have attribute with name '%s'!", name));
+        }
+
+        return attributes.get(name);
+    }
+
+    @Override
+    public void setAttribute(final String name, final String value) {
+        attributes.put(name, value);
     }
 
 }

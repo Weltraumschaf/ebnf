@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public final class Syntax implements Node, Composite {
+public final class Syntax extends AbstractNode implements Composite {
 
     /**
      * Default meta string.
@@ -38,7 +38,7 @@ public final class Syntax implements Node, Composite {
     private final List<Node> nodes = new ArrayList<Node>();
 
     private Syntax(final String title, final String meta) {
-        super();
+        super(Null.getInstance(), NodeType.SYNTAX);
         this.title = title;
         this.meta  = meta;
     }

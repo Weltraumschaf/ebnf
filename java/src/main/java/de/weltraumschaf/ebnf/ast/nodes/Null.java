@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.AbstractNode;
 import de.weltraumschaf.ebnf.ast.Node;
 import de.weltraumschaf.ebnf.ast.NodeType;
 import de.weltraumschaf.ebnf.ast.Notification;
@@ -9,12 +10,13 @@ import de.weltraumschaf.ebnf.visitor.Visitor;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public final class Null implements Node {
+public final class Null extends AbstractNode {
 
     private static final Null INSTANCE = new Null();
-    private static final NodeType TYPE = NodeType.NULL;
 
-    private Null() { }
+    private Null() {
+        super(null, NodeType.NULL);
+    }
 
     /**
      * Returns always the same null instance.
@@ -45,16 +47,7 @@ public final class Null implements Node {
 
     @Override
     public String toString() {
-        return String.format("<%s value=%s>", getNodeName().toUpperCase());
+        return String.format("<%s>", getNodeName().toUpperCase());
     }
 
-    @Override
-    public String getNodeName() {
-        return TYPE.toString();
-    }
-
-    @Override
-    public NodeType getType() {
-        return TYPE;
-    }
 }
