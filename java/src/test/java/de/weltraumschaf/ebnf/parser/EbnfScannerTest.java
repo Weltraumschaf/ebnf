@@ -1,9 +1,9 @@
 package de.weltraumschaf.ebnf.parser;
 
 import static de.weltraumschaf.ebnf.TestHelper.helper;
-import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -50,9 +50,8 @@ public class EbnfScannerTest {
         }
     }
 
-    private void assertTokens(final BufferedReader grammar, final List<Expectation> expectations, final String msg)
+    private void assertTokens(final Scanner scanner, final List<Expectation> expectations, final String msg)
             throws SyntaxException, IOException {
-        final Scanner scanner = new EbnfScanner(grammar);
         int count = 0;
 
         while (scanner.hasNextToken()) {
@@ -104,11 +103,11 @@ public class EbnfScannerTest {
     }
 
     @Test public void testNext() throws Exception { //NOPMD
-        Scanner scanner = new EbnfScanner(ReaderHelper.createFrom(""));
+        Scanner scanner = Factory.newScanner(new StringReader(""));
         assertNull(scanner.getCurrentToken());
         assertNull(scanner.getCurrentToken());
 
-        assertTokens(helper().createSourceFromFixture("rules_with_ranges.ebnf"), Arrays.asList(
+        assertTokens(helper().createScannerFromFixture("rules_with_ranges.ebnf"), Arrays.asList(
                 new Expectation("\"Rules with ranges.\"", TokenType.LITERAL, 1, 1),
                 new Expectation("{", TokenType.L_BRACE, 1, 22),
                 new Expectation("lower", TokenType.IDENTIFIER, 2, 5),
@@ -142,7 +141,7 @@ public class EbnfScannerTest {
                 new Expectation("}", TokenType.R_BRACE, 6, 1),
                 new Expectation(null, TokenType.EOF, 6, 1)), "Rules with range.");
 
-        assertTokens(helper().createSourceFromFixture("rules_with_comments.ebnf"), Arrays.asList(
+        assertTokens(helper().createScannerFromFixture("rules_with_comments.ebnf"), Arrays.asList(
             new Expectation("\"Rules with comments.\"", TokenType.LITERAL,    1, 1),
             new Expectation("{",       TokenType.L_BRACE,   1, 24),
 
@@ -174,7 +173,7 @@ public class EbnfScannerTest {
             new Expectation(null,      TokenType.EOF,     8, 1)
         ), "Rule with comment.");
 
-        assertTokens(helper().createSourceFromFixture("rules_with_different_assignment_ops.ebnf"),
+        assertTokens(helper().createScannerFromFixture("rules_with_different_assignment_ops.ebnf"),
             Arrays.asList(
                 new Expectation("\"Rules with different assignment operators.\"",
                                             TokenType.LITERAL,    1, 1),
@@ -200,7 +199,7 @@ public class EbnfScannerTest {
             ),
         "Assignemnt operators.");
 
-        assertTokens(helper().createSourceFromFixture("rules_with_literals.ebnf"),
+        assertTokens(helper().createScannerFromFixture("rules_with_literals.ebnf"),
             Arrays.asList(
                 new Expectation("\"Rules with literal.\"", TokenType.LITERAL,    1, 1),
                 new Expectation("{",                     TokenType.L_BRACE,   1, 23),
@@ -228,7 +227,7 @@ public class EbnfScannerTest {
             ),
         "Rules with literal.");
 
-        assertTokens(helper().createSourceFromFixture("testgrammar_1.ebnf"), Arrays.asList(
+        assertTokens(helper().createScannerFromFixture("testgrammar_1.ebnf"), Arrays.asList(
             new Expectation("\"EBNF defined in itself.\"",   TokenType.LITERAL, 1, 1),
             new Expectation("{",          TokenType.L_BRACE,   1,  27),
 
@@ -363,7 +362,7 @@ public class EbnfScannerTest {
             new Expectation(null,           TokenType.EOF,        21, 1)
         ), "testgrammar_1.ebnf");
 
-        scanner = new EbnfScanner(ReaderHelper.createFrom("\ncomment := literal .\n"));
+        scanner = Factory.newScanner(new StringReader("\ncomment := literal .\n"));
 
         try {
             while (scanner.hasNextToken()) {
@@ -404,8 +403,7 @@ public class EbnfScannerTest {
     }
 
     @Test public void testPeekToken() throws SyntaxException, IOException {
-        final BufferedReader grammar = ReaderHelper.createFrom("comment :== literal .");
-        final Scanner scanner = new EbnfScanner(grammar);
+        final Scanner scanner = Factory.newScanner(new StringReader("comment :== literal ."));
         scanner.nextToken();
         Token token;
         token = scanner.getCurrentToken();

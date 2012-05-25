@@ -4,7 +4,6 @@ import static de.weltraumschaf.ebnf.TestHelper.helper;
 import de.weltraumschaf.ebnf.ast.Notification;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
-import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -34,7 +33,7 @@ public class EbnfParserTest {
     }
 
     @Test public void testAssertToken() {
-        final EbnfParser parser = new EbnfParser(new EbnfScanner(ReaderHelper.createFrom("")));
+        final EbnfParser parser = (EbnfParser) Factory.newParserFromSource("");
         final Token token1  = new Token(TokenType.ASIGN, ":", new Position(0, 0));
         final Token token2  = new Token(TokenType.IDENTIFIER, "foobar", new Position(0, 0));
 
@@ -50,7 +49,7 @@ public class EbnfParserTest {
     }
 
     @Test public void testAssertTokens() {
-        final EbnfParser parser = new EbnfParser(new EbnfScanner(ReaderHelper.createFrom("")));
+        final EbnfParser parser = (EbnfParser) Factory.newParserFromSource("");
         final Token token1  = new Token(TokenType.ASIGN, ":", new Position(0, 0));
         final Token token2  = new Token(TokenType.ASIGN, "=", new Position(0, 0));
 

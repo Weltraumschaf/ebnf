@@ -3,6 +3,7 @@ package de.weltraumschaf.ebnf.parser;
 import static de.weltraumschaf.ebnf.parser.ScannerHelper.*;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class EbnfScanner implements Scanner {
     /**
      * The input stream to read from.
      */
-    private final BufferedReader input;
+    private final Reader input;
     /**
      * The file name associated with the input.
      *
@@ -90,7 +91,7 @@ public class EbnfScanner implements Scanner {
      *
      * @param inputStream The input stream to scan.
      */
-    public EbnfScanner(final BufferedReader inputStream) {
+    public EbnfScanner(final Reader inputStream) {
         this(inputStream, null);
     }
 
@@ -100,7 +101,7 @@ public class EbnfScanner implements Scanner {
      * @param inputStream The input stream to scan.
      * @param fileName    The file name associated with the scanned source.
      */
-    public EbnfScanner(final BufferedReader inputStream, final String fileName) {
+    public EbnfScanner(final Reader inputStream, final String fileName) {
         this.input = inputStream;
         this.file  = fileName;
         currentCharacter = -1;
@@ -119,6 +120,7 @@ public class EbnfScanner implements Scanner {
      *
      * @return The associated file name or null if not scanning from a file.
      */
+    @Override
     public final String getFile() {
         return file;
     }

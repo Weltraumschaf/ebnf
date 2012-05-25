@@ -16,7 +16,6 @@ import de.weltraumschaf.ebnf.parser.EbnfParser;
 import de.weltraumschaf.ebnf.parser.EbnfScanner;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.Scanner;
-import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +23,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import de.weltraumschaf.ebnf.parser.Factory;
+import java.io.*;
 
 /**
  *
@@ -44,7 +45,11 @@ public final class TestHelper {
         return INSTANCE;
     }
 
-    public URI createResourceFromFixture(final String fixtureFile) throws URISyntaxException {
+    private Reader createFileReaderFromFixture(final String fixtureFile) throws  FileNotFoundException, URISyntaxException {
+        return new FileReader(new File(createResourceFromFixture(fixtureFile)));
+    }
+
+    private URI createResourceFromFixture(final String fixtureFile) throws URISyntaxException {
         return getClass().getResource(FIXTURE_DIR + '/' + fixtureFile).toURI();
     }
 
@@ -52,16 +57,11 @@ public final class TestHelper {
         return Files.toString(new File(createResourceFromFixture(fixtureFile)), Charset.defaultCharset());
     }
 
-    public BufferedReader createSourceFromFixture(final String fixtureFile) throws FileNotFoundException,
-                                                                              URISyntaxException {
-        return ReaderHelper.createFrom(createResourceFromFixture(fixtureFile));
-    }
-
     public Scanner createScannerFromFixture(final String fixtureFile) throws FileNotFoundException, URISyntaxException {
-        return new EbnfScanner(createSourceFromFixture(fixtureFile));
+        return Factory.newScanner(createFileReaderFromFixture(fixtureFile));
     }
 
     public Parser createParserFromFixture(final String fixtureFile) throws FileNotFoundException, URISyntaxException {
-        return new EbnfParser(createScannerFromFixture(fixtureFile));
+        return Factory.newParserFromSource(createResourceFromFixture(fixtureFile));
     }
 }

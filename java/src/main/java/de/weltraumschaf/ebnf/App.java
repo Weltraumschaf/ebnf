@@ -3,8 +3,9 @@ package de.weltraumschaf.ebnf;
 import de.weltraumschaf.ebnf.parser.EbnfScanner;
 import de.weltraumschaf.ebnf.parser.EbnfParser;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
+import de.weltraumschaf.ebnf.parser.Factory;
+import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.SyntaxException;
-import de.weltraumschaf.ebnf.util.ReaderHelper;
 import de.weltraumschaf.ebnf.visitor.TextSyntaxTree;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,13 +61,12 @@ public final class App {
             return ExitCode.NO_SYNTAX;
         }
 
-        EbnfScanner scanner;
-        EbnfParser parser;
+        final String fileName = options.getSyntaxFile();
+        Parser parser;
         Syntax ast;
 
         try {
-            scanner = new EbnfScanner(ReaderHelper.createFrom(new File(options.getSyntaxFile())));
-            parser  = new EbnfParser(scanner);
+            parser  = Factory.newParserFromSource(new File(fileName), fileName);
             ast     = parser.parse();
         } catch (SyntaxException ex) {
             println("Syntax error: " + ex.getMessage());
@@ -77,7 +77,7 @@ public final class App {
 
             return ExitCode.SYNTAX_ERROR;
         } catch (FileNotFoundException ex) {
-            println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
+            println(String.format("Can not read syntax file '%s'!", fileName));
 
             if (options.isDebug()) {
                 ex.printStackTrace(System.out);
@@ -85,7 +85,7 @@ public final class App {
 
             return ExitCode.READ_ERROR;
         } catch (IOException ex) {
-            println(String.format("Can not read syntax file '%s'!", options.getSyntaxFile()));
+            println(String.format("Can not read syntax file '%s'!", fileName));
 
             if (options.isDebug()) {
                 ex.printStackTrace(System.out);
