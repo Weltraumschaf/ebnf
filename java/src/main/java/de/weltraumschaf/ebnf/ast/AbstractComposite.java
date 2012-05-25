@@ -21,21 +21,12 @@ public abstract class AbstractComposite extends AbstractNode implements Composit
     private final List<Node> nodes = new ArrayList<Node>();
 
     /**
-     * Initializes the parent node with null.
-     *
-     * @todo consider using {@link Null} or remove this constructor.
-     */
-    public AbstractComposite() {
-        this(null);
-    }
-
-    /**
      * Initializes object with empty child node array and parent node.
      *
      * @param parent The parent node.
      */
-    public AbstractComposite(final Node parent) {
-        super(parent);
+    public AbstractComposite(final Node parent, final NodeType type) {
+        super(parent, type);
     }
 
     /**

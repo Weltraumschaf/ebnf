@@ -24,7 +24,7 @@ public final class Identifier extends AbstractNode {
      * @param value
      */
     private Identifier(final Node parent, final String value) {
-        super(parent);
+        super(parent, NodeType.IDENTIFIER);
         this.value = value;
     }
 
@@ -69,30 +69,6 @@ public final class Identifier extends AbstractNode {
     }
 
     /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.IDENTIFIER.toString();
-    }
-
-    /**
-     * Defines method to accept {@link Visitor visitors}.
-     *
-     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
-     *
-     * @param visitor Object which visits the node.
-     */
-    @Override
-    public void accept(final Visitor visitor) {
-        visitor.beforeVisit(this);
-        visitor.visit(this);
-        visitor.afterVisit(this);
-    }
-
-    /**
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
@@ -129,6 +105,6 @@ public final class Identifier extends AbstractNode {
      */
     @Override
     public String toString() {
-        return String.format("<IDENTIFIER value=%s>", value);
+        return String.format("<%s value=%s>", getNodeName().toUpperCase(), value);
     }
 }

@@ -15,7 +15,7 @@ public final class Rule extends AbstractComposite {
     @Attribute public String name;
 
     private Rule(final Node parent, final String name) {
-        super(parent);
+        super(parent, NodeType.RULE);
         this.name = name;
     }
 
@@ -60,16 +60,6 @@ public final class Rule extends AbstractComposite {
     }
 
     /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.RULE.toString();
-    }
-
-    /**
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
@@ -90,7 +80,7 @@ public final class Rule extends AbstractComposite {
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        str.append(String.format("<RULE name=%s>", name));
+        str.append(String.format("<%s name=%s>", getNodeName().toUpperCase(), name));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {

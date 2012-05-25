@@ -19,6 +19,8 @@ public final class Syntax implements Node, Composite {
      */
     public static final String DEFAULT_META = "xis/ebnf v2.0 http://wiki.karmin.ch/ebnf/ gpl3";
 
+    private static final NodeType TYPE = NodeType.SYNTAX;
+
     /**
      * Title literal of string.
      */
@@ -69,16 +71,6 @@ public final class Syntax implements Node, Composite {
      */
     public static Syntax newInstance(final String title, final String meta) {
         return new Syntax(title, meta);
-    }
-
-    /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.SYNTAX.toString();
     }
 
     /**
@@ -206,7 +198,7 @@ public final class Syntax implements Node, Composite {
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        str.append(String.format("<SYNTAX title=%s, meta=%s>", title, meta));
+        str.append(String.format("<%s title=%s, meta=%s>", getNodeName().toUpperCase(), title, meta));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
@@ -215,5 +207,15 @@ public final class Syntax implements Node, Composite {
         }
 
         return str.toString();
+    }
+
+    @Override
+    public String getNodeName() {
+        return TYPE.toString();
+    }
+
+    @Override
+    public NodeType getType() {
+        return TYPE;
     }
 }

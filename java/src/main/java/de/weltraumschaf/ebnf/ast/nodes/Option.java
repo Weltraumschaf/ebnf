@@ -12,7 +12,7 @@ import de.weltraumschaf.ebnf.ast.NodeType;
 public final class Option extends AbstractComposite {
 
     private Option(final Node parent) {
-        super(parent);
+        super(parent, NodeType.OPTION);
     }
 
     /**
@@ -34,20 +34,10 @@ public final class Option extends AbstractComposite {
         return new Option(parent);
     }
 
-    /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.OPTION.toString();
-    }
-
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        str.append("<OPTION>");
+        str.append(String.format("<%s>", getNodeName().toUpperCase()));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {

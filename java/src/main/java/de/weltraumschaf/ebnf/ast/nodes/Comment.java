@@ -22,7 +22,7 @@ public final class Comment extends AbstractNode {
      * @param value
      */
     private Comment(final Node parent, final String value) {
-        super(parent);
+        super(parent, NodeType.COMMENT);
         this.value = value;
     }
 
@@ -67,30 +67,6 @@ public final class Comment extends AbstractNode {
     }
 
     /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.COMMENT.toString();
-    }
-
-    /**
-     * Defines method to accept {@link Visitor}.
-     *
-     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
-     *
-     * @param visitor Object which visits the node.
-     */
-    @Override
-    public void accept(final Visitor visitor) {
-        visitor.beforeVisit(this);
-        visitor.visit(this);
-        visitor.afterVisit(this);
-    }
-
-    /**
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
@@ -131,7 +107,7 @@ public final class Comment extends AbstractNode {
      */
     @Override
     public String toString() {
-        return String.format("<COMMENT value=%s>", value);
+        return String.format("<%s value=%s>", getNodeName().toUpperCase(), value);
     }
 
 }

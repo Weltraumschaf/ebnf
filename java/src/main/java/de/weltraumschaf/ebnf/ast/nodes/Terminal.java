@@ -1,7 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.*;
-import de.weltraumschaf.ebnf.visitor.Visitor;
 
 /**
  * Terminal node.
@@ -24,7 +23,7 @@ public final class Terminal extends AbstractNode {
      * @param value  The terminal value.
      */
     private Terminal(final Node parent, final String value) {
-        super(parent);
+        super(parent, NodeType.TERMINAL);
         this.value = value;
     }
 
@@ -69,30 +68,6 @@ public final class Terminal extends AbstractNode {
     }
 
     /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.TERMINAL.toString();
-    }
-
-    /**
-     * Defines method to accept {@link Visitor}.
-     *
-     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
-     *
-     * @param visitor Object which visits the node.
-     */
-    @Override
-    public void accept(final Visitor visitor) {
-        visitor.beforeVisit(this);
-        visitor.visit(this);
-        visitor.afterVisit(this);
-    }
-
-    /**
      * Probes equivalence of itself against an other node and collects all
      * errors in the passed {@link Notification} object.
      *
@@ -128,6 +103,6 @@ public final class Terminal extends AbstractNode {
 
     @Override
     public String toString() {
-        return String.format("<TERMINAL value=%s>", value);
+        return String.format("<%s value=%s>", getNodeName().toUpperCase(), value);
     }
 }

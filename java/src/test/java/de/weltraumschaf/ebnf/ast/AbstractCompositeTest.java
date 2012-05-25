@@ -15,9 +15,8 @@ public class AbstractCompositeTest {
 
     static class AbstractCompositeImpl extends AbstractComposite {
 
-        @Override
-        public String getNodeName() {
-            throw new UnsupportedOperationException("Not supported yet.");
+        public AbstractCompositeImpl() {
+            super(Null.getInstance(), null);
         }
 
     }

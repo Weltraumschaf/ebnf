@@ -11,11 +11,11 @@ public enum NodeType {
     IDENTIFIER,
     LOOP,
     OPTION,
-    RANGE,
     RULE,
     SEQUENCE,
     SYNTAX,
-    TERMINAL;
+    TERMINAL,
+    NULL;
 
     @Override
     public String toString() {

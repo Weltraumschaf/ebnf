@@ -12,7 +12,7 @@ import de.weltraumschaf.ebnf.ast.NodeType;
 public final class Sequence extends AbstractComposite {
 
     private Sequence(final Node parent) {
-        super(parent);
+        super(parent, NodeType.SEQUENCE);
     }
 
     /**
@@ -34,20 +34,10 @@ public final class Sequence extends AbstractComposite {
         return new Sequence(parent);
     }
 
-    /**
-     * Returns the name of a node.
-     *
-     * @return
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.SEQUENCE.toString();
-    }
-
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        str.append("<SEQUENCE>");
+        str.append(String.format("<%s>", getNodeName().toUpperCase()));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {

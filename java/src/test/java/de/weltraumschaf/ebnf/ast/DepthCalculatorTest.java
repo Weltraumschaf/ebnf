@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
+import de.weltraumschaf.ebnf.ast.nodes.Null;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -14,9 +15,8 @@ public class DepthCalculatorTest {
 
     static class AbstractCompositeImpl extends AbstractComposite {
 
-        @Override
-        public String getNodeName() {
-            throw new UnsupportedOperationException("Not supported yet.");
+        public AbstractCompositeImpl() {
+            super(Null.getInstance(), null);
         }
 
     }

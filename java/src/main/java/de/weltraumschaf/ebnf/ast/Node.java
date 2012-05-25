@@ -45,4 +45,5 @@ public interface Node {
      */
     int depth();
 
+    NodeType getType();
 }

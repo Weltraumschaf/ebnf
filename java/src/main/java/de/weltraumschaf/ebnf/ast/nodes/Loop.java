@@ -12,7 +12,7 @@ import de.weltraumschaf.ebnf.ast.NodeType;
 public final class Loop extends AbstractComposite {
 
     private Loop(final Node parent) {
-        super(parent);
+        super(parent, NodeType.LOOP);
     }
 
     /**
@@ -34,20 +34,10 @@ public final class Loop extends AbstractComposite {
         return new Loop(parent);
     }
 
-    /**
-     * Returns the name of a node.
-     *
-     * @return string
-     */
-    @Override
-    public String getNodeName() {
-        return NodeType.LOOP.toString();
-    }
-
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        str.append("<LOOP>");
+        str.append(String.format("<%s>", getNodeName().toUpperCase()));
 
         if (hasChildren()) {
             for (Node child : getChildren()) {
