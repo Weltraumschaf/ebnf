@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
   <name>ebnf</name>
-  <comment>EBNF Image Generator. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <comment>A command line tool which parses EBNF grammars and generates railroad images
+        for that grammar in various formats. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>
