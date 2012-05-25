@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class ScannerTest {
+public class EbnfScannerTest {
 
     static class Expectation {
 

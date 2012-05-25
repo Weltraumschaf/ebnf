@@ -18,7 +18,7 @@ import org.junit.Test;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class ParserTest {
+public class EbnfParserTest {
 
     private void assertEquivalentSyntax(final Syntax expected, final Syntax actual) {
         Notification notification = new Notification();

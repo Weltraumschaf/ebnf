@@ -11,16 +11,16 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Parser {
+public class EbnfParser {
 
     private static final List<String> ASSIGN = Arrays.asList("=", ":", ":==");
     private static final List<String> END_OF_RULE = Arrays.asList(".", ";");
-    private static final String[] ALLOWED = {".", "=", "|", ")", "]", "}"};
+    private static final String[] OPERATOR = {".", "=", "|", ")", "]", "}"};
 
     /**
      * Used to receive the tokens.
      */
-    private final Scanner scanner;
+    private final EbnfScanner scanner;
     /**
      * The abstract syntax tree.
      *
@@ -33,7 +33,7 @@ public class Parser {
      *
      * @param scanner Provides the token stream.
      */
-    public Parser(final Scanner scanner) {
+    public EbnfParser(final EbnfScanner scanner) {
         this.scanner = scanner;
         ast = Syntax.newInstance();
     }
@@ -173,7 +173,7 @@ public class Parser {
         scanner.nextToken();
         boolean multipleFactors = false;
 
-        while (scanner.getCurrentToken().isNotEquals(ALLOWED)) {
+        while (scanner.getCurrentToken().isNotEquals(OPERATOR)) {
             factor = parseFactor(sequenceNode);
             sequenceNode.addChild(factor);
             scanner.nextToken();

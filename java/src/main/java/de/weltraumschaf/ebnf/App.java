@@ -1,7 +1,7 @@
 package de.weltraumschaf.ebnf;
 
-import de.weltraumschaf.ebnf.parser.Scanner;
-import de.weltraumschaf.ebnf.parser.Parser;
+import de.weltraumschaf.ebnf.parser.EbnfScanner;
+import de.weltraumschaf.ebnf.parser.EbnfParser;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.parser.SyntaxException;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
@@ -60,13 +60,13 @@ public final class App {
             return ExitCode.NO_SYNTAX;
         }
 
-        Scanner scanner;
-        Parser parser;
+        EbnfScanner scanner;
+        EbnfParser parser;
         Syntax ast;
 
         try {
-            scanner = new Scanner(ReaderHelper.createFrom(new File(options.getSyntaxFile())));
-            parser  = new Parser(scanner);
+            scanner = new EbnfScanner(ReaderHelper.createFrom(new File(options.getSyntaxFile())));
+            parser  = new EbnfParser(scanner);
             ast     = parser.parse();
         } catch (SyntaxException ex) {
             println("Syntax error: " + ex.getMessage());

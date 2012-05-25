@@ -12,8 +12,8 @@
 package de.weltraumschaf.ebnf;
 
 import de.weltraumschaf.ebnf.parser.SyntaxException;
-import de.weltraumschaf.ebnf.parser.Scanner;
-import de.weltraumschaf.ebnf.parser.Parser;
+import de.weltraumschaf.ebnf.parser.EbnfScanner;
+import de.weltraumschaf.ebnf.parser.EbnfParser;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.util.ReaderHelper;
 import java.io.IOException;
@@ -92,7 +92,7 @@ public final class ReferenceGrammar {
      */
     public Syntax getSyntax() throws SyntaxException {
         if (null == syntax) {
-            final Parser parser = new Parser(new Scanner(ReaderHelper.createFrom(toString())));
+            final EbnfParser parser = new EbnfParser(new EbnfScanner(ReaderHelper.createFrom(toString())));
 
             try {
                 syntax = parser.parse();

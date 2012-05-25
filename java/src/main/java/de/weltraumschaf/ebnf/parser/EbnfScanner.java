@@ -32,7 +32,7 @@ import java.util.List;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class Scanner {
+public class EbnfScanner {
 
     /**
      * End of file character.
@@ -90,7 +90,7 @@ public class Scanner {
      *
      * @param inputStream The input stream to scan.
      */
-    public Scanner(final BufferedReader inputStream) {
+    public EbnfScanner(final BufferedReader inputStream) {
         this(inputStream, null);
     }
 
@@ -100,7 +100,7 @@ public class Scanner {
      * @param inputStream The input stream to scan.
      * @param fileName    The file name associated with the scanned source.
      */
-    public Scanner(final BufferedReader inputStream, final String fileName) {
+    public EbnfScanner(final BufferedReader inputStream, final String fileName) {
         this.input = inputStream;
         this.file  = fileName;
         currentCharacter = -1;
