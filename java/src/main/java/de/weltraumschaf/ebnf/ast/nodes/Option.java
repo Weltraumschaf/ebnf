@@ -36,8 +36,7 @@ public final class Option extends AbstractComposite {
 
     @Override
     public String toString() {
-        final StringBuilder str = new StringBuilder();
-        str.append(String.format("<%s>", getNodeName().toUpperCase()));
+        final StringBuilder str = new StringBuilder(super.toString());
 
         if (hasChildren()) {
             for (Node child : getChildren()) {

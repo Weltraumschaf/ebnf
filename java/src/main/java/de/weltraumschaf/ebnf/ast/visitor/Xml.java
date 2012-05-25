@@ -1,6 +1,5 @@
 package de.weltraumschaf.ebnf.ast.visitor;
 
-import de.weltraumschaf.ebnf.ast.Attribute;
 import de.weltraumschaf.ebnf.ast.Composite;
 import de.weltraumschaf.ebnf.ast.Node;
 import java.lang.reflect.Field;
@@ -137,24 +136,11 @@ public class Xml implements Visitor {
      * @return
      */
     public static Map<String, String> extractAttributes(final Node node) {
-        final Map<String, String> attributes = new HashMap<String, String>();
-        final Field[] properties = node.getClass().getFields();
-
-        for (int i = 0; i < properties.length; ++i) {
-            final Field property = properties[i];
-
-            if (property.isAnnotationPresent(Attribute.class)) {
-                try {
-                    attributes.put(property.getName(), (String) property.get(node));
-                } catch (IllegalArgumentException ex) {
-                    Logger.getLogger(Xml.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(Xml.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        if (node.hasAttributes()) {
+            return node.getAttributes();
         }
 
-        return attributes;
+        return new HashMap<String, String>();
     }
 
     /**

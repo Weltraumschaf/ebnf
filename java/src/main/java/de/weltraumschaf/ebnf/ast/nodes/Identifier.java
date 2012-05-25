@@ -1,6 +1,9 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.*;
+import de.weltraumschaf.ebnf.ast.AbstractNode;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
+import de.weltraumschaf.ebnf.ast.Notification;
 
 /**
  * Identifier node.
@@ -12,11 +15,6 @@ import de.weltraumschaf.ebnf.ast.*;
 public final class Identifier extends AbstractNode {
 
     /**
-     * The literal string.
-     */
-    @Attribute public String value;
-
-    /**
      * Initializes object with value and parent node.
      *
      * @param parent
@@ -24,7 +22,7 @@ public final class Identifier extends AbstractNode {
      */
     private Identifier(final Node parent, final String value) {
         super(parent, NodeType.IDENTIFIER);
-        this.value = value;
+        this.setAttribute("value", value);
     }
 
     /**
@@ -79,8 +77,9 @@ public final class Identifier extends AbstractNode {
         try {
             final Identifier ident = (Identifier) other;
 
-            if (!value.equals(ident.value)) {
-                result.error("Identifier value mismatch: '%s' != '%s'!", value, ident.value);
+            if (!getAttribute("value").equals(ident.getAttribute("value"))) {
+                result.error("Identifier value mismatch: '%s' != '%s'!", getAttribute("value"),
+                                                                         ident.getAttribute("value"));
             }
         } catch (ClassCastException ex) {
             result.error("Probed node types mismatch: '%s' != '%s'!", getClass(), other.getClass());
@@ -97,13 +96,4 @@ public final class Identifier extends AbstractNode {
         return 1;
     }
 
-    /**
-     * Generates human readable string representation.
-     *
-     * @return String representation.
-     */
-    @Override
-    public String toString() {
-        return String.format("<%s value=%s>", getNodeName().toUpperCase(), value);
-    }
 }

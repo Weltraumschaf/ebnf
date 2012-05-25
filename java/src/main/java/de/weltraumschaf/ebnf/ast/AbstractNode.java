@@ -2,6 +2,8 @@ package de.weltraumschaf.ebnf.ast;
 
 import com.google.common.collect.Maps;
 import de.weltraumschaf.ebnf.ast.visitor.Visitor;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -78,6 +80,11 @@ public abstract class AbstractNode implements Node {
     }
 
     @Override
+    public Map<String, String> getAttributes() {
+        return Maps.newHashMap(attributes);
+    }
+
+    @Override
     public boolean hasAttribute(final String name) {
         return attributes.containsKey(name);
     }
@@ -94,6 +101,27 @@ public abstract class AbstractNode implements Node {
     @Override
     public void setAttribute(final String name, final String value) {
         attributes.put(name, value);
+    }
+
+    /**
+     * Human readable string representation.
+     *
+     * @return String representation.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder str = new StringBuilder(String.format("<%s", getNodeName().toUpperCase()));
+
+        if (hasAttributes()) {
+            final Iterator<Map.Entry<String, String>> iterator = attributes.entrySet().iterator();
+
+            while (iterator.hasNext()) {
+                final Map.Entry<String, String> pairs = iterator.next();
+                str.append(String.format(" %s=%s", pairs.getKey(), pairs.getValue()));
+            }
+        }
+
+        return str.append('>').toString();
     }
 
 }

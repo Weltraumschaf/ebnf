@@ -22,15 +22,6 @@ public final class Syntax extends AbstractNode implements Composite {
     private static final NodeType TYPE = NodeType.SYNTAX;
 
     /**
-     * Title literal of string.
-     */
-    @Attribute public String title;
-    /**
-     * Meta literal of string.
-     */
-    @Attribute public String meta;
-
-    /**
      * Holds the child nodes.
      *
      * @var array
@@ -39,8 +30,8 @@ public final class Syntax extends AbstractNode implements Composite {
 
     private Syntax(final String title, final String meta) {
         super(Null.getInstance(), NodeType.SYNTAX);
-        this.title = title;
-        this.meta  = meta;
+        setAttribute("title", title);
+        setAttribute("meta", meta);
     }
 
     /**
@@ -125,12 +116,14 @@ public final class Syntax extends AbstractNode implements Composite {
         try {
             final Syntax syntax = (Syntax) other;
 
-            if (!title.equals(syntax.title)) {
-                result.error("Titles of syntx differs: '%s' != '%s'!", title, syntax.title);
+            if (!getAttribute("title").equals(syntax.getAttribute("title"))) {
+                result.error("Titles of syntx differs: '%s' != '%s'!", getAttribute("title"),
+                                                                       syntax.getAttribute("title"));
             }
 
-            if (!meta.equals(syntax.meta)) {
-                result.error("Meta of syntx differs: '%s' != '%s'!", meta, syntax.meta);
+            if (!getAttribute("meta").equals(syntax.getAttribute("meta"))) {
+                result.error("Meta of syntx differs: '%s' != '%s'!", getAttribute("meta"),
+                                                                     syntax.getAttribute("meta"));
             }
 
             if (countChildren() != syntax.countChildren()) {
@@ -197,8 +190,7 @@ public final class Syntax extends AbstractNode implements Composite {
 
     @Override
     public String toString() {
-        final StringBuilder str = new StringBuilder();
-        str.append(String.format("<%s title=%s, meta=%s>", getNodeName().toUpperCase(), title, meta));
+        final StringBuilder str = new StringBuilder(super.toString());
 
         if (hasChildren()) {
             for (Node child : getChildren()) {

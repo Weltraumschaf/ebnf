@@ -44,10 +44,4 @@ public final class Null extends AbstractNode {
         return 0;
     }
 
-
-    @Override
-    public String toString() {
-        return String.format("<%s>", getNodeName().toUpperCase());
-    }
-
 }

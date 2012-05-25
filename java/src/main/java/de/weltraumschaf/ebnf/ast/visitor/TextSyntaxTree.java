@@ -115,13 +115,13 @@ public class TextSyntaxTree implements Visitor {
         String value = "";
 
         if (node instanceof Rule) {
-            value = ((Rule) node).name;
+            value = node.getAttribute("name");
         } else if (node instanceof Terminal) {
-            value = ((Terminal) node).value; //NOPMD
+            value = node.getAttribute("value");
         } else if (node instanceof Identifier) {
-            value = ((Identifier) node).value; //NOPMD
+            value = node.getAttribute("value");
         } else if (node instanceof Comment) {
-            value = ((Comment) node).value; //NOPMD
+            value = node.getAttribute("value");
 
             if (value.length() > 20) {
                 value = value.substring(0, 20) + "...";

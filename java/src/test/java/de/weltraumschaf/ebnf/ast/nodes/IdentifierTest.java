@@ -15,13 +15,13 @@ public class IdentifierTest {
         Notification notifiaction;
 
         final Identifier ident1 = Identifier.newInstance();
-        ident1.value = "a";
+        ident1.setAttribute("value", "a");
         notifiaction = new Notification();
         ident1.probeEquivalence(ident1, notifiaction);
         assertTrue(notifiaction.isOk());
 
         final Identifier ident2 = Identifier.newInstance();
-        ident2.value = "b";
+        ident2.setAttribute("value", "b");
         notifiaction = new Notification();
         ident2.probeEquivalence(ident2, notifiaction);
         assertTrue(notifiaction.isOk());
@@ -53,7 +53,7 @@ public class IdentifierTest {
     @Test public void testToString() {
         final Identifier ident = Identifier.newInstance();
         assertEquals("<IDENTIFIER value=>", ident.toString());
-        ident.value = "foo";
+        ident.setAttribute("value", "foo");
         assertEquals("<IDENTIFIER value=foo>", ident.toString());
     }
 }

@@ -1,6 +1,9 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.*;
+import de.weltraumschaf.ebnf.ast.AbstractComposite;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
+import de.weltraumschaf.ebnf.ast.Notification;
 
 /**
  * Rule node.
@@ -9,14 +12,9 @@ import de.weltraumschaf.ebnf.ast.*;
  */
 public final class Rule extends AbstractComposite {
 
-    /**
-     * Name literal of rule.
-     */
-    @Attribute public String name;
-
     private Rule(final Node parent, final String name) {
         super(parent, NodeType.RULE);
-        this.name = name;
+        setAttribute("name", name);
     }
 
     /**
@@ -72,16 +70,16 @@ public final class Rule extends AbstractComposite {
 
         final Rule rule = (Rule) other;
 
-        if (!name.equals(rule.name)) {
-            result.error("Names of rule differs: '%s' != '%s'!", name, rule.name);
+        if (!getAttribute("name").equals(rule.getAttribute("name"))) {
+            result.error("Names of rule differs: '%s' != '%s'!", getAttribute("name"),
+                                                                 rule.getAttribute("name"));
         }
     }
 
     @Override
     public String toString() {
-        final StringBuilder str = new StringBuilder();
-        str.append(String.format("<%s name=%s>", getNodeName().toUpperCase(), name));
-
+        final StringBuilder str = new StringBuilder(super.toString());
+        
         if (hasChildren()) {
             for (Node child : getChildren()) {
                 str.append('\n').append(child.toString());

@@ -14,13 +14,13 @@ public class TerminalTest {
     @Test public void testProbeEquivalence() {
         Notification notification;
         final Terminal term1 = Terminal.newInstance();
-        term1.value = "a";
+        term1.setAttribute("value", "a");
         notification = new Notification();
         term1.probeEquivalence(term1, notification);
         assertTrue(notification.isOk());
 
         final Terminal term2 = Terminal.newInstance();
-        term2.value = "b";
+        term2.setAttribute("value", "b");
         notification = new Notification();
         term2.probeEquivalence(term2, notification);
         assertTrue(notification.isOk());
@@ -51,7 +51,7 @@ public class TerminalTest {
     @Test public void testToString() {
         final Terminal term = Terminal.newInstance();
         assertEquals("<TERMINAL value=>", term.toString());
-        term.value = "foo";
+        term.setAttribute("value", "foo");
         assertEquals("<TERMINAL value=foo>", term.toString());
     }
 }

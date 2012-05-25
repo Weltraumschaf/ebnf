@@ -16,13 +16,13 @@ public class CommentTest {
     @Test public void testProbeEquivalence() {
         Notification notification;
         final Comment comment1 = Comment.newInstance();
-        comment1.value = "a";
+        comment1.setAttribute("value", "a");
         notification = new Notification();
         comment1.probeEquivalence(comment1, notification);
         assertTrue(notification.isOk());
 
         final Comment comment2 = Comment.newInstance();
-        comment2.value = "b";
+        comment2.setAttribute("value", "b");
         notification = new Notification();
         comment2.probeEquivalence(comment2, notification);
         assertTrue(notification.isOk());

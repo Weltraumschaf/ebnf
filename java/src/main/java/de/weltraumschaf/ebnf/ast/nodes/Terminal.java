@@ -1,6 +1,9 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.*;
+import de.weltraumschaf.ebnf.ast.AbstractNode;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
+import de.weltraumschaf.ebnf.ast.Notification;
 
 /**
  * Terminal node.
@@ -12,11 +15,6 @@ import de.weltraumschaf.ebnf.ast.*;
 public final class Terminal extends AbstractNode {
 
     /**
-     * The literal string value.
-     */
-    @Attribute public String value;
-
-    /**
      * Initializes object with empty value and parent node.
      *
      * @param parent The parent node.
@@ -24,7 +22,7 @@ public final class Terminal extends AbstractNode {
      */
     private Terminal(final Node parent, final String value) {
         super(parent, NodeType.TERMINAL);
-        this.value = value;
+        setAttribute("value", value);
     }
 
     /**
@@ -79,8 +77,9 @@ public final class Terminal extends AbstractNode {
         try {
             final Terminal terminal = (Terminal) other;
 
-            if (!value.equals(terminal.value)) {
-                result.error("Terminal value mismatch: '%s' != '%s'!", value, terminal.value);
+            if (!getAttribute("value").equals(terminal.getAttribute("value"))) {
+                result.error("Terminal value mismatch: '%s' != '%s'!", getAttribute("value"),
+                                                                       terminal.getAttribute("value"));
             }
         } catch (ClassCastException ex) {
             result.error(
@@ -101,8 +100,4 @@ public final class Terminal extends AbstractNode {
         return 1;
     }
 
-    @Override
-    public String toString() {
-        return String.format("<%s value=%s>", getNodeName().toUpperCase(), value);
-    }
 }

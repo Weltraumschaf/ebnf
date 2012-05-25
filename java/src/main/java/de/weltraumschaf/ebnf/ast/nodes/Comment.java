@@ -1,6 +1,9 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.*;
+import de.weltraumschaf.ebnf.ast.AbstractNode;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
+import de.weltraumschaf.ebnf.ast.Notification;
 
 /**
  * Comment node.
@@ -10,11 +13,6 @@ import de.weltraumschaf.ebnf.ast.*;
 public final class Comment extends AbstractNode {
 
     /**
-     * The comment string value.
-     */
-    @Attribute public String value;
-
-    /**
      * Initializes object with empty value and parent node.
      *
      * @param parent
@@ -22,7 +20,7 @@ public final class Comment extends AbstractNode {
      */
     private Comment(final Node parent, final String value) {
         super(parent, NodeType.COMMENT);
-        this.value = value;
+        setAttribute("value", value);
     }
 
     /**
@@ -77,8 +75,9 @@ public final class Comment extends AbstractNode {
         try {
             final Comment terminal = (Comment) other;
 
-            if (!value.equals(terminal.value)) {
-                result.error("Comment value mismatch: '%s' != '%s'!", value, terminal.value);
+            if (!getAttribute("value").equals(terminal.getAttribute("value"))) {
+                result.error("Comment value mismatch: '%s' != '%s'!", getAttribute("value"),
+                                                                      terminal.getAttribute("value"));
             }
         } catch (ClassCastException ex) {
             result.error(
@@ -97,16 +96,6 @@ public final class Comment extends AbstractNode {
     @Override
     public int depth() {
         return 1;
-    }
-
-    /**
-     * Human readable string representation.
-     *
-     * @return String representation.
-     */
-    @Override
-    public String toString() {
-        return String.format("<%s value=%s>", getNodeName().toUpperCase(), value);
     }
 
 }

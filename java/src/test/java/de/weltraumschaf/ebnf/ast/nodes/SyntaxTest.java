@@ -12,9 +12,10 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.Node;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -24,14 +25,14 @@ public class SyntaxTest {
 
     @Test public void testToString() {
         final Syntax syntax = Syntax.newInstance("foo", "bar");
-        assertEquals("<SYNTAX title=foo, meta=bar>", syntax.toString());
+        assertEquals("<SYNTAX title=foo meta=bar>", syntax.toString());
         final Node node1 = mock(Node.class);
         when(node1.toString()).thenReturn("<foo>");
         syntax.addChild(node1);
         final Node node2 = mock(Node.class);
         when(node2.toString()).thenReturn("<bar>");
         syntax.addChild(node2);
-        assertEquals("<SYNTAX title=foo, meta=bar>\n"
+        assertEquals("<SYNTAX title=foo meta=bar>\n"
                    + "<foo>\n"
                    + "<bar>", syntax.toString());
     }

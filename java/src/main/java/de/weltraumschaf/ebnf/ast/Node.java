@@ -1,6 +1,7 @@
 package de.weltraumschaf.ebnf.ast;
 
 import de.weltraumschaf.ebnf.ast.visitor.Visitor;
+import java.util.Map;
 
 /**
  * Interface of an AST node.
@@ -50,6 +51,7 @@ public interface Node {
     boolean hasParent();
     Node getParent();
     boolean hasAttributes();
+    Map<String, String> getAttributes();
     boolean hasAttribute(String name);
     String getAttribute(String name);
     void setAttribute(String name, String value);
