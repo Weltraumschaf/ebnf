@@ -2,11 +2,8 @@ package de.weltraumschaf.ebnf.ast.visitor;
 
 import de.weltraumschaf.ebnf.ast.Composite;
 import de.weltraumschaf.ebnf.ast.Node;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 

@@ -2,7 +2,6 @@ package de.weltraumschaf.ebnf.ast;
 
 import com.google.common.collect.Maps;
 import de.weltraumschaf.ebnf.ast.visitor.Visitor;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
