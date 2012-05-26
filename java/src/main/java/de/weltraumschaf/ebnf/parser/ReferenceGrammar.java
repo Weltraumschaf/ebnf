@@ -33,8 +33,10 @@ public final class ReferenceGrammar {
     /**
      * Holds the AST {@ink de.weltraumschaf.ebnf.ast.nodes.Syntax syntax}
      * node for the reference grammar for reuse.
+     *
+     * Is lazy computed.
      */
-    private static Syntax syntax = null;
+    private Syntax syntax = null;
 
     /**
      * Not instantiated from outside.
@@ -74,9 +76,10 @@ public final class ReferenceGrammar {
              + "    comment    = literal .\n"
              + "    literal    = \"\'\" character { character } \"\'\"\n"
              + "               | \'\"\' character { character } \'\"\' .\n"
-             + "    character  = \"a\" .. \"z\"\n"
-             + "               | \"A\" .. \"Z\"\n"
-             + "               | \"0\" .. \"9\" .\n"
+// Ranges not implemented yet.
+//             + "    character  = \"a\" .. \"z\"\n"
+//             + "               | \"A\" .. \"Z\"\n"
+//             + "               | \"0\" .. \"9\" .\n"
              + "}";
     }
 
