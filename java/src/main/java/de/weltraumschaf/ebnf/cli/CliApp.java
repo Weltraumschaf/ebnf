@@ -9,7 +9,7 @@
  *
  */
 
-package de.weltraumschaf.ebnf;
+package de.weltraumschaf.ebnf.cli;
 
 import de.weltraumschaf.ebnf.gfx.CreatorHelper;
 import de.weltraumschaf.ebnf.gfx.RailroadDiagramImage;

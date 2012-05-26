@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf;
 
+import de.weltraumschaf.ebnf.cli.CliOptions;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.ide.IdeApp;
 import de.weltraumschaf.ebnf.parser.Factory;
