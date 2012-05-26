@@ -13,7 +13,7 @@ import org.junit.Test;
 
 /**
  * Tests for all syntax builder classes:
- * {@link SyntaxBuilder}, {@link RuleBuilder} and {@link Builder}.
+ * {@link SyntaxBuilder}, {@link RuleBuilder} and {@link GenericBuilder}.
  *
  * Tests generating AST by using the internal DSL interface of the builder.
  *
