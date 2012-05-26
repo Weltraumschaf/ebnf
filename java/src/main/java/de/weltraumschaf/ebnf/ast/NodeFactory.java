@@ -19,7 +19,6 @@ import de.weltraumschaf.ebnf.ast.nodes.*;
  */
 public final class NodeFactory {
 
-    // @todo Write tests for this method.
     private NodeFactory() { }
 
     public static Node newNode(final NodeType type, final Node parent) {
@@ -46,7 +45,6 @@ public final class NodeFactory {
         }
     }
 
-    // @todo Write tests for this method.
     public static Node newNode(final NodeType type) {
         if (NodeType.SYNTAX == type) {
             return Syntax.newInstance();
