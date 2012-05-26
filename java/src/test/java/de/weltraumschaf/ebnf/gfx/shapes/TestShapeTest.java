@@ -15,8 +15,7 @@ import de.weltraumschaf.ebnf.gfx.Strokes;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
@@ -59,5 +58,23 @@ public class TestShapeTest {
         assertFalse(test.shouldPaint(3, 2));
         assertTrue(test.shouldPaint(4, 2));
         assertFalse(test.shouldPaint(5, 2));
+    }
+
+    @Test public void throwExceptionOnNEgateIterations() {
+        final TestShape test = new TestShape();
+
+        try {
+            test.shouldPaint(-2, 0);
+            fail("Expected exception not thrown!");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Passed horizIteration must be greater equal than 0! -2 given.", ex.getMessage());
+        }
+
+        try {
+            test.shouldPaint(0, -3);
+            fail("Expected exception not thrown!");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Passed verticalIteration must be greater equal than 0! -3 given.", ex.getMessage());
+        }
     }
 }
