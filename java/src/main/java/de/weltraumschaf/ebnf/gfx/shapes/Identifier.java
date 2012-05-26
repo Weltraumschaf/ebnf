@@ -45,6 +45,7 @@ public class Identifier extends AbstractTextShape implements Shape {
 
     @Override
     public void paint(final Graphics2D graphic) {
+        // @todo Write tests for this method.
         if (null == boxSize) {
             adjust(graphic);
         }

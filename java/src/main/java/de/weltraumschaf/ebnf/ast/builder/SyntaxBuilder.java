@@ -25,8 +25,7 @@ public final class SyntaxBuilder {
      *
      * Use the syntax builder method.
      */
-    private SyntaxBuilder() {
-    }
+    private SyntaxBuilder() { }
 
     /**
      * Creates the syntax with default meta string.

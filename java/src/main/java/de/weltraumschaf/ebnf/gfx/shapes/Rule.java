@@ -37,6 +37,7 @@ public class Rule extends AbstractTextShape implements Shape {
 
     @Override
     public void paint(final Graphics2D graphic) {
+        // @todo Write tests for this method.
         if (null == textSize) {
             adjust(graphic);
         }
