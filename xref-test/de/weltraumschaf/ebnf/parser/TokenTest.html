@@ -123,53 +123,46 @@
 <a class="jxr_linenumber" name="113" href="#113">113</a>         }
 <a class="jxr_linenumber" name="114" href="#114">114</a>     }
 <a class="jxr_linenumber" name="115" href="#115">115</a> 
-<a class="jxr_linenumber" name="116" href="#116">116</a>    @Test  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUnquoteString() {
-<a class="jxr_linenumber" name="117" href="#117">117</a>         assertEquals(<span class="jxr_string">"a test string"</span>, Token.unquoteString(<span class="jxr_string">"\&quot;a test string\&quot;"</span>));
-<a class="jxr_linenumber" name="118" href="#118">118</a>         assertEquals(<span class="jxr_string">"a \&quot;test\&quot; string"</span>, Token.unquoteString(<span class="jxr_string">"\&quot;a \&quot;test\&quot; string\&quot;"</span>)); <em class="jxr_comment">// NOPMD</em>
-<a class="jxr_linenumber" name="119" href="#119">119</a>         assertEquals(<span class="jxr_string">"a \&quot;test\&quot; string"</span>, Token.unquoteString(<span class="jxr_string">"\&quot;a \&quot;test\&quot; string\&quot;"</span>));
-<a class="jxr_linenumber" name="120" href="#120">120</a>         assertEquals(<span class="jxr_string">"a test string"</span>, Token.unquoteString(<span class="jxr_string">"'a test string'"</span>));
-<a class="jxr_linenumber" name="121" href="#121">121</a>         assertEquals(<span class="jxr_string">"a 'test' string"</span>, Token.unquoteString(<span class="jxr_string">"'a 'test' string'"</span>));
-<a class="jxr_linenumber" name="122" href="#122">122</a>         assertEquals(<span class="jxr_string">"a 'test' string"</span>, Token.unquoteString(<span class="jxr_string">"'a \'test\' string'"</span>));
+<a class="jxr_linenumber" name="116" href="#116">116</a>     @Test  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUnquoteString() {
+<a class="jxr_linenumber" name="117" href="#117">117</a>         <strong class="jxr_keyword">final</strong> Token token = <strong class="jxr_keyword">new</strong> Token(TokenType.COMMENT,
+<a class="jxr_linenumber" name="118" href="#118">118</a>                                       <span class="jxr_string">"\&quot;a \&quot;test\&quot; string\&quot;"</span>,
+<a class="jxr_linenumber" name="119" href="#119">119</a>                                       <strong class="jxr_keyword">new</strong> Position(0, 0));
+<a class="jxr_linenumber" name="120" href="#120">120</a>         assertEquals(<span class="jxr_string">"\&quot;a \&quot;test\&quot; string\&quot;"</span>, token.getValue());
+<a class="jxr_linenumber" name="121" href="#121">121</a>         assertEquals(<span class="jxr_string">"a \&quot;test\&quot; string"</span>, token.getValue(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="122" href="#122">122</a>     }
 <a class="jxr_linenumber" name="123" href="#123">123</a> 
-<a class="jxr_linenumber" name="124" href="#124">124</a>         <strong class="jxr_keyword">final</strong> Token token = <strong class="jxr_keyword">new</strong> Token(TokenType.COMMENT,
-<a class="jxr_linenumber" name="125" href="#125">125</a>                                       <span class="jxr_string">"\&quot;a \&quot;test\&quot; string\&quot;"</span>,
-<a class="jxr_linenumber" name="126" href="#126">126</a>                                       <strong class="jxr_keyword">new</strong> Position(0, 0));
-<a class="jxr_linenumber" name="127" href="#127">127</a>         assertEquals(<span class="jxr_string">"\&quot;a \&quot;test\&quot; string\&quot;"</span>, token.getValue());
-<a class="jxr_linenumber" name="128" href="#128">128</a>         assertEquals(<span class="jxr_string">"a \&quot;test\&quot; string"</span>, token.getValue(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="124" href="#124">124</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGetPostion() {
+<a class="jxr_linenumber" name="125" href="#125">125</a>         <strong class="jxr_keyword">final</strong> Token token = <strong class="jxr_keyword">new</strong> Token(TokenType.IDENTIFIER, <span class="jxr_string">"abc"</span>, <strong class="jxr_keyword">new</strong> Position(1, 5));
+<a class="jxr_linenumber" name="126" href="#126">126</a>         <strong class="jxr_keyword">final</strong> Position end = token.getPosition(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="127" href="#127">127</a>         assertEquals(1, end.getLine());
+<a class="jxr_linenumber" name="128" href="#128">128</a>         assertEquals(8, end.getColumn());
 <a class="jxr_linenumber" name="129" href="#129">129</a>     }
 <a class="jxr_linenumber" name="130" href="#130">130</a> 
-<a class="jxr_linenumber" name="131" href="#131">131</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGetPostion() {
-<a class="jxr_linenumber" name="132" href="#132">132</a>         <strong class="jxr_keyword">final</strong> Token token = <strong class="jxr_keyword">new</strong> Token(TokenType.IDENTIFIER, <span class="jxr_string">"abc"</span>, <strong class="jxr_keyword">new</strong> Position(1, 5));
-<a class="jxr_linenumber" name="133" href="#133">133</a>         <strong class="jxr_keyword">final</strong> Position end = token.getPosition(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="134" href="#134">134</a>         assertEquals(1, end.getLine());
-<a class="jxr_linenumber" name="135" href="#135">135</a>         assertEquals(8, end.getColumn());
-<a class="jxr_linenumber" name="136" href="#136">136</a>     }
-<a class="jxr_linenumber" name="137" href="#137">137</a> 
-<a class="jxr_linenumber" name="138" href="#138">138</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testIsOperator() {
-<a class="jxr_linenumber" name="139" href="#139">139</a>         List&lt;TokenType&gt; types;
-<a class="jxr_linenumber" name="140" href="#140">140</a> 
-<a class="jxr_linenumber" name="141" href="#141">141</a>         types = Arrays.asList(
-<a class="jxr_linenumber" name="142" href="#142">142</a>             TokenType.ASIGN, TokenType.CHOICE, TokenType.END_OF_RULE, TokenType.RANGE,
-<a class="jxr_linenumber" name="143" href="#143">143</a>             TokenType.L_BRACE, TokenType.L_BRACK, TokenType.L_PAREN,
-<a class="jxr_linenumber" name="144" href="#144">144</a>             TokenType.R_BRACE, TokenType.R_BRACK, TokenType.R_PAREN
-<a class="jxr_linenumber" name="145" href="#145">145</a>         );
-<a class="jxr_linenumber" name="146" href="#146">146</a> 
-<a class="jxr_linenumber" name="147" href="#147">147</a>         <strong class="jxr_keyword">final</strong> Position pos = <strong class="jxr_keyword">new</strong> Position(0, 0);
-<a class="jxr_linenumber" name="148" href="#148">148</a>         <strong class="jxr_keyword">for</strong> (TokenType type : types) {
-<a class="jxr_linenumber" name="149" href="#149">149</a>             <strong class="jxr_keyword">final</strong> Token token = <strong class="jxr_keyword">new</strong> Token(type, <span class="jxr_string">""</span>, pos); <em class="jxr_comment">// NOPMD</em>
-<a class="jxr_linenumber" name="150" href="#150">150</a>             assertTrue(token.isOperator());
-<a class="jxr_linenumber" name="151" href="#151">151</a>         }
-<a class="jxr_linenumber" name="152" href="#152">152</a> 
-<a class="jxr_linenumber" name="153" href="#153">153</a>         types = Arrays.asList(
-<a class="jxr_linenumber" name="154" href="#154">154</a>             TokenType.COMMENT, TokenType.EOF, TokenType.IDENTIFIER, TokenType.LITERAL
-<a class="jxr_linenumber" name="155" href="#155">155</a>         );
-<a class="jxr_linenumber" name="156" href="#156">156</a> 
-<a class="jxr_linenumber" name="157" href="#157">157</a>         <strong class="jxr_keyword">for</strong> (TokenType type : types) {
-<a class="jxr_linenumber" name="158" href="#158">158</a>             Token token = <strong class="jxr_keyword">new</strong> Token(type, <span class="jxr_string">""</span>, pos); <em class="jxr_comment">// NOPMD</em>
-<a class="jxr_linenumber" name="159" href="#159">159</a>             assertFalse(token.isOperator());
-<a class="jxr_linenumber" name="160" href="#160">160</a>         }
-<a class="jxr_linenumber" name="161" href="#161">161</a>     }
-<a class="jxr_linenumber" name="162" href="#162">162</a> }
+<a class="jxr_linenumber" name="131" href="#131">131</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testIsOperator() {
+<a class="jxr_linenumber" name="132" href="#132">132</a>         List&lt;TokenType&gt; types;
+<a class="jxr_linenumber" name="133" href="#133">133</a> 
+<a class="jxr_linenumber" name="134" href="#134">134</a>         types = Arrays.asList(
+<a class="jxr_linenumber" name="135" href="#135">135</a>             TokenType.ASIGN, TokenType.CHOICE, TokenType.END_OF_RULE, TokenType.RANGE,
+<a class="jxr_linenumber" name="136" href="#136">136</a>             TokenType.L_BRACE, TokenType.L_BRACK, TokenType.L_PAREN,
+<a class="jxr_linenumber" name="137" href="#137">137</a>             TokenType.R_BRACE, TokenType.R_BRACK, TokenType.R_PAREN
+<a class="jxr_linenumber" name="138" href="#138">138</a>         );
+<a class="jxr_linenumber" name="139" href="#139">139</a> 
+<a class="jxr_linenumber" name="140" href="#140">140</a>         <strong class="jxr_keyword">final</strong> Position pos = <strong class="jxr_keyword">new</strong> Position(0, 0);
+<a class="jxr_linenumber" name="141" href="#141">141</a>         <strong class="jxr_keyword">for</strong> (TokenType type : types) {
+<a class="jxr_linenumber" name="142" href="#142">142</a>             <strong class="jxr_keyword">final</strong> Token token = <strong class="jxr_keyword">new</strong> Token(type, <span class="jxr_string">""</span>, pos); <em class="jxr_comment">// NOPMD</em>
+<a class="jxr_linenumber" name="143" href="#143">143</a>             assertTrue(token.isOperator());
+<a class="jxr_linenumber" name="144" href="#144">144</a>         }
+<a class="jxr_linenumber" name="145" href="#145">145</a> 
+<a class="jxr_linenumber" name="146" href="#146">146</a>         types = Arrays.asList(
+<a class="jxr_linenumber" name="147" href="#147">147</a>             TokenType.COMMENT, TokenType.EOF, TokenType.IDENTIFIER, TokenType.LITERAL
+<a class="jxr_linenumber" name="148" href="#148">148</a>         );
+<a class="jxr_linenumber" name="149" href="#149">149</a> 
+<a class="jxr_linenumber" name="150" href="#150">150</a>         <strong class="jxr_keyword">for</strong> (TokenType type : types) {
+<a class="jxr_linenumber" name="151" href="#151">151</a>             Token token = <strong class="jxr_keyword">new</strong> Token(type, <span class="jxr_string">""</span>, pos); <em class="jxr_comment">// NOPMD</em>
+<a class="jxr_linenumber" name="152" href="#152">152</a>             assertFalse(token.isOperator());
+<a class="jxr_linenumber" name="153" href="#153">153</a>         }
+<a class="jxr_linenumber" name="154" href="#154">154</a>     }
+<a class="jxr_linenumber" name="155" href="#155">155</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="20" href="#20">20</a>  
 <a class="jxr_linenumber" name="21" href="#21">21</a>          <strong class="jxr_keyword">final</strong> Rule rule1 = Rule.newInstance(syntax);
 <a class="jxr_linenumber" name="22" href="#22">22</a>          assertSame(syntax, rule1.getParent());
-<a class="jxr_linenumber" name="23" href="#23">23</a>          rule1.name = <span class="jxr_string">"first"</span>;
+<a class="jxr_linenumber" name="23" href="#23">23</a>          rule1.setAttribute(<span class="jxr_string">"name"</span>, <span class="jxr_string">"first"</span>);
 <a class="jxr_linenumber" name="24" href="#24">24</a>          syntax.addChild(rule1);
 <a class="jxr_linenumber" name="25" href="#25">25</a>  
 <a class="jxr_linenumber" name="26" href="#26">26</a>          children = syntax.getChildren();
@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="28" href="#28">28</a>          assertSame(rule1, children.get(0));
 <a class="jxr_linenumber" name="29" href="#29">29</a>  
 <a class="jxr_linenumber" name="30" href="#30">30</a>          <strong class="jxr_keyword">final</strong> Rule rule2 = Rule.newInstance(syntax);
-<a class="jxr_linenumber" name="31" href="#31">31</a>          rule2.name = <span class="jxr_string">"second"</span>;
+<a class="jxr_linenumber" name="31" href="#31">31</a>          rule2.setAttribute(<span class="jxr_string">"name"</span>, <span class="jxr_string">"second"</span>);
 <a class="jxr_linenumber" name="32" href="#32">32</a>          assertSame(syntax, rule1.getParent());
 <a class="jxr_linenumber" name="33" href="#33">33</a>          syntax.addChild(rule2);
 <a class="jxr_linenumber" name="34" href="#34">34</a>  
@@ -50,14 +50,14 @@
 <a class="jxr_linenumber" name="40" href="#40">40</a>  
 <a class="jxr_linenumber" name="41" href="#41">41</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testProbeEquivalenceSyntax() {
 <a class="jxr_linenumber" name="42" href="#42">42</a>          <strong class="jxr_keyword">final</strong> Syntax syntax1 = Syntax.newInstance(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"bar"</span>);
-<a class="jxr_linenumber" name="43" href="#43">43</a>          syntax1.title  = <span class="jxr_string">"foo"</span>;
-<a class="jxr_linenumber" name="44" href="#44">44</a>          syntax1.meta   = <span class="jxr_string">"bar"</span>;
+<a class="jxr_linenumber" name="43" href="#43">43</a>          syntax1.setAttribute(<span class="jxr_string">"title"</span>, <span class="jxr_string">"foo"</span>);
+<a class="jxr_linenumber" name="44" href="#44">44</a>          syntax1.setAttribute(<span class="jxr_string">"meta"</span>, <span class="jxr_string">"bar"</span>);
 <a class="jxr_linenumber" name="45" href="#45">45</a>          <strong class="jxr_keyword">final</strong> Syntax syntax2 = Syntax.newInstance(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"bar"</span>);
-<a class="jxr_linenumber" name="46" href="#46">46</a>          syntax2.title  = <span class="jxr_string">"foo"</span>;
-<a class="jxr_linenumber" name="47" href="#47">47</a>          syntax2.meta   = <span class="jxr_string">"bar"</span>;
+<a class="jxr_linenumber" name="46" href="#46">46</a>          syntax2.setAttribute(<span class="jxr_string">"title"</span>, <span class="jxr_string">"foo"</span>);
+<a class="jxr_linenumber" name="47" href="#47">47</a>          syntax2.setAttribute(<span class="jxr_string">"meta"</span>, <span class="jxr_string">"bar"</span>);
 <a class="jxr_linenumber" name="48" href="#48">48</a>          <strong class="jxr_keyword">final</strong> Syntax syntax3 = Syntax.newInstance(<span class="jxr_string">"bla"</span>, <span class="jxr_string">"blub"</span>);
-<a class="jxr_linenumber" name="49" href="#49">49</a>          syntax3.title  = <span class="jxr_string">"bla"</span>;
-<a class="jxr_linenumber" name="50" href="#50">50</a>          syntax3.meta   = <span class="jxr_string">"blub"</span>;
+<a class="jxr_linenumber" name="49" href="#49">49</a>          syntax3.setAttribute(<span class="jxr_string">"title"</span>, <span class="jxr_string">"bla"</span>);
+<a class="jxr_linenumber" name="50" href="#50">50</a>          syntax3.setAttribute(<span class="jxr_string">"meta"</span>, <span class="jxr_string">"blub"</span>);
 <a class="jxr_linenumber" name="51" href="#51">51</a>  
 <a class="jxr_linenumber" name="52" href="#52">52</a>          Notification notification = <strong class="jxr_keyword">new</strong> Notification();
 <a class="jxr_linenumber" name="53" href="#53">53</a>          syntax1.probeEquivalence(syntax1, notification);
@@ -122,7 +122,7 @@
 <a class="jxr_linenumber" name="112" href="#112">112</a>         <strong class="jxr_keyword">final</strong> Syntax syntax2 = Syntax.newInstance(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"bar"</span>);
 <a class="jxr_linenumber" name="113" href="#113">113</a>         <strong class="jxr_keyword">final</strong> Syntax syntax3 = Syntax.newInstance(<span class="jxr_string">"foo"</span>, <span class="jxr_string">"bar"</span>);
 <a class="jxr_linenumber" name="114" href="#114">114</a>         <strong class="jxr_keyword">final</strong> Rule rule1 = Rule.newInstance();
-<a class="jxr_linenumber" name="115" href="#115">115</a>         rule1.name = <span class="jxr_string">"rule1"</span>;
+<a class="jxr_linenumber" name="115" href="#115">115</a>         rule1.setAttribute(<span class="jxr_string">"name"</span>, <span class="jxr_string">"rule1"</span>);
 <a class="jxr_linenumber" name="116" href="#116">116</a>         syntax1.addChild(rule1);
 <a class="jxr_linenumber" name="117" href="#117">117</a>         syntax2.addChild(rule1);
 <a class="jxr_linenumber" name="118" href="#118">118</a> 
@@ -137,7 +137,7 @@
 <a class="jxr_linenumber" name="127" href="#127">127</a>         assertEquals(<span class="jxr_string">""</span>, notification.report());
 <a class="jxr_linenumber" name="128" href="#128">128</a> 
 <a class="jxr_linenumber" name="129" href="#129">129</a>         <strong class="jxr_keyword">final</strong> Rule rule2 = Rule.newInstance();
-<a class="jxr_linenumber" name="130" href="#130">130</a>         rule2.name = <span class="jxr_string">"rule2"</span>;
+<a class="jxr_linenumber" name="130" href="#130">130</a>         rule2.setAttribute(<span class="jxr_string">"name"</span>, <span class="jxr_string">"rule2"</span>);
 <a class="jxr_linenumber" name="131" href="#131">131</a>         syntax1.addChild(rule2);
 <a class="jxr_linenumber" name="132" href="#132">132</a>         StringBuilder error = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="133" href="#133">133</a>         error.append(<span class="jxr_string">"Node syntax has different child count than other: 2 != 1!\n"</span>);
@@ -166,7 +166,7 @@
 <a class="jxr_linenumber" name="156" href="#156">156</a>         assertEquals(<span class="jxr_string">""</span>, notification.report());
 <a class="jxr_linenumber" name="157" href="#157">157</a> 
 <a class="jxr_linenumber" name="158" href="#158">158</a>         <strong class="jxr_keyword">final</strong> Rule rule3 = Rule.newInstance();
-<a class="jxr_linenumber" name="159" href="#159">159</a>         rule3.name = <span class="jxr_string">"rule3"</span>;
+<a class="jxr_linenumber" name="159" href="#159">159</a>         rule3.setAttribute(<span class="jxr_string">"name"</span>, <span class="jxr_string">"rule3"</span>);
 <a class="jxr_linenumber" name="160" href="#160">160</a>         syntax3.addChild(rule1);
 <a class="jxr_linenumber" name="161" href="#161">161</a>         syntax3.addChild(rule3);
 <a class="jxr_linenumber" name="162" href="#162">162</a>         notification = <strong class="jxr_keyword">new</strong> Notification();

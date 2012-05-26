@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
-<duplication lines="31" tokens="222">
+<duplication lines="32" tokens="222">
 <file line="37" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Identifier.java"/>
 <file line="43" path="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/Terminal.java"/>
 <codefragment>
@@ -16,6 +16,7 @@
 
     @Override
     public void paint(final Graphics2D graphic) {
+        // @todo Write tests for this method.
         if (null == boxSize) {
             adjust(graphic);
         }
