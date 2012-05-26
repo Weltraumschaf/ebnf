@@ -10,16 +10,9 @@
  */
 
 /**
- * Visitors to traverse the AST.
+ * Command line related package.
  *
  * <p>This package is a part of the open-source
  * <a href="https://github.com/Weltraumschaf/ebnf">EBNF library</a></p>
- *
- * <h2>Contents</h2>
- *
- * <ul>
- * <li>{@link de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree}
- * <li>{@link de.weltraumschaf.ebnf.ast.visitor.Xml}
- * </ul>
  */
-package de.weltraumschaf.ebnf.ast.visitor;
+package de.weltraumschaf.ebnf.cli;
