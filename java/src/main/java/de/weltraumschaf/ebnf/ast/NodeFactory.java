@@ -41,6 +41,7 @@ public final class NodeFactory {
             case TERMINAL:
                 return Terminal.newInstance(parent);
             default:
+                // This may happen if someone adds new NodeType enum w/o adding here.
                 throw new IllegalArgumentException(String.format("Unsupported node type '%s'!", type));
         }
     }

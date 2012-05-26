@@ -11,7 +11,8 @@
 
 package de.weltraumschaf.ebnf.ast;
 
-import org.junit.Ignore;
+import de.weltraumschaf.ebnf.ast.nodes.*;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -20,8 +21,16 @@ import org.junit.Test;
  */
 public class NodeFactoryTest {
 
-    @Ignore("Not ready yet")
     @Test public void newNode() {
-
+        assertTrue(NodeFactory.newNode(NodeType.SYNTAX) instanceof Syntax);
+        assertTrue(NodeFactory.newNode(NodeType.NULL) instanceof Null);
+        assertTrue(NodeFactory.newNode(NodeType.CHOICE) instanceof Choice);
+        assertTrue(NodeFactory.newNode(NodeType.COMMENT) instanceof Comment);
+        assertTrue(NodeFactory.newNode(NodeType.IDENTIFIER) instanceof Identifier);
+        assertTrue(NodeFactory.newNode(NodeType.LOOP) instanceof Loop);
+        assertTrue(NodeFactory.newNode(NodeType.OPTION) instanceof Option);
+        assertTrue(NodeFactory.newNode(NodeType.RULE) instanceof Rule);
+        assertTrue(NodeFactory.newNode(NodeType.SEQUENCE) instanceof Sequence);
+        assertTrue(NodeFactory.newNode(NodeType.TERMINAL) instanceof Terminal);
     }
 }
