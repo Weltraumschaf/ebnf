@@ -12,6 +12,7 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -35,4 +36,7 @@ public class OptionTest {
         assertEquals("<OPTION>\n<foo>\n<bar>", option.toString());
     }
 
+    @Test public void getType() {
+        assertEquals(NodeType.OPTION, Option.newInstance().getType());
+    }
 }

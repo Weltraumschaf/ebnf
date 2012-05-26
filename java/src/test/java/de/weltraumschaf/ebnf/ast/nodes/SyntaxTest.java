@@ -12,6 +12,7 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -22,6 +23,10 @@ import static org.mockito.Mockito.when;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
 public class SyntaxTest {
+
+    @Test public void getType() {
+        assertEquals(NodeType.SYNTAX, Syntax.newInstance().getType());
+    }
 
     @Test public void testToString() {
         final Syntax syntax = Syntax.newInstance("foo", "bar");

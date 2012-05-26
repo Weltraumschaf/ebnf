@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.NodeType;
 import de.weltraumschaf.ebnf.ast.Notification;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -53,5 +54,9 @@ public class TerminalTest {
         assertEquals("<TERMINAL value=>", term.toString());
         term.setAttribute("value", "foo");
         assertEquals("<TERMINAL value=foo>", term.toString());
+    }
+
+    @Test public void getType() {
+        assertEquals(NodeType.TERMINAL, Terminal.newInstance().getType());
     }
 }

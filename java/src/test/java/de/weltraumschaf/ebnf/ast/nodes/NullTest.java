@@ -11,6 +11,7 @@
 
 package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.NodeType;
 import de.weltraumschaf.ebnf.ast.Notification;
 import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import static org.junit.Assert.*;
@@ -50,5 +51,9 @@ public class NullTest {
 
     @Test public void depth() {
         assertEquals(0, sut.depth());
+    }
+
+    @Test public void getType() {
+        assertEquals(NodeType.NULL, sut.getType());
     }
 }

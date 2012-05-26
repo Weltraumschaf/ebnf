@@ -12,6 +12,7 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
 import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
@@ -35,5 +36,9 @@ public class RuleTest {
         assertEquals("<RULE name=foo>\n"
                    + "<foo>\n"
                    + "<bar>", rule.toString());
+    }
+
+    @Test public void getType() {
+        assertEquals(NodeType.RULE, Rule.newInstance().getType());
     }
 }

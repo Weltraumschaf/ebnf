@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.NodeType;
 import de.weltraumschaf.ebnf.ast.Notification;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -55,5 +56,9 @@ public class IdentifierTest {
         assertEquals("<IDENTIFIER value=>", ident.toString());
         ident.setAttribute("value", "foo");
         assertEquals("<IDENTIFIER value=foo>", ident.toString());
+    }
+
+    @Test public void getType() {
+        assertEquals(NodeType.IDENTIFIER, Identifier.newInstance().getType());
     }
 }

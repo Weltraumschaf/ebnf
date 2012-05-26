@@ -1,5 +1,6 @@
 package de.weltraumschaf.ebnf.ast.nodes;
 
+import de.weltraumschaf.ebnf.ast.NodeType;
 import de.weltraumschaf.ebnf.ast.Notification;
 import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import static org.junit.Assert.*;
@@ -63,5 +64,9 @@ public class CommentTest {
     @Test public void testToString() {
         final Comment comment = Comment.newInstance("foo");
         assertEquals("<COMMENT value=foo>", comment.toString());
+    }
+
+    @Test public void getType() {
+        assertEquals(NodeType.COMMENT, Comment.newInstance().getType());
     }
 }
