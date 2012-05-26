@@ -2,7 +2,7 @@ package de.weltraumschaf.ebnf;
 
 import de.weltraumschaf.ebnf.cli.CliOptions;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
-import de.weltraumschaf.ebnf.ide.IdeApp;
+import de.weltraumschaf.ebnf.gui.GuiApp;
 import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.SyntaxException;
@@ -10,6 +10,7 @@ import de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
 
@@ -18,16 +19,38 @@ import org.apache.commons.cli.ParseException;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public final class App {
+public final class Invoker {
 
+    // CHECKSTYLE:OFF
+    private static final PrintStream DEFAULT_OUT = System.out;
+    // CHECKSTYLE:ON
+    private static final CliOptions DEFAULT_OPTIONS = new CliOptions();
+
+    private final PrintStream stdOut;
     private final String[] args;
+    private final CliOptions options;
 
-    private App(final String[] args) {
-        this.args = args.clone();
+    private Invoker() {
+        this(new String[]{});
+    }
+
+    protected Invoker(final String[] args) {
+        this(args, DEFAULT_OUT);
+    }
+
+    protected Invoker(final String[] args, final PrintStream stdOut) {
+        this(args, stdOut, DEFAULT_OPTIONS);
+    }
+
+    protected Invoker(final String[] args, final PrintStream stdOut, final CliOptions options) {
+        super();
+        this.args    = args.clone();
+        this.stdOut  = stdOut;
+        this.options = options;
     }
 
     public static void main(final String[] args) {
-        final App app = new App(args);
+        final Invoker app = new Invoker(args);
         app.run();
     }
 
@@ -39,9 +62,11 @@ public final class App {
         System.exit(code);
     }
 
-    private CliOptions parseOptions() throws EbnfException {
-        final CliOptions options = new CliOptions();
+    protected void println(final String str) {
+        stdOut.println(str);
+    }
 
+    protected CliOptions parseOptions() throws EbnfException {
         try {
             options.parse(args);
         } catch (ParseException ex) {
@@ -51,17 +76,11 @@ public final class App {
         return options;
     }
 
-    private static void println(final String str) {
-        // CHECKSTYLE:OFF
-        System.out.println(str);
-        // CHECKSTYLE:ON
-    }
-
     private void run() {
         boolean debug = false;
 
         try {
-            final CliOptions options = parseOptions();
+            parseOptions();
             debug = options.isDebug();
 
             if (options.isHelp()) {
@@ -140,6 +159,6 @@ public final class App {
     }
 
     private void runGuiIde() {
-        IdeApp.main();
+        GuiApp.main();
     }
 }

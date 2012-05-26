@@ -9,7 +9,7 @@
  *
  */
 
-package de.weltraumschaf.ebnf.ide;
+package de.weltraumschaf.ebnf.gui;
 
 import de.weltraumschaf.ebnf.gfx.CreatorHelper;
 import java.awt.Dimension;
@@ -20,7 +20,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public class IdeApp implements Runnable {
+public class GuiApp implements Runnable {
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -29,7 +29,7 @@ public class IdeApp implements Runnable {
     private final CreatorHelper helper = new CreatorHelper();
 
     public static void main() {
-        final IdeApp app = new IdeApp();
+        final GuiApp app = new GuiApp();
         app.helper.debug = false;
         SwingUtilities.invokeLater(app);
     }

@@ -9,7 +9,7 @@
  *
  */
 
-package de.weltraumschaf.ebnf.ide;
+package de.weltraumschaf.ebnf.gui;
 
 import de.weltraumschaf.ebnf.gfx.RailroadDiagram;
 import java.awt.Graphics;
