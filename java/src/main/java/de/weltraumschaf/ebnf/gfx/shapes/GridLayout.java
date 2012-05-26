@@ -36,24 +36,36 @@ public class GridLayout extends AbstractLayout {
     }
 
     public ColumnLayout get(final int columnIndex) {
-        final ColumnLayout col = columns.get(columnIndex);
+        ColumnLayout col;
+
+        try {
+            col = columns.get(columnIndex);
+        } catch (IndexOutOfBoundsException ex) {
+            col = null;
+        }
 
         if (null == col) {
             // @todo test exception
             throw new IllegalArgumentException(
-                    String.format("The column at columnIndex %d is null!", columnIndex));
+                    String.format("The column at columnIndex %d is not present!", columnIndex));
         }
 
         return col;
     }
 
     public Shape get(final int columnIndex, final int rowIndex) {
-        final Shape shape = get(columnIndex).get(rowIndex);
+        Shape shape;
+
+        try {
+            shape = get(columnIndex).get(rowIndex);
+        } catch (IndexOutOfBoundsException ex) {
+            shape = null;
+        }
 
         if (null == shape) {
             // @todo test exception
             throw new IllegalArgumentException(
-                    String.format("The shape at columnIndex %d and rowIndex %d is null!",
+                    String.format("The shape at columnIndex %d and rowIndex %d is not present!",
                                   columnIndex, rowIndex));
         }
 

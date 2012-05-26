@@ -15,6 +15,7 @@ import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
@@ -100,6 +101,26 @@ public class GridLayoutTest {
         grid.append(column(empty()), column(empty()));
         assertEquals(3, grid.countCols());
         assertEquals(1, grid.counRows());
+    }
+
+    @Test public void throwExceptionsOnBadRowOrColumnIndex() {
+        final GridLayout grid = grid();
+
+        try {
+            grid.get(5);
+            fail("Expected exception not thrown!");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The column at columnIndex 5 is not present!", ex.getMessage());
+        }
+
+        grid.set(0, 0, empty());
+
+        try {
+            grid.get(0, 5);
+            fail("Expected exception not thrown!");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The shape at columnIndex 0 and rowIndex 5 is not present!", ex.getMessage());
+        }
     }
 
 }
