@@ -89,7 +89,7 @@ public final class Invoker {
             }
 
             if (options.isIde()) {
-                runGuiIde();
+                runGuiIde(options);
             } else {
                 runCliApp(options);
             }
@@ -158,7 +158,7 @@ public final class Invoker {
         exit(ExitCode.OK);
     }
 
-    private void runGuiIde() {
-        GuiApp.main();
+    private void runGuiIde(final CliOptions options) {
+        GuiApp.main(options);
     }
 }

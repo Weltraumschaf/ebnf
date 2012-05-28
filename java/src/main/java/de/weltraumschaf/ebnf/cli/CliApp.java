@@ -12,6 +12,7 @@
 package de.weltraumschaf.ebnf.cli;
 
 import de.weltraumschaf.ebnf.gfx.CreatorHelper;
+import de.weltraumschaf.ebnf.gfx.RailroadDiagram;
 import de.weltraumschaf.ebnf.gfx.RailroadDiagramImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,15 +29,18 @@ public class CliApp {
 
     private final PrintStream stdOut;
     private final CreatorHelper helper = new CreatorHelper();
+    private final CliOptions options;
 
-    public CliApp(final PrintStream stdOut) {
+    public CliApp(final CliOptions options, final PrintStream stdOut) {
+        this.options = options;
         this.stdOut = stdOut;
     }
 
     public void execute() {
         final RailroadDiagramImage img = new RailroadDiagramImage(WIDTH, HEIGHT, new File("./test.png"));
-        helper.debug = false;
-        img.setDiagram(helper.createDiagram(img.getGraphics()));
+        final RailroadDiagram diagram = helper.createDiagram(img.getGraphics());
+        diagram.setDebug(options.isDebug());
+        img.setDiagram(diagram);
         img.paint();
 
         try {

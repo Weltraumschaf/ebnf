@@ -25,8 +25,6 @@ import java.awt.Graphics2D;
  */
 public class CreatorHelper {
 
-    public boolean debug;
-
     public GridLayout createValueDiagram(final Graphics2D graphics) {
         final GridLayout value = grid();
         value.append(
@@ -119,7 +117,6 @@ public class CreatorHelper {
     public RailroadDiagram createDiagram(final Graphics2D graphics) {
         final Point offset = new Point(20, 20);
         final RailroadDiagram diagram = new RailroadDiagram();
-        diagram.setDebug(debug);
         final GridLayout value = createValueDiagram(graphics);
         value.setPosition(offset);
         diagram.add(value);
