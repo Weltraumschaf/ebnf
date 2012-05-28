@@ -1,6 +1,5 @@
 package de.weltraumschaf.ebnf.ast;
 
-import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 

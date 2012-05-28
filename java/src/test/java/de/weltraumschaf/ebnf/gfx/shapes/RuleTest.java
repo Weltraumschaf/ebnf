@@ -11,8 +11,8 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.rule;
 import de.weltraumschaf.ebnf.gfx.StringPainter;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.rule;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;

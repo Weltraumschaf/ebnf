@@ -16,7 +16,7 @@ import de.weltraumschaf.ebnf.gfx.Point;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.*;
 
 /**
  *

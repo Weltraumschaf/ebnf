@@ -11,7 +11,7 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.*;
 
 /**
  *

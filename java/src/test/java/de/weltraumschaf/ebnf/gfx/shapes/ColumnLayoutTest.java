@@ -11,8 +11,8 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.column;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.empty;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.column;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.empty;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import static org.junit.Assert.*;

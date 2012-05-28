@@ -11,11 +11,10 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.*;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 

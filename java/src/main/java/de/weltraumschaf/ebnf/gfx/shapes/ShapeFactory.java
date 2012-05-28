@@ -9,7 +9,7 @@
  *
  */
 
-package de.weltraumschaf.ebnf.gfx;
+package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.shapes.*;
 

@@ -1,7 +1,9 @@
 package de.weltraumschaf.ebnf.ast.visitor;
 
+import de.weltraumschaf.ebnf.ast.Visitor;
 import de.weltraumschaf.ebnf.ast.Composite;
 import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.Visitable;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -166,20 +168,29 @@ public class Xml implements Visitor {
      * @param visitable Visited node.
      */
     @Override
-    public void visit(final Node visitable) {
+    public void visit(final Visitable visitable) {
         boolean block = false;
 
-        if (visitable instanceof Composite && ((Composite) visitable).hasChildren()) {
-            block = true;
+        if (visitable instanceof Composite) {
+            final Composite composite = (Composite) visitable;
+
+            if (composite.hasChildren()) {
+                block = true;
+            }
         }
 
         append("\n");
         append(indent());
-        append(createOpenTag(visitable.getNodeName(), extractAttributes(visitable), block));
+        final Node node = (Node) visitable;
+        append(createOpenTag(node.getNodeName(), extractAttributes(node), block));
 
 
-        if (visitable instanceof Composite && ((Composite) visitable).hasChildren()) {
-            indentationLevel++;
+        if (visitable instanceof Composite) {
+            final Composite composite = (Composite) visitable;
+
+            if (composite.hasChildren()) {
+                indentationLevel++;
+            }
         }
     }
 
@@ -190,7 +201,7 @@ public class Xml implements Visitor {
      *
      */
     @Override
-    public void beforeVisit(final Node visitable) {
+    public void beforeVisit(final Visitable visitable) {
         // Nothing to do here.
     }
 
@@ -201,12 +212,17 @@ public class Xml implements Visitor {
      *
      */
     @Override
-    public void afterVisit(final Node visitable) {
-        if (visitable instanceof Composite && ((Composite) visitable).hasChildren()) {
-            indentationLevel--;
-            append("\n");
-            append(indent());
-            append(createCloseTag(visitable.getNodeName()));
+    public void afterVisit(final Visitable visitable) {
+        if (visitable instanceof Composite) {
+            final Composite composite = (Composite) visitable;
+
+            if (composite.hasChildren()) {
+                indentationLevel--;
+                append("\n");
+                append(indent());
+                final Node node = (Node) composite;
+                append(createCloseTag(node.getNodeName()));
+            }
         }
     }
 

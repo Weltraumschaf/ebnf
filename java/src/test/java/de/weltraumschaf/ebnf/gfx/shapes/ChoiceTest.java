@@ -11,8 +11,8 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.choice;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.terminal;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.choice;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.terminal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Ignore;

@@ -11,7 +11,7 @@
 
 package de.weltraumschaf.ebnf.gfx;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.*;
 import de.weltraumschaf.ebnf.gfx.shapes.GridLayout;
 import de.weltraumschaf.ebnf.gfx.shapes.Loop;
 import de.weltraumschaf.ebnf.gfx.shapes.Option;

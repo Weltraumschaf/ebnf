@@ -11,7 +11,6 @@
 
 package de.weltraumschaf.ebnf.cli;
 
-import de.weltraumschaf.ebnf.OutputFormat;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
 import static org.junit.Assert.*;

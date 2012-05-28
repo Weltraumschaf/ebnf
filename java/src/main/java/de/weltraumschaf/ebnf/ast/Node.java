@@ -1,6 +1,5 @@
 package de.weltraumschaf.ebnf.ast;
 
-import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import java.util.Map;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Map;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public interface Node {
+public interface Node extends Visitable {
 
     /**
      * Returns the name of a node.
@@ -16,15 +15,6 @@ public interface Node {
      * @return
      */
     String getNodeName();
-
-    /**
-     * Defines method to accept {@link Visitor}.
-     *
-     * Implements <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>.
-     *
-     * @param visitor Object which visits the node.
-     */
-    void accept(Visitor visitor);
 
     /**
      * Probes equivalence of itself against an other node and collects all
@@ -55,4 +45,5 @@ public interface Node {
     boolean hasAttribute(String name);
     String getAttribute(String name);
     void setAttribute(String name, String value);
+    boolean isType(NodeType checked);
 }

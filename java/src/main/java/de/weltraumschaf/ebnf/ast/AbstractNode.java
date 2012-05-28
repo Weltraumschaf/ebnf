@@ -1,7 +1,6 @@
 package de.weltraumschaf.ebnf.ast;
 
 import com.google.common.collect.Maps;
-import de.weltraumschaf.ebnf.ast.visitor.Visitor;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -122,5 +121,11 @@ public abstract class AbstractNode implements Node {
 
         return str.append('>').toString();
     }
+
+    @Override
+    public boolean isType(final NodeType checked) {
+        return type.equals(checked);
+    }
+
 
 }

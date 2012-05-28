@@ -11,9 +11,9 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Curves.*;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.Straights.WEST_EAST;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.Curves.*;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.Straights.WEST_EAST;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.*;
 import java.awt.Dimension;
 
 /**

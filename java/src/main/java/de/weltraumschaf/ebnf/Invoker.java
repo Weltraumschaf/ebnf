@@ -1,12 +1,12 @@
 package de.weltraumschaf.ebnf;
 
-import de.weltraumschaf.ebnf.cli.CliOptions;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
+import de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree;
+import de.weltraumschaf.ebnf.cli.CliOptions;
 import de.weltraumschaf.ebnf.gui.GuiApp;
 import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.SyntaxException;
-import de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

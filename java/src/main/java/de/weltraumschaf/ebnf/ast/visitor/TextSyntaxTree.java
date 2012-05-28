@@ -13,7 +13,9 @@ package de.weltraumschaf.ebnf.ast.visitor;
 
 import com.google.common.collect.Lists;
 import de.weltraumschaf.ebnf.ast.Node;
-import de.weltraumschaf.ebnf.ast.nodes.*;
+import de.weltraumschaf.ebnf.ast.NodeType;
+import de.weltraumschaf.ebnf.ast.Visitable;
+import de.weltraumschaf.ebnf.ast.Visitor;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
@@ -114,13 +116,13 @@ public class TextSyntaxTree implements Visitor {
         text.append('[').append(node.getNodeName());
         String value = "";
 
-        if (node instanceof Rule) {
+        if (node.isType(NodeType.RULE)) {
             value = node.getAttribute("name");
-        } else if (node instanceof Terminal) {
+        } else if (node.isType(NodeType.TERMINAL)) {
             value = node.getAttribute("value");
-        } else if (node instanceof Identifier) {
+        } else if (node.isType(NodeType.IDENTIFIER)) {
             value = node.getAttribute("value");
-        } else if (node instanceof Comment) {
+        } else if (node.isType(NodeType.COMMENT)) {
             value = node.getAttribute("value");
 
             if (value.length() > 20) {
@@ -165,9 +167,10 @@ public class TextSyntaxTree implements Visitor {
      * @param visitable Visited node.
      */
     @Override
-    public void beforeVisit(final Node visitable) {
-        if (visitable instanceof Syntax) {
-            depth  = visitable.depth();
+    public void beforeVisit(final Visitable visitable) {
+        final Node node = (Node) visitable;
+        if (node.isType(NodeType.SYNTAX)) {
+            depth  = node.depth();
             level  = 0;
             matrix.clear();
         } else {
@@ -184,7 +187,7 @@ public class TextSyntaxTree implements Visitor {
      * @param visitable Visited node.
      */
     @Override
-    public void visit(final Node visitable) {
+    public void visit(final Visitable visitable) {
         final List<String> row = createRow(depth);
 
         if (level > 0) {
@@ -193,10 +196,10 @@ public class TextSyntaxTree implements Visitor {
             }
 
             row.set(level - 1, BRANCH);
-            row.set(level, formatNode(visitable));
+            row.set(level, formatNode((Node) visitable));
         }
 
-        row.set(level, formatNode(visitable));
+        row.set(level, formatNode((Node) visitable));
         matrix.add(row);
     }
 
@@ -209,7 +212,7 @@ public class TextSyntaxTree implements Visitor {
      * @param visitable visited node.
      */
     @Override
-    public void afterVisit(final Node visitable) {
+    public void afterVisit(final Visitable visitable) {
         final int rowCnt = matrix.size();
 
         for (int i = rowCnt - 1; i > -1; i--) {

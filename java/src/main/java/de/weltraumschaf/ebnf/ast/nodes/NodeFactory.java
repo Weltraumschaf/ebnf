@@ -9,9 +9,10 @@
  *
  */
 
-package de.weltraumschaf.ebnf.ast;
+package de.weltraumschaf.ebnf.ast.nodes;
 
-import de.weltraumschaf.ebnf.ast.nodes.*;
+import de.weltraumschaf.ebnf.ast.Node;
+import de.weltraumschaf.ebnf.ast.NodeType;
 
 /**
  *

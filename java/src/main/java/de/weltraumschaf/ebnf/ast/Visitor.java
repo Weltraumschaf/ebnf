@@ -1,6 +1,4 @@
-package de.weltraumschaf.ebnf.ast.visitor;
-
-import de.weltraumschaf.ebnf.ast.Node;
+package de.weltraumschaf.ebnf.ast;
 
 /**
  * Defines interface for an AST tree visitor.
@@ -12,26 +10,26 @@ import de.weltraumschaf.ebnf.ast.Node;
 public interface Visitor {
 
     /**
-     * Template method to hook in before specific node vsitor method
+     * Template method to hook in before specific node visitor method
      * will be invoked.
      *
-     * @param visitable Visited {@link Node}.
+     * @param visitable Visited {@link Visitable}.
      */
-    void beforeVisit(Node visitable);
+    void beforeVisit(Visitable visitable);
 
     /**
      * Generic visitor method called by a visited {@link Node}.
      *
-     * @param visitable Visited {@link Node}.
+     * @param visitable Visited {@link Visitable}.
      */
-    void visit(Node visitable);
+    void visit(Visitable visitable);
 
     /**
      * Template method to hook in after specific node visitor method
      * will be invoked.
      *
-     * @param visitable Visited {@link Node}.
+     * @param visitable Visited {@link Visitable}.
      */
-    void afterVisit(Node visitable);
+    void afterVisit(Visitable visitable);
 
 }

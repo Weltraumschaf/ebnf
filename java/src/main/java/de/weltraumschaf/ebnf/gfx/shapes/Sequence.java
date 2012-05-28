@@ -13,10 +13,10 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 
 import com.google.common.collect.Lists;
 import de.weltraumschaf.ebnf.gfx.Point;
+import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.empty;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
-import static de.weltraumschaf.ebnf.gfx.ShapeFactory.*;
 
 /**
  *

@@ -11,6 +11,7 @@
 
 package de.weltraumschaf.ebnf.ast;
 
+import de.weltraumschaf.ebnf.ast.nodes.NodeFactory;
 import de.weltraumschaf.ebnf.ast.nodes.Null;
 import static org.junit.Assert.*;
 import org.junit.Test;

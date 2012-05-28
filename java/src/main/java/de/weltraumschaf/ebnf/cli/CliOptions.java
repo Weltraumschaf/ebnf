@@ -1,6 +1,5 @@
 package de.weltraumschaf.ebnf.cli;
 
-import de.weltraumschaf.ebnf.OutputFormat;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
