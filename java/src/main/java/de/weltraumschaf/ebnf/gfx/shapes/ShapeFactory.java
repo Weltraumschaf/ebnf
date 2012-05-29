@@ -11,8 +11,6 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
-import de.weltraumschaf.ebnf.gfx.shapes.*;
-
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>

@@ -12,6 +12,8 @@ import de.weltraumschaf.ebnf.ast.Notification;
  */
 public final class Comment extends AbstractNode {
 
+    private static final String ATTR_VALUE = "value";
+
     /**
      * Initializes object with empty value and parent node.
      *
@@ -20,7 +22,7 @@ public final class Comment extends AbstractNode {
      */
     private Comment(final Node parent, final String value) {
         super(parent, NodeType.COMMENT);
-        setAttribute("value", value);
+        setAttribute(ATTR_VALUE, value);
     }
 
     /**
@@ -75,9 +77,9 @@ public final class Comment extends AbstractNode {
         try {
             final Comment terminal = (Comment) other;
 
-            if (!getAttribute("value").equals(terminal.getAttribute("value"))) {
-                result.error("Comment value mismatch: '%s' != '%s'!", getAttribute("value"),
-                                                                      terminal.getAttribute("value"));
+            if (!getAttribute(ATTR_VALUE).equals(terminal.getAttribute(ATTR_VALUE))) {
+                result.error("Comment value mismatch: '%s' != '%s'!", getAttribute(ATTR_VALUE),
+                                                                      terminal.getAttribute(ATTR_VALUE));
             }
         } catch (ClassCastException ex) {
             result.error(
