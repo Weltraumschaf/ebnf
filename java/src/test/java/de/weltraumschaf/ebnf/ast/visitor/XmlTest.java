@@ -1,16 +1,14 @@
 package de.weltraumschaf.ebnf.ast.visitor;
 
 import com.google.common.collect.Maps;
+import static de.weltraumschaf.ebnf.TestHelper.helper;
 import static de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.syntax;
 import de.weltraumschaf.ebnf.ast.nodes.Loop;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -125,8 +123,7 @@ public class XmlTest {
         visitor = new Xml();
         syntax.accept(visitor);
 
-        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/ast/visitor/syntax.xml");
-        final String xml = FileUtils.readFileToString(new File(resource.toURI()));
+        final String xml = helper().createStringFromFixture("ast/visitor/syntax.xml");
         assertEquals(xml, visitor.getXmlString());
     }
 

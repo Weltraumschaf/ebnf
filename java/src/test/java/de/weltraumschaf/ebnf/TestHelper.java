@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 
 /**
+ * Helper class to read fixture files.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
@@ -31,9 +32,7 @@ public final class TestHelper {
     private static final TestHelper INSTANCE = new TestHelper();
 
 
-    private TestHelper() {
-
-    }
+    private TestHelper() { }
 
     public static TestHelper helper() {
         return INSTANCE;
