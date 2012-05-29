@@ -11,7 +11,10 @@
 
 package de.weltraumschaf.ebnf.gfx.shapes;
 
+import de.weltraumschaf.ebnf.gfx.Line;
+import de.weltraumschaf.ebnf.gfx.Point;
 import de.weltraumschaf.ebnf.gfx.StringPainter;
+import de.weltraumschaf.ebnf.gfx.Strokes;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -77,5 +80,51 @@ public abstract class AbstractTextShape extends Empty implements Adjustable {
                                      (int) Math.ceil(textBounds.getHeight()));
         }
         return textSize;
+    }
+
+    protected Line calculateInLine(final int boxWidth) {
+        final Point pos      = getPosition();
+        final int vCenter    = getCenterY();
+        final Point start    = new Point(pos.x, vCenter);
+        final Point end      = new Point(pos.x + calculateHPadding(boxWidth), vCenter);
+        return new Line(start, end);
+    }
+
+    protected Line calculateOutLine(final int boxWidth) {
+        final Point pos      = getPosition();
+        final int vCenter    = getCenterY();
+        final Point start    = new Point(pos.x + calculateHPadding(boxWidth) + boxWidth, vCenter);
+        final Point end      = new Point(pos.x + getSize().width, vCenter);
+        return new Line(start, end);
+    }
+
+    protected int calculateHPadding(final int boxWidth) {
+        return (getSize().width - boxWidth) / 2;
+    }
+
+    protected int calculateVPadding(final int boxHeight) {
+        return (getSize().height - boxHeight) / 2;
+    }
+
+    protected Point calculatePaddedRectanglePosition(final Dimension size) {
+        final Point pos = getPosition();
+        return new Point(pos.x + calculateHPadding(size.width),
+                         pos.y + calculateVPadding(size.height));
+    }
+
+    protected void drawLine(final Graphics2D graphic, final Line line) {
+        graphic.drawLine(line.start.x, line.start.y, line.end.x, line.end.y);
+    }
+
+    protected void drawText(final Graphics2D graphic, final Point pos, final Dimension size) {
+        final StringPainter painter = createStringPainter(graphic);
+        painter.drawCenteredString(getText(), pos, size);
+    }
+
+    protected void drawTextWithInAndOutLine(final Graphics2D graphic, final Point pos, final Dimension size) {
+        graphic.setStroke(Strokes.createForRail());
+        drawLine(graphic, calculateInLine(size.width));
+        drawLine(graphic, calculateOutLine(size.width));
+        drawText(graphic, pos, size);
     }
 }

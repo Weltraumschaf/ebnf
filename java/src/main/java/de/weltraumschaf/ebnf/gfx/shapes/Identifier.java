@@ -49,27 +49,17 @@ public class Identifier extends AbstractTextShape implements Shape {
             adjust(graphic);
         }
 
-        final Point pos      = getPosition();
-        final Dimension size = getSize();
-        final int vCenter    = getCenterY();
-        final int hPaddingp  = (size.width - boxSize.width) / 2;
-        final int vPadding   = (size.height - boxSize.height) / 2;
-        final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding);
-        final Point inLineStart       = new Point(pos.x, vCenter);
-        final Point inLineEnd         = new Point(pos.x + hPaddingp, vCenter);
-        final Point outLineStart      = new Point(pos.x + hPaddingp + boxSize.width, vCenter);
-        final Point outLineEnd        = new Point(pos.x + size.width, vCenter);
+        final Point rectanglePosition = calculatePaddedRectanglePosition(boxSize);
 
         super.paint(graphic);
         backupColorAndStroke(graphic);
+
         graphic.setColor(Color.BLACK);
         graphic.setStroke(Strokes.createForBox());
         graphic.drawRect(rectanglePosition.x, rectanglePosition.y, boxSize.width, boxSize.height);
-        graphic.setStroke(Strokes.createForRail());
-        graphic.drawLine(inLineStart.x, inLineStart.y, inLineEnd.x, inLineEnd.y);
-        graphic.drawLine(outLineStart.x, outLineStart.y, outLineEnd.x, outLineEnd.y);
-        final StringPainter textPainter = createStringPainter(graphic);
-        textPainter.drawCenteredString(getText(), rectanglePosition, boxSize);
+
+        drawTextWithInAndOutLine(graphic, rectanglePosition, boxSize);
+
         resotreColorAndStroke(graphic);
     }
 
