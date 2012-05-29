@@ -321,7 +321,7 @@ public class EbnfScanner implements Scanner {
         if (!hasNextToken()) {
             return;
         }
-        
+
         if (currentToken > -1 && currentToken < (tokens.size() - 1)) {
             // recover backtracked tokens.
             currentToken++;
