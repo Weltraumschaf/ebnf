@@ -125,7 +125,7 @@ public class XmlTest {
         visitor = new Xml();
         syntax.accept(visitor);
 
-        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
+        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/ast/visitor/syntax.xml");
         final String xml = FileUtils.readFileToString(new File(resource.toURI()));
         assertEquals(xml, visitor.getXmlString());
     }

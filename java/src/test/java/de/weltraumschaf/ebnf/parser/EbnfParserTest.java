@@ -72,7 +72,7 @@ public class EbnfParserTest {
     @Test public void testParse() throws SyntaxException, IOException, URISyntaxException { //NOPMD
         Syntax ast;
 
-        Parser parser = helper().createParserFromFixture("rules_with_different_assignment_ops.ebnf");
+        Parser parser = helper().createParserFromFixture("parser/rules_with_different_assignment_ops.ebnf");
         ast = syntax("Rules with different assignment operators.")
             .rule("comment1")
                 .identifier("literal1")
@@ -86,7 +86,7 @@ public class EbnfParserTest {
         .build();
         assertEquivalentSyntax(ast, parser.parse());
 
-        parser = helper().createParserFromFixture("rules_with_literals.ebnf");
+        parser = helper().createParserFromFixture("parser/rules_with_literals.ebnf");
         ast = syntax("Rules with literal.")
             .rule("literal") // NOPMD
                 .choice()
@@ -111,7 +111,7 @@ public class EbnfParserTest {
         .build();
         assertEquivalentSyntax(ast, parser.parse());
 
-        parser = helper().createParserFromFixture("rules_with_comments.ebnf");
+        parser = helper().createParserFromFixture("parser/rules_with_comments.ebnf");
         ast = syntax("Rules with comments.")
             .comment("(* here are rules *)")
             .rule("title")
@@ -133,7 +133,7 @@ public class EbnfParserTest {
         .build();
         assertEquivalentSyntax(ast, parser.parse());
 
-        parser = helper().createParserFromFixture("testgrammar_1.old.ebnf");
+        parser = helper().createParserFromFixture("parser/testgrammar_1.old.ebnf");
         ast = syntax("EBNF defined in itself.")
             .rule("syntax")
                 .sequence()

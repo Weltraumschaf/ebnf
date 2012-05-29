@@ -75,7 +75,7 @@ public class SyntaxBuilderTest {
             .end()
         .build();
 
-        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/visitor/syntax.xml");
+        final URL resource = getClass().getResource("/de/weltraumschaf/ebnf/ast/visitor/syntax.xml");
         final String xml   = FileUtils.readFileToString(new File(resource.toURI()));
         final Xml visitor  = new Xml();
         syntax.accept(visitor);

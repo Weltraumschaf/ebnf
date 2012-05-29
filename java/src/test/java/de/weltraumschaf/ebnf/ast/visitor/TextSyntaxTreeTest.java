@@ -101,10 +101,10 @@ public class TextSyntaxTreeTest {
         final List<List<String>> expected = Arrays.asList(
             Arrays.asList("[syntax]", "", "", "", "", ""),
             Arrays.asList(" +--",     "[rule='literal']", "", "", "", ""),
-            Arrays.asList("    ",     " +--", "[choice]", "", "", ""),
+            Arrays.asList("    ",     " +--", "[choice]", "", "", ""), // NOPMD
             Arrays.asList("    ",     "    ", " +--", "[sequence]", "", ""),
-            Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
-            Arrays.asList("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""),
+            Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""), // NOPMD
+            Arrays.asList("    ",     "    ", " |  ", " +--",       "[identifier='character']", ""), // NOPMD
             Arrays.asList("    ",     "    ", " |  ", " +--",       "[loop]", ""),
             Arrays.asList("    ",     "    ", " |  ", " |  ",       " +--", "[identifier='character']"),
             Arrays.asList("    ",     "    ", " |  ", " +--",       "[terminal=''']", ""),
@@ -193,8 +193,8 @@ public class TextSyntaxTreeTest {
             visitor.getText()
         );
 
-        final String expected = helper().createStringFromFixture("visitor/rules_with_literals_tree_output");
-        final Parser parser = helper().createParserFromFixture("rules_with_literals.ebnf");
+        final String expected = helper().createStringFromFixture("ast/visitor/rules_with_literals_tree_output");
+        final Parser parser = helper().createParserFromFixture("parser/rules_with_literals.ebnf");
         ast     = parser.parse();
         visitor = new TextSyntaxTree();
         ast.accept(visitor);
