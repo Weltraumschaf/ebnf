@@ -45,7 +45,6 @@ public class GridLayout extends AbstractLayout {
         }
 
         if (null == col) {
-            // @todo test exception
             throw new IllegalArgumentException(
                     String.format("The column at columnIndex %d is not present!", columnIndex));
         }
@@ -63,7 +62,6 @@ public class GridLayout extends AbstractLayout {
         }
 
         if (null == shape) {
-            // @todo test exception
             throw new IllegalArgumentException(
                     String.format("The shape at columnIndex %d and rowIndex %d is not present!",
                                   columnIndex, rowIndex));
