@@ -70,15 +70,15 @@ public class RuleTest {
         when(metrics.getAscent()).thenReturn(12);
         when(metrics.getDescent()).thenReturn(4);
 
-        final Graphics2D graphic = mock(Graphics2D.class);
-        when(graphic.getFontMetrics()).thenReturn(metrics);
+        final Graphics2D graphics = mock(Graphics2D.class);
+        when(graphics.getFontMetrics()).thenReturn(metrics);
 
         final RuleStub rule = new RuleStub(name);
         rule.setCalculatedTextSize(new Dimension(100, 16));
-        rule.paint(graphic);
+        rule.paint(graphics);
 
-        verify(graphic, times(1)).setColor(Color.BLACK);
-        verify(graphic, times(1)).setFont(StringPainter.SANSERIF);
-        verify(graphic, times(1)).drawString(name, 15, 19);
+        verify(graphics, times(1)).setColor(Color.BLACK);
+        verify(graphics, times(1)).setFont(StringPainter.SANSERIF);
+        verify(graphics, times(1)).drawString(name, 15, 19);
     }
 }
