@@ -12,12 +12,15 @@
 package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.StringPainter;
+import de.weltraumschaf.ebnf.gfx.Strokes;
 import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.terminal;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -67,8 +70,27 @@ public class TerminalTest {
         assertEquals(new Dimension(155, 31), term.getSize());
     }
 
-    @Ignore("Not ready yet.")
     @Test public void paint() {
+        final String value = "foobar";
+        final FontMetrics metrics = mock(FontMetrics.class);
+        when(metrics.stringWidth(value)).thenReturn(80);
+        when(metrics.getAscent()).thenReturn(12);
+        when(metrics.getDescent()).thenReturn(4);
 
+        final Graphics2D graphics = mock(Graphics2D.class);
+        when(graphics.getFontMetrics()).thenReturn(metrics);
+
+        final TerminalStub term = new TerminalStub(value);
+        term.setCalculatedTextSize(new Dimension(100, 16));
+        term.paint(graphics);
+
+        verify(graphics, times(1)).setColor(Color.BLACK);
+        verify(graphics, times(1)).setStroke(Strokes.createForBox());
+        verify(graphics, times(1)).drawRoundRect(17, 5, 120, 20, 25, 25);
+        verify(graphics, times(1)).setStroke(Strokes.createForRail());
+        verify(graphics, times(1)).drawLine(0, 15, 17, 15);
+        verify(graphics, times(1)).drawLine(137, 15, 155, 15);
+        verify(graphics, times(1)).setFont(StringPainter.MONOSPACED);
+        verify(graphics, times(1)).drawString(value, 37, 19);
     }
 }
