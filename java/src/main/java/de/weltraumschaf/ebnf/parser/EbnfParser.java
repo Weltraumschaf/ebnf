@@ -294,7 +294,7 @@ public class EbnfParser implements Parser {
     }
 
     protected void raiseError(final String msg) throws SyntaxException {
-        raiseError(msg, null);
+        raiseError(msg, scanner.getCurrentToken().getPosition());
     }
 
     /**
@@ -309,10 +309,6 @@ public class EbnfParser implements Parser {
      * @return void
      */
     protected void raiseError(final String msg, final Position pos) throws SyntaxException {
-        if (null == pos) {
-            throw new SyntaxException(msg, scanner.getCurrentToken().getPosition());
-        } else {
-            throw new SyntaxException(msg, pos);
-        }
+        throw new SyntaxException(msg, pos);
     }
 }
