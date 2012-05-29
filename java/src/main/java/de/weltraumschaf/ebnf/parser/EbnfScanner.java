@@ -301,7 +301,6 @@ public class EbnfScanner implements Scanner {
         final Token token = getCurrentToken();
         currentToken--;
 
-        // @todo May be this is not necessary.
         if (currentToken < 0) {
             currentToken = 0;
         }
@@ -319,6 +318,10 @@ public class EbnfScanner implements Scanner {
      */
     @Override
     public void nextToken() throws SyntaxException, IOException {
+        if (!hasNextToken()) {
+            return;
+        }
+        
         if (currentToken > -1 && currentToken < (tokens.size() - 1)) {
             // recover backtracked tokens.
             currentToken++;
@@ -348,7 +351,7 @@ public class EbnfScanner implements Scanner {
             } else if (isWhiteSpace(getCurrentCharacter())) { // NOPMD
                 // Ignore white spaces.
             } else {
-                raiseError(String.format("Invalid character '%s' as %s",
+                raiseError(String.format("Invalid character '%s' at %s",
                                          getCurrentCharacter(),
                                          createPosition()));
             }

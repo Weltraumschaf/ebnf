@@ -1,6 +1,6 @@
 "Rules with ranges." {
-    lower     = "a" .. "z" .
-    upper     = "A" .. "Z" .
-    number    = "0" .. "9" .
-    alpha-num = "a" .. "z" | "0" .. "9" .
+    lower     = "a" .. "z" ;
+    upper     = "A" .. "Z" ;
+    number    = "0" .. "9" ;
+    alpha-num = "a" .. "z" | "0" .. "9" ;
 }

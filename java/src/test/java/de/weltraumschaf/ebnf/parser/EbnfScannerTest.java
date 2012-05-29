@@ -72,6 +72,10 @@ public class EbnfScannerTest {
             ++count;
         }
 
+        scanner.nextToken();
+        final Token lastToken = scanner.getCurrentToken();
+        assertEquals(TokenType.EOF, lastToken.getType());
+
         assertEquals("Not enough tokens!", expectations.size(), count);
 
         final int[] backtracks = {1, 3, 20, 200000};
@@ -101,6 +105,13 @@ public class EbnfScannerTest {
         scanner.close();
     }
 
+    @Test public void nullableFile() {
+        Scanner scanner = new EbnfScanner(null, "foo");
+        assertEquals("foo", scanner.getFile());
+        scanner = new EbnfScanner(null);
+        assertNull(scanner.getFile());
+    }
+
     @Test public void testNext() throws Exception { //NOPMD
         Scanner scanner = Factory.newScanner(new StringReader(""));
         assertNull(scanner.getCurrentToken());
@@ -114,19 +125,19 @@ public class EbnfScannerTest {
                 new Expectation("\"a\"", TokenType.LITERAL, 2, 17),
                 new Expectation("..", TokenType.RANGE, 2, 21),
                 new Expectation("\"z\"", TokenType.LITERAL, 2, 24),
-                new Expectation(".", TokenType.END_OF_RULE, 2, 28),
+                new Expectation(";", TokenType.END_OF_RULE, 2, 28),
                 new Expectation("upper", TokenType.IDENTIFIER, 3, 5),
                 new Expectation("=", TokenType.ASIGN, 3, 15),
                 new Expectation("\"A\"", TokenType.LITERAL, 3, 17),
                 new Expectation("..", TokenType.RANGE, 3, 21),
                 new Expectation("\"Z\"", TokenType.LITERAL, 3, 24),
-                new Expectation(".", TokenType.END_OF_RULE, 3, 28),
+                new Expectation(";", TokenType.END_OF_RULE, 3, 28),
                 new Expectation("number", TokenType.IDENTIFIER, 4, 5),
                 new Expectation("=", TokenType.ASIGN, 4, 15),
                 new Expectation("\"0\"", TokenType.LITERAL, 4, 17),
                 new Expectation("..", TokenType.RANGE, 4, 21),
                 new Expectation("\"9\"", TokenType.LITERAL, 4, 24),
-                new Expectation(".", TokenType.END_OF_RULE, 4, 28),
+                new Expectation(";", TokenType.END_OF_RULE, 4, 28),
                 new Expectation("alpha-num", TokenType.IDENTIFIER, 5, 5),
                 new Expectation("=", TokenType.ASIGN, 5, 15),
                 new Expectation("\"a\"", TokenType.LITERAL, 5, 17),
@@ -136,7 +147,7 @@ public class EbnfScannerTest {
                 new Expectation("\"0\"", TokenType.LITERAL, 5, 30),
                 new Expectation("..", TokenType.RANGE, 5, 34),
                 new Expectation("\"9\"", TokenType.LITERAL, 5, 37),
-                new Expectation(".", TokenType.END_OF_RULE, 5, 41),
+                new Expectation(";", TokenType.END_OF_RULE, 5, 41),
                 new Expectation("}", TokenType.R_BRACE, 6, 1),
                 new Expectation(null, TokenType.EOF, 6, 1)), "Rules with range.");
 
@@ -403,21 +414,32 @@ public class EbnfScannerTest {
 
     @Test public void testPeekToken() throws SyntaxException, IOException {
         final Scanner scanner = Factory.newScanner(new StringReader("comment :== literal ."));
-        scanner.nextToken();
         Token token;
+
+        token = scanner.peekToken();
+        assertEquals("comment", token.getValue());
+
         token = scanner.getCurrentToken();
         assertEquals("comment", token.getValue());
-        assertEquals(":==", scanner.peekToken().getValue());
+
+        token = scanner.peekToken();
+        assertEquals(":==", token.getValue());
+
         scanner.nextToken();
         token = scanner.getCurrentToken();
         assertEquals(":==", token.getValue());
-        assertEquals("literal", scanner.peekToken().getValue());
+
+        token = scanner.peekToken();
+        assertEquals("literal", token.getValue());
+
         scanner.nextToken();
         token = scanner.getCurrentToken();
         assertEquals("literal", token.getValue());
+
         scanner.nextToken();
         token = scanner.getCurrentToken();
         assertEquals(".", token.getValue());
+
         scanner.nextToken();
         token = scanner.getCurrentToken();
         assertEquals(TokenType.EOF, token.getType());
