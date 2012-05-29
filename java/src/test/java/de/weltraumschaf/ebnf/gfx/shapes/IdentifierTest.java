@@ -19,7 +19,6 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
@@ -72,7 +71,6 @@ public class IdentifierTest {
         assertEquals(new Dimension(124, 31), ident.getSize());
     }
 
-//    @Ignore("Not ready yet.")
     @Test public void paint() {
         final String value = "foobar";
         final FontMetrics metrics = mock(FontMetrics.class);
