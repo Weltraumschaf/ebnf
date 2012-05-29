@@ -50,11 +50,11 @@ public class Identifier extends AbstractTextShape implements Shape {
             adjust(graphic);
         }
 
-        final Point pos     = getPosition();
+        final Point pos      = getPosition();
         final Dimension size = getSize();
-        final int vCenter   = getCenterY();
-        final int hPaddingp = (size.width - boxSize.width) / 2;
-        final int vPadding  = (size.height - boxSize.height) / 2;
+        final int vCenter    = getCenterY();
+        final int hPaddingp  = (size.width - boxSize.width) / 2;
+        final int vPadding   = (size.height - boxSize.height) / 2;
         final Point rectanglePosition = new Point(pos.x + hPaddingp, pos.y + vPadding);
         final Point inLineStart       = new Point(pos.x, vCenter);
         final Point inLineEnd         = new Point(pos.x + hPaddingp, vCenter);
