@@ -13,11 +13,13 @@ package de.weltraumschaf.ebnf.gfx.shapes;
 
 import de.weltraumschaf.ebnf.gfx.StringPainter;
 import static de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.rule;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -45,8 +47,9 @@ public class RuleTest {
     }
 
     @Test public void font() {
-        final AbstractTextShape rule = rule("foobar");
-        assertEquals("foobar", rule.getText());
+        final String name = "foobar";
+        final AbstractTextShape rule = rule(name);
+        assertEquals(name, rule.getText());
         assertEquals(StringPainter.SANSERIF, rule.getFont());
     }
 
@@ -60,8 +63,22 @@ public class RuleTest {
         assertEquals(new Dimension(124, 31), rule.getSize());
     }
 
-    @Ignore("Not ready yet.")
     @Test public void paint() {
+        final String name = "foobar";
+        final FontMetrics metrics = mock(FontMetrics.class);
+        when(metrics.stringWidth(name)).thenReturn(80);
+        when(metrics.getAscent()).thenReturn(12);
+        when(metrics.getDescent()).thenReturn(4);
 
+        final Graphics2D graphic = mock(Graphics2D.class);
+        when(graphic.getFontMetrics()).thenReturn(metrics);
+
+        final RuleStub rule = new RuleStub(name);
+        rule.setCalculatedTextSize(new Dimension(100, 16));
+        rule.paint(graphic);
+
+        verify(graphic, times(1)).setColor(Color.BLACK);
+        verify(graphic, times(1)).setFont(StringPainter.SANSERIF);
+        verify(graphic, times(1)).drawString(name, 15, 19);
     }
 }
