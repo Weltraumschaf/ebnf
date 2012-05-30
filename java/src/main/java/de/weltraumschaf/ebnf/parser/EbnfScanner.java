@@ -39,10 +39,6 @@ public class EbnfScanner implements Scanner {
      * End of file character.
      */
     private static final char EOF = (char) 0;
-    /**
-     * Special characters allowed in identifiers.
-     */
-    private static final char[] SPECIAL_CHARS =  {'-', '_'};
 
     /**
      * The input stream to read from.
@@ -130,7 +126,7 @@ public class EbnfScanner implements Scanner {
      *
      * @return If there is one more character.
      */
-    private boolean hasNextCharacter() {
+    boolean hasNextCharacter() {
         return !atEof;
     }
 
@@ -139,7 +135,7 @@ public class EbnfScanner implements Scanner {
      *
      * @throws IOException On IO errors caused by the input reader.
      */
-    private void nextCharacter() throws IOException {
+    void nextCharacter() throws IOException {
         if (currentCharacter > -1 && EOF == getCurrentCharacter()) {
             return;
         }
@@ -163,7 +159,7 @@ public class EbnfScanner implements Scanner {
      *
      * @return The current character.
      */
-    private char getCurrentCharacter() {
+    char getCurrentCharacter() {
         try {
             return buffer.charAt(currentCharacter);
         } catch (StringIndexOutOfBoundsException ex) {
@@ -180,7 +176,7 @@ public class EbnfScanner implements Scanner {
      *
      * @return
      */
-    private void backupCharacter() {
+    void backupCharacter() {
         currentCharacter--;
         column--;
     }
@@ -190,7 +186,7 @@ public class EbnfScanner implements Scanner {
      *
      * @return
      */
-    private char peekCharacter() throws IOException {
+    char peekCharacter() throws IOException {
         char character = EOF;
 
         if (hasNextCharacter()) {
@@ -208,7 +204,7 @@ public class EbnfScanner implements Scanner {
      *
      * @throws SyntaxException On syntax errors.
      */
-    protected void raiseError(final String msg) throws SyntaxException {
+    void raiseError(final String msg) throws SyntaxException {
         throw new SyntaxException(msg, createPosition());
     }
 
@@ -217,7 +213,7 @@ public class EbnfScanner implements Scanner {
      *
      * @return
      */
-    protected Position createPosition() {
+    Position createPosition() {
         return new Position(line, column, file);
     }
 
@@ -328,32 +324,35 @@ public class EbnfScanner implements Scanner {
             return;
         }
 
+        processToken();
+    }
+
+    private void processToken() throws SyntaxException, IOException {
         while (hasNextCharacter()) {
             nextCharacter();
 
             if (isAlpha(getCurrentCharacter())) {
-                tokens.add(scanIdentifier());
+                tokens.add(EbnfScannerHelper.scanIdentifier(this));
                 currentToken++;
                 return;
             } else if (isQuote(getCurrentCharacter())) {
-                tokens.add(scanLiteral());
+                tokens.add(EbnfScannerHelper.scanLiteral(this));
                 currentToken++;
                 return;
             } else if (isOperator(getCurrentCharacter())) {
                 if ('(' == getCurrentCharacter() && '*' == peekCharacter()) {
-                    tokens.add(scanComment());
+                    tokens.add(EbnfScannerHelper.scanComment(this));
                 } else {
-                    tokens.add(scanOperator());
+                    tokens.add(EbnfScannerHelper.scanOperator(this));
                 }
-
                 currentToken++;
                 return;
             } else if (isWhiteSpace(getCurrentCharacter())) { // NOPMD
                 // Ignore white spaces.
             } else {
                 raiseError(String.format("Invalid character '%s' at %s",
-                                         getCurrentCharacter(),
-                                         createPosition()));
+                                        getCurrentCharacter(),
+                                        createPosition()));
             }
 
             checkNewline();
@@ -369,148 +368,11 @@ public class EbnfScanner implements Scanner {
      *
      * @return
      */
-    private void checkNewline() {
+    void checkNewline() {
         if ('\n' == getCurrentCharacter() || '\r' == getCurrentCharacter()) {
             line++;
             column = 0;
         }
-    }
-
-    /**
-     * Scans an identifier [a-zA-Z\-_].
-     *
-     * @return
-     */
-    private Token scanIdentifier() throws IOException {
-        final Position position = createPosition();
-        final StringBuilder value = new StringBuilder();
-        value.append(getCurrentCharacter());
-
-        while (hasNextCharacter()) {
-            nextCharacter();
-
-            if (isAlphaNum(getCurrentCharacter())
-                    || isEquals(getCurrentCharacter(), SPECIAL_CHARS)) {
-                value.append(getCurrentCharacter());
-            } else {
-                backupCharacter();
-                break;
-            }
-        }
-
-        return new Token(TokenType.IDENTIFIER, value.toString(), position);
-    }
-
-    /**
-     * Scans a literal (any character inside single or double quotes.
-     *
-     * @return
-     */
-    private Token scanLiteral() throws IOException {
-        final Position position = createPosition();
-        final char start = getCurrentCharacter();
-        final StringBuilder value = new StringBuilder();
-        value.append(start);
-
-        while (hasNextCharacter()) {
-            nextCharacter();
-            value.append(getCurrentCharacter());
-
-            // Ensure that a lieral opened with " is not temrinated by ' and vice versa.
-            if (isQuote(getCurrentCharacter()) && getCurrentCharacter() == start) {
-                break;
-            }
-        }
-
-        return new Token(TokenType.LITERAL, value.toString(), position);
-    }
-
-    /**
-     * Scans a comment (any character inside '(*' and '*)'.
-     *
-     * @return
-     */
-    private Token scanComment() throws IOException {
-        final Position postition = createPosition();
-        final StringBuilder value = new StringBuilder();
-        value.append(getCurrentCharacter());
-
-        while (hasNextCharacter()) {
-            nextCharacter();
-            value.append(getCurrentCharacter());
-
-            if ('*' == getCurrentCharacter() && ')' == peekCharacter()) {
-                nextCharacter();
-                value.append(getCurrentCharacter());
-                break;
-            }
-
-            checkNewline(); // // Comments cann be multiline.
-        }
-
-        return new Token(TokenType.COMMENT, value.toString(), postition);
-    }
-
-    /**
-     * Scans an operator.
-     *
-     * @return
-     */
-    private Token scanOperator() throws SyntaxException, IOException {
-        final Position position   = createPosition();
-        final StringBuilder value = new StringBuilder();
-        value.append(getCurrentCharacter());
-
-        final char peek = peekCharacter();
-        TokenType type = null;
-
-        switch (getCurrentCharacter()) {
-            case ':': {
-                if ('=' == peek) {
-                    nextCharacter();
-                    value.append(getCurrentCharacter());
-                    nextCharacter();
-
-                    if (getCurrentCharacter() != '=') {
-                        raiseError(String.format("Expecting '=' but seen '%s'",
-                                   getCurrentCharacter()));
-                    }
-
-                    value.append(getCurrentCharacter());
-                    type = TokenType.ASIGN;
-                } else {
-                    type = TokenType.ASIGN;
-                }
-
-                break;
-            }
-            case '=': type = TokenType.ASIGN; break;
-            case '.': { // range or end of rule
-                if ('.' == peek) {
-                    nextCharacter();
-                    value.append(getCurrentCharacter());
-                    type = TokenType.RANGE;
-                } else {
-                    type = TokenType.END_OF_RULE;
-                }
-
-                break;
-            }
-            case ';': type = TokenType.END_OF_RULE; break;
-            case '(': type = TokenType.L_PAREN; break;
-            case '[': type = TokenType.L_BRACK; break;
-            case '{': type = TokenType.L_BRACE; break;
-            case ')': type = TokenType.R_PAREN; break;
-            case ']': type = TokenType.R_BRACK; break;
-            case '}': type = TokenType.R_BRACE; break;
-            case '|': type = TokenType.CHOICE; break;
-            default: {
-                raiseError(String.format("Unexpected operator character '%s'",
-                                         getCurrentCharacter()));
-            }
-        }
-
-        return new Token(type, value.toString(), position);
     }
 
     /**
