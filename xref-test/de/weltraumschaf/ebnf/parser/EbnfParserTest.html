@@ -82,7 +82,7 @@
 <a class="jxr_linenumber" name="72" href="#72">72</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testParse() <strong class="jxr_keyword">throws</strong> SyntaxException, IOException, URISyntaxException { <em class="jxr_comment">//NOPMD</em>
 <a class="jxr_linenumber" name="73" href="#73">73</a>          Syntax ast;
 <a class="jxr_linenumber" name="74" href="#74">74</a>  
-<a class="jxr_linenumber" name="75" href="#75">75</a>          Parser parser = helper().createParserFromFixture(<span class="jxr_string">"rules_with_different_assignment_ops.ebnf"</span>);
+<a class="jxr_linenumber" name="75" href="#75">75</a>          Parser parser = helper().createParserFromFixture(<span class="jxr_string">"parser/rules_with_different_assignment_ops.ebnf"</span>);
 <a class="jxr_linenumber" name="76" href="#76">76</a>          ast = syntax(<span class="jxr_string">"Rules with different assignment operators."</span>)
 <a class="jxr_linenumber" name="77" href="#77">77</a>              .rule(<span class="jxr_string">"comment1"</span>)
 <a class="jxr_linenumber" name="78" href="#78">78</a>                  .identifier(<span class="jxr_string">"literal1"</span>)
@@ -96,7 +96,7 @@
 <a class="jxr_linenumber" name="86" href="#86">86</a>          .build();
 <a class="jxr_linenumber" name="87" href="#87">87</a>          assertEquivalentSyntax(ast, parser.parse());
 <a class="jxr_linenumber" name="88" href="#88">88</a>  
-<a class="jxr_linenumber" name="89" href="#89">89</a>          parser = helper().createParserFromFixture(<span class="jxr_string">"rules_with_literals.ebnf"</span>);
+<a class="jxr_linenumber" name="89" href="#89">89</a>          parser = helper().createParserFromFixture(<span class="jxr_string">"parser/rules_with_literals.ebnf"</span>);
 <a class="jxr_linenumber" name="90" href="#90">90</a>          ast = syntax(<span class="jxr_string">"Rules with literal."</span>)
 <a class="jxr_linenumber" name="91" href="#91">91</a>              .rule(<span class="jxr_string">"literal"</span>) <em class="jxr_comment">// NOPMD</em>
 <a class="jxr_linenumber" name="92" href="#92">92</a>                  .choice()
@@ -121,7 +121,7 @@
 <a class="jxr_linenumber" name="111" href="#111">111</a>         .build();
 <a class="jxr_linenumber" name="112" href="#112">112</a>         assertEquivalentSyntax(ast, parser.parse());
 <a class="jxr_linenumber" name="113" href="#113">113</a> 
-<a class="jxr_linenumber" name="114" href="#114">114</a>         parser = helper().createParserFromFixture(<span class="jxr_string">"rules_with_comments.ebnf"</span>);
+<a class="jxr_linenumber" name="114" href="#114">114</a>         parser = helper().createParserFromFixture(<span class="jxr_string">"parser/rules_with_comments.ebnf"</span>);
 <a class="jxr_linenumber" name="115" href="#115">115</a>         ast = syntax(<span class="jxr_string">"Rules with comments."</span>)
 <a class="jxr_linenumber" name="116" href="#116">116</a>             .comment(<span class="jxr_string">"(* here are rules *)"</span>)
 <a class="jxr_linenumber" name="117" href="#117">117</a>             .rule(<span class="jxr_string">"title"</span>)
@@ -143,7 +143,7 @@
 <a class="jxr_linenumber" name="133" href="#133">133</a>         .build();
 <a class="jxr_linenumber" name="134" href="#134">134</a>         assertEquivalentSyntax(ast, parser.parse());
 <a class="jxr_linenumber" name="135" href="#135">135</a> 
-<a class="jxr_linenumber" name="136" href="#136">136</a>         parser = helper().createParserFromFixture(<span class="jxr_string">"testgrammar_1.old.ebnf"</span>);
+<a class="jxr_linenumber" name="136" href="#136">136</a>         parser = helper().createParserFromFixture(<span class="jxr_string">"parser/testgrammar_1.old.ebnf"</span>);
 <a class="jxr_linenumber" name="137" href="#137">137</a>         ast = syntax(<span class="jxr_string">"EBNF defined in itself."</span>)
 <a class="jxr_linenumber" name="138" href="#138">138</a>             .rule(<span class="jxr_string">"syntax"</span>)
 <a class="jxr_linenumber" name="139" href="#139">139</a>                 .sequence()
