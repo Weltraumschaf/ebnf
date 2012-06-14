@@ -74,7 +74,7 @@ public class ColumnLayout extends AbstractLayout {
         int currentY = pos.y;
 
         for (Shape shape : col) {
-            shape.setPosition(pos.setY(currentY));
+            shape.setPosition(pos.setY(currentY)); // @todo remove currentY
             shape.setDebug(isDebug());
             shape.paint(graphic);
             currentY += shape.getSize().height;
