@@ -8,9 +8,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>ebnf-ide</artifactId>
-    <name>EBNF - IDE</name>
-    <description>An integrated development enviroment to deal with EBNF.</description>
+    <artifactId>ebnf-GUI</artifactId>
+    <name>EBNF - Graphical user interface</name>
+    <description>A graphical user interface to deal with EBNF.</description>
 
     <properties>
         <project.base.dir>${project.parent.basedir}</project.base.dir>
@@ -21,6 +21,13 @@
         <dependency>
             <groupId>de.weltraumschaf</groupId>
             <artifactId>ebnf-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.weltraumschaf</groupId>
+            <artifactId>ebnf-cli</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
