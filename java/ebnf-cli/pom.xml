@@ -21,6 +21,7 @@
         <dependency>
             <groupId>de.weltraumschaf</groupId>
             <artifactId>ebnf-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
