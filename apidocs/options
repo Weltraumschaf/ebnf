@@ -1,17 +1,17 @@
 -classpath
-'/Users/sxs/src/php/ebnf/java/ebnf-core/target/classes:/Users/sxs/.m2/repository/commons-io/commons-io/2.3/commons-io-2.3.jar:/Users/sxs/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/Users/sxs/.m2/repository/com/google/guava/guava/12.0/guava-12.0.jar:/Users/sxs/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar:/Users/sxs/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar'
+'/Users/sxs/src/php/ebnf/java/ebnf-cli/target/classes:/Users/sxs/.m2/repository/commons-io/commons-io/2.3/commons-io-2.3.jar:/Users/sxs/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/Users/sxs/.m2/repository/com/google/guava/guava/12.0/guava-12.0.jar:/Users/sxs/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar:/Users/sxs/src/php/ebnf/java/ebnf-core/target/classes:/Users/sxs/.m2/repository/de/weltraumschaf/ebnf-gui/1.0-SNAPSHOT/ebnf-gui-1.0-SNAPSHOT.jar:/Users/sxs/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/sxs/src/php/ebnf/java/ebnf-cli/target/classes'
 -encoding
 'UTF-8'
 -public
 -sourcepath
-'/Users/sxs/src/php/ebnf/java/ebnf-core/src/main/java'
+'/Users/sxs/src/php/ebnf/java/ebnf-cli/src/main/java'
 -author
 -bottom
 'Copyright &#169; 2012 <a href="http://www.weltraumschaf.de">Weltraumschaf</a>. All Rights Reserved.'
 -charset
 'UTF-8'
 -d
-'/Users/sxs/src/php/ebnf/java/ebnf-core/target/site/apidocs'
+'/Users/sxs/src/php/ebnf/java/ebnf-cli/target/site/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
@@ -21,7 +21,9 @@
 -link
 'http://junit.sourceforge.net/javadoc'
 -linkoffline
-'http://download.oracle.com/javase/6/docs/api' '/Users/sxs/src/php/ebnf/java/ebnf-core/target/javadoc-bundle-options'
+'http://download.oracle.com/javase/6/docs/api' '/Users/sxs/src/php/ebnf/java/ebnf-cli/target/javadoc-bundle-options'
+-linkoffline
+'http://weltraumschaf.github.com/ebnf/ebnf-core/apidocs' '/Users/sxs/src/php/ebnf/java/ebnf-core/target/site/apidocs'
 -use
 -version
 -windowtitle

@@ -65,7 +65,7 @@
 <a class="jxr_linenumber" name="55" href="#55">55</a>          app.run();
 <a class="jxr_linenumber" name="56" href="#56">56</a>      }
 <a class="jxr_linenumber" name="57" href="#57">57</a>  
-<a class="jxr_linenumber" name="58" href="#58">58</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> exit(<strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/ExitCode.html">ExitCode</a> code) {
+<a class="jxr_linenumber" name="58" href="#58">58</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> exit(<strong class="jxr_keyword">final</strong> ExitCode code) {
 <a class="jxr_linenumber" name="59" href="#59">59</a>          exit(code.getCode());
 <a class="jxr_linenumber" name="60" href="#60">60</a>      }
 <a class="jxr_linenumber" name="61" href="#61">61</a>  
@@ -81,7 +81,7 @@
 <a class="jxr_linenumber" name="71" href="#71">71</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="72" href="#72">72</a>              options.parse(args);
 <a class="jxr_linenumber" name="73" href="#73">73</a>          } <strong class="jxr_keyword">catch</strong> (ParseException ex) {
-<a class="jxr_linenumber" name="74" href="#74">74</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../de/weltraumschaf/ebnf/EbnfException.html">EbnfException</a>(ex.getMessage(), 1, ex);
+<a class="jxr_linenumber" name="74" href="#74">74</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> EbnfException(ex.getMessage(), 1, ex);
 <a class="jxr_linenumber" name="75" href="#75">75</a>          }
 <a class="jxr_linenumber" name="76" href="#76">76</a>  
 <a class="jxr_linenumber" name="77" href="#77">77</a>          <strong class="jxr_keyword">return</strong> options;
@@ -132,11 +132,11 @@
 <a class="jxr_linenumber" name="122" href="#122">122</a>         <strong class="jxr_keyword">final</strong> String fileName = options.getSyntaxFile();
 <a class="jxr_linenumber" name="123" href="#123">123</a> 
 <a class="jxr_linenumber" name="124" href="#124">124</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="125" href="#125">125</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/parser/Parser.html">Parser</a> parser  = Factory.newParserFromSource(<strong class="jxr_keyword">new</strong> File(fileName), fileName);
-<a class="jxr_linenumber" name="126" href="#126">126</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/ast/nodes/Syntax.html">Syntax</a> ast     = parser.parse();
+<a class="jxr_linenumber" name="125" href="#125">125</a>             <strong class="jxr_keyword">final</strong> Parser parser  = Factory.newParserFromSource(<strong class="jxr_keyword">new</strong> File(fileName), fileName);
+<a class="jxr_linenumber" name="126" href="#126">126</a>             <strong class="jxr_keyword">final</strong> Syntax ast     = parser.parse();
 <a class="jxr_linenumber" name="127" href="#127">127</a> 
 <a class="jxr_linenumber" name="128" href="#128">128</a>             <strong class="jxr_keyword">if</strong> (options.isTextTree()) {
-<a class="jxr_linenumber" name="129" href="#129">129</a>                 <strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/ast/visitor/TextSyntaxTree.html">TextSyntaxTree</a> visitor = <strong class="jxr_keyword">new</strong> <a href="../../../../de/weltraumschaf/ebnf/ast/visitor/TextSyntaxTree.html">TextSyntaxTree</a>();
+<a class="jxr_linenumber" name="129" href="#129">129</a>                 <strong class="jxr_keyword">final</strong> TextSyntaxTree visitor = <strong class="jxr_keyword">new</strong> TextSyntaxTree();
 <a class="jxr_linenumber" name="130" href="#130">130</a>                 ast.accept(visitor);
 <a class="jxr_linenumber" name="131" href="#131">131</a>                 println(visitor.getText());
 <a class="jxr_linenumber" name="132" href="#132">132</a>             }
