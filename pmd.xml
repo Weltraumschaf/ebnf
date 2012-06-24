@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2012-05-30T12:50:26.693">
-<suppressedviolation filename="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/AbstractLayout.java" suppressiontype="nopmd" msg="Avoid empty catch blocks" usermsg="
+<pmd version="4.3" timestamp="2012-06-24T22:26:39.894">
+<suppressedviolation filename="/Users/sxs/src/php/ebnf/java/ebnf-core/src/main/java/de/weltraumschaf/ebnf/gfx/shapes/AbstractLayout.java" suppressiontype="nopmd" msg="Avoid empty catch blocks" usermsg="
 "/>
-<suppressedviolation filename="/Users/sxs/src/php/ebnf/java/src/main/java/de/weltraumschaf/ebnf/parser/EbnfScanner.java" suppressiontype="nopmd" msg="Avoid empty if statements" usermsg="
+<suppressedviolation filename="/Users/sxs/src/php/ebnf/java/ebnf-core/src/main/java/de/weltraumschaf/ebnf/parser/EbnfScanner.java" suppressiontype="nopmd" msg="Avoid empty if statements" usermsg="
 "/>
 </pmd>
