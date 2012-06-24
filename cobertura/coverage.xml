@@ -1,802 +1,94 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.5860215053763441" branch-rate="0.6111111111111112" lines-covered="109" lines-valid="186" branches-covered="33" branches-valid="54" complexity="1.7272727272727273" version="1.9.4.1" timestamp="1340566996579">
+<coverage line-rate="0.0" branch-rate="1.0" lines-covered="0" lines-valid="25" branches-covered="0" branches-valid="0" complexity="1.0" version="1.9.4.1" timestamp="1340567004711">
 	<sources>
-		<source>/Users/sxs/src/php/ebnf/java/ebnf-cli/src/main/java</source>
 		<source>--source</source>
+		<source>/Users/sxs/src/php/ebnf/java/ebnf-gui/src/main/java</source>
 	</sources>
 	<packages>
-		<package name="de.weltraumschaf.ebnf.cli" line-rate="0.5860215053763441" branch-rate="0.6111111111111112" complexity="1.7272727272727273">
+		<package name="de.weltraumschaf.ebnf.gui" line-rate="0.0" branch-rate="1.0" complexity="1.0">
 			<classes>
-				<class name="de.weltraumschaf.ebnf.cli.CliApp" filename="de/weltraumschaf/ebnf/cli/CliApp.java" line-rate="0.0" branch-rate="1.0" complexity="1.5">
+				<class name="de.weltraumschaf.ebnf.gui.GuiApp" filename="de/weltraumschaf/ebnf/gui/GuiApp.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
 					<methods>
-						<method name="&lt;init&gt;" signature="(Lde/weltraumschaf/ebnf/cli/CliOptions;Ljava/io/PrintStream;)V" line-rate="0.0" branch-rate="1.0">
+						<method name="&lt;init&gt;" signature="(Lde/weltraumschaf/ebnf/cli/CliOptions;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
+								<line number="30" hits="0" branch="false"/>
 								<line number="31" hits="0" branch="false"/>
 								<line number="34" hits="0" branch="false"/>
 								<line number="35" hits="0" branch="false"/>
 								<line number="36" hits="0" branch="false"/>
-								<line number="37" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="execute" signature="()V" line-rate="0.0" branch-rate="1.0">
+						<method name="main" signature="(Lde/weltraumschaf/ebnf/cli/CliOptions;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
+								<line number="39" hits="0" branch="false"/>
 								<line number="40" hits="0" branch="false"/>
 								<line number="41" hits="0" branch="false"/>
-								<line number="42" hits="0" branch="false"/>
-								<line number="43" hits="0" branch="false"/>
-								<line number="44" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="run" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="45" hits="0" branch="false"/>
+								<line number="46" hits="0" branch="false"/>
 								<line number="47" hits="0" branch="false"/>
 								<line number="48" hits="0" branch="false"/>
 								<line number="49" hits="0" branch="false"/>
 								<line number="50" hits="0" branch="false"/>
 								<line number="51" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+								<line number="55" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
+						<line number="30" hits="0" branch="false"/>
 						<line number="31" hits="0" branch="false"/>
 						<line number="34" hits="0" branch="false"/>
 						<line number="35" hits="0" branch="false"/>
 						<line number="36" hits="0" branch="false"/>
-						<line number="37" hits="0" branch="false"/>
+						<line number="39" hits="0" branch="false"/>
 						<line number="40" hits="0" branch="false"/>
 						<line number="41" hits="0" branch="false"/>
-						<line number="42" hits="0" branch="false"/>
-						<line number="43" hits="0" branch="false"/>
-						<line number="44" hits="0" branch="false"/>
+						<line number="45" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
 						<line number="47" hits="0" branch="false"/>
 						<line number="48" hits="0" branch="false"/>
 						<line number="49" hits="0" branch="false"/>
 						<line number="50" hits="0" branch="false"/>
 						<line number="51" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="de.weltraumschaf.ebnf.cli.CliOptions" filename="de/weltraumschaf/ebnf/cli/CliOptions.java" line-rate="1.0" branch-rate="0.8" complexity="1.0952380952380953">
+				<class name="de.weltraumschaf.ebnf.gui.RailroadDiagramPanel" filename="de/weltraumschaf/ebnf/gui/RailroadDiagramPanel.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
 					<methods>
-						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+						<method name="&lt;init&gt;" signature="(Lde/weltraumschaf/ebnf/gfx/RailroadDiagram;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="16" hits="30" branch="false"/>
-								<line number="17" hits="30" branch="false"/>
-								<line number="18" hits="30" branch="false"/>
-								<line number="19" hits="30" branch="false"/>
-								<line number="20" hits="30" branch="false"/>
-								<line number="21" hits="30" branch="false"/>
-								<line number="22" hits="30" branch="false"/>
-								<line number="24" hits="30" branch="false"/>
-								<line number="25" hits="30" branch="false"/>
-								<line number="27" hits="30" branch="false"/>
-								<line number="28" hits="30" branch="false"/>
-								<line number="29" hits="30" branch="false"/>
-								<line number="31" hits="30" branch="false"/>
-								<line number="34" hits="30" branch="false"/>
-								<line number="35" hits="30" branch="false"/>
-								<line number="36" hits="30" branch="false"/>
-								<line number="37" hits="30" branch="false"/>
+								<line number="28" hits="0" branch="false"/>
+								<line number="29" hits="0" branch="false"/>
+								<line number="30" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="format" signature="(Lorg/apache/commons/cli/HelpFormatter;)V" line-rate="1.0" branch-rate="1.0">
+						<method name="paintComponent" signature="(Ljava/awt/Graphics;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="117" hits="2" branch="false"/>
-								<line number="118" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="getOptions" signature="()Lorg/apache/commons/cli/Options;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="40" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="getOutputFile" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="89" hits="4" branch="false"/>
-							</lines>
-						</method>
-						<method name="getOutputFormat" signature="()Lde/weltraumschaf/ebnf/cli/OutputFormat;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="81" hits="10" branch="false"/>
-							</lines>
-						</method>
-						<method name="getSyntaxFile" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="97" hits="4" branch="false"/>
-							</lines>
-						</method>
-						<method name="hasOutputFile" signature="()Z" line-rate="1.0" branch-rate="0.75">
-							<lines>
-								<line number="85" hits="6" branch="true" condition-coverage="75% (3/4)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-										<condition number="1" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-							</lines>
-						</method>
-						<method name="hasOutputFormat" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="77" hits="32" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-							</lines>
-						</method>
-						<method name="hasSyntaxFile" signature="()Z" line-rate="1.0" branch-rate="0.75">
-							<lines>
-								<line number="93" hits="16" branch="true" condition-coverage="75% (3/4)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-										<condition number="1" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-							</lines>
-						</method>
-						<method name="isDebug" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="101" hits="12" branch="false"/>
-							</lines>
-						</method>
-						<method name="isHelp" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="105" hits="12" branch="false"/>
-							</lines>
-						</method>
-						<method name="isIde" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="113" hits="12" branch="false"/>
-							</lines>
-						</method>
-						<method name="isTextTree" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="109" hits="12" branch="false"/>
-							</lines>
-						</method>
-						<method name="parse" signature="([Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="72" hits="24" branch="false"/>
-								<line number="73" hits="24" branch="false"/>
-								<line number="74" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="setDebug" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="44" hits="2" branch="false"/>
-								<line number="45" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="setHelp" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="48" hits="2" branch="false"/>
-								<line number="49" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="setIde" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="52" hits="4" branch="false"/>
-								<line number="53" hits="4" branch="false"/>
-							</lines>
-						</method>
-						<method name="setOutputFile" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="56" hits="4" branch="false"/>
-								<line number="57" hits="4" branch="false"/>
-							</lines>
-						</method>
-						<method name="setOutputFormat" signature="(Lde/weltraumschaf/ebnf/cli/OutputFormat;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="60" hits="10" branch="false"/>
-								<line number="61" hits="10" branch="false"/>
-							</lines>
-						</method>
-						<method name="setSyntaxFile" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="64" hits="4" branch="false"/>
-								<line number="65" hits="4" branch="false"/>
-							</lines>
-						</method>
-						<method name="setTextTree" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="68" hits="2" branch="false"/>
-								<line number="69" hits="2" branch="false"/>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="16" hits="30" branch="false"/>
-						<line number="17" hits="30" branch="false"/>
-						<line number="18" hits="30" branch="false"/>
-						<line number="19" hits="30" branch="false"/>
-						<line number="20" hits="30" branch="false"/>
-						<line number="21" hits="30" branch="false"/>
-						<line number="22" hits="30" branch="false"/>
-						<line number="24" hits="30" branch="false"/>
-						<line number="25" hits="30" branch="false"/>
-						<line number="27" hits="30" branch="false"/>
-						<line number="28" hits="30" branch="false"/>
-						<line number="29" hits="30" branch="false"/>
-						<line number="31" hits="30" branch="false"/>
-						<line number="34" hits="30" branch="false"/>
-						<line number="35" hits="30" branch="false"/>
-						<line number="36" hits="30" branch="false"/>
-						<line number="37" hits="30" branch="false"/>
-						<line number="40" hits="24" branch="false"/>
-						<line number="44" hits="2" branch="false"/>
-						<line number="45" hits="2" branch="false"/>
-						<line number="48" hits="2" branch="false"/>
-						<line number="49" hits="2" branch="false"/>
-						<line number="52" hits="4" branch="false"/>
-						<line number="53" hits="4" branch="false"/>
-						<line number="56" hits="4" branch="false"/>
-						<line number="57" hits="4" branch="false"/>
-						<line number="60" hits="10" branch="false"/>
-						<line number="61" hits="10" branch="false"/>
-						<line number="64" hits="4" branch="false"/>
-						<line number="65" hits="4" branch="false"/>
-						<line number="68" hits="2" branch="false"/>
-						<line number="69" hits="2" branch="false"/>
-						<line number="72" hits="24" branch="false"/>
-						<line number="73" hits="24" branch="false"/>
-						<line number="74" hits="24" branch="false"/>
-						<line number="77" hits="32" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="81" hits="10" branch="false"/>
-						<line number="85" hits="6" branch="true" condition-coverage="75% (3/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-								<condition number="1" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="89" hits="4" branch="false"/>
-						<line number="93" hits="16" branch="true" condition-coverage="75% (3/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-								<condition number="1" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="97" hits="4" branch="false"/>
-						<line number="101" hits="12" branch="false"/>
-						<line number="105" hits="12" branch="false"/>
-						<line number="109" hits="12" branch="false"/>
-						<line number="113" hits="12" branch="false"/>
-						<line number="117" hits="2" branch="false"/>
-						<line number="118" hits="2" branch="false"/>
-					</lines>
-				</class>
-				<class name="de.weltraumschaf.ebnf.cli.Invoker" filename="de/weltraumschaf/ebnf/cli/Invoker.java" line-rate="0.20512820512820512" branch-rate="0.0" complexity="2.3333333333333335">
-					<methods>
-						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="26" hits="2" branch="false"/>
-								<line number="28" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
-							<lines>
+								<line number="34" hits="0" branch="false"/>
 								<line number="35" hits="0" branch="false"/>
 								<line number="36" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="&lt;init&gt;" signature="([Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0">
-							<lines>
-								<line number="39" hits="0" branch="false"/>
-								<line number="40" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="&lt;init&gt;" signature="([Ljava/lang/String;Ljava/io/PrintStream;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="43" hits="2" branch="false"/>
-								<line number="44" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="&lt;init&gt;" signature="([Ljava/lang/String;Ljava/io/PrintStream;Lde/weltraumschaf/ebnf/cli/CliOptions;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="47" hits="6" branch="false"/>
-								<line number="48" hits="6" branch="false"/>
-								<line number="49" hits="6" branch="false"/>
-								<line number="50" hits="6" branch="false"/>
-								<line number="51" hits="6" branch="false"/>
-							</lines>
-						</method>
-						<method name="exit" signature="(I)V" line-rate="0.0" branch-rate="1.0">
-							<lines>
-								<line number="63" hits="0" branch="false"/>
-								<line number="64" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="exit" signature="(Lde/weltraumschaf/ebnf/ExitCode;)V" line-rate="0.0" branch-rate="1.0">
-							<lines>
-								<line number="59" hits="0" branch="false"/>
-								<line number="60" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="main" signature="([Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0">
-							<lines>
-								<line number="54" hits="0" branch="false"/>
-								<line number="55" hits="0" branch="false"/>
-								<line number="56" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="parseOptions" signature="()Lde/weltraumschaf/ebnf/cli/CliOptions;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="72" hits="4" branch="false"/>
-								<line number="73" hits="2" branch="false"/>
-								<line number="74" hits="2" branch="false"/>
-								<line number="75" hits="2" branch="false"/>
-								<line number="77" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="println" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="67" hits="2" branch="false"/>
-								<line number="68" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="run" signature="()V" line-rate="0.0" branch-rate="0.0">
-							<lines>
-								<line number="81" hits="0" branch="false"/>
-								<line number="84" hits="0" branch="false"/>
-								<line number="85" hits="0" branch="false"/>
-								<line number="87" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="88" hits="0" branch="false"/>
-								<line number="89" hits="0" branch="false"/>
-								<line number="92" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="93" hits="0" branch="false"/>
-								<line number="95" hits="0" branch="false"/>
-								<line number="97" hits="0" branch="false"/>
-								<line number="98" hits="0" branch="false"/>
-								<line number="100" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="101" hits="0" branch="false"/>
-								<line number="104" hits="0" branch="false"/>
-								<line number="105" hits="0" branch="false"/>
-								<line number="106" hits="0" branch="false"/>
-								<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="109" hits="0" branch="false"/>
-								<line number="112" hits="0" branch="false"/>
-								<line number="113" hits="0" branch="false"/>
-								<line number="114" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="runCliApp" signature="(Lde/weltraumschaf/ebnf/cli/CliOptions;)V" line-rate="0.0" branch-rate="0.0">
-							<lines>
-								<line number="117" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="118" hits="0" branch="false"/>
-								<line number="119" hits="0" branch="false"/>
-								<line number="122" hits="0" branch="false"/>
-								<line number="125" hits="0" branch="false"/>
-								<line number="126" hits="0" branch="false"/>
-								<line number="128" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="129" hits="0" branch="false"/>
-								<line number="130" hits="0" branch="false"/>
-								<line number="131" hits="0" branch="false"/>
-								<line number="133" hits="0" branch="false"/>
-								<line number="134" hits="0" branch="false"/>
-								<line number="136" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="137" hits="0" branch="false"/>
-								<line number="140" hits="0" branch="false"/>
-								<line number="141" hits="0" branch="false"/>
-								<line number="142" hits="0" branch="false"/>
-								<line number="144" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="145" hits="0" branch="false"/>
-								<line number="148" hits="0" branch="false"/>
-								<line number="149" hits="0" branch="false"/>
-								<line number="150" hits="0" branch="false"/>
-								<line number="152" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="153" hits="0" branch="false"/>
-								<line number="156" hits="0" branch="false"/>
-								<line number="157" hits="0" branch="false"/>
-								<line number="159" hits="0" branch="false"/>
-								<line number="160" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="runGuiIde" signature="(Lde/weltraumschaf/ebnf/cli/CliOptions;)V" line-rate="0.0" branch-rate="1.0">
-							<lines>
-								<line number="163" hits="0" branch="false"/>
-								<line number="164" hits="0" branch="false"/>
-							</lines>
-						</method>
 					</methods>
 					<lines>
-						<line number="26" hits="2" branch="false"/>
-						<line number="28" hits="2" branch="false"/>
+						<line number="28" hits="0" branch="false"/>
+						<line number="29" hits="0" branch="false"/>
+						<line number="30" hits="0" branch="false"/>
+						<line number="34" hits="0" branch="false"/>
 						<line number="35" hits="0" branch="false"/>
 						<line number="36" hits="0" branch="false"/>
-						<line number="39" hits="0" branch="false"/>
-						<line number="40" hits="0" branch="false"/>
-						<line number="43" hits="2" branch="false"/>
-						<line number="44" hits="2" branch="false"/>
-						<line number="47" hits="6" branch="false"/>
-						<line number="48" hits="6" branch="false"/>
-						<line number="49" hits="6" branch="false"/>
-						<line number="50" hits="6" branch="false"/>
-						<line number="51" hits="6" branch="false"/>
-						<line number="54" hits="0" branch="false"/>
-						<line number="55" hits="0" branch="false"/>
-						<line number="56" hits="0" branch="false"/>
-						<line number="59" hits="0" branch="false"/>
-						<line number="60" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
-						<line number="64" hits="0" branch="false"/>
-						<line number="67" hits="2" branch="false"/>
-						<line number="68" hits="2" branch="false"/>
-						<line number="72" hits="4" branch="false"/>
-						<line number="73" hits="2" branch="false"/>
-						<line number="74" hits="2" branch="false"/>
-						<line number="75" hits="2" branch="false"/>
-						<line number="77" hits="2" branch="false"/>
-						<line number="81" hits="0" branch="false"/>
-						<line number="84" hits="0" branch="false"/>
-						<line number="85" hits="0" branch="false"/>
-						<line number="87" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="88" hits="0" branch="false"/>
-						<line number="89" hits="0" branch="false"/>
-						<line number="92" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="93" hits="0" branch="false"/>
-						<line number="95" hits="0" branch="false"/>
-						<line number="97" hits="0" branch="false"/>
-						<line number="98" hits="0" branch="false"/>
-						<line number="100" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="101" hits="0" branch="false"/>
-						<line number="104" hits="0" branch="false"/>
-						<line number="105" hits="0" branch="false"/>
-						<line number="106" hits="0" branch="false"/>
-						<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="109" hits="0" branch="false"/>
-						<line number="112" hits="0" branch="false"/>
-						<line number="113" hits="0" branch="false"/>
-						<line number="114" hits="0" branch="false"/>
-						<line number="117" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="118" hits="0" branch="false"/>
-						<line number="119" hits="0" branch="false"/>
-						<line number="122" hits="0" branch="false"/>
-						<line number="125" hits="0" branch="false"/>
-						<line number="126" hits="0" branch="false"/>
-						<line number="128" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="129" hits="0" branch="false"/>
-						<line number="130" hits="0" branch="false"/>
-						<line number="131" hits="0" branch="false"/>
-						<line number="133" hits="0" branch="false"/>
-						<line number="134" hits="0" branch="false"/>
-						<line number="136" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="137" hits="0" branch="false"/>
-						<line number="140" hits="0" branch="false"/>
-						<line number="141" hits="0" branch="false"/>
-						<line number="142" hits="0" branch="false"/>
-						<line number="144" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="145" hits="0" branch="false"/>
-						<line number="148" hits="0" branch="false"/>
-						<line number="149" hits="0" branch="false"/>
-						<line number="150" hits="0" branch="false"/>
-						<line number="152" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="153" hits="0" branch="false"/>
-						<line number="156" hits="0" branch="false"/>
-						<line number="157" hits="0" branch="false"/>
-						<line number="159" hits="0" branch="false"/>
-						<line number="160" hits="0" branch="false"/>
-						<line number="163" hits="0" branch="false"/>
-						<line number="164" hits="0" branch="false"/>
-					</lines>
-				</class>
-				<class name="de.weltraumschaf.ebnf.cli.OptionsParser" filename="de/weltraumschaf/ebnf/cli/OptionsParser.java" line-rate="1.0" branch-rate="0.9615384615384616" complexity="2.4444444444444446">
-					<methods>
-						<method name="&lt;init&gt;" signature="(Lde/weltraumschaf/ebnf/cli/CliOptions;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="36" hits="24" branch="false"/>
-								<line number="37" hits="24" branch="false"/>
-								<line number="38" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optDebug" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="91" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="92" hits="2" branch="false"/>
-								<line number="94" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optFormat" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="60" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="61" hits="10" branch="false"/>
-								<line number="63" hits="10" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="64" hits="4" branch="false"/>
-								<line number="65" hits="6" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="66" hits="2" branch="false"/>
-								<line number="67" hits="4" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="68" hits="2" branch="false"/>
-								<line number="70" hits="2" branch="false"/>
-								<line number="73" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optHelp" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="97" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="98" hits="2" branch="false"/>
-								<line number="100" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optIde" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="0.75">
-							<lines>
-								<line number="103" hits="24" branch="true" condition-coverage="75% (3/4)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-										<condition number="1" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-								<line number="104" hits="4" branch="false"/>
-								<line number="106" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optOutputFile" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="76" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="77" hits="2" branch="false"/>
-								<line number="78" hits="22" branch="true" condition-coverage="100% (4/4)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-										<condition number="1" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="79" hits="2" branch="false"/>
-								<line number="80" hits="2" branch="false"/>
-								<line number="82" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optSyntax" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="54" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="55" hits="4" branch="false"/>
-								<line number="57" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="optTextTree" signature="(Lorg/apache/commons/cli/CommandLine;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="85" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="86" hits="2" branch="false"/>
-								<line number="88" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="parse" signature="([Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="41" hits="24" branch="false"/>
-								<line number="42" hits="24" branch="false"/>
-								<line number="44" hits="24" branch="false"/>
-								<line number="45" hits="24" branch="false"/>
-								<line number="46" hits="24" branch="false"/>
-								<line number="47" hits="24" branch="false"/>
-								<line number="48" hits="24" branch="false"/>
-								<line number="49" hits="24" branch="false"/>
-								<line number="50" hits="24" branch="false"/>
-								<line number="51" hits="24" branch="false"/>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="36" hits="24" branch="false"/>
-						<line number="37" hits="24" branch="false"/>
-						<line number="38" hits="24" branch="false"/>
-						<line number="41" hits="24" branch="false"/>
-						<line number="42" hits="24" branch="false"/>
-						<line number="44" hits="24" branch="false"/>
-						<line number="45" hits="24" branch="false"/>
-						<line number="46" hits="24" branch="false"/>
-						<line number="47" hits="24" branch="false"/>
-						<line number="48" hits="24" branch="false"/>
-						<line number="49" hits="24" branch="false"/>
-						<line number="50" hits="24" branch="false"/>
-						<line number="51" hits="24" branch="false"/>
-						<line number="54" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="55" hits="4" branch="false"/>
-						<line number="57" hits="24" branch="false"/>
-						<line number="60" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="61" hits="10" branch="false"/>
-						<line number="63" hits="10" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="64" hits="4" branch="false"/>
-						<line number="65" hits="6" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="66" hits="2" branch="false"/>
-						<line number="67" hits="4" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="68" hits="2" branch="false"/>
-						<line number="70" hits="2" branch="false"/>
-						<line number="73" hits="24" branch="false"/>
-						<line number="76" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="77" hits="2" branch="false"/>
-						<line number="78" hits="22" branch="true" condition-coverage="100% (4/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-								<condition number="1" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="79" hits="2" branch="false"/>
-						<line number="80" hits="2" branch="false"/>
-						<line number="82" hits="24" branch="false"/>
-						<line number="85" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="86" hits="2" branch="false"/>
-						<line number="88" hits="24" branch="false"/>
-						<line number="91" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="92" hits="2" branch="false"/>
-						<line number="94" hits="24" branch="false"/>
-						<line number="97" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="98" hits="2" branch="false"/>
-						<line number="100" hits="24" branch="false"/>
-						<line number="103" hits="24" branch="true" condition-coverage="75% (3/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-								<condition number="1" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="104" hits="4" branch="false"/>
-						<line number="106" hits="24" branch="false"/>
-					</lines>
-				</class>
-				<class name="de.weltraumschaf.ebnf.cli.OutputFormat" filename="de/weltraumschaf/ebnf/cli/OutputFormat.java" line-rate="1.0" branch-rate="1.0" complexity="0.0">
-					<methods>
-						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="8" hits="8" branch="false"/>
-								<line number="9" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-						<method name="valueOf" signature="(Ljava/lang/String;)Lde/weltraumschaf/ebnf/cli/OutputFormat;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-						<method name="values" signature="()[Lde/weltraumschaf/ebnf/cli/OutputFormat;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="8" hits="8" branch="false"/>
-						<line number="9" hits="2" branch="false"/>
 					</lines>
 				</class>
 			</classes>
