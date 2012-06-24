@@ -4,8 +4,7 @@ import de.weltraumschaf.ebnf.EbnfException;
 import de.weltraumschaf.ebnf.ExitCode;
 import de.weltraumschaf.ebnf.ast.nodes.Syntax;
 import de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree;
-import de.weltraumschaf.ebnf.cli.CliOptions;
-//import de.weltraumschaf.ebnf.gui.GuiApp;
+import de.weltraumschaf.ebnf.gui.GuiApp;
 import de.weltraumschaf.ebnf.parser.Factory;
 import de.weltraumschaf.ebnf.parser.Parser;
 import de.weltraumschaf.ebnf.parser.SyntaxException;
@@ -161,6 +160,6 @@ public final class Invoker {
     }
 
     private void runGuiIde(final CliOptions options) {
-//        GuiApp.main(options);
+        GuiApp.main(options);
     }
 }
