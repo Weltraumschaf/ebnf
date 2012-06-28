@@ -1,3 +1,0 @@
-#!/bin/bash
-
-java -jar ebnf-cli/target/ebnf-cli-1.0-SNAPSHOT.jar $*
