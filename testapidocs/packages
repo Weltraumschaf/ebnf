@@ -1,1 +1,9 @@
+de.weltraumschaf.ebnf.ast
+de.weltraumschaf.ebnf.ast.builder
+de.weltraumschaf.ebnf.ast.nodes
+de.weltraumschaf.ebnf.ast.visitor
+de.weltraumschaf.ebnf
+de.weltraumschaf.ebnf.gfx
+de.weltraumschaf.ebnf.gfx.shapes
+de.weltraumschaf.ebnf.parser
 de.weltraumschaf.ebnf.cli
