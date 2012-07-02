@@ -37,7 +37,7 @@
 <a class="jxr_linenumber" name="27" href="#27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> HEIGHT = 600;
 <a class="jxr_linenumber" name="28" href="#28">28</a>  
 <a class="jxr_linenumber" name="29" href="#29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> JFrame frame = <strong class="jxr_keyword">new</strong> JFrame();
-<a class="jxr_linenumber" name="30" href="#30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/gfx/CreatorHelper.html">CreatorHelper</a> helper = <strong class="jxr_keyword">new</strong> <a href="../../../../de/weltraumschaf/ebnf/gfx/CreatorHelper.html">CreatorHelper</a>();
+<a class="jxr_linenumber" name="30" href="#30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> CreatorHelper helper = <strong class="jxr_keyword">new</strong> CreatorHelper();
 <a class="jxr_linenumber" name="31" href="#31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> debug;
 <a class="jxr_linenumber" name="32" href="#32">32</a>  
 <a class="jxr_linenumber" name="33" href="#33">33</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../de/weltraumschaf/ebnf/gui/GuiApp.html">GuiApp</a>(<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> debug) {
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="46" href="#46">46</a>          frame.setSize(<strong class="jxr_keyword">new</strong> Dimension(WIDTH, HEIGHT));
 <a class="jxr_linenumber" name="47" href="#47">47</a>          frame.setLocationRelativeTo(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="48" href="#48">48</a>          frame.setVisible(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="49" href="#49">49</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/gfx/RailroadDiagram.html">RailroadDiagram</a> diagram = helper.createDiagram(frame.getGraphics());
+<a class="jxr_linenumber" name="49" href="#49">49</a>          <strong class="jxr_keyword">final</strong> RailroadDiagram diagram = helper.createDiagram(frame.getGraphics());
 <a class="jxr_linenumber" name="50" href="#50">50</a>          diagram.setDebug(debug);
 <a class="jxr_linenumber" name="51" href="#51">51</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../de/weltraumschaf/ebnf/gui/RailroadDiagramPanel.html">RailroadDiagramPanel</a> panel = <strong class="jxr_keyword">new</strong> <a href="../../../../de/weltraumschaf/ebnf/gui/RailroadDiagramPanel.html">RailroadDiagramPanel</a>(diagram);
 <a class="jxr_linenumber" name="52" href="#52">52</a>          frame.add(panel);
