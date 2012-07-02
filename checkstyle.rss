@@ -2,20 +2,20 @@
 
 <rss version="0.91">
   <channel>
-    <title>EBNF - Checkstyle report</title>
-    <link>http://weltraumschaf.github.com/ebnf/</link>
-    <description>EBNF - Checkstyle report</description>
+    <title>EBNF - Core - Checkstyle report</title>
+    <link>http://weltraumschaf.github.com/ebnf/ebnf-core/</link>
+    <description>EBNF - Core - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 Weltraumschaf</copyright>
     <item>
-      <title>File: 103,
+      <title>File: 152,
              Errors: 0,
              Warnings: 0,
              Infos: 0
       </title>
-            <link>http://weltraumschaf.github.com/ebnf//checkstyle.html</link>
+            <link>http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Identifier.java">de/weltraumschaf/ebnf/ast/nodes/Identifier.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Identifier.java">de/weltraumschaf/ebnf/ast/nodes/Identifier.java</a>
                 </td>
                 <td>
                   0
@@ -43,7 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Adjustable.java">de/weltraumschaf/ebnf/gfx/shapes/Adjustable.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.EndTest.java">de/weltraumschaf/ebnf/gfx/shapes/EndTest.java</a>
                 </td>
                 <td>
                   0
@@ -57,7 +57,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.RuleBuilder.java">de/weltraumschaf/ebnf/ast/builder/RuleBuilder.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Adjustable.java">de/weltraumschaf/ebnf/gfx/shapes/Adjustable.java</a>
                 </td>
                 <td>
                   0
@@ -71,7 +71,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.StringHelper.java">de/weltraumschaf/ebnf/parser/StringHelper.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.RuleBuilder.java">de/weltraumschaf/ebnf/ast/builder/RuleBuilder.java</a>
                 </td>
                 <td>
                   0
@@ -85,7 +85,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.Point.java">de/weltraumschaf/ebnf/gfx/Point.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.StringHelper.java">de/weltraumschaf/ebnf/parser/StringHelper.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +99,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.Parser.java">de/weltraumschaf/ebnf/parser/Parser.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.ChoiceTest.java">de/weltraumschaf/ebnf/ast/nodes/ChoiceTest.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +113,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractEndpoint.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractEndpoint.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.Point.java">de/weltraumschaf/ebnf/gfx/Point.java</a>
                 </td>
                 <td>
                   0
@@ -127,7 +127,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfParser.java">de/weltraumschaf/ebnf/parser/EbnfParser.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.Parser.java">de/weltraumschaf/ebnf/parser/Parser.java</a>
                 </td>
                 <td>
                   0
@@ -141,7 +141,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.ReferenceGrammar.java">de/weltraumschaf/ebnf/parser/ReferenceGrammar.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.OptionTest.java">de/weltraumschaf/ebnf/gfx/shapes/OptionTest.java</a>
                 </td>
                 <td>
                   0
@@ -155,7 +155,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.NodeType.java">de/weltraumschaf/ebnf/ast/NodeType.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractEndpoint.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractEndpoint.java</a>
                 </td>
                 <td>
                   0
@@ -169,7 +169,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Choice.java">de/weltraumschaf/ebnf/gfx/shapes/Choice.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfParser.java">de/weltraumschaf/ebnf/parser/EbnfParser.java</a>
                 </td>
                 <td>
                   0
@@ -183,7 +183,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveNE.java">de/weltraumschaf/ebnf/gfx/shapes/CurveNE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.ReferenceGrammar.java">de/weltraumschaf/ebnf/parser/ReferenceGrammar.java</a>
                 </td>
                 <td>
                   0
@@ -197,7 +197,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.RailroadDiagram.java">de/weltraumschaf/ebnf/gfx/RailroadDiagram.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.NodeType.java">de/weltraumschaf/ebnf/ast/NodeType.java</a>
                 </td>
                 <td>
                   0
@@ -211,7 +211,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractFork.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractFork.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Choice.java">de/weltraumschaf/ebnf/gfx/shapes/Choice.java</a>
                 </td>
                 <td>
                   0
@@ -225,7 +225,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.Scanner.java">de/weltraumschaf/ebnf/parser/Scanner.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveNE.java">de/weltraumschaf/ebnf/gfx/shapes/CurveNE.java</a>
                 </td>
                 <td>
                   0
@@ -239,7 +239,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.StraightWE.java">de/weltraumschaf/ebnf/gfx/shapes/StraightWE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.RailroadDiagram.java">de/weltraumschaf/ebnf/gfx/RailroadDiagram.java</a>
                 </td>
                 <td>
                   0
@@ -253,7 +253,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.TokenType.java">de/weltraumschaf/ebnf/parser/TokenType.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractFork.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractFork.java</a>
                 </td>
                 <td>
                   0
@@ -267,7 +267,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Loop.java">de/weltraumschaf/ebnf/gfx/shapes/Loop.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfScannerTest.java">de/weltraumschaf/ebnf/parser/EbnfScannerTest.java</a>
                 </td>
                 <td>
                   0
@@ -281,7 +281,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.Position.java">de/weltraumschaf/ebnf/parser/Position.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.PointTest.java">de/weltraumschaf/ebnf/gfx/PointTest.java</a>
                 </td>
                 <td>
                   0
@@ -295,7 +295,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gui.RailroadDiagramPanel.java">de/weltraumschaf/ebnf/gui/RailroadDiagramPanel.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.Scanner.java">de/weltraumschaf/ebnf/parser/Scanner.java</a>
                 </td>
                 <td>
                   0
@@ -309,7 +309,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.cli.package-info.java">de/weltraumschaf/ebnf/cli/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCurveTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCurveTest.java</a>
                 </td>
                 <td>
                   0
@@ -323,7 +323,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.cli.OptionsParser.java">de/weltraumschaf/ebnf/cli/OptionsParser.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.StraightWE.java">de/weltraumschaf/ebnf/gfx/shapes/StraightWE.java</a>
                 </td>
                 <td>
                   0
@@ -337,7 +337,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Choice.java">de/weltraumschaf/ebnf/ast/nodes/Choice.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ForkTest.java">de/weltraumschaf/ebnf/gfx/shapes/ForkTest.java</a>
                 </td>
                 <td>
                   0
@@ -351,7 +351,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.AbstractComposite.java">de/weltraumschaf/ebnf/ast/AbstractComposite.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ColumnLayoutTest.java">de/weltraumschaf/ebnf/gfx/shapes/ColumnLayoutTest.java</a>
                 </td>
                 <td>
                   0
@@ -365,7 +365,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.Node.java">de/weltraumschaf/ebnf/ast/Node.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.TokenType.java">de/weltraumschaf/ebnf/parser/TokenType.java</a>
                 </td>
                 <td>
                   0
@@ -379,7 +379,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveSE.java">de/weltraumschaf/ebnf/gfx/shapes/CurveSE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.SyntaxExceptionTest.java">de/weltraumschaf/ebnf/parser/SyntaxExceptionTest.java</a>
                 </td>
                 <td>
                   0
@@ -393,7 +393,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.package-info.java">de/weltraumschaf/ebnf/gfx/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Loop.java">de/weltraumschaf/ebnf/gfx/shapes/Loop.java</a>
                 </td>
                 <td>
                   0
@@ -407,7 +407,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.cli.Invoker.java">de/weltraumschaf/ebnf/cli/Invoker.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.Position.java">de/weltraumschaf/ebnf/parser/Position.java</a>
                 </td>
                 <td>
                   0
@@ -421,7 +421,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkNW.java">de/weltraumschaf/ebnf/gfx/shapes/HForkNW.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveNETest.java">de/weltraumschaf/ebnf/gfx/shapes/CurveNETest.java</a>
                 </td>
                 <td>
                   0
@@ -435,7 +435,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.package-info.java">de/weltraumschaf/ebnf/ast/visitor/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveSWTest.java">de/weltraumschaf/ebnf/gfx/shapes/CurveSWTest.java</a>
                 </td>
                 <td>
                   0
@@ -449,7 +449,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Sequence.java">de/weltraumschaf/ebnf/gfx/shapes/Sequence.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractForkTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractForkTest.java</a>
                 </td>
                 <td>
                   0
@@ -463,7 +463,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkSW.java">de/weltraumschaf/ebnf/gfx/shapes/HForkSW.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Choice.java">de/weltraumschaf/ebnf/ast/nodes/Choice.java</a>
                 </td>
                 <td>
                   0
@@ -477,7 +477,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Rule.java">de/weltraumschaf/ebnf/gfx/shapes/Rule.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.EbnfExceptionTest.java">de/weltraumschaf/ebnf/EbnfExceptionTest.java</a>
                 </td>
                 <td>
                   0
@@ -491,7 +491,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.java">de/weltraumschaf/ebnf/gfx/shapes/ShapeFactory.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.AbstractComposite.java">de/weltraumschaf/ebnf/ast/AbstractComposite.java</a>
                 </td>
                 <td>
                   0
@@ -505,7 +505,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkSW.java">de/weltraumschaf/ebnf/gfx/shapes/VForkSW.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.SequenceTest.java">de/weltraumschaf/ebnf/ast/nodes/SequenceTest.java</a>
                 </td>
                 <td>
                   0
@@ -519,7 +519,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractTextShape.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractTextShape.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.SyntaxBuilderTest.java">de/weltraumschaf/ebnf/ast/builder/SyntaxBuilderTest.java</a>
                 </td>
                 <td>
                   0
@@ -533,7 +533,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkNE.java">de/weltraumschaf/ebnf/gfx/shapes/HForkNE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.Node.java">de/weltraumschaf/ebnf/ast/Node.java</a>
                 </td>
                 <td>
                   0
@@ -547,7 +547,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ColumnLayout.java">de/weltraumschaf/ebnf/gfx/shapes/ColumnLayout.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveSE.java">de/weltraumschaf/ebnf/gfx/shapes/CurveSE.java</a>
                 </td>
                 <td>
                   0
@@ -561,7 +561,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.cli.CliOptions.java">de/weltraumschaf/ebnf/cli/CliOptions.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.package-info.java">de/weltraumschaf/ebnf/gfx/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -575,7 +575,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Sequence.java">de/weltraumschaf/ebnf/ast/nodes/Sequence.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkNW.java">de/weltraumschaf/ebnf/gfx/shapes/HForkNW.java</a>
                 </td>
                 <td>
                   0
@@ -589,7 +589,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.Token.java">de/weltraumschaf/ebnf/parser/Token.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.package-info.java">de/weltraumschaf/ebnf/ast/visitor/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -603,7 +603,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCompund.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCompund.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Sequence.java">de/weltraumschaf/ebnf/gfx/shapes/Sequence.java</a>
                 </td>
                 <td>
                   0
@@ -617,7 +617,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkSE.java">de/weltraumschaf/ebnf/gfx/shapes/HForkSE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.TokenTest.java">de/weltraumschaf/ebnf/parser/TokenTest.java</a>
                 </td>
                 <td>
                   0
@@ -631,7 +631,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.CharacterHelper.java">de/weltraumschaf/ebnf/parser/CharacterHelper.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkSW.java">de/weltraumschaf/ebnf/gfx/shapes/HForkSW.java</a>
                 </td>
                 <td>
                   0
@@ -645,7 +645,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.Composite.java">de/weltraumschaf/ebnf/ast/Composite.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Rule.java">de/weltraumschaf/ebnf/gfx/shapes/Rule.java</a>
                 </td>
                 <td>
                   0
@@ -659,7 +659,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Shape.java">de/weltraumschaf/ebnf/gfx/shapes/Shape.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ShapeFactory.java">de/weltraumschaf/ebnf/gfx/shapes/ShapeFactory.java</a>
                 </td>
                 <td>
                   0
@@ -673,7 +673,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.package-info.java">de/weltraumschaf/ebnf/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkSW.java">de/weltraumschaf/ebnf/gfx/shapes/VForkSW.java</a>
                 </td>
                 <td>
                   0
@@ -687,7 +687,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfScanner.java">de/weltraumschaf/ebnf/parser/EbnfScanner.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.DepthCalculatorTest.java">de/weltraumschaf/ebnf/ast/DepthCalculatorTest.java</a>
                 </td>
                 <td>
                   0
@@ -701,7 +701,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.SyntaxException.java">de/weltraumschaf/ebnf/parser/SyntaxException.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractTextShape.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractTextShape.java</a>
                 </td>
                 <td>
                   0
@@ -715,7 +715,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.RailroadDiagramImage.java">de/weltraumschaf/ebnf/gfx/RailroadDiagramImage.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkNE.java">de/weltraumschaf/ebnf/gfx/shapes/HForkNE.java</a>
                 </td>
                 <td>
                   0
@@ -729,7 +729,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.Factory.java">de/weltraumschaf/ebnf/parser/Factory.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.GridLayoutTest.java">de/weltraumschaf/ebnf/gfx/shapes/GridLayoutTest.java</a>
                 </td>
                 <td>
                   0
@@ -743,7 +743,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkSE.java">de/weltraumschaf/ebnf/gfx/shapes/VForkSE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.TerminalTest.java">de/weltraumschaf/ebnf/gfx/shapes/TerminalTest.java</a>
                 </td>
                 <td>
                   0
@@ -757,7 +757,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Option.java">de/weltraumschaf/ebnf/gfx/shapes/Option.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.TerminalTest.java">de/weltraumschaf/ebnf/ast/nodes/TerminalTest.java</a>
                 </td>
                 <td>
                   0
@@ -771,7 +771,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gui.GuiApp.java">de/weltraumschaf/ebnf/gui/GuiApp.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.XmlTest.java">de/weltraumschaf/ebnf/ast/visitor/XmlTest.java</a>
                 </td>
                 <td>
                   0
@@ -785,7 +785,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Syntax.java">de/weltraumschaf/ebnf/ast/nodes/Syntax.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTreeTest.java">de/weltraumschaf/ebnf/ast/visitor/TextSyntaxTreeTest.java</a>
                 </td>
                 <td>
                   0
@@ -799,7 +799,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.package-info.java">de/weltraumschaf/ebnf/gfx/shapes/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ColumnLayout.java">de/weltraumschaf/ebnf/gfx/shapes/ColumnLayout.java</a>
                 </td>
                 <td>
                   0
@@ -813,7 +813,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCurve.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCurve.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Sequence.java">de/weltraumschaf/ebnf/ast/nodes/Sequence.java</a>
                 </td>
                 <td>
                   0
@@ -827,7 +827,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.AbstractNode.java">de/weltraumschaf/ebnf/ast/AbstractNode.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.Token.java">de/weltraumschaf/ebnf/parser/Token.java</a>
                 </td>
                 <td>
                   0
@@ -841,7 +841,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.Fonts.java">de/weltraumschaf/ebnf/gfx/Fonts.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCompund.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCompund.java</a>
                 </td>
                 <td>
                   0
@@ -855,7 +855,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.CreatorHelper.java">de/weltraumschaf/ebnf/gfx/CreatorHelper.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.HForkSE.java">de/weltraumschaf/ebnf/gfx/shapes/HForkSE.java</a>
                 </td>
                 <td>
                   0
@@ -869,7 +869,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveNW.java">de/weltraumschaf/ebnf/gfx/shapes/CurveNW.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.CharacterHelper.java">de/weltraumschaf/ebnf/parser/CharacterHelper.java</a>
                 </td>
                 <td>
                   0
@@ -883,7 +883,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.package-info.java">de/weltraumschaf/ebnf/ast/nodes/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.LoopTest.java">de/weltraumschaf/ebnf/ast/nodes/LoopTest.java</a>
                 </td>
                 <td>
                   0
@@ -897,7 +897,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Terminal.java">de/weltraumschaf/ebnf/ast/nodes/Terminal.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.Composite.java">de/weltraumschaf/ebnf/ast/Composite.java</a>
                 </td>
                 <td>
                   0
@@ -911,7 +911,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Paintable.java">de/weltraumschaf/ebnf/gfx/shapes/Paintable.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Shape.java">de/weltraumschaf/ebnf/gfx/shapes/Shape.java</a>
                 </td>
                 <td>
                   0
@@ -925,7 +925,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfScannerHelper.java">de/weltraumschaf/ebnf/parser/EbnfScannerHelper.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.package-info.java">de/weltraumschaf/ebnf/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -939,7 +939,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.NodeFactory.java">de/weltraumschaf/ebnf/ast/nodes/NodeFactory.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfScanner.java">de/weltraumschaf/ebnf/parser/EbnfScanner.java</a>
                 </td>
                 <td>
                   0
@@ -953,7 +953,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Comment.java">de/weltraumschaf/ebnf/ast/nodes/Comment.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.IdentifierTest.java">de/weltraumschaf/ebnf/ast/nodes/IdentifierTest.java</a>
                 </td>
                 <td>
                   0
@@ -967,7 +967,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.GenericBuilder.java">de/weltraumschaf/ebnf/ast/builder/GenericBuilder.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.SyntaxException.java">de/weltraumschaf/ebnf/parser/SyntaxException.java</a>
                 </td>
                 <td>
                   0
@@ -981,7 +981,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkNW.java">de/weltraumschaf/ebnf/gfx/shapes/VForkNW.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.RailroadDiagramImage.java">de/weltraumschaf/ebnf/gfx/RailroadDiagramImage.java</a>
                 </td>
                 <td>
                   0
@@ -995,7 +995,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.DepthCalculator.java">de/weltraumschaf/ebnf/ast/DepthCalculator.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.Factory.java">de/weltraumschaf/ebnf/parser/Factory.java</a>
                 </td>
                 <td>
                   0
@@ -1009,7 +1009,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Start.java">de/weltraumschaf/ebnf/gfx/shapes/Start.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkSE.java">de/weltraumschaf/ebnf/gfx/shapes/VForkSE.java</a>
                 </td>
                 <td>
                   0
@@ -1023,7 +1023,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.cli.OutputFormat.java">de/weltraumschaf/ebnf/cli/OutputFormat.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.LoopTest.java">de/weltraumschaf/ebnf/gfx/shapes/LoopTest.java</a>
                 </td>
                 <td>
                   0
@@ -1037,7 +1037,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Loop.java">de/weltraumschaf/ebnf/ast/nodes/Loop.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Option.java">de/weltraumschaf/ebnf/gfx/shapes/Option.java</a>
                 </td>
                 <td>
                   0
@@ -1051,7 +1051,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.Helper.java">de/weltraumschaf/ebnf/gfx/Helper.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Syntax.java">de/weltraumschaf/ebnf/ast/nodes/Syntax.java</a>
                 </td>
                 <td>
                   0
@@ -1065,7 +1065,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.Notification.java">de/weltraumschaf/ebnf/ast/Notification.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.FontsTest.java">de/weltraumschaf/ebnf/gfx/FontsTest.java</a>
                 </td>
                 <td>
                   0
@@ -1079,7 +1079,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.Visitor.java">de/weltraumschaf/ebnf/ast/Visitor.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.package-info.java">de/weltraumschaf/ebnf/gfx/shapes/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -1093,7 +1093,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.java">de/weltraumschaf/ebnf/ast/builder/SyntaxBuilder.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.CharacterHelperTest.java">de/weltraumschaf/ebnf/parser/CharacterHelperTest.java</a>
                 </td>
                 <td>
                   0
@@ -1107,7 +1107,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.Strokes.java">de/weltraumschaf/ebnf/gfx/Strokes.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.IntegrationTest.java">de/weltraumschaf/ebnf/ast/IntegrationTest.java</a>
                 </td>
                 <td>
                   0
@@ -1121,7 +1121,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Option.java">de/weltraumschaf/ebnf/ast/nodes/Option.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCurve.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCurve.java</a>
                 </td>
                 <td>
                   0
@@ -1135,7 +1135,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.Xml.java">de/weltraumschaf/ebnf/ast/visitor/Xml.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.SequenceTest.java">de/weltraumschaf/ebnf/gfx/shapes/SequenceTest.java</a>
                 </td>
                 <td>
                   0
@@ -1149,7 +1149,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree.java">de/weltraumschaf/ebnf/ast/visitor/TextSyntaxTree.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.NotificationTest.java">de/weltraumschaf/ebnf/ast/NotificationTest.java</a>
                 </td>
                 <td>
                   0
@@ -1163,7 +1163,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Terminal.java">de/weltraumschaf/ebnf/gfx/shapes/Terminal.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.PositionTest.java">de/weltraumschaf/ebnf/parser/PositionTest.java</a>
                 </td>
                 <td>
                   0
@@ -1177,7 +1177,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.TestShape.java">de/weltraumschaf/ebnf/gfx/shapes/TestShape.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractShapeTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractShapeTest.java</a>
                 </td>
                 <td>
                   0
@@ -1191,7 +1191,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.Visitable.java">de/weltraumschaf/ebnf/ast/Visitable.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.RuleTest.java">de/weltraumschaf/ebnf/ast/nodes/RuleTest.java</a>
                 </td>
                 <td>
                   0
@@ -1205,7 +1205,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.Line.java">de/weltraumschaf/ebnf/gfx/Line.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.NodeFactoryTest.java">de/weltraumschaf/ebnf/ast/NodeFactoryTest.java</a>
                 </td>
                 <td>
                   0
@@ -1219,7 +1219,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Null.java">de/weltraumschaf/ebnf/ast/nodes/Null.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.AbstractNode.java">de/weltraumschaf/ebnf/ast/AbstractNode.java</a>
                 </td>
                 <td>
                   0
@@ -1233,7 +1233,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.StraightNS.java">de/weltraumschaf/ebnf/gfx/shapes/StraightNS.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.Fonts.java">de/weltraumschaf/ebnf/gfx/Fonts.java</a>
                 </td>
                 <td>
                   0
@@ -1247,7 +1247,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ExitCode.java">de/weltraumschaf/ebnf/ExitCode.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.CreatorHelper.java">de/weltraumschaf/ebnf/gfx/CreatorHelper.java</a>
                 </td>
                 <td>
                   0
@@ -1261,7 +1261,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Identifier.java">de/weltraumschaf/ebnf/gfx/shapes/Identifier.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveNW.java">de/weltraumschaf/ebnf/gfx/shapes/CurveNW.java</a>
                 </td>
                 <td>
                   0
@@ -1275,7 +1275,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.GridLayout.java">de/weltraumschaf/ebnf/gfx/shapes/GridLayout.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.package-info.java">de/weltraumschaf/ebnf/ast/nodes/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -1289,7 +1289,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Empty.java">de/weltraumschaf/ebnf/gfx/shapes/Empty.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Terminal.java">de/weltraumschaf/ebnf/ast/nodes/Terminal.java</a>
                 </td>
                 <td>
                   0
@@ -1303,7 +1303,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.package-info.java">de/weltraumschaf/ebnf/ast/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.TestShapeTest.java">de/weltraumschaf/ebnf/gfx/shapes/TestShapeTest.java</a>
                 </td>
                 <td>
                   0
@@ -1317,7 +1317,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractLayout.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractLayout.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.EmptyTest.java">de/weltraumschaf/ebnf/gfx/shapes/EmptyTest.java</a>
                 </td>
                 <td>
                   0
@@ -1331,7 +1331,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.package-info.java">de/weltraumschaf/ebnf/ast/builder/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Paintable.java">de/weltraumschaf/ebnf/gfx/shapes/Paintable.java</a>
                 </td>
                 <td>
                   0
@@ -1345,7 +1345,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.parser.package-info.java">de/weltraumschaf/ebnf/parser/package-info.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfScannerHelper.java">de/weltraumschaf/ebnf/parser/EbnfScannerHelper.java</a>
                 </td>
                 <td>
                   0
@@ -1359,7 +1359,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractShape.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractShape.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.RuleTest.java">de/weltraumschaf/ebnf/gfx/shapes/RuleTest.java</a>
                 </td>
                 <td>
                   0
@@ -1373,7 +1373,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Rule.java">de/weltraumschaf/ebnf/ast/nodes/Rule.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractEndpointTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractEndpointTest.java</a>
                 </td>
                 <td>
                   0
@@ -1387,7 +1387,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkNE.java">de/weltraumschaf/ebnf/gfx/shapes/VForkNE.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.NodeFactory.java">de/weltraumschaf/ebnf/ast/nodes/NodeFactory.java</a>
                 </td>
                 <td>
                   0
@@ -1401,7 +1401,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveSW.java">de/weltraumschaf/ebnf/gfx/shapes/CurveSW.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Comment.java">de/weltraumschaf/ebnf/ast/nodes/Comment.java</a>
                 </td>
                 <td>
                   0
@@ -1415,7 +1415,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.End.java">de/weltraumschaf/ebnf/gfx/shapes/End.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.GenericBuilder.java">de/weltraumschaf/ebnf/ast/builder/GenericBuilder.java</a>
                 </td>
                 <td>
                   0
@@ -1429,7 +1429,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.gfx.StringPainter.java">de/weltraumschaf/ebnf/gfx/StringPainter.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.TestHelper.java">de/weltraumschaf/ebnf/TestHelper.java</a>
                 </td>
                 <td>
                   0
@@ -1443,7 +1443,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.cli.CliApp.java">de/weltraumschaf/ebnf/cli/CliApp.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.EbnfParserTest.java">de/weltraumschaf/ebnf/parser/EbnfParserTest.java</a>
                 </td>
                 <td>
                   0
@@ -1457,7 +1457,693 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://weltraumschaf.github.com/ebnf//checkstyle.html#de.weltraumschaf.ebnf.EbnfException.java">de/weltraumschaf/ebnf/EbnfException.java</a>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkNW.java">de/weltraumschaf/ebnf/gfx/shapes/VForkNW.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.OptionTest.java">de/weltraumschaf/ebnf/ast/nodes/OptionTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.ReferenceGrammarTest.java">de/weltraumschaf/ebnf/parser/ReferenceGrammarTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.SyntaxTest.java">de/weltraumschaf/ebnf/ast/nodes/SyntaxTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.DepthCalculator.java">de/weltraumschaf/ebnf/ast/DepthCalculator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractTextShapeTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractTextShapeTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Start.java">de/weltraumschaf/ebnf/gfx/shapes/Start.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Loop.java">de/weltraumschaf/ebnf/ast/nodes/Loop.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.Helper.java">de/weltraumschaf/ebnf/gfx/Helper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.Notification.java">de/weltraumschaf/ebnf/ast/Notification.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.Visitor.java">de/weltraumschaf/ebnf/ast/Visitor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.SyntaxBuilder.java">de/weltraumschaf/ebnf/ast/builder/SyntaxBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.Strokes.java">de/weltraumschaf/ebnf/gfx/Strokes.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Option.java">de/weltraumschaf/ebnf/ast/nodes/Option.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.AbstractNodeTest.java">de/weltraumschaf/ebnf/ast/AbstractNodeTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.Xml.java">de/weltraumschaf/ebnf/ast/visitor/Xml.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.visitor.TextSyntaxTree.java">de/weltraumschaf/ebnf/ast/visitor/TextSyntaxTree.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveNWTest.java">de/weltraumschaf/ebnf/gfx/shapes/CurveNWTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Terminal.java">de/weltraumschaf/ebnf/gfx/shapes/Terminal.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.NullTest.java">de/weltraumschaf/ebnf/ast/nodes/NullTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.TestShape.java">de/weltraumschaf/ebnf/gfx/shapes/TestShape.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.Visitable.java">de/weltraumschaf/ebnf/ast/Visitable.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.CommentTest.java">de/weltraumschaf/ebnf/ast/nodes/CommentTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveSETest.java">de/weltraumschaf/ebnf/gfx/shapes/CurveSETest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.AbstractCompositeTest.java">de/weltraumschaf/ebnf/ast/AbstractCompositeTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.Line.java">de/weltraumschaf/ebnf/gfx/Line.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.StringPainterTest.java">de/weltraumschaf/ebnf/gfx/StringPainterTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Null.java">de/weltraumschaf/ebnf/ast/nodes/Null.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.StringHelperTest.java">de/weltraumschaf/ebnf/parser/StringHelperTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.StraightNS.java">de/weltraumschaf/ebnf/gfx/shapes/StraightNS.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ExitCode.java">de/weltraumschaf/ebnf/ExitCode.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Identifier.java">de/weltraumschaf/ebnf/gfx/shapes/Identifier.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.GridLayout.java">de/weltraumschaf/ebnf/gfx/shapes/GridLayout.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.Empty.java">de/weltraumschaf/ebnf/gfx/shapes/Empty.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.package-info.java">de/weltraumschaf/ebnf/ast/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.IdentifierTest.java">de/weltraumschaf/ebnf/gfx/shapes/IdentifierTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.LineTest.java">de/weltraumschaf/ebnf/gfx/LineTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractLayout.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractLayout.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.builder.package-info.java">de/weltraumschaf/ebnf/ast/builder/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.parser.package-info.java">de/weltraumschaf/ebnf/parser/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractShape.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractShape.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.ast.nodes.Rule.java">de/weltraumschaf/ebnf/ast/nodes/Rule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.StartTest.java">de/weltraumschaf/ebnf/gfx/shapes/StartTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.VForkNE.java">de/weltraumschaf/ebnf/gfx/shapes/VForkNE.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.CurveSW.java">de/weltraumschaf/ebnf/gfx/shapes/CurveSW.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.End.java">de/weltraumschaf/ebnf/gfx/shapes/End.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.StringPainter.java">de/weltraumschaf/ebnf/gfx/StringPainter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.AbstractCompundTest.java">de/weltraumschaf/ebnf/gfx/shapes/AbstractCompundTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.EbnfException.java">de/weltraumschaf/ebnf/EbnfException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://weltraumschaf.github.com/ebnf/ebnf-core//checkstyle.html#de.weltraumschaf.ebnf.gfx.shapes.ChoiceTest.java">de/weltraumschaf/ebnf/gfx/shapes/ChoiceTest.java</a>
                 </td>
                 <td>
                   0
