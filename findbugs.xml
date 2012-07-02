@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<BugCollection version='2.0.0' threshold='medium' effort='max'><Error></Error><Project><SrcDir>/Users/sxs/src/java/jebnf/ebnf-gui/src/main/java</SrcDir><SrcDir>/Users/sxs/src/java/jebnf/ebnf-gui/src/test/java</SrcDir></Project></BugCollection>
+<BugCollection version='2.0.0' threshold='medium' effort='max'><Error></Error><Project><SrcDir>/Users/sxs/src/java/jebnf/ebnf-cli/src/main/java</SrcDir><SrcDir>/Users/sxs/src/java/jebnf/ebnf-cli/src/test/java</SrcDir></Project></BugCollection>

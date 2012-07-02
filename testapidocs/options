@@ -1,21 +1,21 @@
 -classpath
-'/Users/sxs/src/java/jebnf/ebnf-core/target/classes:/Users/sxs/src/java/jebnf/ebnf-core/target/test-classes:/Users/sxs/.m2/repository/commons-io/commons-io/2.3/commons-io-2.3.jar:/Users/sxs/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/Users/sxs/.m2/repository/org/objenesis/objenesis/1.0/objenesis-1.0.jar:/Users/sxs/.m2/repository/com/google/guava/guava/12.0/guava-12.0.jar:/Users/sxs/.m2/repository/org/mockito/mockito-core/1.9.0/mockito-core-1.9.0.jar:/Users/sxs/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar:/Users/sxs/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/Users/sxs/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/sxs/.m2/repository/junit/junit/4.10/junit-4.10.jar'
+'/Users/sxs/src/java/jebnf/ebnf-cli/target/classes:/Users/sxs/src/java/jebnf/ebnf-cli/target/test-classes:/Users/sxs/.m2/repository/commons-io/commons-io/2.3/commons-io-2.3.jar:/Users/sxs/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/Users/sxs/.m2/repository/org/objenesis/objenesis/1.0/objenesis-1.0.jar:/Users/sxs/.m2/repository/com/google/guava/guava/12.0/guava-12.0.jar:/Users/sxs/.m2/repository/org/mockito/mockito-core/1.9.0/mockito-core-1.9.0.jar:/Users/sxs/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar:/Users/sxs/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/Users/sxs/src/java/jebnf/ebnf-core/target/classes:/Users/sxs/src/java/jebnf/ebnf-gui/target/classes:/Users/sxs/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/sxs/.m2/repository/junit/junit/4.10/junit-4.10.jar'
 -encoding
 'UTF-8'
 -public
 -sourcepath
-'/Users/sxs/src/java/jebnf/ebnf-core/src/test/java'
+'/Users/sxs/src/java/jebnf/ebnf-cli/src/test/java'
 -author
 -bottom
 'Copyright &#169; 2012 <a href="http://www.weltraumschaf.de">Weltraumschaf</a>. All Rights Reserved.'
 -charset
 'UTF-8'
 -d
-'/Users/sxs/src/java/jebnf/ebnf-core/target/site/testapidocs'
+'/Users/sxs/src/java/jebnf/ebnf-cli/target/site/testapidocs'
 -docencoding
 'UTF-8'
 -doctitle
-'EBNF - Core 1.0-SNAPSHOT Test API'
+'EBNF - Comand line tool 1.0-SNAPSHOT Test API'
 -link
 'http://java.sun.com/j2se/1.5.0/docs/api'
 -link
@@ -23,8 +23,10 @@
 -link
 '../apidocs'
 -linkoffline
-'http://download.oracle.com/javase/6/docs/api' '/Users/sxs/src/java/jebnf/ebnf-core/target/javadoc-bundle-options'
+'http://download.oracle.com/javase/6/docs/api' '/Users/sxs/src/java/jebnf/ebnf-cli/target/javadoc-bundle-options'
+-linkoffline
+'http://weltraumschaf.github.com/ebnf/ebnf-core/apidocs' '/Users/sxs/src/java/jebnf/ebnf-core/target/site/testapidocs'
 -use
 -version
 -windowtitle
-'EBNF - Core 1.0-SNAPSHOT Test API'
+'EBNF - Comand line tool 1.0-SNAPSHOT Test API'
