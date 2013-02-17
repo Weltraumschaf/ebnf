@@ -29,7 +29,6 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'ast/Type.php';
 
 use \DOMDocument;
 use \DOMElement;
-use \RuntimeException;
 use \InvalidArgumentException;
 use de\weltraumschaf\ebnf\ast\Type;
 
@@ -165,7 +164,7 @@ class Renderer {
                 imagegif($out, $this->file);
                 break;
             default:
-                throw new \InvalidArgumentException("Unsupported format: '{$this->format}'!");
+                throw new InvalidArgumentException("Unsupported format: '{$this->format}'!");
         }
 
         imagedestroy($out);
@@ -205,7 +204,11 @@ class Renderer {
      */
     private function createImage($width, $height) {
         $im = imagecreatetruecolor($width, $height);
-        imageantialias($im, true);
+
+        if (function_exists("imageantialias")) {
+            imageantialias($im, true);
+        }
+
         $this->white  = imagecolorallocate($im, 255, 255, 255);
         $this->black  = imagecolorallocate($im, 0, 0, 0);
         $this->blue   = imagecolorallocate($im, 0, 0, 255);
