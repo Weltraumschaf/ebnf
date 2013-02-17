@@ -160,9 +160,8 @@ class Command {
                "  -d         Enables debug output." . PHP_EOL .
                "  -h         This help." . PHP_EOL . PHP_EOL .
 
-               "Example grammar:" . PHP_EOL .
-               $example->__toString() . PHP_EOL .
-               '}' . PHP_EOL . PHP_EOL;
+               "Example grammar:" . PHP_EOL . PHP_EOL .
+               "\t" . $example->__toString() . PHP_EOL . PHP_EOL;
     }
 
     /**
