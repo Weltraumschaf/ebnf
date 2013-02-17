@@ -110,6 +110,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($p->exposedAssertTokens($t2, Token::OPERATOR, array("+", "-", "*")));
     }
 
+    /**
+     * @large
+     */
     public function testParse() {
         $p = new Parser(new Scanner($this->loadFixture("rules_with_different_assignment_ops.ebnf")));
         $this->assertXmlStringEqualsXmlFile(

@@ -56,6 +56,9 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         parent::tearDownAfterClass();
     }
 
+    /**
+     * @large
+     */
     public function testGenerateXml() {
         $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         \vfsStream::setup("testdir");
@@ -71,6 +74,9 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @large
+     */
     public function testGeneratePng() {
         $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.png";
@@ -85,6 +91,9 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * @large
+     */
     public function testGenerateJpg() {
         $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.jpg";
@@ -108,6 +117,9 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * @large
+     */
     public function testGenerateGif() {
         $syntaxFile = $this->fixtureDir . DIRECTORY_SEPARATOR . "test_grammar.ebnf";
         $outFile    = self::$testDir->get() . DIRECTORY_SEPARATOR . "out.gif";

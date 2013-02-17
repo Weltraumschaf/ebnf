@@ -82,11 +82,14 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         return $parser->parse();
     }
 
+    /**
+     * @large
+     */
     public function testRenderGif() {
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
         }
-        
+
         $fixture  = "{$this->fixtureDir}/test_grammar.gif";
         $fileName = self::$testDir->get() . "/out.gif";
         $renderer = new Renderer(Renderer::FORMAT_GIF, $fileName, $this->createAst());
@@ -98,6 +101,9 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * @large
+     */
     public function testRenderJpg() {
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
@@ -121,6 +127,9 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * @large
+     */
     public function testRenderPng() {
         if ( ! self::$isGdInstalled) {
             $this->markTestSkipped("No GD lib installed!");
@@ -138,6 +147,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @large
      * @expectedException        \InvalidArgumentException
      * @expectedExceptionMessage Unsupported format: 'foo'!
      */

@@ -44,6 +44,9 @@ class ScannerTest extends \PHPUnit_Framework_TestCase {
         return file_get_contents(EBNF_TESTS_FIXTURS . DIRECTORY_SEPARATOR . $file);
     }
 
+    /**
+     * @large
+     */
     public function testNext() {
         $this->assertTokens($this->loadFixture("rules_with_ranges.ebnf"), array(
             array("value" => '"Rules with ranges."',
@@ -372,6 +375,9 @@ EOD;
         }
     }
 
+    /**
+     * @large
+     */
     public function testRaiseError() {
         $pos = new Position(5, 3);
         $s = $this->getMock("de\weltraumschaf\ebnf\Scanner", array("createPosition"), array(""));

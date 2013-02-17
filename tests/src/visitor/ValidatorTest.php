@@ -80,6 +80,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @large
      * @expectedException        de\weltraumschaf\ebnf\visitor\ValidaorException
      * @expectedExceptionMessage You must specify a syntax at very first!
      * @expectedExceptionCode    2
